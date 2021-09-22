@@ -14,29 +14,29 @@ const MainStack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
-      <NavigationContainer>
-        <MainStack.Navigator>
-          <MainStack.Screen
-            name={'Authentication'}
-            component={Authentication}
-            options={{ headerShown: false, gestureEnabled: false }}
-          />
-          <MainStack.Screen
-            name={AppScreenNames.SignIn}
-            component={SignIn}
-          />
-          <MainStack.Screen
-            name={AppScreenNames.SignUp}
-            component={SignUpStack}
-            options={{ headerShown: false, gestureEnabled: false }}
-          />
-          <MainStack.Screen
-            name={AppScreenNames.UserVerificationPending}
-            component={UserVerificationPending}
-            options={{ headerShown: false, gestureEnabled: false }}
-          />
-        </MainStack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <MainStack.Navigator>
+        <MainStack.Screen
+          name={'Authentication'}
+          component={Authentication}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <MainStack.Screen
+          name={AppScreenNames.SignIn}
+          component={SignIn}
+        />
+        <MainStack.Screen
+          name={AppScreenNames.SignUp}
+          component={SignUpStack}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <MainStack.Screen
+          name={AppScreenNames.UserVerificationPending}
+          component={UserVerificationPending}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
 };
 
