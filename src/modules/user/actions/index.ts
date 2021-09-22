@@ -1,15 +1,15 @@
 import {
   UserActions,
-  IUserInfoPayload,
+  IUserState,
   IUserGetInfoAction,
-  IUserSetInfoAction
+  IUserSetInfoAction,
 } from 'modules/user/types';
 
 export const userGetInfo = (): IUserGetInfoAction => ({
   type: UserActions.USER_GET_INFO,
 });
 
-export const userSetInfo = (payload: Partial<IUserInfoPayload>): IUserSetInfoAction => ({
+export const userSetInfo = (payload: Partial<IUserState>): IUserSetInfoAction => ({
   type: UserActions.USER_SET_INFO,
   payload,
 });

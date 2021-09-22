@@ -1,4 +1,5 @@
-import { call, put, all, fork, takeEvery, } from 'redux-saga/effects';
+import { call, put, takeEvery, } from 'redux-saga/effects';
+import { SagaIterator } from '@redux-saga/core';
 import api from 'services/api';
 import * as actions from '../actions';
 import { UserActions } from '../types';
@@ -9,12 +10,6 @@ export function* getUserInfoWorker() {
   yield put(actions.userSetInfo(userData));
 }
 
-function* getUserInfoWatcher() {
+export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
-}
-
-export default function* () {
-  yield all([
-    fork(getUserInfoWatcher),
-  ]);
 }

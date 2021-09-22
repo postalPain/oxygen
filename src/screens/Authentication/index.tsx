@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '@stryberventures/stryber-react-native-ui-components';
 import { AppScreenNames } from 'navigation/types';
 import vocab from 'i18n';
 import theme from 'config/theme';
+import { successNotification } from '../../modules/notifications/actions';
 
 
 const Authentication = (): React.ReactElement => {
   const navigation = useNavigation();
+  
+  const dispatch = useDispatch();
+  
+  useEffect(
+    () => {
+      dispatch(successNotification('hahaha'))
+    },
+    []
+  );
   
   const onSignUpPress = () => {
     navigation.navigate(AppScreenNames.SignUp);
