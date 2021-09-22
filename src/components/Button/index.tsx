@@ -1,7 +1,7 @@
+import theme from '@config/theme';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { theme } from '../../theme';
 
 interface IButton {
   children?: any;
@@ -14,7 +14,7 @@ const Button = (props: IButton) => {
     <View style={[styles.button, secondary ? styles.secondary : styles.primary]}>
       <LinearGradient
         colors={secondary
-          ? [theme.backgroundColorPrimary, theme.backgroundColorPrimary]
+          ? [theme.colors.screenBackgroundColorLight, theme.colors.screenBackgroundColorLight]
           : ['#935EBF', '#B15F8F']}
         locations={[0, 1]}
         useAngle
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   primary: {
-    borderColor: theme.backgroundColorPrimary,
+    borderColor: theme.colors.screenBackgroundColorLight,
   },
   secondary: {
-    borderColor: theme.colorPrimary,
+    borderColor: theme.colors.floos1,
   },
   linearGradient: {
     height: '100%',
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   textPrimary: {
-    color: theme.backgroundColorPrimary,
+    color: theme.colors.screenBackgroundColorLight,
   },
   textSecondary: {
-    color: theme.colorDark,
+    color: theme.colors.textDark,
   }
 });
 

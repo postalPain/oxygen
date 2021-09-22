@@ -18,7 +18,8 @@
   ],
   "rules": {
     "react/jsx-props-no-spreading": "warn",
-    "no-shadow": "warn",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn",
     "no-nested-ternary": "off",
     "no-multi-spaces": "warn",
     "no-empty": "warn",
