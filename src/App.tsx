@@ -4,7 +4,6 @@ import { ThemeContextProvider } from '@stryberventures/stryber-react-native-ui-c
 import store from 'modules/store';
 import Navigation from 'navigation';
 import theme from 'config/theme';
-import { InAppNotification } from 'components';
 
 // import { setupSentry } from 'services/Sentry/sentry';
 
@@ -13,7 +12,6 @@ export const App = () => {
     <Provider store={store}>
       <ThemeContextProvider themes={[theme]}>
         <Navigation />
-        <InAppNotification />
       </ThemeContextProvider>
     </Provider>
   );

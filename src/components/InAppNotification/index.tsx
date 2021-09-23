@@ -1,37 +1,38 @@
-import React, { useEffect, useRef } from 'react';
-import { Notification } from 'react-native-in-app-message';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { Text, View, Image } from 'react-native';
 import { selectNotifications } from '../../modules/notifications/selectors';
-import { View, Text } from 'react-native';
+import useStyles from './styles';
 
 const InAppNotification = () => {
+  const styles = useStyles();
   const notifications = useSelector(selectNotifications);
-  const notificationRef = useRef(null);
-  useEffect(
-    () => {
-      console.log('notifications ==>>>>', notifications);
-      if (notifications.length) {
-        notificationRef?.current?.show();
-      } else {
-        notificationRef?.current?.hide();
-      }
-    },
-    [notifications]
-  );
+ 
   return (
-    <Notification
-      hideStatusBar={false}
-      textColor={'red'}
-      showKnob={false}
-      ref={notificationRef}
-      text={notifications?.[0]?.text || ''}
-      customComponent={
-        <View>
-          <Text>title</Text>
-          <Text>text</Text>
-        </View>
-      }
-    />
+    <>
+      {notifications.map((notification) => {
+        return (
+          <View
+            key={notification.id}
+            style={[styles.notification, styles[notification.type]]}
+          >
+            <View style={styles.iconContainer}>
+              <Image
+                source={require('../../../assets/info-circle.png')}
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={[styles.notificationTitle, styles[notification.type]]}>
+                {notification.title}
+              </Text>
+              <Text style={[styles.notificationText, styles[notification.type]]}>
+                {notification.text}
+              </Text>
+            </View>
+          </View>
+        );
+      })}
+    </>
   );
 };
 

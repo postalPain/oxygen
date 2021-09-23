@@ -20,6 +20,15 @@ const theme = {
     // Text colors
     textDark: '#3C3C3B',
   },
+  notifications: {
+    boxShadowColor: 'rgba(0, 0, 0, 0.25)',
+    boxShadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    errorBackground: '#FFEFEF',
+    errorTextColor: '#720000',
+  },
   sizes: {
     textLargeTitleSize: 34,
     textTitleBigSize: 28,
