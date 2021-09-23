@@ -1,24 +1,22 @@
 import { ThemeType } from '@stryberventures/stryber-react-native-ui-components';
 
 const theme = {
-  components: {
-    link: {
-      color: '#9B5555',
-    },
-  },
   colors: {
     // Brand colors
-    floos1: '#0D163C',
-    floos2: '#BE5D75',
-    floos3: '#7D59B4',
-    floos4: '#795CE8',
-    floos5: '#97DAFF',
+    floos1: '#6F62AB',
+    floos2: '#7E5BA6',
+    floos3: '#CD5676',
+    special1: '#97DAFF',
     floosGragientColor1: '#975FBA',
     floosGragientColor2: '#B26090',
     // Background colors
-    screenBackgroundColorLight: '#E5E5E5',
+    screenBackgroundColorLight: '#FFFFFF',
     // Text colors
-    textDark: '#3C3C3B',
+    textDark: '#0F183F',
+
+    shade1: '#C6C6C6',
+    shade2: '#F9F9F9',
+    error: '#EA3546',
   },
   notifications: {
     boxShadowColor: 'rgba(0, 0, 0, 0.25)',
