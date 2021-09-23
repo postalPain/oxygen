@@ -16,7 +16,7 @@ const Authentication = (): React.ReactElement => {
   
   useEffect(
     () => {
-      dispatch(successNotification('hahaha'))
+      dispatch(successNotification({ text: 'lalala', timeout: 30000 }))
     },
     []
   );

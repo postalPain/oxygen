@@ -5,12 +5,13 @@ export const enum NotificationActions {
 }
 
 export enum NotificationTypes {
-  Success = 'Success',
-  Error = 'Error',
-  Info = 'Info',
+  Success = 'success',
+  Error = 'error',
+  Info = 'info',
 }
 
 export interface INotification {
+  title: string;
   text: string;
   type?: NotificationTypes;
   timeout?: number;

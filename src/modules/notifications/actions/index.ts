@@ -3,38 +3,54 @@ import {
   NotificationActions,
   NotificationTypes,
   INotificationAction,
+  INotification,
 } from 'modules/notifications/types';
 import { IMeta } from 'modules/store/types';
+import vocab from 'i18n';
 
 
-
-export const successNotification = (text: string): INotificationAction => ({
+export const successNotification = ({
+  title = vocab.get().success,
+  text,
+  timeout = 3000,
+}: Partial<INotification>): INotificationAction => ({
   type: NotificationActions.ADD_NOTIFICATION,
   payload: {
     type: NotificationTypes.Success,
     id: uuid(),
+    title,
     text,
-    timeout: 3000
+    timeout,
   }
 });
 
-export const errorNotification = (text: string): INotificationAction => ({
+export const errorNotification = ({
+  title = vocab.get().error,
+  text,
+  timeout = 5000,
+}: Partial<INotification>): INotificationAction => ({
   type: NotificationActions.ADD_NOTIFICATION,
   payload: {
     type: NotificationTypes.Error,
     id: uuid(),
+    title,
     text,
-    timeout: 5000
+    timeout,
   }
 });
 
-export const infoNotification = (text: string): INotificationAction => ({
+export const infoNotification = ({
+  title = vocab.get().info,
+  text,
+  timeout = 3000
+}: Partial<INotification>): INotificationAction => ({
   type: NotificationActions.ADD_NOTIFICATION,
   payload: {
     type: NotificationTypes.Info,
     id: uuid(),
+    title,
     text,
-    timeout: 3000
+    timeout,
   }
 });
 

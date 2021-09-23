@@ -9,4 +9,7 @@ export default {
   networkError: 'Network Error',
   unauthorized: 'Unauthorized',
   somethingWentWrong: 'Something went wrong',
+  success: 'Success',
+  error: 'Error',
+  info: 'Info',
 };
