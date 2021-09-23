@@ -7,14 +7,7 @@ export interface IUserState {
   id: string;
   email: string;
   first_name: string;
-  last_name?: string;
-}
-
-export interface IUserInfoPayload {
-  id: string;
-  email: string;
-  first_name: string;
-  last_name?: string;
+  last_name: string;
 }
 
 export interface IUserGetInfoAction {
@@ -23,7 +16,7 @@ export interface IUserGetInfoAction {
 
 export interface IUserSetInfoAction {
   type: UserActions.USER_SET_INFO,
-  payload: Partial<IUserInfoPayload>;
+  payload: Partial<IUserState>;
 }
 
 export type TUserAction = IUserGetInfoAction | IUserSetInfoAction;
