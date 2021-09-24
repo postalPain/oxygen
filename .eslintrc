@@ -85,6 +85,6 @@
     "no-self-compare": "warn",
     "one-var": "off",
     "comma-spacing": ["warn", { "before": false, "after": true }],
-    "object-curly-newline": ["warn", {"multiline": true, "consistent": true}],
+    "object-curly-newline": ["warn", {"multiline": true, "consistent": true}]
   }
 }
