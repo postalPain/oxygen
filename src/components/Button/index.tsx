@@ -1,17 +1,20 @@
 import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface IButton {
   children?: any;
   secondary?: boolean;
   styles?: any;
+  onPress?: any;
 }
 
 const Button = (props: IButton) => {
-  const { secondary = false } = props;
+  const { secondary = false, onPress } = props;
   return (
+
     <View style={[styles.button, props.styles]}>
       <LinearGradient
         colors={['#935EBF', '#B15F8F']}
@@ -19,11 +22,16 @@ const Button = (props: IButton) => {
         useAngle
         style={styles.linearGradient}
       >
-        <View style={[styles.innerSecondary, { backgroundColor: secondary ? 'white' : 'transparent' }]}>
-          <Text style={[styles.text, secondary ? styles.textSecondary : styles.textPrimary]}>
-            {props.children}
-          </Text>
-        </View>
+        <TouchableHighlight onPress={onPress}>
+          <View style={[styles.innerSecondary, {
+            backgroundColor: secondary ? theme.colors.screenBackgroundColorLight : 'transparent'
+          }]}
+          >
+            <Text style={[styles.text, secondary ? styles.textSecondary : styles.textPrimary]}>
+              {props.children}
+            </Text>
+          </View>
+        </TouchableHighlight>
       </LinearGradient>
     </View>
   );
@@ -40,7 +48,7 @@ const styles = StyleSheet.create({
     width: 348,
     height: 54,
     borderRadius: 27,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.screenBackgroundColorLight,
     justifyContent: 'center',
     alignItems: 'center'
   },
