@@ -1,4 +1,4 @@
-export { default as Authentication } from './Authentication';
+export { default as Onboarding } from './Onboarding';
 export { default as SignIn } from './SignIn';
 export { default as EnterEmployer } from './EnterEmployer';
 export { default as EnterEmail } from './EnterEmail';

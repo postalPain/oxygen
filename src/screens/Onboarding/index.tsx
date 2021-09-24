@@ -1,9 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AppScreenNames } from 'navigation/types';
 import vocab from 'i18n';
-import FullLogo from 'assets/logo.svg';
 
 import Button from 'components/Button';
 import theme from 'config/theme';
@@ -20,27 +18,18 @@ const carouselSlides = [{
   label: vocab.get().carousel3,
 }];
 
-const Authentication = (): React.ReactElement => {
+const Onboarding = (): React.ReactElement => {
   const navigation = useNavigation();
-
-  const onSignUpPress = () => {
-    navigation.navigate(AppScreenNames.SignUp);
-  };
-
-  const onSignInPress = () => {
-    navigation.navigate(AppScreenNames.SignIn);
-  };
 
   return (
     <View style={styles.authScreen}>
       <View style={styles.authScreenWrapper}>
         <View style={styles.carouselContainer}>
-          <FullLogo />
           <Carousel slides={carouselSlides} />
         </View>
         <View style={{ flex: 2, alignItems: 'center' }}>
           <Button styles={styles.button}>
-            {vocab.get().register}
+            {vocab.get().signUp}
           </Button>
           <Button secondary styles={styles.button}>
             {vocab.get().logIn}
@@ -72,4 +61,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Authentication;
+export default Onboarding;
