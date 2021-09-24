@@ -18,6 +18,15 @@ const theme = {
     shade2: '#F9F9F9',
     error: '#EA3546',
   },
+  notifications: {
+    boxShadowColor: 'rgba(0, 0, 0, 0.25)',
+    boxShadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    errorBackground: '#FFEFEF',
+    errorTextColor: '#720000',
+  },
   sizes: {
     textLargeTitleSize: 34,
     textTitleBigSize: 28,

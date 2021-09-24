@@ -9,4 +9,10 @@ export default {
   carousel1: 'Access your earned wages - whenever you need to',
   carousel2: 'Improve your financial well-being',
   carousel3: 'Cover unexpected costs and avoid expensive loans ',
+  networkError: 'Network Error',
+  unauthorized: 'Unauthorized',
+  somethingWentWrong: 'Something went wrong',
+  success: 'Success',
+  error: 'Error',
+  info: 'Info',
 };
