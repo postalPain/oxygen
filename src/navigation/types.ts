@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/
 import { RouteProp } from '@react-navigation/core';
 
 export enum AppScreenNames {
-  Authentication = 'Authentication',
+  Onboarding = 'Onboarding',
   SignIn = 'SignIn',
   SignUp = 'SignUp',
   EnterEmployer = 'EnterEmployer',
@@ -29,11 +29,11 @@ export interface IScreenPermission {
 }
 
 export interface IScreenPermissionsTable {
-  [key: string]: IScreenPermission
+  [key: string]: IScreenPermission;
 }
 
 export const AppScreenPermissions: IScreenPermissionsTable = {
-  [AppScreenNames.Authentication]: { access: [IUserAccess.unauthenticated], default: true },
+  [AppScreenNames.Onboarding]: { access: [IUserAccess.unauthenticated], default: true },
   [AppScreenNames.SignIn]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.SignUp]: { access: [IUserAccess.unauthenticated], redirectTo: AppScreenNames.UserVerification },
   [AppScreenNames.ResetPassword]: { access: [IUserAccess.unauthenticated] },
@@ -60,13 +60,13 @@ export const getRedirectScreen = (permissionsTable: IScreenPermissionsTable, cur
       return screenInfo.redirectTo;
     }
     /** User doesn't have permissions */
-    const defaultScreens: { key: string, value: IScreenPermission }[] = Object
+    const defaultScreens: { key: string; value: IScreenPermission }[] = Object
       .entries(permissionsTable)
       .map(([key, value]: [string, IScreenPermission]) => ({
         key,
         value,
       }))
-      .filter((d: { key: string, value: IScreenPermission }) => (
+      .filter((d: { key: string; value: IScreenPermission }) => (
         d.value.access.indexOf(userAccess) > -1 &&
         d.value.default
       ));
@@ -76,7 +76,7 @@ export const getRedirectScreen = (permissionsTable: IScreenPermissionsTable, cur
       return defaultScreen.key;
     }
   }
-  
+
   return '';
 };
 
@@ -111,19 +111,19 @@ export enum HomeScreenNames {
 }
 
 export type AppStackParameters = {
-  Authentication: undefined;
+  Onboarding: undefined;
   SignIn: undefined;
   SignUp: undefined;
   PasswordReset: undefined;
   UserVerification: undefined;
   UserVerificationPending: undefined;
-  Main: undefined,
-}
+  Main: undefined;
+};
 
 export type UserVerificationStackParameters = {
   Pending: undefined;
   Success: undefined;
-}
+};
 
 export type SignUpStackParameters = {
   EnterEmployer: undefined;
@@ -131,7 +131,7 @@ export type SignUpStackParameters = {
   SetPassword: undefined;
   UserVerificationRequested: undefined;
   UserVerification: undefined;
-}
+};
 
 export type PasswordResetParameters = {
   ForgotPassword: undefined;
@@ -139,20 +139,20 @@ export type PasswordResetParameters = {
   ResetPasswordVerifyCode: undefined;
   ResetPassword: undefined;
   ResetPasswordConfirmation: undefined;
-}
+};
 
 export type HomeStackParameters = {
   Home: undefined;
-}
+};
 
 export type UserVerificationNavigationProps<T extends keyof UserVerificationStackParameters> = {
-  navigation: StackNavigationProp<UserVerificationStackParameters, T>,
-  route: RouteProp<UserVerificationStackParameters, T>,
-}
+  navigation: StackNavigationProp<UserVerificationStackParameters, T>;
+  route: RouteProp<UserVerificationStackParameters, T>;
+};
 
 export type SignUpNavigationProps<T extends keyof SignUpStackParameters> = {
-  navigation: StackNavigationProp<SignUpStackParameters, T>,
-  route: RouteProp<SignUpStackParameters, T>,
-}
+  navigation: StackNavigationProp<SignUpStackParameters, T>;
+  route: RouteProp<SignUpStackParameters, T>;
+};
 
 

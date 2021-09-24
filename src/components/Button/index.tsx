@@ -1,28 +1,37 @@
 import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface IButton {
   children?: any;
   secondary?: boolean;
+  styles?: any;
+  onPress?: any;
 }
 
 const Button = (props: IButton) => {
-  const { secondary = false } = props;
+  const { secondary = false, onPress } = props;
   return (
-    <View style={[styles.button, secondary ? styles.secondary : styles.primary]}>
+
+    <View style={[styles.button, props.styles]}>
       <LinearGradient
-        colors={secondary
-          ? [theme.colors.screenBackgroundColorLight, theme.colors.screenBackgroundColorLight]
-          : ['#935EBF', '#B15F8F']}
+        colors={['#935EBF', '#B15F8F']}
         locations={[0, 1]}
         useAngle
         style={styles.linearGradient}
       >
-        <Text style={[styles.text, secondary ? styles.textSecondary : styles.textPrimary]}>
-          {props.children}
-        </Text>
+        <TouchableHighlight onPress={onPress}>
+          <View style={[styles.innerSecondary, {
+            backgroundColor: secondary ? theme.colors.screenBackgroundColorLight : 'transparent'
+          }]}
+          >
+            <Text style={[styles.text, secondary ? styles.textSecondary : styles.textPrimary]}>
+              {props.children}
+            </Text>
+          </View>
+        </TouchableHighlight>
       </LinearGradient>
     </View>
   );
@@ -33,14 +42,15 @@ const styles = StyleSheet.create({
     width: 350,
     height: 56,
     borderRadius: 28,
-    borderWidth: 1,
     overflow: 'hidden',
   },
-  primary: {
-    borderColor: theme.colors.screenBackgroundColorLight,
-  },
-  secondary: {
-    borderColor: theme.colors.floos1,
+  innerSecondary: {
+    width: 348,
+    height: 54,
+    borderRadius: 27,
+    backgroundColor: theme.colors.screenBackgroundColorLight,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   linearGradient: {
     height: '100%',
