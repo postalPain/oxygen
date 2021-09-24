@@ -1,3 +1,4 @@
+import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -7,9 +8,9 @@ const CarouselCircle = (props) => {
     <TouchableWithoutFeedback onPress={props.onPress}>
       <View
         style={{
-          ...styles.carouselDot,
+          ...styles.carouselCercle,
           ...props.styles,
-          ...(props.active && { backgroundColor: '#7E5BA6' })
+          ...(props.active && { backgroundColor: theme.colors.floos2 })
         }}
       />
     </TouchableWithoutFeedback>
@@ -17,12 +18,12 @@ const CarouselCircle = (props) => {
 };
 
 const styles = StyleSheet.create({
-  carouselDot: {
-    width: 15,
-    height: 15,
+  carouselCercle: {
+    width: 10,
+    height: 10,
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: '#7E5BA6',
+    borderColor: theme.colors.floos2,
   }
 });
 
