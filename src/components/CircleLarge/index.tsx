@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     width: circleLargeSize,
     height: circleLargeSize,
     borderRadius: circleLargeSize,
-    borderWidth: 0.13 * circleLargeSize,
+    borderWidth: 0.135 * circleLargeSize,
     borderColor: theme.colors.floos2,
     backgroundColor: 'transparent',
   },
