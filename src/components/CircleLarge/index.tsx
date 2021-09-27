@@ -2,7 +2,7 @@ import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-export const circleLargeSize = 260;
+export const circleLargeSize = 240;
 
 const CircleLarge = () => {
   return (
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     width: circleLargeSize,
     height: circleLargeSize,
     borderRadius: circleLargeSize,
-    borderWidth: 40,
+    borderWidth: 0.13 * circleLargeSize,
     borderColor: theme.colors.floos2,
     backgroundColor: 'transparent',
   },
