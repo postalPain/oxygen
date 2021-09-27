@@ -13,15 +13,17 @@ interface ICarouselSlide {
 
 interface ICarousel {
   slides?: ICarouselSlide[];
+  onSlideChange?: (index: number) => void;
 }
 
 let timeout;
 export const Carousel = (props: ICarousel) => {
-  const { slides } = props;
+  const { slides, onSlideChange } = props;
   const flatListRef = useRef(null);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    onSlideChange && onSlideChange(index);
     flatListRef.current.scrollToIndex({ index });
     clearTimeout(timeout);
     timeout = setTimeout(() => {

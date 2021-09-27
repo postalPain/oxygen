@@ -6,6 +6,8 @@ import vocab from 'i18n';
 import Button from 'components/Button';
 import theme from 'config/theme';
 import { Carousel } from 'components/Carousel';
+import OnboardingScreenWrapper from 'components/OnboardingScreenWrapper';
+import { OnboardingContext } from 'components/OnboardingScreenWrapper/context';
 
 const carouselSlides = [{
   image: require('assets/onboarding_01.png'),
@@ -19,31 +21,35 @@ const carouselSlides = [{
 }];
 
 const Onboarding = (): React.ReactElement => {
-  const navigation = useNavigation();
-
   return (
-    <View style={styles.authScreen}>
-      <View style={styles.authScreenWrapper}>
-        <View style={styles.carouselContainer}>
-          <Carousel slides={carouselSlides} />
-        </View>
-        <View style={{ flex: 2, alignItems: 'center' }}>
-          <Button styles={styles.button}>
-            {vocab.get().signUp}
-          </Button>
-          <Button secondary styles={styles.button}>
-            {vocab.get().logIn}
-          </Button>
-        </View>
-      </View>
-    </View>
+    <OnboardingScreenWrapper>
+      <OnboardingContext.Consumer>
+        { context => (
+          <View style={styles.authScreen}>
+            <View style={styles.authScreenWrapper}>
+              <View style={styles.carouselContainer}>
+                <Carousel slides={carouselSlides} onSlideChange={context.onSlideChange} />
+              </View>
+              <View style={{ flex: 2, alignItems: 'center' }}>
+                <Button styles={styles.button}>
+                  {vocab.get().signUp}
+                </Button>
+                <Button secondary styles={styles.button}>
+                  {vocab.get().logIn}
+                </Button>
+              </View>
+            </View>
+          </View>
+        )}
+      </OnboardingContext.Consumer>
+
+    </OnboardingScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   authScreen: {
     flex: 1,
-    backgroundColor: theme.colors.screenBackgroundColorLight,
   },
   authScreenWrapper: {
     flex: 1,
