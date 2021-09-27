@@ -57,7 +57,7 @@ export const Carousel = (props: ICarousel) => {
               source={item.image}
               style={{
                 width: 0.6 * windowDimenstions.width,
-                height: 0.9 * windowDimenstions.width,
+                height: 0.8 * windowDimenstions.width,
               }}
               resizeMode="contain"
             />
