@@ -4,26 +4,27 @@
  *
  * @format
  */
-const path = require('path')
+const path = require('path');
+
 const extraNodeModules = {
-  "store": path.resolve(__dirname,  "src/modules"),
   "components": path.resolve(__dirname,  "src/components"),
-  "screens": path.resolve(__dirname,  "src/screens"),
-  "navigation": path.resolve(__dirname,  "src/navigation"),
-  "i18n": path.resolve(__dirname,  "src/i18n"),
-  "services": path.resolve(__dirname,  "src/services"),
   "config": path.resolve(__dirname,  "src/config"),
-  "utilities": path.resolve(__dirname,  "src/utilities"),
-  "styles": path.resolve(__dirname+"/src/styles"),
-  "assets": path.resolve(__dirname,  "src/assets"),
+  "constants": path.resolve(__dirname,  "src/constants"),
+  "env": path.resolve(__dirname,  "src/env"),
+  "i18n": path.resolve(__dirname,  "src/i18n"),
+  "modules": path.resolve(__dirname,  "src/modules"),
+  "navigation": path.resolve(__dirname,  "src/navigation"),
+  "screens": path.resolve(__dirname,  "src/screens"),
+  "services": path.resolve(__dirname,  "src/services"),
+  "utils": path.resolve(__dirname,  "src/utils"),
+  "assets": path.resolve(__dirname,  "assets"),
   "icons": path.resolve(__dirname,  "src/components/Icons"),
-  "theme": path.resolve(__dirname,  "src/styles/theme"),
-  "types": path.resolve(__dirname,  "src/types"),
+  "theme": path.resolve(__dirname,  "src/config/theme"),
 };
 
 module.exports = {
   resolver: {
-    extraNodeModules
+    extraNodeModules,
   },
   transformer: {
     getTransformOptions: async () => ({
