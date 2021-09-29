@@ -18,9 +18,10 @@ const useStyles = () => StyleSheet.create({
   },
   iconContainer: {
     flexShrink: 1,
-    width: getSizeForLayout(10),
-    height: getSizeForLayout(9),
-    marginRight: getSizeForLayout(6),
+    width: getSizeForLayout(8),
+    height: getSizeForLayout(7),
+    marginTop: getSizeForLayout(2),
+    marginRight: getSizeForLayout(2),
   },
   infoText: {
     flexShrink: 1,
@@ -29,6 +30,9 @@ const useStyles = () => StyleSheet.create({
     fontSize: getFontSize(7),
     lineHeight: getFontSize(10),
   },
+  button: {
+    width: '100%',
+  }
 });
 
 export default useStyles;

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
-  Authentication,
+  Onboarding,
   SignIn,
   UserVerificationPending,
 } from 'screens';
@@ -17,8 +17,8 @@ const Navigation = () => {
     <NavigationContainer>
       <MainStack.Navigator>
         <MainStack.Screen
-          name={AppScreenNames.Authentication}
-          component={Authentication}
+          name={'Onboarding'}
+          component={Onboarding}
           options={{ headerShown: false, gestureEnabled: false }}
         />
         <MainStack.Screen
