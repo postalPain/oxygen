@@ -28,7 +28,7 @@ const Navigation = () => {
         <MainStack.Screen
           name={AppScreenNames.SignUp}
           component={SignUpStack}
-          options={{ headerShown: false, gestureEnabled: false }}
+          options={{ headerShown: true, gestureEnabled: false }}
         />
         <MainStack.Screen
           name={AppScreenNames.UserVerificationPending}

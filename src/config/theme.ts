@@ -34,6 +34,9 @@ const theme = {
     textTitleSmallSize: 20,
     textHeadlineSize: 18,
     textBodySize: 16,
+  },
+  font: {
+    fontFamily: 'Open Sans'
   }
 };
 

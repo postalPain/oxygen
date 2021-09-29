@@ -4,10 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import vocab from 'i18n';
 
 import Button from 'components/Button';
-import theme from 'config/theme';
 import { Carousel } from 'components/Carousel';
 import OnboardingScreenWrapper from 'components/OnboardingScreenWrapper';
 import { OnboardingContext } from 'components/OnboardingScreenWrapper/context';
+import { AppScreenNames } from 'navigation/types';
 
 const carouselSlides = [{
   image: require('assets/onboarding_01.png'),
@@ -21,6 +21,13 @@ const carouselSlides = [{
 }];
 
 const Onboarding = (): React.ReactElement => {
+  const navigation = useNavigation();
+  const goToSignUp = () => {
+    navigation.navigate(AppScreenNames.SignUp);
+  }
+  const goToLogIn = () => {
+    navigation.navigate(AppScreenNames.SignIn);
+  }
   return (
     <OnboardingScreenWrapper>
       <OnboardingContext.Consumer>
@@ -31,10 +38,17 @@ const Onboarding = (): React.ReactElement => {
                 <Carousel slides={carouselSlides} onSlideChange={context.onSlideChange} />
               </View>
               <View style={{ flex: 2, alignItems: 'center' }}>
-                <Button styles={styles.button}>
+                <Button
+                  styles={styles.button}
+                  onPress={goToSignUp}
+                >
                   {vocab.get().signUp}
                 </Button>
-                <Button secondary styles={styles.button}>
+                <Button
+                  secondary
+                  styles={styles.button}
+                  onPress={goToLogIn}
+                >
                   {vocab.get().logIn}
                 </Button>
               </View>

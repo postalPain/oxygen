@@ -32,7 +32,7 @@ const InAppNotification = () => {
           >
             <View style={styles.iconContainer}>
               <Image
-                source={require('../../../assets/info-circle.png')}
+                source={require('../../../assets/info_circle.png')}
               />
             </View>
             <View style={styles.textContainer}>

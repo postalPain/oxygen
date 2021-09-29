@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 
-import { HEADER_HEIGHT } from '../constants';
+import { HEADER_HEIGHT } from 'utils/screen';
 
 export const navStyles = StyleSheet.create({
   headerText: {

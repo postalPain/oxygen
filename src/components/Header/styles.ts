@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from 'react-native';
 import { ProjectThemeType } from 'config/theme';
-import { HEADER_HEIGHT } from '../../constants';
+import { HEADER_HEIGHT } from 'utils/screen';
 
 const useStyles = (theme: ProjectThemeType) => StyleSheet.create({
   header: {
