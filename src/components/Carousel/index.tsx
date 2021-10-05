@@ -2,7 +2,7 @@ import vocab from 'i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, Text, View } from "react-native";
 import { FlatList } from 'react-native-gesture-handler';
-import { windowDimenstions } from 'utils/window';
+import { windowDimensions } from 'utils/window';
 import CarouselCircle from './CarouselCircle';
 import CarouselSlide from './CarouselSlide';
 
@@ -56,8 +56,8 @@ export const Carousel = (props: ICarousel) => {
             <Image
               source={item.image}
               style={{
-                width: 0.6 * windowDimenstions.width,
-                height: 0.8 * windowDimenstions.width,
+                width: 0.6 * windowDimensions.width,
+                height: 0.8 * windowDimensions.width,
               }}
               resizeMode="contain"
             />

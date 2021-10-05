@@ -5,7 +5,7 @@ import theme from 'config/theme';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { windowDimenstions } from 'utils/window';
+import { windowDimensions } from 'utils/window';
 import AnimatedTranslate from './AnimatedTranslate';
 import { OnboardingContext } from './context';
 
@@ -57,8 +57,8 @@ const OnboardingScreenWrapper = (props: IOnboardingScreenWrapper) => {
 
 const styles = StyleSheet.create({
   onboardingScreenWrapper: {
-    width: windowDimenstions.width,
-    height: windowDimenstions.height,
+    width: windowDimensions.width,
+    height: windowDimensions.height,
     backgroundColor: theme.colors.screenBackgroundColorLight,
   },
   background: {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     left: 0,
-    height: windowDimenstions.height / 3,
+    height: windowDimensions.height / 3,
   },
   circle: {
     position: 'absolute'
@@ -76,20 +76,20 @@ const styles = StyleSheet.create({
 
 const coordinates = {
   large: [ {
-    x: windowDimenstions.width - 0.65 * circleLargeSize,
+    x: windowDimensions.width - 0.65 * circleLargeSize,
     y: -0.3 * circleLargeSize
   }, {
     x: - 0.07 * circleLargeSize,
     y: -0.5 * circleLargeSize
   }, {
-    x: windowDimenstions.width - 0.61 * circleLargeSize,
+    x: windowDimensions.width - 0.61 * circleLargeSize,
     y: 0.07 * circleLargeSize
   }],
   medium: [ {
     x: -0.14 * circleMediumSize,
     y: -0.14 * circleMediumSize
   }, {
-    x: windowDimenstions.width - 0.71 * circleMediumSize,
+    x: windowDimensions.width - 0.71 * circleMediumSize,
     y: 0.71 * circleMediumSize
   }, {
     x: 0.14 * circleMediumSize,
@@ -111,15 +111,15 @@ const coordinates = {
   ],
   small2: [
     {
-      x: windowDimenstions.width - 0.66 * circleSmallSize,
+      x: windowDimensions.width - 0.66 * circleSmallSize,
       y: 3.3 * circleSmallSize
     },
     {
-      x: windowDimenstions.width - 0.5 * circleSmallSize,
+      x: windowDimensions.width - 0.5 * circleSmallSize,
       y: 0
     },
     {
-      x: windowDimenstions.width - 3.3 * circleSmallSize,
+      x: windowDimensions.width - 3.3 * circleSmallSize,
       y: -0.16 * circleSmallSize
     },
   ],

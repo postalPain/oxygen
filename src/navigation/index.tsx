@@ -17,7 +17,7 @@ const Navigation = () => {
     <NavigationContainer>
       <MainStack.Navigator>
         <MainStack.Screen
-          name={'Onboarding'}
+          name={AppScreenNames.Onboarding}
           component={Onboarding}
           options={{ headerShown: false, gestureEnabled: false }}
         />
