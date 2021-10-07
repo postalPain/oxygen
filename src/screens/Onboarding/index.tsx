@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import vocab from 'i18n';
@@ -8,6 +8,7 @@ import { Carousel } from 'components/Carousel';
 import OnboardingScreenWrapper from 'components/OnboardingScreenWrapper';
 import { OnboardingContext } from 'components/OnboardingScreenWrapper/context';
 import { AppScreenNames } from 'navigation/types';
+import SplashScreen from 'react-native-splash-screen';
 
 const carouselSlides = [{
   image: require('assets/onboarding_01.png'),
@@ -21,13 +22,17 @@ const carouselSlides = [{
 }];
 
 const Onboarding = (): React.ReactElement => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   const navigation = useNavigation();
   const goToSignUp = () => {
     navigation.navigate(AppScreenNames.SignUp);
-  }
+  };
   const goToLogIn = () => {
     navigation.navigate(AppScreenNames.SignIn);
-  }
+  };
   return (
     <OnboardingScreenWrapper>
       <OnboardingContext.Consumer>
