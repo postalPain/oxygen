@@ -8,7 +8,7 @@ const vocabularies = {
   en,
 };
 
-export default {
+const vocab = {
   language: getLanguage(),
   vocabularies,
   get: function (): typeof en {
@@ -18,3 +18,5 @@ export default {
     return str.replace(/{{.*?}}/g, () => args.shift());
   },
 };
+
+export default vocab;

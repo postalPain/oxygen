@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
-  Authentication,
+  Onboarding,
   SignIn,
   UserVerificationPending,
 } from 'screens';
@@ -17,8 +17,8 @@ const Navigation = () => {
     <NavigationContainer>
       <MainStack.Navigator>
         <MainStack.Screen
-          name={'Authentication'}
-          component={Authentication}
+          name={AppScreenNames.Onboarding}
+          component={Onboarding}
           options={{ headerShown: false, gestureEnabled: false }}
         />
         <MainStack.Screen
@@ -28,7 +28,7 @@ const Navigation = () => {
         <MainStack.Screen
           name={AppScreenNames.SignUp}
           component={SignUpStack}
-          options={{ headerShown: false, gestureEnabled: false }}
+          options={{ headerShown: true, gestureEnabled: false }}
         />
         <MainStack.Screen
           name={AppScreenNames.UserVerificationPending}

@@ -1,15 +1,18 @@
 import React from 'react';
 import { View } from 'react-native';
-import { windowDimenstions } from '../../../utils/window';
+import { windowDimensions } from '../../../utils/window';
 
 const CarouselSlide = (props) => {
   return (
     <View
       style={{
-        height: windowDimenstions.width,
-        width: windowDimenstions.width,
-        justifyContent: "center",
+        width: windowDimensions.width,
+        // justifyContent: "center",
         alignItems: "center",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 20 },
+        shadowOpacity: 0.2,
+        shadowRadius: 10,
       }}
     >
       {props.children}

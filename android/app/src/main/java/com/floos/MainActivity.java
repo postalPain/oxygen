@@ -1,6 +1,7 @@
 package com.floos;
 
 import com.facebook.react.ReactActivity;
+import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,4 +13,10 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "Floos";
   }
+
+  protected void onCreate (android.os.Bundle savedInstanceState) {
+    SplashScreen.show(this, R.style.Launcher);
+    super.onCreate(savedInstanceState);
+  }
+
 }

@@ -1,6 +1,8 @@
+import vocab from 'i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, Text, View } from "react-native";
 import { FlatList } from 'react-native-gesture-handler';
+import { windowDimensions } from 'utils/window';
 import CarouselCircle from './CarouselCircle';
 import CarouselSlide from './CarouselSlide';
 
@@ -11,23 +13,21 @@ interface ICarouselSlide {
 
 interface ICarousel {
   slides?: ICarouselSlide[];
+  onSlideChange?: (index: number) => void;
 }
 
 let timeout;
 export const Carousel = (props: ICarousel) => {
+  const { slides, onSlideChange } = props;
   const flatListRef = useRef(null);
   const [index, setIndex] = useState(0);
-  const slideList = Array.from({ length: 3 }).map((_, i) => {
-    return {
-      image: `https://picsum.photos/200/200?random=${i}`,
-    };
-  });
 
   useEffect(() => {
+    onSlideChange && onSlideChange(index);
     flatListRef.current.scrollToIndex({ index });
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      setIndex(idx => (idx === slideList.length - 1) ? 0 : (idx + 1));
+      setIndex(idx => (idx === slides.length - 1) ? 0 : (idx + 1));
     }, 3000);
   }, [index]);
 
@@ -41,30 +41,31 @@ export const Carousel = (props: ICarousel) => {
   };
 
   return (
-    <View style={styles.carousel}>
-      <Text>Carousel</Text>
+    <View style={{ flexGrow: 0 }}>
       <FlatList
         ref={flatListRef}
         horizontal
         pagingEnabled
         onMomentumScrollEnd={onScrollEnd}
         showsHorizontalScrollIndicator={false}
-        data={slideList}
-        style={{ flex: 1, flexDirection: 'row' }}
+        data={slides}
+        style={styles.flatList}
         numColumns={1}
-        renderItem={({ item, index }) => {  // eslint-disable-line
-          return (
-            <CarouselSlide key={index}>
-              <Image
-                source={{ uri: item.image }}
-                style={{ width: 200, height: 200 }}
-              />
-            </CarouselSlide>
-          );
-        }}
+        renderItem={ ({ item, index: idx }) => (
+          <CarouselSlide key={idx}>
+            <Image
+              source={item.image}
+              style={{
+                width: 0.6 * windowDimensions.width,
+                height: 0.8 * windowDimensions.width,
+              }}
+              resizeMode="contain"
+            />
+          </CarouselSlide>
+        )}
       />
       <View style={styles.paginationContainer}>
-        {slideList.map((item, circleIndex) =>
+        {slides.map((item, circleIndex) =>
           <CarouselCircle
             key={circleIndex}
             styles={styles.paginationChildren}
@@ -73,14 +74,14 @@ export const Carousel = (props: ICarousel) => {
           />
         )}
       </View>
+      <View style={styles.labelContainer}>
+        <Text style={styles.label}>{slides[index].label}</Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  carousel: {
-    height: 400
-  },
   imageContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -94,6 +95,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   paginationChildren: {
-    margin: 5
+    margin: 4
+  },
+  labelContainer: {
+    height: 120,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  flatList: {
+    flexDirection: 'row',
+    height: 'auto'
   }
 });
