@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "build:preparation": "node build-preparation.js",
     "android:clean": "cd android && ./gradlew clean",
     "android:prebuild": "rm -rf android/build && rm -rf android/app/build",
     "ios": "react-native run-ios",
