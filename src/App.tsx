@@ -6,8 +6,6 @@ import Navigation from 'navigation';
 import theme from 'config/theme';
 import SplashScreen from 'react-native-splash-screen';
 
-// import { setupSentry } from 'services/Sentry/sentry';
-
 export const App = () => {
   useEffect(() => {
     SplashScreen.hide();
