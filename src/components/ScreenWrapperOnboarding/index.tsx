@@ -13,7 +13,7 @@ interface IOnboardingScreenWrapper {
   children?: any;
 }
 
-const OnboardingScreenWrapper = (props: IOnboardingScreenWrapper) => {
+const ScreenWrapperOnboarding = (props: IOnboardingScreenWrapper) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   return (
@@ -125,4 +125,4 @@ const coordinates = {
   ],
 };
 
-export default OnboardingScreenWrapper;
+export default ScreenWrapperOnboarding;

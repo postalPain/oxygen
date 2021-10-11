@@ -5,8 +5,8 @@ import vocab from 'i18n';
 
 import Button from 'components/Button';
 import { Carousel } from 'components/Carousel';
-import OnboardingScreenWrapper from 'components/OnboardingScreenWrapper';
-import { OnboardingContext } from 'components/OnboardingScreenWrapper/context';
+import ScreenWrapperOnboarding from 'components/ScreenWrapperOnboarding';
+import { OnboardingContext } from 'components/ScreenWrapperOnboarding/context';
 import { AppScreenNames } from 'navigation/types';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -34,7 +34,7 @@ const Onboarding = (): React.ReactElement => {
     navigation.navigate(AppScreenNames.SignIn);
   };
   return (
-    <OnboardingScreenWrapper>
+    <ScreenWrapperOnboarding>
       <OnboardingContext.Consumer>
         { context => (
           <View style={styles.authScreen}>
@@ -62,7 +62,7 @@ const Onboarding = (): React.ReactElement => {
         )}
       </OnboardingContext.Consumer>
 
-    </OnboardingScreenWrapper>
+    </ScreenWrapperOnboarding>
   );
 };
 
