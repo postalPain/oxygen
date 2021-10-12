@@ -18,5 +18,6 @@ module.exports = {
                 extensions: ['.js','.jsx','.ts', '.tsx', '.es', '.es6', '.mjs']
             },
         ],
+        'react-native-reanimated/plugin' // Reanimated plugin has to be listed last
     ],
 };
