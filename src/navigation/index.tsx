@@ -8,6 +8,7 @@ import {
 } from 'screens';
 import { AppScreenNames } from './types';
 import SignUpStack from './SignUpStack';
+import theme from 'config/theme';
 
 
 const MainStack = createNativeStackNavigator();
@@ -23,6 +24,12 @@ const Navigation = () => {
         />
         <MainStack.Screen
           name={AppScreenNames.SignIn}
+          options={{
+            headerShown: true,
+            headerTransparent: true,
+            headerTitle: '',
+            headerTintColor: theme.colors.screenBackgroundColorLight,
+          }}
           component={SignIn}
         />
         <MainStack.Screen
