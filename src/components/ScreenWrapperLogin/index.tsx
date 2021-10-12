@@ -33,7 +33,9 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
           <IconFloosFull />
         </View>
       </View>
-      {props.children}
+      <View style={styles.childrenContainer}>
+        {props.children}
+      </View>
     </View>
   );
 };
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: 0.37 * windowDimensions.height,
+    height: 0.36 * windowDimensions.height,
   },
   headerBackground: {
     position: 'absolute',
@@ -80,6 +82,12 @@ const styles = StyleSheet.create({
   circleSmall2: {
     left: circleCoordinates[0].small2.x,
     top: circleCoordinates[0].small2.y,
+  },
+  childrenContainer: {
+    flex: 1,
+    paddingHorizontal: 0.085 * windowDimensions.width,
+    paddingTop: 0.01 * windowDimensions.height,
+    paddingBottom: 0.09 * windowDimensions.height,
   }
 });
 
