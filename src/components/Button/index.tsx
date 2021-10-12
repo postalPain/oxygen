@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import { getSizeForLayout } from '../../utils/screen';
+import { windowDimensions } from 'utils/window';
 
 interface IButton {
   children?: any;
@@ -39,15 +39,15 @@ const Button = (props: IButton) => {
 
 const styles = StyleSheet.create({
   button: {
-    width: getSizeForLayout(175),
-    height: getSizeForLayout(28),
-    borderRadius: 28,
+    width: windowDimensions.width * 0.84,
+    height: windowDimensions.width * 0.14,
+    borderRadius: windowDimensions.width * 0.14,
     overflow: 'hidden',
   },
   innerSecondary: {
-    width: getSizeForLayout(173),
-    height: getSizeForLayout(26),
-    borderRadius: 27,
+    width: windowDimensions.width * 0.84 - 2,
+    height: windowDimensions.width * 0.14 - 2,
+    borderRadius: windowDimensions.width * 0.14,
     backgroundColor: theme.colors.screenBackgroundColorLight,
     justifyContent: 'center',
     alignItems: 'center'
