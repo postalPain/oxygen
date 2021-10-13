@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import * as yup from 'yup';
 import vocabulary from 'i18n';
 import { AppScreenNames, SignUpNavigationProps, SignUpScreenNames } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import {
   ScreenWithAnimatedHeader,
-  Button, InputInfo,
+  Button,
+  InputInfo,
 } from 'components';
 import useStyles from './styles';
 
 
 const vocab = vocabulary.get();
-let schema = yup.object().shape({
-  email: yup.string().email().required(),
-});
+let schema = yup.string().email().required();
 
 const EnterEmail = (
   { navigation }: SignUpNavigationProps<SignUpScreenNames.EnterEmail>
@@ -23,7 +22,7 @@ const EnterEmail = (
   const [inputValue, setInputValue] = useState('');
   const [inputError, setInputError] = useState('');
   const onPress = async () => {
-    const isValid = await schema.isValid({ email: inputValue });
+    const isValid = await schema.isValid(inputValue);
     if (!isValid) {
       setInputError(vocab.errorCheckEmail);
       return;
@@ -38,11 +37,9 @@ const EnterEmail = (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.formContainer}>
         <View>
-          <Text style={[styles.inputLabel, inputError && styles.inputLabelError]}>
-            {vocab.email}
-          </Text>
           <Input
-            style={styles.input}
+            name="email"
+            label={vocab.email}
             placeholder={vocab.emailAddress}
             value={inputValue}
             onChange={handleOnChange}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import vocabulary from 'i18n';
 import { AppScreenNames, SignUpNavigationProps, SignUpScreenNames } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
@@ -34,14 +34,11 @@ const EnterEmployer = (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.formContainer}>
         <View>
-          <Text style={[styles.inputLabel, inputError && styles.inputLabelError]}>
-            {vocab.registrationId}
-          </Text>
           <Input
             placeholder={vocab.registrationId}
+            label={vocab.registrationId}
             value={inputValue}
             onChange={handleOnChange}
-            inputBoxStyle={styles.input}
             error={inputError}
           />
           <InputInfo text={vocab.wouldReceiveRegistrationId} />
