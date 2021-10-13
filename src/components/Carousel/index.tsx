@@ -1,4 +1,3 @@
-import vocab from 'i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, Text, View } from "react-native";
 import { FlatList } from 'react-native-gesture-handler';

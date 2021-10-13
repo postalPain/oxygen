@@ -16,7 +16,11 @@ export default {
   error: 'Error',
   info: 'Info',
   registrationId: 'Registration ID',
+  errorEnterEmployerId: 'Please enter your Employer ID',
   email: 'Email',
+  emailAddress: 'Email address',
+  errorCheckEmail: 'Error occurred. Please check your email!',
   createPassword: 'Create a password',
-  shouldReceiveRegistrationId: 'You should have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.'
+  wouldReceiveRegistrationId: 'You would have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.',
+  useWorkEmail: 'If available, please use your work email address, so that your Employer can verify you faster.',
 };

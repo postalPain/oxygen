@@ -15,6 +15,8 @@ const env = {
   dimensions: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+    scale: Dimensions.get('window').scale,
+    fontScale: Dimensions.get('window').fontScale,
   },
   appearance: Appearance.getColorScheme(),
 };

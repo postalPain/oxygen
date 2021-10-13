@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { getSizeForLayout, getFontSize } from 'utils/screen';
+import { getSizeForLayout, fontSize, getFontSize } from 'utils/screen';
 import theme from 'config/theme';
 
 const useStyles = () => StyleSheet.create({

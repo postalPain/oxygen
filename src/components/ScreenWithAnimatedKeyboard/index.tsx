@@ -5,12 +5,12 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
-  Image
+  Image,
 } from 'react-native';
 import useKeyboard from 'utils/useKeyboard';
 import env from 'env';
-import useStyles, { HEADER_SHIFT } from './styles';
 import { getSizeForLayout } from 'utils/screen';
+import useStyles, { HEADER_SHIFT } from './styles';
 
 
 interface IScreenWithAnimatedHeaderProps {

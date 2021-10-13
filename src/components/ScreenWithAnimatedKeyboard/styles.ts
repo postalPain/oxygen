@@ -35,10 +35,10 @@ const useStyles = () => StyleSheet.create({
     width: '100%',
     height: HEADER_HEIGHT,
     paddingHorizontal: getSizeForLayout(12),
-    paddingTop: 38,
+    paddingTop: getSizeForLayout(20),
   },
   topPadding: {
-    height: 10,
+    height: getSizeForLayout(10),
     width: '100%',
   },
   headerPlaceholder: {
