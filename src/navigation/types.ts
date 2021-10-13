@@ -8,6 +8,7 @@ export enum AppScreenNames {
   EnterEmployer = 'EnterEmployer',
   EnterEmail = 'EnterEmail',
   SetPassword = 'SetPassword',
+  DataPrivacy = 'DataPrivacy',
   UserVerificationRequested = 'UserVerificationRequested',
   ResetPassword = 'ResetPassword',
   UserVerification = 'UserVerification',
@@ -37,6 +38,7 @@ export const AppScreenPermissions: IScreenPermissionsTable = {
   [AppScreenNames.SignIn]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.SignUp]: { access: [IUserAccess.unauthenticated], redirectTo: AppScreenNames.UserVerification },
   [AppScreenNames.ResetPassword]: { access: [IUserAccess.unauthenticated] },
+  [AppScreenNames.DataPrivacy]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.UserVerification]: { access: [IUserAccess.new] },
   [AppScreenNames.UserVerificationPending]: {
     access: [IUserAccess.new, IUserAccess.pending, IUserAccess.active],
@@ -89,6 +91,7 @@ export enum SignUpScreenNames {
   EnterEmployer = 'EnterEmployer',
   EnterEmail = 'EnterEmail',
   SetPassword = 'SetPassword',
+  DataPrivacy = 'DataPrivacy',
   UserVerificationRequested = 'UserVerificationRequested',
 }
 
@@ -129,6 +132,7 @@ export type SignUpStackParameters = {
   EnterEmployer: undefined;
   EnterEmail: undefined;
   SetPassword: undefined;
+  DataPrivacy: undefined;
   UserVerificationRequested: undefined;
   UserVerification: undefined;
 };

@@ -26,4 +26,9 @@ export default {
   createSecurePassword: 'Please create a secure password including the following criteria above.',
   savePassword: 'Save password',
   errorPasswordNotMatch: 'Your password does not match the requirements.',
+  dataPrivacy: 'Data Privacy',
+  needConsent: 'In order for Floos to continue and pay out your wages ahead of time, Floos needs your consent in order to receive the necessary data from your employer.',
+  iHaveRead: 'I have read the ',
+  guidelines: 'guidelines and accept them.',
+  next: 'Next',
 };

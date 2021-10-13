@@ -3,8 +3,14 @@ import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import vocabulary from 'i18n';
 import { SignUpScreenNames, SignUpStackParameters } from 'navigation/types';
-import { EnterEmployer, EnterEmail, SetPassword, UserVerificationRequested } from 'screens';
-import {  openBrowser  } from 'utils';
+import {
+  EnterEmployer,
+  EnterEmail,
+  SetPassword,
+  UserVerificationRequested,
+  DataPrivacy,
+} from 'screens';
+import { openBrowser } from 'utils';
 import { navStyles, commonHeaderOptions } from './styles';
 
 
@@ -40,6 +46,10 @@ const SignUp = () => {
       <SignUpStack.Screen
         name={SignUpScreenNames.SetPassword}
         component={SetPassword}
+      />
+      <SignUpStack.Screen
+        name={SignUpScreenNames.DataPrivacy}
+        component={DataPrivacy}
       />
       <SignUpStack.Screen
         name={SignUpScreenNames.UserVerificationRequested}

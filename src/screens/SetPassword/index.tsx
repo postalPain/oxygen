@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import * as yup from 'yup';
 import vocabulary from 'i18n';
 import {
@@ -31,7 +31,7 @@ const SetPassword = (
       setInputError(vocab.errorPasswordNotMatch);
       return;
     }
-    navigation.navigate(AppScreenNames.UserVerificationRequested);
+    navigation.navigate(AppScreenNames.DataPrivacy);
   }
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
