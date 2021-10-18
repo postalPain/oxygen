@@ -8,7 +8,7 @@ const getHeaderShift = () => {
   return env.ios ? shift : (shift + StatusBar.currentHeight);
 };
 
-export const HEADER_HEIGHT = getSizeForLayout(40);
+export const HEADER_HEIGHT = 40;
 export const HEADER_SHIFT = getHeaderShift();
 
 
@@ -24,7 +24,7 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: getSizeForLayout(12),
+    paddingBottom: 24,
   },
   header: {
     alignItems: 'center',
@@ -34,11 +34,11 @@ const useStyles = () => StyleSheet.create({
     left: 0,
     width: '100%',
     height: HEADER_HEIGHT,
-    paddingHorizontal: getSizeForLayout(12),
-    paddingTop: getSizeForLayout(20),
+    paddingHorizontal: 24,
+    paddingTop: 40,
   },
   topPadding: {
-    height: getSizeForLayout(10),
+    height: 20,
     width: '100%',
   },
   headerPlaceholder: {
@@ -46,8 +46,8 @@ const useStyles = () => StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    width: getSizeForLayout(66),
-    height: getSizeForLayout(22),
+    width: 132,
+    height: 44,
   },
   logo: {
     width: '100%',
@@ -60,7 +60,7 @@ const useStyles = () => StyleSheet.create({
   },
   bottomPadding: {
     width: '100%',
-    height: getSizeForLayout(26),
+    height: 52,
   },
 });
 

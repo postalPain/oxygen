@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, } from 'react-native';
 import vocab from 'i18n';
 
 import Button from 'components/Button';
 import { Carousel } from 'components/Carousel';
 import OnboardingScreenWrapper from 'components/OnboardingScreenWrapper';
 import { OnboardingContext } from 'components/OnboardingScreenWrapper/context';
-import { AppScreenNames } from 'navigation/types';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import SplashScreen from 'react-native-splash-screen';
 
 const carouselSlides = [{
@@ -21,12 +20,13 @@ const carouselSlides = [{
   label: vocab.get().carousel3,
 }];
 
-const Onboarding = (): React.ReactElement => {
+const Onboarding = (
+  { navigation }: AppNavigationProps<AppScreenNames.Onboarding>
+): React.ReactElement => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
-  const navigation = useNavigation();
   const goToSignUp = () => {
     navigation.navigate(AppScreenNames.EnterEmployer);
   };

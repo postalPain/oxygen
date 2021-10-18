@@ -10,13 +10,13 @@ import {
   UserVerificationPending, UserVerificationRequested,
 } from 'screens';
 import { AppScreenNames } from './types';
-import { BackButton, Header } from 'components';
+import { Header } from 'components';
 import { headerStyles } from './styles';
 
 
 const AppStack = createNativeStackNavigator();
 
-const getHeaderOptions = (props) => ({
+const getHeaderOptions = () => ({
   ...headerStyles,
   headerShown: true,
   gestureEnabled: false,
@@ -24,9 +24,8 @@ const getHeaderOptions = (props) => ({
   headerTitle: '',
   headerBackTitleVisible: false,
   headerBackVisible: false,
-  headerLeft: () => <BackButton onPress={() => props.navigation.goBack()} />,
-  headerRight: () => <BackButton onPress={() => props.navigation.goBack()} />,
-  header: () => <Header {...props} />
+  headerTransparent: true,
+  header: (headerProps) => <Header {...headerProps} />
 });
 
 
@@ -35,10 +34,7 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <AppStack.Navigator
-        screenOptions={(props) => ({
-          ...getHeaderOptions(props),
-          header: (headerProps) => <Header {...headerProps} />
-        })}
+        screenOptions={getHeaderOptions()}
       >
         <AppStack.Screen
           name={AppScreenNames.Onboarding}

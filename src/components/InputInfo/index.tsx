@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import IconInfo from 'components/IconInfo';
-import { getSizeForLayout } from 'utils/screen';
 import useStyles from './styles';
 
 
@@ -14,7 +13,7 @@ const InputInfo = ({ text }: IInputInfo) => {
   return (
     <View style={styles.infoContainer}>
       <View style={styles.iconContainer}>
-        <IconInfo size={getSizeForLayout(7)} />
+        <IconInfo size={14} />
       </View>
       <Text style={styles.infoText}>
         {text}
