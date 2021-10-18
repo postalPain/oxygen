@@ -5,8 +5,11 @@ import IconFloosFull from 'components/IconFloosFull';
 import { circleCoordinates } from 'components/ScreenWrapperOnboarding';
 import theme from 'config/theme';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { getFontSize } from 'utils/screen';
 import { windowDimensions } from 'utils/window';
+import Logo from '../../../assets/logo.svg';
+import EmailTag from './EmailTag';
 
 interface IScreenWrapperLogin {
   children?: any;
@@ -32,7 +35,15 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
         <View style={styles.logo}>
           <IconFloosFull />
         </View>
+        {/* <View style={styles.logoLoggedIn}>
+          <Logo />
+        </View> */}
+        <View>
+          <Text style={styles.hiMessage}>Hi, Bayani!</Text>
+          <EmailTag style={styles.emailTag} email="asd@asd.com" />
+        </View>
       </View>
+
       <View style={styles.childrenContainer}>
         {props.children}
       </View>
@@ -48,8 +59,9 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     height: 0.36 * windowDimensions.height,
+    paddingBottom: 0.01 * windowDimensions.height
   },
   headerBackground: {
     position: 'absolute',
@@ -62,7 +74,18 @@ const styles = StyleSheet.create({
     borderRadius: 0.055 * windowDimensions.height
   },
   logo: {
-    marginTop: 0.08 * windowDimensions.height
+    marginBottom: 0.09 * windowDimensions.height
+  },
+  logoLoggedIn: {
+    width: 0.13 * windowDimensions.width,
+    height: 0.13 * windowDimensions.width
+  },
+  hiMessage: {
+    fontSize: getFontSize(6),
+    marginBottom: 0.015 * windowDimensions.height,
+    textAlign: 'center'
+  },
+  emailTag: {
   },
   circle: {
     position: 'absolute'

@@ -11,13 +11,13 @@ import { AppScreenNames } from 'navigation/types';
 import SplashScreen from 'react-native-splash-screen';
 
 const carouselSlides = [{
-  image: require('assets/onboarding_01.png'),
+  image: require('./assets/onboarding_01.png'),
   label: vocab.get().carousel1,
 }, {
-  image: require('assets/onboarding_02.png'),
+  image: require('./assets/onboarding_02.png'),
   label: vocab.get().carousel2,
 }, {
-  image: require('assets/onboarding_03.png'),
+  image: require('./assets/onboarding_03.png'),
   label: vocab.get().carousel3,
 }];
 
