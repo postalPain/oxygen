@@ -17,6 +17,8 @@ export default {
   info: 'Info',
   registrationId: 'Registration ID',
   email: 'Email',
+  password: 'Password',
   createPassword: 'Create a password',
-  shouldReceiveRegistrationId: 'You should have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.'
+  shouldReceiveRegistrationId: 'You should have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.',
+  useYourFaceId: 'Use your Face ID',
 };

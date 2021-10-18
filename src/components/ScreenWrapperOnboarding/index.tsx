@@ -13,7 +13,7 @@ interface IOnboardingScreenWrapper {
   children?: any;
 }
 
-const OnboardingScreenWrapper = (props: IOnboardingScreenWrapper) => {
+const ScreenWrapperOnboarding = (props: IOnboardingScreenWrapper) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   return (
@@ -22,29 +22,29 @@ const OnboardingScreenWrapper = (props: IOnboardingScreenWrapper) => {
         <LinearGradient style={styles.background} colors={['#E6C1FF', theme.colors.screenBackgroundColorLight]} />
         <AnimatedTranslate
           styles={styles.circle}
-          x={coordinates.medium[slideIndex].x}
-          y={coordinates.medium[slideIndex].y}
+          x={circleCoordinates[slideIndex].medium.x}
+          y={circleCoordinates[slideIndex].medium.y}
         >
           <CircleMedium />
         </AnimatedTranslate>
         <AnimatedTranslate
           styles={styles.circle}
-          x={coordinates.large[slideIndex].x}
-          y={coordinates.large[slideIndex].y}
+          x={circleCoordinates[slideIndex].large.x}
+          y={circleCoordinates[slideIndex].large.y}
         >
           <CircleLarge />
         </AnimatedTranslate>
         <AnimatedTranslate
           styles={styles.circle}
-          x={coordinates.small1[slideIndex].x}
-          y={coordinates.small1[slideIndex].y}
+          x={circleCoordinates[slideIndex].small1.x}
+          y={circleCoordinates[slideIndex].small1.y}
         >
           <CircleSmall />
         </AnimatedTranslate>
         <AnimatedTranslate
           styles={styles.circle}
-          x={coordinates.small2[slideIndex].x}
-          y={coordinates.small2[slideIndex].y}
+          x={circleCoordinates[slideIndex].small2.x}
+          y={circleCoordinates[slideIndex].small2.y}
         >
           <CircleSmall />
         </AnimatedTranslate>
@@ -73,56 +73,23 @@ const styles = StyleSheet.create({
   },
 });
 
+export const circleCoordinates = [{
+  large: { x: windowDimensions.width - 0.65 * circleLargeSize, y: -0.3 * circleLargeSize },
+  medium: { x: -0.14 * circleMediumSize, y: -0.14 * circleMediumSize },
+  small1: { x: -0.3 * circleSmallSize, y: 3.3 * circleSmallSize },
+  small2: { x: windowDimensions.width - 0.66 * circleSmallSize, y: 3.3 * circleSmallSize }
+},
+{
+  large: { x: - 0.07 * circleLargeSize, y: -0.5 * circleLargeSize },
+  medium: { x: windowDimensions.width - 0.71 * circleMediumSize, y: 0.71 * circleMediumSize },
+  small1: { x: 0.5 * circleSmallSize, y: 2.5 * circleSmallSize },
+  small2: { x: windowDimensions.width - 0.5 * circleSmallSize, y: 0 }
+},
+{
+  large: { x: windowDimensions.width - 0.61 * circleLargeSize, y: 0.07 * circleLargeSize },
+  medium: { x: 0.14 * circleMediumSize, y: -0.14 * circleMediumSize },
+  small1: { x: -0.41 * circleSmallSize, y: 3 * circleSmallSize },
+  small2: { x: windowDimensions.width - 3.3 * circleSmallSize, y: -0.16 * circleSmallSize }
+}];
 
-const coordinates = {
-  large: [ {
-    x: windowDimensions.width - 0.65 * circleLargeSize,
-    y: -0.3 * circleLargeSize
-  }, {
-    x: - 0.07 * circleLargeSize,
-    y: -0.5 * circleLargeSize
-  }, {
-    x: windowDimensions.width - 0.61 * circleLargeSize,
-    y: 0.07 * circleLargeSize
-  }],
-  medium: [ {
-    x: -0.14 * circleMediumSize,
-    y: -0.14 * circleMediumSize
-  }, {
-    x: windowDimensions.width - 0.71 * circleMediumSize,
-    y: 0.71 * circleMediumSize
-  }, {
-    x: 0.14 * circleMediumSize,
-    y: -0.14 * circleMediumSize
-  }, ],
-  small1: [
-    {
-      x: -0.3 * circleSmallSize,
-      y: 3.3 * circleSmallSize
-    },
-    {
-      x: 0.5 * circleSmallSize,
-      y: 2.5 * circleSmallSize
-    },
-    {
-      x: -0.41 * circleSmallSize,
-      y: 3 * circleSmallSize
-    },
-  ],
-  small2: [
-    {
-      x: windowDimensions.width - 0.66 * circleSmallSize,
-      y: 3.3 * circleSmallSize
-    },
-    {
-      x: windowDimensions.width - 0.5 * circleSmallSize,
-      y: 0
-    },
-    {
-      x: windowDimensions.width - 3.3 * circleSmallSize,
-      y: -0.16 * circleSmallSize
-    },
-  ],
-};
-
-export default OnboardingScreenWrapper;
+export default ScreenWrapperOnboarding;
