@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { IconInfo } from 'components';
+import IconInfo from 'components/IconInfo';
 import { getSizeForLayout } from 'utils/screen';
 import useStyles from './styles';
 

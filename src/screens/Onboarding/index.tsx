@@ -28,7 +28,7 @@ const Onboarding = (): React.ReactElement => {
 
   const navigation = useNavigation();
   const goToSignUp = () => {
-    navigation.navigate(AppScreenNames.SignUp);
+    navigation.navigate(AppScreenNames.EnterEmployer);
   };
   const goToLogIn = () => {
     navigation.navigate(AppScreenNames.SignIn);

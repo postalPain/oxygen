@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import vocabulary from 'i18n';
-import { AppScreenNames, SignUpNavigationProps, SignUpScreenNames } from 'navigation/types';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import {
   ScreenWithAnimatedHeader,
@@ -14,7 +14,7 @@ import useStyles from './styles';
 const vocab = vocabulary.get();
 
 const EnterEmployer = (
-  { navigation }: SignUpNavigationProps<SignUpScreenNames.EnterEmployer>
+  { navigation }: AppNavigationProps<AppScreenNames.EnterEmployer>
 ) => {
   const styles = useStyles();
   const [inputValue, setInputValue] = useState('');

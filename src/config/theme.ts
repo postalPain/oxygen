@@ -20,6 +20,8 @@ const theme = {
     error: '#EA3546',
     
     checkboxBorderColor: '#CFD8DC',
+    
+    headerTextColor: '#7D59B4',
   },
   notifications: {
     boxShadowColor: 'rgba(0, 0, 0, 0.25)',

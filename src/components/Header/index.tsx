@@ -1,29 +1,32 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { StackHeaderProps } from '@react-navigation/stack';
-import { ProjectThemeType } from 'config/theme';
+import { Text, SafeAreaView, View } from 'react-native';
+import BackButton from 'components/BackButton';
+import vocab from 'i18n';
 import useStyles from './styles';
+import { openBrowser } from 'utils';
 
 interface IHeaderProps {
   options: any; // TODO add types
   route: any; // TODO add types
-  theme: ProjectThemeType;
+  navigation: any,
 }
 
-const Header: React.FC<StackHeaderProps & IHeaderProps> = ({
-  theme,
-  options,
-  // route,
-  // navigation,
+const Header: React.FC<IHeaderProps> = ({
+  navigation,
 }) => {
-  const styles = useStyles(theme);
-  const { headerTitle } = options;
-  // const { name } = route;
-  // const { canGoBack, goBack } = navigation;
+  const styles = useStyles();
+  const { canGoBack, goBack } = navigation;
   return (
-    <View style={styles.header}>
-      <Text style={styles.title}>{headerTitle}</Text>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.header}>
+        {canGoBack() && (
+          <BackButton onPress={() => goBack()} />
+        )}
+        <Text style={styles.headerText} onPress={() => openBrowser('/help')}>
+          {vocab.get().help}
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 };
 

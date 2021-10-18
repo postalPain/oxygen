@@ -3,9 +3,8 @@ import { View } from 'react-native';
 import * as yup from 'yup';
 import vocabulary from 'i18n';
 import {
+  AppNavigationProps,
   AppScreenNames,
-  SignUpNavigationProps,
-  SignUpScreenNames,
 } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, InputInfo, ScreenWithAnimatedHeader } from 'components';
@@ -20,7 +19,7 @@ let schema = yup
   .required();
 
 const SetPassword = (
-  { navigation }: SignUpNavigationProps<SignUpScreenNames.SetPassword>
+  { navigation }: AppNavigationProps<AppScreenNames.SetPassword>
 ) => {
   const styles = useStyles();
   const [inputValue, setInputValue] = useState('');

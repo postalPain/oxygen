@@ -2,40 +2,78 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
-  Onboarding,
+  DataPrivacy,
+  EnterEmail,
+  EnterEmployer,
+  Onboarding, SetPassword,
   SignIn,
-  UserVerificationPending,
+  UserVerificationPending, UserVerificationRequested,
 } from 'screens';
 import { AppScreenNames } from './types';
-import SignUpStack from './SignUpStack';
+import { BackButton, Header } from 'components';
+import { headerStyles } from './styles';
 
 
-const MainStack = createNativeStackNavigator();
+const AppStack = createNativeStackNavigator();
+
+const getHeaderOptions = (props) => ({
+  ...headerStyles,
+  headerShown: true,
+  gestureEnabled: false,
+  title: '',
+  headerTitle: '',
+  headerBackTitleVisible: false,
+  headerBackVisible: false,
+  headerLeft: () => <BackButton onPress={() => props.navigation.goBack()} />,
+  headerRight: () => <BackButton onPress={() => props.navigation.goBack()} />,
+  header: () => <Header {...props} />
+});
+
+
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <MainStack.Navigator>
-        <MainStack.Screen
+      <AppStack.Navigator
+        screenOptions={(props) => ({
+          ...getHeaderOptions(props),
+          header: (headerProps) => <Header {...headerProps} />
+        })}
+      >
+        <AppStack.Screen
           name={AppScreenNames.Onboarding}
           component={Onboarding}
-          options={{ headerShown: false, gestureEnabled: false }}
+          options={{ headerShown: false }}
         />
-        <MainStack.Screen
+        <AppStack.Screen
           name={AppScreenNames.SignIn}
           component={SignIn}
         />
-        <MainStack.Screen
-          name={AppScreenNames.SignUp}
-          component={SignUpStack}
-          options={{ headerShown: true, gestureEnabled: false }}
+        <AppStack.Screen
+          name={AppScreenNames.EnterEmployer}
+          component={EnterEmployer}
         />
-        <MainStack.Screen
+        <AppStack.Screen
+          name={AppScreenNames.EnterEmail}
+          component={EnterEmail}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SetPassword}
+          component={SetPassword}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.DataPrivacy}
+          component={DataPrivacy}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.UserVerificationRequested}
+          component={UserVerificationRequested}
+        />
+        <AppStack.Screen
           name={AppScreenNames.UserVerificationPending}
           component={UserVerificationPending}
-          options={{ headerShown: false, gestureEnabled: false }}
         />
-      </MainStack.Navigator>
+      </AppStack.Navigator>
     </NavigationContainer>
   );
 };

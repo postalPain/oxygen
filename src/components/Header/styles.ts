@@ -1,20 +1,26 @@
-import { StyleSheet, Platform } from 'react-native';
-import { ProjectThemeType } from 'config/theme';
+import { StyleSheet } from 'react-native';
 import { HEADER_HEIGHT } from 'utils/screen';
+import env from 'env';
+import theme from 'config/theme';
 
-const useStyles = (theme: ProjectThemeType) => StyleSheet.create({
+
+const useStyles = () => StyleSheet.create({
+  safeArea: {
+    backgroundColor: theme.colors.screenBackgroundColorLight,
+  },
   header: {
+    alignItems: 'flex-end',
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    height: Platform.OS === 'ios' ? HEADER_HEIGHT : HEADER_HEIGHT - 24,
+    height: env.ios ? HEADER_HEIGHT : (HEADER_HEIGHT - 24),
+    paddingBottom: 40,
+    paddingHorizontal: 20,
   },
-  title: {
-    color: theme.colors.white,
-    fontWeight: '600',
-    fontSize: 18,
-    textAlign: 'center',
-  },
+  headerText: {
+    color: theme.colors.headerTextColor,
+    fontSize: 20,
+  }
 });
 
 export default useStyles;

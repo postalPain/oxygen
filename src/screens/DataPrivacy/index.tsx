@@ -3,9 +3,8 @@ import { View } from 'react-native';
 import Checkbox from "react-native-bouncy-checkbox";
 import vocabulary from 'i18n';
 import {
+  AppNavigationProps,
   AppScreenNames,
-  SignUpNavigationProps,
-  SignUpScreenNames,
 } from 'navigation/types';
 import { Text } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, ScreenWithAnimatedHeader } from 'components';
@@ -17,7 +16,7 @@ import useStyles from './styles';
 const vocab = vocabulary.get();
 
 const DataPrivacy = (
-  { navigation }: SignUpNavigationProps<SignUpScreenNames.DataPrivacy>
+  { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
 ) => {
   const styles = useStyles();
   const [checked, setChecked] = useState(false);

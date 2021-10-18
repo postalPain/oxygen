@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import * as yup from 'yup';
 import vocabulary from 'i18n';
-import { AppScreenNames, SignUpNavigationProps, SignUpScreenNames } from 'navigation/types';
+import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import {
   ScreenWithAnimatedHeader,
@@ -16,7 +16,7 @@ const vocab = vocabulary.get();
 let schema = yup.string().email().required();
 
 const EnterEmail = (
-  { navigation }: SignUpNavigationProps<SignUpScreenNames.EnterEmail>
+  { navigation }: AppNavigationProps<AppScreenNames.EnterEmail>
 ) => {
   const styles = useStyles();
   const [inputValue, setInputValue] = useState('');
