@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { fontSize, getSizeForLayout } from '../../utils/screen';
-import theme from '../../config/theme';
+import theme from 'config/theme';
 
 
 const useStyles = () => StyleSheet.create({
@@ -12,12 +11,12 @@ const useStyles = () => StyleSheet.create({
     alignItems: 'center',
   },
   heading: {
-    fontSize: fontSize(20),
-    marginBottom: getSizeForLayout(15),
+    fontSize: 20,
+    marginBottom: 30,
   },
   text: {
-    fontSize: fontSize(18),
-    lineHeight: fontSize(26),
+    fontSize: 18,
+    lineHeight: 26,
     textAlign: 'center',
   },
   checkboxContainer: {
@@ -33,21 +32,21 @@ const useStyles = () => StyleSheet.create({
     borderColor: theme.colors.checkboxBorderColor,
   },
   checkboxIcon: {
-    width: getSizeForLayout(4),
-    height: getSizeForLayout(4),
+    width: 8,
+    height: 8,
     backgroundColor: theme.colors.screenBackgroundColorLight,
     borderRadius: 8,
   },
   checkboxLabel: {
-    fontSize: fontSize(16),
-    lineHeight: fontSize(22),
+    fontSize: 16,
+    lineHeight: 22,
   },
   link: {
     color: theme.colors.floos4,
-    fontSize: fontSize(16),
-    lineHeight: fontSize(22),
+    fontSize: 16,
+    lineHeight: 22,
     textDecorationStyle: 'solid',
-    textDecorationColor: 'theme.colors.floos4',
+    textDecorationColor: theme.colors.floos4,
     textDecorationLine: 'underline',
   },
   button: {

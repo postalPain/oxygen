@@ -8,7 +8,6 @@ import {
 } from 'navigation/types';
 import { Text } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, ScreenWithAnimatedHeader } from 'components';
-import { getSizeForLayout } from 'utils/screen';
 import theme from 'config/theme';
 import useStyles from './styles';
 
@@ -38,7 +37,7 @@ const DataPrivacy = (
         </View>
         <View style={styles.checkboxContainer}>
           <Checkbox
-            size={getSizeForLayout(11)}
+            size={22}
             fillColor={theme.colors.floos4}
             unfillColor={theme.colors.screenBackgroundColorLight}
             iconStyle={styles.checkbox}

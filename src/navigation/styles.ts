@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
-import { HEADER_HEIGHT } from 'utils/screen';
+import { NAVIGATION_HEADER_HEIGHT } from 'utils/screen';
 
 
 export const headerStyles = {
@@ -8,7 +8,7 @@ export const headerStyles = {
     backgroundColor: theme.colors.screenBackgroundColorLight,
     shadowOpacity: 0,
     elevation: 0,
-    height: HEADER_HEIGHT,
+    height: NAVIGATION_HEADER_HEIGHT,
   },
   headerTintColor: theme.colors.textDark,
 };

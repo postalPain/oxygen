@@ -18,10 +18,11 @@ export default {
   registrationId: 'Registration ID',
   errorEnterEmployerId: 'Please enter your Employer ID',
   email: 'Email',
+  password: 'Password',
   emailAddress: 'Email address',
   errorCheckEmail: 'Error occurred. Please check your email!',
   createPassword: 'Create a password',
-  wouldReceiveRegistrationId: 'You would have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.',
+  shouldReceiveRegistrationId: 'You should have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.',
   useWorkEmail: 'If available, please use your work email address, so that your Employer can verify you faster.',
   createSecurePassword: 'Please create a secure password including the following criteria above.',
   savePassword: 'Save password',
@@ -31,4 +32,5 @@ export default {
   iHaveRead: 'I have read the ',
   guidelines: 'guidelines and accept them.',
   next: 'Next',
+  useYourFaceId: 'Use your Face ID',
 };

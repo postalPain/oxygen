@@ -5,9 +5,9 @@ export const getSizeForLayout = PixelRatio.getPixelSizeForLayoutSize;
 
 export const getFontSize = PixelRatio.getPixelSizeForLayoutSize;
 
-export const HEADER_HEIGHT = 100;
+export const NAVIGATION_HEADER_HEIGHT = 80;
 
-export const SCREEN_PADDING = 16;
+export const SCREEN_PADDING = 32;
 
 export const fontSize = (px: number) => {
   return px * env.dimensions.fontScale;

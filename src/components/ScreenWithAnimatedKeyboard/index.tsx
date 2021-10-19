@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import useKeyboard from 'utils/useKeyboard';
 import env from 'env';
-import { getSizeForLayout } from 'utils/screen';
 import useStyles, { HEADER_SHIFT } from './styles';
 
 
@@ -76,7 +75,7 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
             style={[
               styles.headerPlaceholder,
               { transform: [{ scaleY: topPaddingScale }] },
-              { marginTop: getSizeForLayout(keyboardIsVisible ? 0 : 10), },
+              { marginTop: keyboardIsVisible ? 0 : 10, },
             ]}
           />
           <Animated.View

@@ -1,16 +1,16 @@
 import { StatusBar, StyleSheet } from 'react-native';
-import { getSizeForLayout, SCREEN_PADDING } from 'utils/screen';
+import { SCREEN_PADDING } from 'utils/screen';
 import theme from 'config/theme';
 import env from 'env';
+
+const HEADER_HEIGHT = 120;
 
 const getHeaderShift = () => {
   const shift = -(HEADER_HEIGHT);
   return env.ios ? shift : (shift + StatusBar.currentHeight);
 };
 
-export const HEADER_HEIGHT = 40;
 export const HEADER_SHIFT = getHeaderShift();
-
 
 const useStyles = () => StyleSheet.create({
   safeArea: {
@@ -28,17 +28,15 @@ const useStyles = () => StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: HEADER_HEIGHT,
     paddingHorizontal: 24,
-    paddingTop: 40,
   },
   topPadding: {
-    height: 20,
     width: '100%',
   },
   headerPlaceholder: {
@@ -56,7 +54,7 @@ const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: getSizeForLayout(SCREEN_PADDING),
+    paddingHorizontal: SCREEN_PADDING,
   },
   bottomPadding: {
     width: '100%',

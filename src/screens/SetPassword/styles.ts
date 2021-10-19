@@ -8,18 +8,18 @@ const useStyles = () => StyleSheet.create({
     justifyContent: 'space-between',
   },
   inputLabel: {
-    paddingTop: getSizeForLayout(12),
-    fontSize: getFontSize(8),
+    paddingTop: 24,
+    fontSize: 8,
   },
   inputLabelError: {
     color: theme.colors.error,
   },
   input: {
-    marginTop: -getSizeForLayout(6),
+    marginTop: -12,
   },
   button: {
     width: '100%',
-  }
+  },
 });
 
 export default useStyles;

@@ -41,7 +41,7 @@ const EnterEmployer = (
             onChange={handleOnChange}
             error={inputError}
           />
-          <InputInfo text={vocab.wouldReceiveRegistrationId} />
+          <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>
         <Button
           onPress={onPress}

@@ -4,19 +4,19 @@ import vocab from 'i18n';
 
 import Button from 'components/Button';
 import { Carousel } from 'components/Carousel';
-import OnboardingScreenWrapper from 'components/OnboardingScreenWrapper';
-import { OnboardingContext } from 'components/OnboardingScreenWrapper/context';
+import ScreenWrapperOnboarding from 'components/ScreenWrapperOnboarding';
+import { OnboardingContext } from 'components/ScreenWrapperOnboarding/context';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import SplashScreen from 'react-native-splash-screen';
 
 const carouselSlides = [{
-  image: require('assets/onboarding_01.png'),
+  image: require('./assets/onboarding_01.png'),
   label: vocab.get().carousel1,
 }, {
-  image: require('assets/onboarding_02.png'),
+  image: require('./assets/onboarding_02.png'),
   label: vocab.get().carousel2,
 }, {
-  image: require('assets/onboarding_03.png'),
+  image: require('./assets/onboarding_03.png'),
   label: vocab.get().carousel3,
 }];
 
@@ -34,7 +34,7 @@ const Onboarding = (
     navigation.navigate(AppScreenNames.SignIn);
   };
   return (
-    <OnboardingScreenWrapper>
+    <ScreenWrapperOnboarding>
       <OnboardingContext.Consumer>
         { context => (
           <View style={styles.authScreen}>
@@ -62,7 +62,7 @@ const Onboarding = (
         )}
       </OnboardingContext.Consumer>
 
-    </OnboardingScreenWrapper>
+    </ScreenWrapperOnboarding>
   );
 };
 
