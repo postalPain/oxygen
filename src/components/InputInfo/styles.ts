@@ -19,7 +19,7 @@ const useStyles = () => StyleSheet.create({
     flexWrap: 'wrap',
     color: theme.colors.textDark,
     fontSize: 16,
-    lineHeight: 20,
+    lineHeight: 22,
   },
 });
 

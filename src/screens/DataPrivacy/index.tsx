@@ -35,16 +35,18 @@ const DataPrivacy = (
             {vocab.needConsent}
           </Text>
         </View>
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            size={22}
-            fillColor={theme.colors.floos4}
-            unfillColor={theme.colors.screenBackgroundColorLight}
-            iconStyle={styles.checkbox}
-            onPress={handleOnChange}
-            isChecked={checked}
-            iconComponent={<View style={styles.checkboxIcon} />}
-          />
+        <View style={styles.consentBlock}>
+          <View style={styles.checkboxWrapper}>
+            <Checkbox
+              size={22}
+              fillColor={theme.colors.floos4}
+              unfillColor={theme.colors.screenBackgroundColorLight}
+              iconStyle={styles.checkbox}
+              onPress={handleOnChange}
+              isChecked={checked}
+              iconComponent={<View style={styles.checkboxIcon} />}
+            />
+          </View>
           <View style={styles.checkboxLabelWrapper}>
             <Text style={styles.checkboxLabel}>
               {vocab.iHaveRead}
