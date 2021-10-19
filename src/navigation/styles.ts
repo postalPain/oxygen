@@ -1,39 +1,26 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
+import { NAVIGATION_HEADER_HEIGHT } from 'utils/screen';
 
-import { HEADER_HEIGHT } from 'utils/screen';
 
-export const navStyles = StyleSheet.create({
-  headerText: {
-    color: theme.colors.textDark,
-    fontWeight: '600',
-  }
-});
-
-export const commonHeaderOptions = {
+export const headerStyles = {
   headerStyle: {
     backgroundColor: theme.colors.screenBackgroundColorLight,
-    borderBottomWidth: 0,
     shadowOpacity: 0,
     elevation: 0,
-    height: HEADER_HEIGHT,
+    height: NAVIGATION_HEADER_HEIGHT,
   },
-  headerBackTitleStyle: navStyles.headerText,
   headerTintColor: theme.colors.textDark,
-  cardShadowEnabled: false,
-  headerShown: true,
-  title: '',
 };
 
 export const homeNavStyles = StyleSheet.create({
   headerText: {
-    ...navStyles.headerText,
     color: theme.colors.textDark,
   }
 });
 
 export const homeHeaderOptions = {
-  ...commonHeaderOptions,
+  ...headerStyles,
   headerTransparent: true,
   headerBackTitleStyle: homeNavStyles.headerText,
   headerTintColor: theme.colors.textDark,

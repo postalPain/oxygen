@@ -5,12 +5,11 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
-  Image
+  Image,
 } from 'react-native';
 import useKeyboard from 'utils/useKeyboard';
 import env from 'env';
 import useStyles, { HEADER_SHIFT } from './styles';
-import { getSizeForLayout } from 'utils/screen';
 
 
 interface IScreenWithAnimatedHeaderProps {
@@ -76,7 +75,7 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
             style={[
               styles.headerPlaceholder,
               { transform: [{ scaleY: topPaddingScale }] },
-              { marginTop: getSizeForLayout(keyboardIsVisible ? 0 : 10), },
+              { marginTop: keyboardIsVisible ? 0 : 10, },
             ]}
           />
           <Animated.View

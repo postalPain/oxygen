@@ -4,10 +4,10 @@ import { RouteProp } from '@react-navigation/core';
 export enum AppScreenNames {
   Onboarding = 'Onboarding',
   SignIn = 'SignIn',
-  SignUp = 'SignUp',
   EnterEmployer = 'EnterEmployer',
   EnterEmail = 'EnterEmail',
   SetPassword = 'SetPassword',
+  DataPrivacy = 'DataPrivacy',
   UserVerificationRequested = 'UserVerificationRequested',
   ResetPassword = 'ResetPassword',
   UserVerification = 'UserVerification',
@@ -37,6 +37,7 @@ export const AppScreenPermissions: IScreenPermissionsTable = {
   [AppScreenNames.SignIn]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.SignUp]: { access: [IUserAccess.unauthenticated], redirectTo: AppScreenNames.UserVerification },
   [AppScreenNames.ResetPassword]: { access: [IUserAccess.unauthenticated] },
+  [AppScreenNames.DataPrivacy]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.UserVerification]: { access: [IUserAccess.new] },
   [AppScreenNames.UserVerificationPending]: {
     access: [IUserAccess.new, IUserAccess.pending, IUserAccess.active],
@@ -85,13 +86,6 @@ export enum UserVerificationScreenNames {
   Success = 'Success',
 }
 
-export enum SignUpScreenNames {
-  EnterEmployer = 'EnterEmployer',
-  EnterEmail = 'EnterEmail',
-  SetPassword = 'SetPassword',
-  UserVerificationRequested = 'UserVerificationRequested',
-}
-
 export enum PasswordResetScreenNames {
   ForgotPassword = 'ForgotPassword',
   ForgotPasswordConfirmation = 'ForgotPasswordConfirmation',
@@ -113,10 +107,14 @@ export enum HomeScreenNames {
 export type AppStackParameters = {
   Onboarding: undefined;
   SignIn: undefined;
-  SignUp: undefined;
-  PasswordReset: undefined;
+  EnterEmployer: undefined;
+  EnterEmail: undefined;
+  SetPassword: undefined;
+  DataPrivacy: undefined;
+  UserVerificationRequested: undefined;
   UserVerification: undefined;
   UserVerificationPending: undefined;
+  PasswordReset: undefined;
   Main: undefined;
 };
 
@@ -129,6 +127,7 @@ export type SignUpStackParameters = {
   EnterEmployer: undefined;
   EnterEmail: undefined;
   SetPassword: undefined;
+  DataPrivacy: undefined;
   UserVerificationRequested: undefined;
   UserVerification: undefined;
 };
@@ -150,9 +149,9 @@ export type UserVerificationNavigationProps<T extends keyof UserVerificationStac
   route: RouteProp<UserVerificationStackParameters, T>;
 };
 
-export type SignUpNavigationProps<T extends keyof SignUpStackParameters> = {
-  navigation: StackNavigationProp<SignUpStackParameters, T>;
-  route: RouteProp<SignUpStackParameters, T>;
+export type AppNavigationProps<T extends keyof AppStackParameters> = {
+  navigation: StackNavigationProp<AppStackParameters, T>;
+  route: RouteProp<AppStackParameters, T>;
 };
 
 

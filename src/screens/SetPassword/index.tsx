@@ -1,23 +1,66 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import vocab from 'i18n';
-import { AppScreenNames, SignUpNavigationProps, SignUpScreenNames } from 'navigation/types';
-import { Button } from '@stryberventures/stryber-react-native-ui-components';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import * as yup from 'yup';
+import vocabulary from 'i18n';
+import {
+  AppNavigationProps,
+  AppScreenNames,
+} from 'navigation/types';
+import { Input } from '@stryberventures/stryber-react-native-ui-components';
+import { Button, InputInfo, ScreenWithAnimatedHeader } from 'components';
+import useStyles from './styles';
 
+const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{8,}$/gm;
+
+const vocab = vocabulary.get();
+let schema = yup
+  .string()
+  .matches(passwordRequirements)
+  .required();
 
 const SetPassword = (
-  { navigation }: SignUpNavigationProps<SignUpScreenNames.SetPassword>
+  { navigation }: AppNavigationProps<AppScreenNames.SetPassword>
 ) => {
-  const onPress = () => {
-    navigation.navigate(AppScreenNames.UserVerificationRequested);
+  const styles = useStyles();
+  const [inputValue, setInputValue] = useState('');
+  const [inputError, setInputError] = useState('');
+  const onPress = async () => {
+    const isValid = await schema.isValid(inputValue);
+    if (!isValid) {
+      setInputError(vocab.errorPasswordNotMatch);
+      return;
+    }
+    navigation.navigate(AppScreenNames.DataPrivacy);
+  }
+  const handleOnChange = (value) => {
+    if (inputError) setInputError('');
+    setInputValue(value);
   }
   return (
-    <View>
-      <Text>SetPassword</Text>
-      <Button onPress={onPress}>
-        {vocab.get().create}
-      </Button>
-    </View>
+    <ScreenWithAnimatedHeader title={null}>
+      <View style={styles.formContainer}>
+        <View>
+          <Input
+            name="password"
+            label={vocab.createPassword}
+            value={inputValue}
+            onChange={handleOnChange}
+            error={inputError}
+            autoComplete="email"
+            keyboardType="email-address"
+            textContentType="username"
+            secure
+          />
+          <InputInfo text={vocab.createSecurePassword} />
+        </View>
+        <Button
+          onPress={onPress}
+          styles={styles.button}
+        >
+          {vocab.savePassword}
+        </Button>
+      </View>
+    </ScreenWithAnimatedHeader>
   );
 };
 

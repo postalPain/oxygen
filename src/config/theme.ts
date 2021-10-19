@@ -6,6 +6,7 @@ const theme = {
     floos1: '#6F62AB',
     floos2: '#7E5BA6',
     floos3: '#CD5676',
+    floos4: '#795CE8',
     special1: '#97DAFF',
     floosGragientColor1: '#975FBA',
     floosGragientColor2: '#B26090',
@@ -17,6 +18,10 @@ const theme = {
     shade1: '#C6C6C6',
     shade2: '#F9F9F9',
     error: '#EA3546',
+    
+    checkboxBorderColor: '#CFD8DC',
+    
+    headerTextColor: '#7D59B4',
   },
   notifications: {
     boxShadowColor: 'rgba(0, 0, 0, 0.25)',

@@ -1,16 +1,16 @@
 import { StatusBar, StyleSheet } from 'react-native';
-import { getSizeForLayout, SCREEN_PADDING } from 'utils/screen';
+import { SCREEN_PADDING } from 'utils/screen';
 import theme from 'config/theme';
 import env from 'env';
+
+const HEADER_HEIGHT = 120;
 
 const getHeaderShift = () => {
   const shift = -(HEADER_HEIGHT);
   return env.ios ? shift : (shift + StatusBar.currentHeight);
 };
 
-export const HEADER_HEIGHT = getSizeForLayout(40);
 export const HEADER_SHIFT = getHeaderShift();
-
 
 const useStyles = () => StyleSheet.create({
   safeArea: {
@@ -24,21 +24,19 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: getSizeForLayout(12),
+    paddingBottom: 24,
   },
   header: {
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: HEADER_HEIGHT,
-    paddingHorizontal: getSizeForLayout(12),
-    paddingTop: 38,
+    paddingHorizontal: 24,
   },
   topPadding: {
-    height: 10,
     width: '100%',
   },
   headerPlaceholder: {
@@ -46,8 +44,8 @@ const useStyles = () => StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    width: getSizeForLayout(66),
-    height: getSizeForLayout(22),
+    width: 132,
+    height: 44,
   },
   logo: {
     width: '100%',
@@ -56,11 +54,11 @@ const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: getSizeForLayout(SCREEN_PADDING),
+    paddingHorizontal: SCREEN_PADDING,
   },
   bottomPadding: {
     width: '100%',
-    height: getSizeForLayout(26),
+    height: 52,
   },
 });
 
