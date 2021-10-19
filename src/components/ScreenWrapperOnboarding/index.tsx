@@ -3,11 +3,12 @@ import CircleMedium, { circleMediumSize } from 'components/CircleMedium';
 import CircleSmall, { circleSmallSize } from 'components/CircleSmall';
 import theme from 'config/theme';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { windowDimensions } from 'utils/window';
 import AnimatedTranslate from './AnimatedTranslate';
 import { OnboardingContext } from './context';
+import styles from './styles';
 
 interface IOnboardingScreenWrapper {
   children?: any;
@@ -54,24 +55,6 @@ const ScreenWrapperOnboarding = (props: IOnboardingScreenWrapper) => {
 
   );
 };
-
-const styles = StyleSheet.create({
-  onboardingScreenWrapper: {
-    width: windowDimensions.width,
-    height: windowDimensions.height,
-    backgroundColor: theme.colors.screenBackgroundColorLight,
-  },
-  background: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    height: windowDimensions.height / 3,
-  },
-  circle: {
-    position: 'absolute'
-  },
-});
 
 export const circleCoordinates = [{
   large: { x: windowDimensions.width - 0.65 * circleLargeSize, y: -0.3 * circleLargeSize },
