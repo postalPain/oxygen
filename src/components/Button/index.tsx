@@ -1,7 +1,6 @@
 import theme from 'config/theme';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { windowDimensions } from 'utils/window';
 
@@ -22,7 +21,7 @@ const Button = (props: IButton) => {
         useAngle
         style={styles.linearGradient}
       >
-        <TouchableHighlight onPress={onPress}>
+        <Pressable onPress={onPress}>
           <View style={[styles.innerSecondary, {
             backgroundColor: secondary ? theme.colors.screenBackgroundColorLight : 'transparent'
           }]}
@@ -31,7 +30,7 @@ const Button = (props: IButton) => {
               {props.children}
             </Text>
           </View>
-        </TouchableHighlight>
+        </Pressable>
       </LinearGradient>
     </View>
   );

@@ -33,4 +33,9 @@ export default {
   guidelines: 'guidelines and accept them.',
   next: 'Next',
   useYourFaceId: 'Use your Face ID',
+  eightOrMoreChars: '8 characters',
+  oneLowercase: 'lower case',
+  oneUppercase: 'upper case',
+  oneNumericChar: 'numbers',
+  oneSpecialChar: 'special characters',
 };

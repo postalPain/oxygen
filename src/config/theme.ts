@@ -22,6 +22,11 @@ const theme = {
     checkboxBorderColor: '#CFD8DC',
     
     headerTextColor: '#7D59B4',
+  
+    passwordRequirementLabelBackgroundDefault: '#E1E1E1',
+    passwordRequirementLabelTextDefault: '#767676',
+    passwordRequirementLabelBackgroundMatched: '#6CA78B',
+    passwordRequirementLabelTextMatched: '#F9F9F9',
   },
   notifications: {
     boxShadowColor: 'rgba(0, 0, 0, 0.25)',
