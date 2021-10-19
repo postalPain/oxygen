@@ -33,4 +33,7 @@ export default {
   guidelines: 'guidelines and accept them.',
   next: 'Next',
   useYourFaceId: 'Use your Face ID',
+  pleaseEnterCode: 'Please enter the verification code you received via email.',
+  confirm: 'Confirm',
+  sendEmailAgain: 'Send the email again',
 };

@@ -8,6 +8,7 @@ export enum AppScreenNames {
   EnterEmail = 'EnterEmail',
   SetPassword = 'SetPassword',
   DataPrivacy = 'DataPrivacy',
+  VerificationCode = 'VerificationCode',
   UserVerificationRequested = 'UserVerificationRequested',
   ResetPassword = 'ResetPassword',
   UserVerification = 'UserVerification',
@@ -35,7 +36,6 @@ export interface IScreenPermissionsTable {
 export const AppScreenPermissions: IScreenPermissionsTable = {
   [AppScreenNames.Onboarding]: { access: [IUserAccess.unauthenticated], default: true },
   [AppScreenNames.SignIn]: { access: [IUserAccess.unauthenticated] },
-  [AppScreenNames.SignUp]: { access: [IUserAccess.unauthenticated], redirectTo: AppScreenNames.UserVerification },
   [AppScreenNames.ResetPassword]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.DataPrivacy]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.UserVerification]: { access: [IUserAccess.new] },
@@ -111,6 +111,7 @@ export type AppStackParameters = {
   EnterEmail: undefined;
   SetPassword: undefined;
   DataPrivacy: undefined;
+  VerificationCode: undefined;
   UserVerificationRequested: undefined;
   UserVerification: undefined;
   UserVerificationPending: undefined;
