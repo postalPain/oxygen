@@ -38,4 +38,7 @@ export default {
   oneUppercase: 'upper case',
   oneNumericChar: 'numbers',
   oneSpecialChar: 'special characters',
+  emailVerificationRequested: 'Email verification requested!',
+  youReceivedEmail: 'You received the email from us.',
+  useCode: 'Please use the code provided in the email to activate your account.',
 };

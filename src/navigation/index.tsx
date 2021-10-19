@@ -80,7 +80,10 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.UserVerificationRequested}
           component={UserVerificationRequested}
-          options={getHeaderOptions()}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
         />
         <AppStack.Screen
           name={AppScreenNames.UserVerificationPending}

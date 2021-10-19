@@ -47,7 +47,6 @@ const SetPassword = (
             label={vocab.createPassword}
             value={inputValue}
             onChange={handleOnChange}
-            error={inputError}
             autoComplete="email"
             keyboardType="email-address"
             textContentType="username"

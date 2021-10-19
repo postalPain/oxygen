@@ -35,7 +35,6 @@ export interface IScreenPermissionsTable {
 export const AppScreenPermissions: IScreenPermissionsTable = {
   [AppScreenNames.Onboarding]: { access: [IUserAccess.unauthenticated], default: true },
   [AppScreenNames.SignIn]: { access: [IUserAccess.unauthenticated] },
-  [AppScreenNames.SignUp]: { access: [IUserAccess.unauthenticated], redirectTo: AppScreenNames.UserVerification },
   [AppScreenNames.ResetPassword]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.DataPrivacy]: { access: [IUserAccess.unauthenticated] },
   [AppScreenNames.UserVerification]: { access: [IUserAccess.new] },
