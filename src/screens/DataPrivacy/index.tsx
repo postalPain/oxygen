@@ -21,9 +21,11 @@ const DataPrivacy = (
   const [checked, setChecked] = useState(false);
   const onPress = async () => {
     if (!checked) return;
-    navigation.navigate(AppScreenNames.UserVerificationRequested);
-  }
-  const handleOnChange = (value) => { setChecked(value); }
+    navigation.navigate(AppScreenNames.VerificationCode);
+  };
+  const handleOnChange = (value) => {
+    setChecked(value);
+  };
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.container}>

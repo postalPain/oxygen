@@ -5,8 +5,8 @@ const theme = {
     // Brand colors
     floos1: '#6F62AB',
     floos2: '#7E5BA6',
-    floos3: '#CD5676',
-    floos4: '#795CE8',
+    floos3: '#CD5676', // Deprecated. Use floos2 instead
+    floos4: '#795CE8', // Deprecated. Use floos1 instead
     special1: '#97DAFF',
     floosGragientColor1: '#975FBA',
     floosGragientColor2: '#B26090',
@@ -18,11 +18,11 @@ const theme = {
     shade1: '#C6C6C6',
     shade2: '#F9F9F9',
     error: '#EA3546',
-    
+
     checkboxBorderColor: '#CFD8DC',
-    
-    headerTextColor: '#7D59B4',
-  
+
+    headerTextColor: '#7D59B4', // Deprecated. Use floos1 instead
+
     passwordRequirementLabelBackgroundDefault: '#E1E1E1',
     passwordRequirementLabelTextDefault: '#767676',
     passwordRequirementLabelBackgroundMatched: '#6CA78B',

@@ -16,6 +16,7 @@ import { AppScreenNames } from './types';
 import { BackButton, IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
+import VerificationCode from 'screens/VerificationCode';
 
 
 const AppStack = createNativeStackNavigator();
@@ -29,7 +30,7 @@ const getHeaderOptions = () => ({
   headerBackTitleVisible: false,
   headerBackVisible: false,
   headerTransparent: true,
-  header: (headerProps) => <NavigationHeader {...headerProps} />
+  header: (headerProps) => <NavigationHeader {...headerProps} />  // eslint-disable-line
 });
 
 
@@ -75,6 +76,11 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.DataPrivacy}
           component={DataPrivacy}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.VerificationCode}
+          component={VerificationCode}
           options={getHeaderOptions()}
         />
         <AppStack.Screen

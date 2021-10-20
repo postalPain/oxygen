@@ -33,6 +33,9 @@ export default {
   guidelines: 'guidelines and accept them.',
   next: 'Next',
   useYourFaceId: 'Use your Face ID',
+  pleaseEnterCode: 'Please enter the verification code you received via email.',
+  confirm: 'Confirm',
+  sendEmailAgain: 'Send the email again',
   eightOrMoreChars: '8 characters',
   oneLowercase: 'lower case',
   oneUppercase: 'upper case',
@@ -46,4 +49,4 @@ export default {
   waitingTime: 'Waiting time: ',
   days: ' days',
   youWillReceiveEmail: 'You will receive an email, when the verification process is completed.',
- };
+};

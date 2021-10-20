@@ -8,6 +8,7 @@ export enum AppScreenNames {
   EnterEmail = 'EnterEmail',
   SetPassword = 'SetPassword',
   DataPrivacy = 'DataPrivacy',
+  VerificationCode = 'VerificationCode',
   UserVerificationRequested = 'UserVerificationRequested',
   ResetPassword = 'ResetPassword',
   UserVerification = 'UserVerification',
@@ -110,6 +111,7 @@ export type AppStackParameters = {
   EnterEmail: undefined;
   SetPassword: undefined;
   DataPrivacy: undefined;
+  VerificationCode: undefined;
   UserVerificationRequested: undefined;
   UserVerification: undefined;
   UserVerificationPending: undefined;
