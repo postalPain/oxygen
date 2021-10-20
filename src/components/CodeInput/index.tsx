@@ -10,16 +10,17 @@ import {
 
 import styles from './styles';
 
-const CELL_COUNT = 5;
+export const CODE_LENGTH = 5;
 
 interface ICodeInput {
   style?: any;
   onChange?: (value: string) => void;
+  onEndEditing?: (value?: string) => void;
 }
 
 const CodeInput = (props: ICodeInput) => {
   const [value, setValue] = useState('');
-  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const ref = useBlurOnFulfill({ value, cellCount: CODE_LENGTH });
   const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
@@ -36,7 +37,8 @@ const CodeInput = (props: ICodeInput) => {
       {...codeFieldProps}  // eslint-disable-line
       value={value}
       onChangeText={setValue}
-      cellCount={CELL_COUNT}
+      onEndEditing={(e) => props.onEndEditing && props.onEndEditing(e.nativeEvent.text)}
+      cellCount={CODE_LENGTH}
       rootStyle={[styles.codeFiledRoot, props.style]}
       keyboardType="number-pad"
       textContentType="oneTimeCode"

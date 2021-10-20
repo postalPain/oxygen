@@ -1,41 +1,40 @@
 import { Button, ScreenWithAnimatedHeader } from 'components';
-import CodeInput from 'components/CodeInput';
+import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import InfoText from 'components/InfoText';
 import Link from 'components/Link';
 import vocab from 'i18n';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import styles from './styles';
 
-const VerificationCode = () => {
+const VerificationCode = (
+  { navigation }: AppNavigationProps<AppScreenNames.VerificationCode>
+) => {
+  const [value, setValue] = useState('');
+
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.verificationCode}>
         <View>
-          <CodeInput style={styles.codeInput} />
+          <CodeInput
+            style={styles.codeInput}
+            onChange={setValue}
+          />
           <InfoText>{vocab.get().pleaseEnterCode}</InfoText>
         </View>
         <View>
           <Link style={styles.link}>{vocab.get().sendEmailAgain}</Link>
-          <Button>{vocab.get().confirm}</Button>
+          <Button
+            disabled={value.length !== CODE_LENGTH}
+            onPress={() => navigation.navigate(AppScreenNames.UserVerificationPending)}
+          >
+            {vocab.get().confirm}
+          </Button>
         </View>
       </View>
     </ScreenWithAnimatedHeader>
   );
 };
-
-const styles = StyleSheet.create({
-  verificationCode: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  codeInput: {
-    marginVertical: 0.08 * windowDimensions.height
-  },
-  link: {
-    textAlign: 'center',
-    marginBottom: 0.025 * windowDimensions.height
-  },
-});
 
 export default VerificationCode;

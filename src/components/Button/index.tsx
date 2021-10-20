@@ -5,10 +5,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import { windowDimensions } from 'utils/window';
 
 interface IButton {
-  children?: any;
+  disabled?: boolean;
+  children?: string;
   secondary?: boolean;
   styles?: any;
-  onPress?: any;
+  onPress?: () => void;
 }
 
 const Button = (props: IButton) => {
@@ -16,12 +17,12 @@ const Button = (props: IButton) => {
   return (
     <View style={[styles.button, props.styles]}>
       <LinearGradient
-        colors={['#935EBF', '#B15F8F']}
+        colors={props.disabled ? [theme.colors.shade1] : ['#935EBF', '#B15F8F']}
         locations={[0, 1]}
         useAngle
         style={styles.linearGradient}
       >
-        <Pressable onPress={onPress}>
+        <Pressable onPress={props.disabled ? undefined : onPress}>
           <View style={[styles.innerSecondary, {
             backgroundColor: secondary ? theme.colors.screenBackgroundColorLight : 'transparent'
           }]}
