@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { SCREEN_BOTTOM_PADDING } from 'utils/screen';
-import { windowDimensions } from '../../utils/window';
+import { windowDimensions } from 'utils/window';
 
 const useStyles = () => StyleSheet.create({
   safeArea: {
@@ -39,7 +39,7 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     width: '100%',
-    paddingHorizontal: 52,
+    paddingHorizontal: 40,
   },
   contentText: {
     fontSize: 18,
@@ -47,7 +47,7 @@ const useStyles = () => StyleSheet.create({
     textAlign: 'center',
   },
   imageWrapper: {
-    paddingTop: 44,
+    paddingTop: '10%',
   },
   image: {
     width: 0.5 * windowDimensions.width,
