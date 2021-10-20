@@ -13,14 +13,14 @@ import vocab from 'i18n';
 function* handleError (error) {
   const errorMessage = error.message || vocab.get().somethingWentWrong;
   yield put(notificationActions.errorNotification(errorMessage));
-};
+}
 
 export function* signOutWorker() {
   try {
     yield call(api.signOut);
     yield put(authActions.signedOut());
     yield put(appActions.appResetStore());
-    yield navigate(AppScreenNames.Authentication);
+    yield navigate(AppScreenNames.Onboarding);
     // TODO do we need to remove notification handling on sign out?
   } catch (e) {
     yield handleError(e);

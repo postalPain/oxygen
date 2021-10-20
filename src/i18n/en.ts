@@ -38,4 +38,12 @@ export default {
   oneUppercase: 'upper case',
   oneNumericChar: 'numbers',
   oneSpecialChar: 'special characters',
-};
+  emailVerificationRequested: 'Email verification requested!',
+  youReceivedEmail: 'You received the email from us.',
+  useCode: 'Please use the code provided in the email to activate your account.',
+  emailVerified: '1. Email verified!',
+  employeeVerification: '2. Employee verification.',
+  waitingTime: 'Waiting time: ',
+  days: ' days',
+  youWillReceiveEmail: 'You will receive an email, when the verification process is completed.',
+ };

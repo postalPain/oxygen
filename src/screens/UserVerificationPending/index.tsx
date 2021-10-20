@@ -1,22 +1,93 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import vocab from 'i18n';
+import React, { useState } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
+import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
-import { Button } from '@stryberventures/stryber-react-native-ui-components';
+import { IconCheck, Button } from 'components';
+import useStyles from './styles';
+
+const vocab = vocabulary.get();
 
 const UserVerificationPending = (
   { navigation }: AppNavigationProps<AppScreenNames.UserVerificationPending>
 ) => {
+  const styles = useStyles();
+  const [emailVerified] = useState(true); // TODO take it from state
+  const [userVerifiedByEmployer] = useState(false); // TODO take it from state
   const onPress = () => {
     navigation.navigate(AppScreenNames.SignIn);
   }
   return (
-    <View>
-      <Text>UserVerificationPending</Text>
-      <Button onPress={onPress}>
-        {vocab.get().logIn}
-      </Button>
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.screen}>
+        <View style={styles.steps}>
+          <View style={styles.step}>
+            <View style={styles.progressBar}>
+              <View
+                style={[
+                  styles.circle,
+                  emailVerified ? styles.circleVerified : styles.circleNotVerified,
+                ]}>
+                {emailVerified
+                  ? <IconCheck size={24} />
+                  : null}
+              </View>
+              <View style={[styles.line, userVerifiedByEmployer && styles.lineDark]} />
+            </View>
+            <Text
+              style={[
+                styles.stepTitle,
+                emailVerified && styles.stepTitleVerified
+              ]}
+            >
+              {vocab.emailVerified}
+            </Text>
+          </View>
+          <View style={styles.step}>
+            <View style={styles.progressBar}>
+              <View
+                style={[
+                  styles.circle,
+                  userVerifiedByEmployer ? styles.circleVerified : styles.circleNotVerified,
+                ]}>
+                {userVerifiedByEmployer
+                  ? <IconCheck size={24} />
+                  : null}
+              </View>
+            </View>
+            <Text style={styles.stepTitle}>
+              {vocab.employeeVerification}
+            </Text>
+            {!userVerifiedByEmployer
+              ? (
+                <View style={styles.stepTextWrapper}>
+                  <Text style={styles.stepText}>
+                    {vocab.waitingTime}{2}{vocab.days}
+                  </Text>
+                </View>
+              ) : null}
+          </View>
+          
+        </View>
+        {!userVerifiedByEmployer
+          ? (
+            <View style={styles.infoContainer}>
+              <Text style={styles.infoText}>
+                {vocab.youWillReceiveEmail}
+              </Text>
+            </View>
+            
+          ) : null}
+        {(emailVerified && userVerifiedByEmployer)
+          ? (
+            (
+              <Button onPress={onPress}>
+                {vocab.continue}
+              </Button>
+            )
+          ) : null
+        }
+      </View>
+    </SafeAreaView>
   );
 };
 

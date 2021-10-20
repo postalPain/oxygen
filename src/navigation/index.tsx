@@ -13,7 +13,7 @@ import {
   UserVerificationRequested,
 } from 'screens';
 import { AppScreenNames } from './types';
-import { IconBack, NavigationHeader } from 'components';
+import { BackButton, IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
 
@@ -80,12 +80,23 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.UserVerificationRequested}
           component={UserVerificationRequested}
-          options={getHeaderOptions()}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
         />
         <AppStack.Screen
           name={AppScreenNames.UserVerificationPending}
           component={UserVerificationPending}
-          options={getHeaderOptions()}
+          options={({ navigation }) => ({
+            ...getHeaderOptions(),
+            header: (headerProps) => (
+              <NavigationHeader
+                {...headerProps}
+                headerLeft={<BackButton onPress={() => navigation.navigate(AppScreenNames.Onboarding)} />}
+              />
+            )
+          })}
         />
       </AppStack.Navigator>
     </NavigationContainer>

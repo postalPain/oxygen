@@ -5,13 +5,36 @@ export interface IAuthState {
   errorMessage: string | null;
 }
 
-
 export const enum AuthActions {
+  SIGN_UP = 'SIGN_UP',
+  SIGNED_UP = 'SIGNED_UP',
   SIGN_IN = 'SIGN_IN',
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
   AUTH_ERROR = 'AUTH_ERROR',
+}
+
+export interface ISignUpPayload {
+  email: string;
+  password: string;
+}
+
+export interface ISignUpAction {
+  type: AuthActions.SIGN_IN;
+  payload: ISignUpPayload;
+  meta?: IMeta;
+}
+
+export interface ISignedUpPayload {
+  email: string;
+  password: string;
+}
+
+export interface ISignedUpAction {
+  type: AuthActions.SIGN_IN;
+  payload: ISignUpPayload;
+  meta?: IMeta;
 }
 
 export interface ISignInPayload {
