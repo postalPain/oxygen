@@ -10,17 +10,14 @@ const useStyles = () => StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
     paddingBottom: SCREEN_BOTTOM_PADDING,
   },
   steps: {
-    flex: 2,
     paddingTop: '35%',
     paddingLeft: 65,
     marginBottom: 53,
   },
-  step: {
-  },
+  step: {},
   progressBar: {
     alignItems: 'center',
     width: 40,
@@ -39,6 +36,7 @@ const useStyles = () => StyleSheet.create({
     zIndex: 1,
   },
   circleNotVerified: {
+    backgroundColor: '#C9C9C9',
     marginTop: 4,
   },
   circleVerified: {
@@ -46,48 +44,43 @@ const useStyles = () => StyleSheet.create({
     height: 40,
     marginTop: -6,
   },
+  line: {
+    position: 'absolute',
+    width: 3,
+    height: '115%',
+    backgroundColor: '#C9C9C9',
+  },
+  lineDark: {
+    backgroundColor: theme.colors.floos1,
+  },
   stepTitle: {
     marginBottom: 8,
     fontFamily: theme.font.fontFamily,
     fontSize: 16,
     fontWeight: 'normal',
-    // lineHeight: 28,
+    letterSpacing: .5,
+    lineHeight: 28,
   },
   stepTitleVerified: {
     paddingBottom: 42,
   },
-  stepLabel: {
+  stepTextWrapper: {
     alignSelf: 'flex-start',
-    marginBottom: 16,
-    paddingVertical: 4,
-    paddingHorizontal: 4,
-    backgroundColor: 'rgba(0, 125, 131, 0.13)',
-    borderRadius: 4,
-    color: theme.colors.floos1,
-    fontFamily: theme.font.fontFamily,
-    fontSize: 10,
-    fontWeight: '600',
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: 8,
+    backgroundColor: '#F2F2F2',
   },
   stepText: {
-    opacity: 0.5,
     color: theme.colors.textDark,
     fontFamily: theme.font.fontFamily,
-    fontSize: 12,
-  },
-  line: {
-    position: 'absolute',
-    width: 3,
-    height: '115%',
-    backgroundColor: theme.colors.floos1,
-  },
-  withPadding: {
-    paddingBottom: 34,
+    fontSize: 16,
+    letterSpacing: .5,
   },
   stepTextHighlighted: {
     fontWeight: '600',
   },
   infoContainer: {
-    flex: 4,
     paddingHorizontal: 70,
   },
   infoText: {

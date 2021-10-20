@@ -12,7 +12,7 @@ const UserVerificationPending = (
 ) => {
   const styles = useStyles();
   const [emailVerified] = useState(true); // TODO take it from state
-  const [userVerifiedByEmployer] = useState(true); // TODO take it from state
+  const [userVerifiedByEmployer] = useState(false); // TODO take it from state
   const onPress = () => {
     navigation.navigate(AppScreenNames.SignIn);
   }
@@ -25,13 +25,13 @@ const UserVerificationPending = (
               <View
                 style={[
                   styles.circle,
-                  emailVerified && styles.circleVerified,
+                  emailVerified ? styles.circleVerified : styles.circleNotVerified,
                 ]}>
                 {emailVerified
                   ? <IconCheck size={24} />
                   : null}
               </View>
-              <View style={styles.line} />
+              <View style={[styles.line, userVerifiedByEmployer && styles.lineDark]} />
             </View>
             <Text
               style={[
@@ -59,9 +59,11 @@ const UserVerificationPending = (
             </Text>
             {!userVerifiedByEmployer
               ? (
-                <Text style={styles.stepText}>
-                  {vocab.waitingTime}{2}{vocab.days}
-                </Text>
+                <View style={styles.stepTextWrapper}>
+                  <Text style={styles.stepText}>
+                    {vocab.waitingTime}{2}{vocab.days}
+                  </Text>
+                </View>
               ) : null}
           </View>
           
