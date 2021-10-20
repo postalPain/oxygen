@@ -11,9 +11,9 @@ interface IInfoText {
 
 const InfoText = (props: IInfoText) => {
   return (
-    <View style={styles.infoText}>
-      <Text style={styles.iStyle}>{'ⓘ'}</Text>
-      <Text>{props.children}</Text>
+    <View style={[styles.infoText, props.style]}>
+      <Text style={styles.infoStyle}>{'ⓘ'}</Text>
+      <Text style={styles.textStyle}>{props.children}</Text>
     </View>
   );
 };
@@ -22,10 +22,13 @@ const styles = StyleSheet.create({
   infoText: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
-  iStyle: {
+  infoStyle: {
     marginRight: 0.01 * windowDimensions.width
+  },
+  textStyle: {
+    flex: 1
   }
 });
 

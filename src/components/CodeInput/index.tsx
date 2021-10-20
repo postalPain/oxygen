@@ -31,6 +31,7 @@ const CodeInput = (props: ICodeInput) => {
 
   return (
     <CodeField
+      autoFocus
       ref={ref}
       {...codeFieldProps}  // eslint-disable-line
       value={value}
