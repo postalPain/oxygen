@@ -9,6 +9,7 @@ import {
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, InputInfo, ScreenWithAnimatedHeader } from 'components';
 import useStyles from './styles';
+import usePasswordRequirements from 'utils/usePasswordRequirements';
 
 const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{8,}$/gm;
 
@@ -24,6 +25,7 @@ const SetPassword = (
   const styles = useStyles();
   const [inputValue, setInputValue] = useState('');
   const [inputError, setInputError] = useState('');
+  const { requirementsLabels } = usePasswordRequirements(inputValue);
   const onPress = async () => {
     const isValid = await schema.isValid(inputValue);
     if (!isValid) {
@@ -45,12 +47,12 @@ const SetPassword = (
             label={vocab.createPassword}
             value={inputValue}
             onChange={handleOnChange}
-            error={inputError}
             autoComplete="email"
             keyboardType="email-address"
             textContentType="username"
             secure
           />
+          {requirementsLabels}
           <InputInfo text={vocab.createSecurePassword} />
         </View>
         <Button

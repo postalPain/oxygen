@@ -1,5 +1,5 @@
 import { StatusBar, StyleSheet } from 'react-native';
-import { SCREEN_PADDING } from 'utils/screen';
+import { SCREEN_BOTTOM_PADDING, SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
 import theme from 'config/theme';
 import env from 'env';
 
@@ -54,11 +54,11 @@ const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: SCREEN_PADDING,
+    paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
   },
   bottomPadding: {
     width: '100%',
-    height: 52,
+    height: SCREEN_BOTTOM_PADDING,
   },
 });
 

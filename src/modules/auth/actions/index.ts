@@ -1,12 +1,29 @@
 import {
   AuthActions,
+  ISignUpPayload,
+  ISignUpAction,
+  ISignedUpPayload,
+  ISignedUpAction,
   ISignInPayload,
   ISignInAction,
   ISignedInAction,
   ISignOutAction,
-  ISignedOutAction, ISetAuthErrorAction,
+  ISignedOutAction,
+  ISetAuthErrorAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
+
+// export const signUp = (payload: ISignUpPayload, meta?: IMeta): ISignUpAction => ({
+//   type: AuthActions.SIGN_UP,
+//   payload,
+//   meta: meta,
+// });
+//
+// export const signedUp = (payload: ISignedUpPayload, meta?: IMeta): ISignedUpAction => ({
+//   type: AuthActions.SIGNED_UP,
+//   payload,
+//   meta: meta,
+// });
 
 export const signIn = (payload: ISignInPayload, meta?: IMeta): ISignInAction => ({
   type: AuthActions.SIGN_IN,

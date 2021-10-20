@@ -8,7 +8,7 @@ const CarouselCircle = (props) => {
     <TouchableWithoutFeedback onPress={props.onPress}>
       <View
         style={{
-          ...styles.carouselCercle,
+          ...styles.carouselCircle,
           ...props.styles,
           ...(props.active && { backgroundColor: theme.colors.floos2 })
         }}
@@ -18,7 +18,7 @@ const CarouselCircle = (props) => {
 };
 
 const styles = StyleSheet.create({
-  carouselCercle: {
+  carouselCircle: {
     width: 10,
     height: 10,
     borderRadius: 50,

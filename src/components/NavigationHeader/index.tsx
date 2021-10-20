@@ -8,23 +8,35 @@ import useStyles from './styles';
 interface INavigationHeaderProps {
   options: any; // TODO add types
   route: any; // TODO add types
-  navigation: any,
+  navigation: any;
+  headerLeft?: React.ReactElement;
+  headerRight?: React.ReactElement;
 }
 
 const NavigationHeader: React.FC<INavigationHeaderProps> = ({
   navigation,
+  headerLeft,
+  headerRight,
 }) => {
   const styles = useStyles();
   const { canGoBack, goBack } = navigation;
+  const left = (headerLeft !== undefined) ? headerLeft : (
+    <BackButton onPress={() => goBack()} />
+  );
+  const right = (headerRight !== undefined) ? headerRight : (
+    <Text style={styles.headerText} onPress={() => openBrowser('/help')}>
+      {vocab.get().help}
+    </Text>
+  );
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
-        {canGoBack() && (
-          <BackButton onPress={() => goBack()} />
-        )}
-        <Text style={styles.headerText} onPress={() => openBrowser('/help')}>
-          {vocab.get().help}
-        </Text>
+        <View>
+          {canGoBack() && left}
+        </View>
+        <View>
+          {right}
+        </View>
       </View>
     </SafeAreaView>
   );
