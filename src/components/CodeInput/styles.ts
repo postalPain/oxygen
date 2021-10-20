@@ -26,7 +26,5 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   focusCell: {
-    // borderBottomColor: '#007AFF',
-    // borderBottomWidth: 2,
   },
 });
