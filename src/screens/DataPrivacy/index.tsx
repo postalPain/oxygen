@@ -23,7 +23,7 @@ const DataPrivacy = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const signUpData = useSelector(selectSignUpData);
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const onPress = async () => {
     if (!checked) return;
     dispatch(signUp(signUpData, {
@@ -84,7 +84,10 @@ const DataPrivacy = (
               </Text>
             </View>
           </View>
-          <Button onPress={onPress}>
+          <Button
+            onPress={onPress}
+            disabled={!checked}
+          >
             {vocab.next}
           </Button>
         </View>

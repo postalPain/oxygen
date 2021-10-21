@@ -30,16 +30,15 @@ function transformSignUpError (err) {
   return errors;
 }
 
-
 function* signUpWorker(action: ISignUpAction) {
   try {
     const response = yield call(api.signUp, action.payload);
+    yield put(authActions.setAuthData(response.data))
     yield action.meta?.onSuccess?.(response);
   } catch (error) {
     const errors = transformSignUpError(error);
     yield action.meta?.onError?.(errors);
     yield put(authActions.setSignUpError(errors))
-  
   }
 }
 

@@ -8,7 +8,11 @@ import {
   ISignedInAction,
   ISignOutAction,
   ISignedOutAction,
-  ISetAuthErrorAction, ISetSignUpErrorPayload, ISetSignUpErrorAction,
+  ISetAuthErrorAction,
+  ISetSignUpErrorPayload,
+  ISetSignUpErrorAction,
+  ISetAuthDataAction,
+  ISetAuthDataPayload,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 
@@ -25,6 +29,11 @@ export const setSignUpData = (payload: Partial<ISignUpPayload>): ISetSignUpDataA
 
 export const setSignUpError = (payload: ISetSignUpErrorPayload): ISetSignUpErrorAction => ({
   type: AuthActions.SET_SIGN_UP_ERROR,
+  payload,
+});
+
+export const setAuthData = (payload: ISetAuthDataPayload): ISetAuthDataAction => ({
+  type: AuthActions.SET_AUTH_DATA,
   payload,
 });
 
