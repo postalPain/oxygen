@@ -1,4 +1,4 @@
 export interface IMeta {
-  onSuccess?: () => void;
-  onError?: () => void;
+  onSuccess?: (data?: any) => void;
+  onError?: (error?: any) => void;
 }
