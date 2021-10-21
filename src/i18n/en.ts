@@ -49,4 +49,7 @@ export default {
   waitingTime: 'Waiting time: ',
   days: ' days',
   youWillReceiveEmail: 'You will receive an email, when the verification process is completed.',
+  forgotPassword: 'Forgot Password?',
+  enterEmailForgotPassword: 'Enter your email address associated with your account. We will email you a link to create a new password.',
+  send: 'Send',
 };

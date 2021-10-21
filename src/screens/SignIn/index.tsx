@@ -1,14 +1,16 @@
 import ScreenWrapperLogin from 'components/ScreenWrapperLogin';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import vocab from 'i18n';
-import { windowDimensions } from 'utils/window';
 import Button from 'components/Button';
-import { Link } from '@react-navigation/native';
-import theme from 'config/theme';
+import Link from 'components/Link';
+import styles from './styles';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 
-const SignIn = () => {
+const SignIn = (
+  { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
+) => {
   return (
     <ScreenWrapperLogin>
       <View>
@@ -20,6 +22,7 @@ const SignIn = () => {
             // value={values.email}
             // onChange={handleChange}
             placeholder="Email"
+            type="email"
             required
           />
           <Input
@@ -32,6 +35,12 @@ const SignIn = () => {
             secure
             required
           />
+          <Link
+            style={styles.forgotPassword}
+            onPress={() => navigation.navigate(AppScreenNames.ForgotPassword)}
+          >
+            {vocab.get().forgotPassword}
+          </Link>
         </View>
       </View>
       <View style={styles.buttonSection}>
@@ -42,21 +51,5 @@ const SignIn = () => {
 
   );
 };
-
-const styles = StyleSheet.create({
-
-  input: {
-    marginTop: 0.02 * windowDimensions.height
-  },
-  buttonSection: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  biometricLink: {
-    textAlign: 'center',
-    marginTop: 0.025 * windowDimensions.height,
-    color: theme.colors.floos1
-  }
-});
 
 export default SignIn;
