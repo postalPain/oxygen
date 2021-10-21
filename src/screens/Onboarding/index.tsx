@@ -28,7 +28,7 @@ const Onboarding = (
   }, []);
 
   const goToSignUp = () => {
-    navigation.navigate(AppScreenNames.EnterEmployer);
+    navigation.navigate(AppScreenNames.EnterRegistrationId);
   };
   const goToLogIn = () => {
     navigation.navigate(AppScreenNames.SignIn);

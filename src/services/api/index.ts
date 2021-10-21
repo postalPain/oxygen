@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getHeaderLanguage } from 'i18n/utils';
 import apiUrls, { BASE_URL } from 'config/apiUrls';
 import { handleBackendError } from 'utils/helpers';
+import { ISignUpPayload } from 'modules/auth/types';
 
 
 const request = axios.create({
@@ -43,6 +44,7 @@ request.interceptors.response.use(
 
 const api = {
   userInfo: () => request.get(apiUrls.userInfo),
+  signUp: (data: ISignUpPayload) => request.post(apiUrls.signUp, data),
   signOut: () => request.post(apiUrls.signOut),
 };
 

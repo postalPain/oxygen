@@ -2,12 +2,14 @@ import { IMeta } from '../store/types';
 
 export interface IAuthState {
   token: string | null;
-  errorMessage: string | null;
+  errors: ISetSignUpErrorPayload;
+  signUpData: ISignUpPayload;
 }
 
 export const enum AuthActions {
   SIGN_UP = 'SIGN_UP',
-  SIGNED_UP = 'SIGNED_UP',
+  SET_SIGN_UP_DATA = 'SET_SIGN_UP_DATA',
+  SET_SIGN_UP_ERROR = 'SET_SIGN_UP_ERROR',
   SIGN_IN = 'SIGN_IN',
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
@@ -16,25 +18,31 @@ export const enum AuthActions {
 }
 
 export interface ISignUpPayload {
+  registration_id: string;
   email: string;
   password: string;
 }
 
 export interface ISignUpAction {
-  type: AuthActions.SIGN_IN;
+  type: AuthActions.SIGN_UP;
   payload: ISignUpPayload;
   meta?: IMeta;
 }
 
-export interface ISignedUpPayload {
-  email: string;
-  password: string;
+export interface ISetSignUpErrorPayload {
+  registration_id?: string;
+  email?: string;
+  password?: string;
 }
 
-export interface ISignedUpAction {
-  type: AuthActions.SIGN_IN;
-  payload: ISignUpPayload;
-  meta?: IMeta;
+export interface ISetSignUpErrorAction {
+  type: AuthActions.SET_SIGN_UP_ERROR;
+  payload: ISetSignUpErrorPayload;
+}
+
+export interface ISetSignUpDataAction {
+  type: AuthActions.SET_SIGN_UP_DATA;
+  payload: Partial<ISignUpPayload>;
 }
 
 export interface ISignInPayload {
@@ -67,4 +75,4 @@ export interface ISetAuthErrorAction {
   payload: string;
 }
 
-export type TAuthAction = ISignInAction | ISignedInAction | ISignOutAction | ISignedOutAction | ISetAuthErrorAction;
+export type TAuthAction = ISignUpAction | ISetSignUpErrorAction | ISetSignUpDataAction | ISignInAction | ISignedInAction | ISignOutAction | ISignedOutAction | ISetAuthErrorAction;

@@ -31,7 +31,7 @@ const theme = {
   notifications: {
     boxShadowColor: 'rgba(0, 0, 0, 0.25)',
     boxShadowOffset: {
-      width: 0,
+      width: 2,
       height: 3,
     },
     errorBackground: '#FFEFEF',

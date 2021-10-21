@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   DataPrivacy,
   EnterEmail,
-  EnterEmployer,
+  EnterRegistrationId,
   Onboarding,
   SetPassword,
   SignIn,
@@ -33,8 +33,6 @@ const getHeaderOptions = () => ({
   header: (headerProps) => <NavigationHeader {...headerProps} />  // eslint-disable-line
 });
 
-
-
 const Navigation = () => {
   return (
     <NavigationContainer>
@@ -59,8 +57,8 @@ const Navigation = () => {
           component={SignIn}
         />
         <AppStack.Screen
-          name={AppScreenNames.EnterEmployer}
-          component={EnterEmployer}
+          name={AppScreenNames.EnterRegistrationId}
+          component={EnterRegistrationId}
           options={getHeaderOptions()}
         />
         <AppStack.Screen
@@ -79,17 +77,17 @@ const Navigation = () => {
           options={getHeaderOptions()}
         />
         <AppStack.Screen
-          name={AppScreenNames.VerificationCode}
-          component={VerificationCode}
-          options={getHeaderOptions()}
-        />
-        <AppStack.Screen
           name={AppScreenNames.UserVerificationRequested}
           component={UserVerificationRequested}
           options={{
             headerShown: false,
             gestureEnabled: false,
           }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.VerificationCode}
+          component={VerificationCode}
+          options={getHeaderOptions()}
         />
         <AppStack.Screen
           name={AppScreenNames.UserVerificationPending}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavigationContainerRef, } from '@react-navigation/native';
-
 import { AppScreenNames } from 'navigation/types';
 
 export const isMountedRef = React.createRef<boolean>();

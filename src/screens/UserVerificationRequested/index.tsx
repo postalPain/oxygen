@@ -16,7 +16,7 @@ const UserVerificationRequested = (
 ) => {
   const styles = useStyles();
   const onPress = () => {
-    navigation.navigate(AppScreenNames.UserVerificationPending);
+    navigation.navigate(AppScreenNames.VerificationCode);
   }
   return (
     <SafeAreaView style={styles.safeArea}>

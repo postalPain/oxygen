@@ -1,19 +1,19 @@
 import { AxiosRequestConfig, } from 'axios';
 import vocab from 'i18n';
 import store from '../modules/store';
-import * as authActions from '../modules/auth/actions';
+import * as authActions from 'modules/auth/actions';
+import * as notificationsActions from 'modules/notifications/actions';
 
 
-// TODO when the backend is ready check types of all possible errors
-export interface IUserError {
-  code: string;
-  fallback_message: string;
-  payload: {};
-}
-
-export interface IValidationError {
-  fields: string[],
-  messages: string,
+export interface IError {
+  errors?: {
+    [key: string]: string[];
+  };
+  error?: {
+    code: string;
+    fallback_message: string;
+    payload: any[];
+  };
 }
 
 export interface IBackendError {
@@ -21,7 +21,7 @@ export interface IBackendError {
   code?: string;
   request?: any;
   response: {
-    data?: IValidationError | IUserError;
+    data?: IError;
     status: number;
     statusText: string;
     headers: any;
@@ -35,7 +35,12 @@ export interface IBackendError {
   stack?: string;
 }
 
+//TODO make it work with the backend
 export const handleBackendError = (error: IBackendError) => {
+  if (error?.response?.status === 500) {
+    store.dispatch(notificationsActions.errorNotification({ text: vocab.get().somethingWentWrong }));
+    return;
+  }
   if (error?.response?.status === 401) {
     store.dispatch(authActions.signedOut());
     return {
@@ -46,6 +51,10 @@ export const handleBackendError = (error: IBackendError) => {
     return {
       message: vocab.get().networkError,
     };
+  }
+  if ((error?.response?.status === 422) || error?.response?.status === 400) {
+    return error?.response.data?.errors
+      || error?.response.data?.error;
   }
   return error!.response!.data;
 };
