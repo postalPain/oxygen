@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/core';
 export enum AppScreenNames {
   Onboarding = 'Onboarding',
   SignIn = 'SignIn',
-  EnterEmployer = 'EnterEmployer',
+  EnterRegistrationId = 'EnterRegistrationId',
   EnterEmail = 'EnterEmail',
   SetPassword = 'SetPassword',
   DataPrivacy = 'DataPrivacy',
@@ -108,9 +108,9 @@ export enum HomeScreenNames {
 export type AppStackParameters = {
   Onboarding: undefined;
   SignIn: undefined;
-  EnterEmployer: undefined;
-  EnterEmail: undefined;
-  SetPassword: undefined;
+  EnterRegistrationId: { backendError: string };
+  EnterEmail: { backendError: string };
+  SetPassword: { backendError: string };
   DataPrivacy: undefined;
   VerificationCode: undefined;
   UserVerificationRequested: undefined;
@@ -127,7 +127,7 @@ export type UserVerificationStackParameters = {
 };
 
 export type SignUpStackParameters = {
-  EnterEmployer: undefined;
+  EnterRegistrationId: undefined;
   EnterEmail: undefined;
   SetPassword: undefined;
   DataPrivacy: undefined;
