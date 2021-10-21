@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
 import vocabulary from 'i18n';
 import {
   AppNavigationProps,
@@ -14,13 +13,8 @@ import { selectSignUpData } from 'modules/auth/selectors';
 import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
 
-const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{8,}$/gm;
 
 const vocab = vocabulary.get();
-let schema = yup
-  .string()
-  .matches(passwordRequirements)
-  .required();
 
 const SetPassword = (
   { navigation, route }: AppNavigationProps<AppScreenNames.SetPassword>
@@ -31,17 +25,12 @@ const SetPassword = (
   const { password } = useSelector(selectSignUpData);
   const [inputValue, setInputValue] = useState(password);
   const [inputError, setInputError] = useState('');
-  const { requirementsLabels } = usePasswordRequirements(inputValue);
+  const { requirementsLabels, isPasswordMatched } = usePasswordRequirements(inputValue);
   useEffect(
     () => { setInputError(params?.backendError); },
     [params?.backendError]
   );
   const onPress = async () => {
-    const isValid = await schema.isValid(inputValue);
-    if (!isValid) {
-      setInputError(vocab.errorPasswordNotMatch);
-      return;
-    }
     dispatch(setSignUpData({ password: inputValue }))
     navigation.navigate(AppScreenNames.DataPrivacy);
   }
@@ -69,6 +58,7 @@ const SetPassword = (
         <Button
           onPress={onPress}
           styles={styles.button}
+          disabled={!isPasswordMatched}
         >
           {vocab.savePassword}
         </Button>
