@@ -17,6 +17,7 @@ import { BackButton, IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
 import VerificationCode from 'screens/VerificationCode';
+import ForgotPassword from 'screens/ForgotPassword';
 
 
 const AppStack = createNativeStackNavigator();
@@ -101,6 +102,11 @@ const Navigation = () => {
               />
             )
           })}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.ForgotPassword}
+          component={ForgotPassword}
+          options={getHeaderOptions()}
         />
       </AppStack.Navigator>
     </NavigationContainer>
