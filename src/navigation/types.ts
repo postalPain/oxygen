@@ -13,6 +13,7 @@ export enum AppScreenNames {
   ResetPassword = 'ResetPassword',
   UserVerification = 'UserVerification',
   UserVerificationPending = 'UserVerificationPending',
+  ForgotPassword = 'ForgotPassword',
   Home = 'Home',
 }
 
@@ -116,6 +117,7 @@ export type AppStackParameters = {
   UserVerification: undefined;
   UserVerificationPending: undefined;
   PasswordReset: undefined;
+  ForgotPassword: undefined;
   Main: undefined;
 };
 
