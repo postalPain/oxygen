@@ -11,6 +11,7 @@ export const enum AuthActions {
   SET_SIGN_UP_DATA = 'SET_SIGN_UP_DATA',
   SET_SIGN_UP_ERROR = 'SET_SIGN_UP_ERROR',
   SET_AUTH_DATA = 'SET_AUTH_DATA',
+  CHECK_VERIFICATION = 'CHECK_VERIFICATION',
   SIGN_IN = 'SIGN_IN',
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
@@ -56,6 +57,11 @@ export interface ISetAuthDataPayload {
 export interface ISetAuthDataAction {
   type: AuthActions.SET_AUTH_DATA;
   payload: ISetAuthDataPayload;
+}
+
+export interface ICheckVerificationAction {
+  type: AuthActions.CHECK_VERIFICATION;
+  meta: IMeta;
 }
 
 export interface ISignInPayload {

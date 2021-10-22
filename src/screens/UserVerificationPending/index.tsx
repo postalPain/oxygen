@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
+import useInterval from 'utils/useInterval';
+import { checkVerification } from 'modules/auth/actions';
 import { IconCheck, Button } from 'components';
 import useStyles from './styles';
+import { errorNotification } from '../../modules/notifications/actions';
 
 const vocab = vocabulary.get();
 
@@ -11,11 +15,22 @@ const UserVerificationPending = (
   { navigation }: AppNavigationProps<AppScreenNames.UserVerificationPending>
 ) => {
   const styles = useStyles();
+  const dispatch = useDispatch();
   const [emailVerified] = useState(true); // TODO take it from state
-  const [userVerifiedByEmployer] = useState(false); // TODO take it from state
+  const [userVerifiedByEmployer, setUserVerifiedByEmployer] = useState(false); // TODO take it from state
+  const [userRejectedByEmployer, setUserRejectedByEmployer] = useState(false); // TODO take it from state
   const onPress = () => {
     navigation.navigate(AppScreenNames.SignIn);
   }
+  useInterval(
+    () => {
+      dispatch(checkVerification({
+        onSuccess: () => setUserVerifiedByEmployer(true),
+        onError: () => dispatch(errorNotification({ text: vocab.somethingWentWrong })),
+      }));
+    },
+    5 * 1000 * 60
+  );
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.screen}>
@@ -79,11 +94,9 @@ const UserVerificationPending = (
           ) : null}
         {(emailVerified && userVerifiedByEmployer)
           ? (
-            (
-              <Button onPress={onPress}>
-                {vocab.continue}
-              </Button>
-            )
+            <Button onPress={onPress}>
+              {vocab.continue}
+            </Button>
           ) : null
         }
       </View>

@@ -43,8 +43,8 @@ request.interceptors.response.use(
 );
 
 const api = {
-  userInfo: () => request.get(apiUrls.userInfo),
   signUp: (data: ISignUpPayload) => request.post(apiUrls.signUp, data),
+  checkVerification: () => request.post(apiUrls.checkVerification),
   signOut: () => request.post(apiUrls.signOut),
 };
 

@@ -1,18 +1,19 @@
 import {
   AuthActions,
-  ISignUpPayload,
-  ISignUpAction,
-  ISetSignUpDataAction,
-  ISignInPayload,
-  ISignInAction,
-  ISignedInAction,
-  ISignOutAction,
-  ISignedOutAction,
-  ISetAuthErrorAction,
-  ISetSignUpErrorPayload,
-  ISetSignUpErrorAction,
+  ICheckVerificationAction,
   ISetAuthDataAction,
   ISetAuthDataPayload,
+  ISetAuthErrorAction,
+  ISetSignUpDataAction,
+  ISetSignUpErrorAction,
+  ISetSignUpErrorPayload,
+  ISignedInAction,
+  ISignedOutAction,
+  ISignInAction,
+  ISignInPayload,
+  ISignOutAction,
+  ISignUpAction,
+  ISignUpPayload,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 
@@ -36,6 +37,11 @@ export const setAuthData = (payload: ISetAuthDataPayload): ISetAuthDataAction =>
   type: AuthActions.SET_AUTH_DATA,
   payload,
 });
+
+export const checkVerification = (meta: IMeta): ICheckVerificationAction => ({
+  type: AuthActions.CHECK_VERIFICATION,
+  meta,
+})
 
 export const signIn = (payload: ISignInPayload, meta?: IMeta): ISignInAction => ({
   type: AuthActions.SIGN_IN,
