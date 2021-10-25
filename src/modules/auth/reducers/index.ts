@@ -1,21 +1,22 @@
-import { IAuthState, TAuthAction, AuthActions, ISetAuthDataPayload } from '../types';
+import { IAuthState, TAuthAction, AuthActions } from '../types';
 
 export const defaultSignUpErrors = {
   registration_id: null,
   email: null,
   password: null,
-}
+};
 
 const defaultAuthData = {
   access_token: '',
   access_ttl: '',
   refresh_token: '',
   refresh_ttl: '',
-}
+};
 
 export const initialState: IAuthState = {
   authData: defaultAuthData,
-  errors: defaultSignUpErrors,
+  signUpErrors: defaultSignUpErrors,
+  error: null,
   signUpData: {
     registration_id: '',
     email: '',
@@ -35,18 +36,24 @@ const authReducer = (
           ...state.signUpData,
           ...action.payload,
         }
-      }
+      };
     }
     case AuthActions.SET_AUTH_DATA: {
       return {
         ...state,
         authData: action.payload,
-      }
+      };
     }
     case AuthActions.SET_SIGN_UP_ERROR: {
       return {
         ...state,
-        errors: action.payload,
+        signUpErrors: action.payload,
+      };
+    }
+    case AuthActions.SET_AUTH_ERROR: {
+      return {
+        ...state,
+        error: action.error,
       };
     }
     case AuthActions.SIGN_IN_SUCCESS: {

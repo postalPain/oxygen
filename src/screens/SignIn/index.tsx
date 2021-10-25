@@ -1,5 +1,5 @@
 import ScreenWrapperLogin from 'components/ScreenWrapperLogin';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import vocab from 'i18n';
@@ -7,10 +7,47 @@ import Button from 'components/Button';
 import Link from 'components/Link';
 import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from 'modules/auth/actions';
+import { selectAuthData, selectAuthError } from 'modules/auth/selectors';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
 ) => {
+  const dispatch = useDispatch();
+
+  const authData = useSelector(selectAuthData);
+  const authError = useSelector(selectAuthError);
+
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [emailError, setEmailError] = useState<string>();
+  const [passwordError, setPasswordError] = useState<string>();
+
+  useEffect(() => {
+    emailError && setEmailError(null);
+  }, [email]);
+
+  useEffect(() => {
+    passwordError && setPasswordError(null);
+  }, [password]);
+
+  useEffect(() => {
+    authData.access_token && navigation.navigate(AppScreenNames.Dashboard);
+  }, [authData]);
+
+  useEffect(() => {
+    if (!authError) {
+      return;
+    }
+    if (authError?.errors) {
+      authError?.errors['email'] && setEmailError(authError.errors['email'][0]);
+      authError?.errors['password'] && setPasswordError(authError.errors['password'][0]);
+    } else {
+      setEmailError(authError.fallback_message);
+    }
+  }, [authError]);
+
   return (
     <ScreenWrapperLogin>
       <View>
@@ -19,21 +56,21 @@ const SignIn = (
             style={styles.input}
             name="password"
             label={vocab.get().email}
-            // value={values.email}
-            // onChange={handleChange}
+            onChange={setEmail}
             placeholder="Email"
             type="email"
             required
+            error={emailError}
           />
           <Input
             style={styles.input}
             name="password"
             label={vocab.get().password}
-            // value={values.email}
-            // onChange={handleChange}
+            onChange={setPassword}
             placeholder="Password"
             secure
             required
+            error={passwordError}
           />
           <Link
             style={styles.forgotPassword}
@@ -44,7 +81,7 @@ const SignIn = (
         </View>
       </View>
       <View style={styles.buttonSection}>
-        <Button>{vocab.get().logIn}</Button>
+        <Button onPress={() => dispatch(signIn(email, password))}>{vocab.get().logIn}</Button>
         <Text style={styles.biometricLink}>{vocab.get().useYourFaceId}</Text>
       </View>
     </ScreenWrapperLogin>

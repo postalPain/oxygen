@@ -1,33 +1,43 @@
-import { AxiosRequestConfig, } from 'axios';
+import { AxiosRequestConfig } from "axios";
 import vocab from 'i18n';
-import store from '../modules/store';
+import store from 'modules/store';
 import * as authActions from 'modules/auth/actions';
 import * as notificationsActions from 'modules/notifications/actions';
 
+export interface IBeErrors {
+  [key: string]: string[];
+};
 
-export interface IError {
-  errors?: {
-    [key: string]: string[];
-  };
-  error?: {
-    code: string;
-    fallback_message: string;
-    payload: any[];
-  };
+export interface IBeError {
+  code: string;
+  fallback_message: string;
+  payload: any[];
 }
 
-export interface IBackendError {
+export interface IError extends IBeError {
+  errors?: IBeErrors;
+}
+
+export interface IErrorResponse<T> {
+  error: T;
+}
+
+export interface IAxiosError {
   config: AxiosRequestConfig;
   code?: string;
   request?: any;
   response: {
-    data?: IError;
+    data?: {
+      // different BE frameworks
+      errors?: IBeErrors;
+      error?: IBeError;
+    };
     status: number;
     statusText: string;
     headers: any;
     config: AxiosRequestConfig;
     request?: any;
-  },
+  };
   isAxiosError: boolean;
   toJSON: () => object;
   name: string;
@@ -35,8 +45,8 @@ export interface IBackendError {
   stack?: string;
 }
 
-//TODO make it work with the backend
-export const handleBackendError = (error: IBackendError) => {
+// TODO make it work with the backend
+export const handleBackendError = (error: IAxiosError) => {
   if (error?.response?.status === 500) {
     store.dispatch(notificationsActions.errorNotification({ text: vocab.get().somethingWentWrong }));
     return;
@@ -45,7 +55,7 @@ export const handleBackendError = (error: IBackendError) => {
     store.dispatch(authActions.signedOut());
     return {
       message: vocab.get().unauthorized,
-    }
+    };
   }
   if (!error.response && error.message === 'Network Error') {
     return {
@@ -53,8 +63,19 @@ export const handleBackendError = (error: IBackendError) => {
     };
   }
   if ((error?.response?.status === 422) || error?.response?.status === 400) {
-    return error?.response.data?.errors
-      || error?.response.data?.error;
+    let typedError;
+
+    if (error?.response.data?.error) {
+      typedError = error.response.data.error;
+    } else if (error?.response.data?.errors) {
+      typedError = {
+        code: '',
+        fallback_message: vocab.get().somethingWentWrong,
+        payload: [],
+        errors: error?.response.data?.errors
+      };
+    }
+    return typedError;
   }
   return error!.response!.data;
 };
