@@ -1,6 +1,6 @@
 import { RootState } from 'modules/store/rootReducer';
 
-export const selectToken = (state: RootState) => state.auth.token;
+export const selectToken = (state: RootState) => state.auth.authData.access_token;
 
 export const selectSignUpData = (state: RootState) => state.auth.signUpData;
 
