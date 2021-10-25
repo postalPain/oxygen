@@ -11,11 +11,11 @@ const INITIAL_STATE: any = {};
 
 const sagaMiddleware = createSagaMiddleware();
 
-let flipperMiddleware;
-if (__DEV__) {
-  const createDebugger = require('redux-flipper').default;
-  flipperMiddleware = createDebugger();
-}
+// let flipperMiddleware;
+// if (__DEV__) {
+  // const createDebugger = require('redux-flipper').default;
+  // flipperMiddleware = createDebugger();
+// }
 
 /** Creating Redux modules */
 const store = createStore(
@@ -23,7 +23,7 @@ const store = createStore(
   INITIAL_STATE,
   composeWithDevTools(applyMiddleware(
     sagaMiddleware,
-    flipperMiddleware
+    // flipperMiddleware
   )),
 );
 
