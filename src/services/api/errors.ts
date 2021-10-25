@@ -1,8 +1,5 @@
 import { AxiosRequestConfig } from "axios";
 import vocab from 'i18n';
-import store from 'modules/store';
-import * as authActions from 'modules/auth/actions';
-import * as notificationsActions from 'modules/notifications/actions';
 
 export interface IBeErrors {
   [key: string]: string[];
@@ -48,14 +45,10 @@ export interface IAxiosError {
 // TODO make it work with the backend
 export const handleBackendError = (error: IAxiosError) => {
   if (error?.response?.status === 500) {
-    store.dispatch(notificationsActions.errorNotification({ text: vocab.get().somethingWentWrong }));
-    return;
+    return { message: vocab.get().somethingWentWrong };
   }
   if (error?.response?.status === 401) {
-    store.dispatch(authActions.signedOut());
-    return {
-      message: vocab.get().unauthorized,
-    };
+    return { message: vocab.get().unauthorized, };
   }
   if (!error.response && error.message === 'Network Error') {
     return {

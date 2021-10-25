@@ -29,15 +29,17 @@ function transformSignUpError (err) {
 }
 
 function* signUpWorker(action: ISignUpAction) {
+  let response;
   try {
-    const response = yield call(api.signUp, action.payload);
-    yield put(authActions.setAuthData(response.data));
-    yield action.meta?.onSuccess?.(response);
+    response = yield call(api.signUp, action.payload);
   } catch (error) {
     const errors = transformSignUpError(error);
     yield action.meta?.onError?.(errors);
     yield put(authActions.setSignUpError(errors));
+    return;
   }
+  yield put(authActions.setAuthData(response.data));
+  yield action.meta?.onSuccess?.(response);
 }
 
 export function* signOutWorker() {
