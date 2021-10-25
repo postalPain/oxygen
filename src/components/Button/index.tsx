@@ -17,7 +17,7 @@ const Button = (props: IButton) => {
   return (
     <View style={[styles.button, props.styles]}>
       <LinearGradient
-        colors={props.disabled ? [theme.colors.shade1] : ['#935EBF', '#B15F8F']}
+        colors={props.disabled ? [theme.colors.shade1, theme.colors.shade1] : ['#935EBF', '#B15F8F']}
         locations={[0, 1]}
         useAngle
         style={styles.linearGradient}
