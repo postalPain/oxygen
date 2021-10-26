@@ -18,6 +18,7 @@ export const enum AuthActions {
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
   SET_AUTH_ERROR = 'SET_AUTH_ERROR',
+  VERIFY_EMAIL = 'VERIFY_EMAIL'
 }
 
 export interface ISignUpPayload {
@@ -89,6 +90,12 @@ export interface ISignedOutAction {
 export interface ISetAuthErrorAction {
   type: AuthActions.SET_AUTH_ERROR;
   error: IError;
+}
+
+export interface IVerifySignUpCodeAction {
+  type: AuthActions.VERIFY_EMAIL;
+  code: string;
+  meta?: IMeta;
 }
 
 export type TAuthAction = ISignUpAction | ISetSignUpDataAction | ISetAuthDataAction |

@@ -3,14 +3,17 @@ import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import InfoText from 'components/InfoText';
 import Link from 'components/Link';
 import vocab from 'i18n';
+import { verifyEmail } from 'modules/auth/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import styles from './styles';
 
 const VerificationCode = (
   { navigation }: AppNavigationProps<AppScreenNames.VerificationCode>
 ) => {
+  const dispatch = useDispatch();
   const [value, setValue] = useState('');
 
   return (
@@ -27,7 +30,9 @@ const VerificationCode = (
           <Link style={styles.link}>{vocab.get().sendEmailAgain}</Link>
           <Button
             disabled={value.length !== CODE_LENGTH}
-            onPress={() => navigation.navigate(AppScreenNames.UserVerificationPending)}
+            onPress={() => dispatch(
+              verifyEmail(value, () => navigation.navigate(AppScreenNames.UserVerificationPending))
+            )}
           >
             {vocab.get().confirm}
           </Button>
