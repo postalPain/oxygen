@@ -1,6 +1,5 @@
 import {
   AuthActions,
-  ISignUpPayload,
   ISignUpAction,
   ISetSignUpDataAction,
   ISignInPayload,
@@ -15,6 +14,7 @@ import {
   ISetSignInErrorAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
+import { ISignUpPayload } from 'services/api/auth';
 import { IError } from 'services/api/errors';
 
 export const signUp = (payload: ISignUpPayload, meta?: IMeta): ISignUpAction => ({

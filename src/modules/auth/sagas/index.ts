@@ -7,7 +7,6 @@ import * as appActions from 'modules/app/actions';
 import * as notificationActions from 'modules/notifications/actions';
 import { navigate } from 'navigation/utils';
 import { AppScreenNames } from 'navigation/types';
-import vocab from 'i18n';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { ERROR_CODES, IError } from 'services/api/errors';
 
@@ -30,7 +29,7 @@ function transformSignUpError (err: IError) {
 function* signUpWorker(action: ISignUpAction) {
   let response;
   try {
-    response = yield call(api.signUp, action.payload);
+    response = yield call(api.auth.signUp, action.payload);
   } catch (error) {
     const errors = transformSignUpError(error);
     yield action.meta?.onError?.(errors);
@@ -43,7 +42,7 @@ function* signUpWorker(action: ISignUpAction) {
 
 export function* signOutWorker() {
   try {
-    yield call(api.signOut);
+    yield call(api.auth.signOut);
     yield put(authActions.signedOut());
     yield put(appActions.appResetStore());
     yield navigate(AppScreenNames.Onboarding);
@@ -55,8 +54,9 @@ export function* signOutWorker() {
 
 export function* signInWorker(action: ISignInAction) {
   let response: IResponse<IAuthData>;
+
   try {
-    response = yield api.signIn({ email: action.email, password: action.password });
+    response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
     yield put(authActions.setSignInError(error));
     return;
