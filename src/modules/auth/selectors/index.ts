@@ -6,4 +6,4 @@ export const selectSignUpErrors = (state: RootState) => state.auth.signUpErrors;
 
 export const selectAuthData = (state: RootState) => state.auth.authData;
 
-export const selectAuthError = (state: RootState) => state.auth.error;
+export const selectSignInError = (state: RootState) => state.auth.signInError;

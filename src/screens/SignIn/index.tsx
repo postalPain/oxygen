@@ -9,7 +9,8 @@ import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
-import { selectAuthData, selectAuthError } from 'modules/auth/selectors';
+import { selectAuthData, selectSignInError } from 'modules/auth/selectors';
+import { ERROR_CODES } from 'services/api/errors';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
@@ -17,7 +18,7 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const authData = useSelector(selectAuthData);
-  const authError = useSelector(selectAuthError);
+  const error = useSelector(selectSignInError);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -37,16 +38,16 @@ const SignIn = (
   }, [authData]);
 
   useEffect(() => {
-    if (!authError) {
+    if (!error) {
       return;
     }
-    if (authError?.errors) {
-      authError?.errors['email'] && setEmailError(authError.errors['email'][0]);
-      authError?.errors['password'] && setPasswordError(authError.errors['password'][0]);
+    if (error?.code === ERROR_CODES.validation) {
+      error.error['email'] && setEmailError(error.error['email'][0]);
+      error.error['password'] && setPasswordError(error.error['password'][0]);
     } else {
-      setEmailError(authError.fallback_message);
+      setEmailError(error.message);
     }
-  }, [authError]);
+  }, [error]);
 
   return (
     <ScreenWrapperLogin>

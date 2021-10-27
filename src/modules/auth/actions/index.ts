@@ -12,8 +12,8 @@ import {
   ISetAuthDataAction,
   IAuthData,
   ISignInAction,
-  ISetAuthErrorAction,
   IVerifySignUpCodeAction,
+  ISetSignInErrorAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 import { IError } from 'services/api/errors';
@@ -59,8 +59,8 @@ export const signedOut = (): ISignedOutAction => ({
   type: AuthActions.SIGN_OUT_SUCCESS,
 });
 
-export const setAuthError = (error: IError): ISetAuthErrorAction => ({
-  type: AuthActions.SET_AUTH_ERROR,
+export const setSignInError = (error: IError): ISetSignInErrorAction => ({
+  type: AuthActions.SET_SIGN_IN_ERROR,
   error
 });
 

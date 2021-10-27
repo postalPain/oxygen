@@ -9,21 +9,20 @@ import { navigate } from 'navigation/utils';
 import { AppScreenNames } from 'navigation/types';
 import vocab from 'i18n';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
-import { IError } from 'services/api/errors';
+import { ERROR_CODES, IError } from 'services/api/errors';
 
 function* handleError (error: IError) {
-  yield put(authActions.setAuthError(error));
-  yield put(notificationActions.errorNotification({ text: error.fallback_message }));
+  yield put(notificationActions.errorNotification({ text: error.message }));
 }
 
-function transformSignUpError (err) {
+function transformSignUpError (err: IError) {
   const errors = { ...defaultSignUpErrors };
-  if (err?.code) {
-    errors.registration_id = err.fallback_message;
-  } else {
-    for (const field in err) {
-      errors[field] = err[field].join(' ');
+  if (err?.code === ERROR_CODES.validation) {
+    for (const field in err.error) {
+      errors[field] = err.error[field].join(' ');
     }
+  } else {
+    errors.registration_id = err.message;
   }
   return errors;
 }
@@ -61,7 +60,8 @@ export function* signInWorker(action: ISignInAction) {
   try {
     response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
-    yield handleError(error);
+    yield put(authActions.setSignInError(error));
+    return;
   }
 
   yield put(authActions.setAuthData(response.data));

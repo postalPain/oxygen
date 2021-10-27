@@ -16,7 +16,7 @@ const defaultAuthData = {
 export const initialState: IAuthState = {
   authData: defaultAuthData,
   signUpErrors: defaultSignUpErrors,
-  error: null,
+  signInError: null,
   signUpData: {
     registration_id: '',
     email: '',
@@ -50,10 +50,10 @@ const authReducer = (
         signUpErrors: action.payload,
       };
     }
-    case AuthActions.SET_AUTH_ERROR: {
+    case AuthActions.SET_SIGN_IN_ERROR: {
       return {
         ...state,
-        error: action.error,
+        signInError: action.error,
       };
     }
     case AuthActions.SIGN_IN_SUCCESS: {
