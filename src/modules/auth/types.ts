@@ -1,3 +1,4 @@
+import { ISignUpPayload } from 'services/api/auth';
 import { IError } from 'services/api/errors';
 import { IMeta } from '../store/types';
 
@@ -18,12 +19,6 @@ export const enum AuthActions {
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
   SET_SIGN_IN_ERROR = 'SET_SIGN_IN_ERROR',
-}
-
-export interface ISignUpPayload {
-  registration_id: string;
-  email: string;
-  password: string;
 }
 
 export interface ISignUpAction {

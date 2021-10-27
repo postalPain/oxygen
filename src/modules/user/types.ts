@@ -1,4 +1,4 @@
-import { IMeta } from "modules/store/types";
+import { IMeta } from 'modules/store/types';
 
 export const enum UserActions {
   USER_GET_INFO = 'USER_GET_INFO',

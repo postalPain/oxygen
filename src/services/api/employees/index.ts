@@ -1,5 +1,5 @@
-import apiUrls from "config/apiUrls";
-import request from "../request";
+import apiUrls from 'config/apiUrls';
+import request from '../request';
 
 const userInfo = () => request.get(apiUrls.userInfo) ;
 

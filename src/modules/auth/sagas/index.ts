@@ -7,7 +7,6 @@ import * as appActions from 'modules/app/actions';
 import * as notificationActions from 'modules/notifications/actions';
 import { navigate } from 'navigation/utils';
 import { AppScreenNames } from 'navigation/types';
-import vocab from 'i18n';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { ERROR_CODES, IError } from 'services/api/errors';
 

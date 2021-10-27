@@ -1,9 +1,9 @@
-import axios from "axios";
-import { BASE_URL } from "config/apiUrls";
-import { getHeaderLanguage } from "i18n/utils";
-import { selectAuthData } from "modules/auth/selectors";
-import store from "modules/store";
-import { handleBackendError } from "./errors";
+import axios from 'axios';
+import { BASE_URL } from 'config/apiUrls';
+import { getHeaderLanguage } from 'i18n/utils';
+import { selectAuthData } from 'modules/auth/selectors';
+import store from 'modules/store';
+import { handleBackendError } from './errors';
 
 const request = axios.create({
   baseURL: BASE_URL,
