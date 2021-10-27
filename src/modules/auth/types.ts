@@ -17,7 +17,6 @@ export const enum AuthActions {
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
-  VERIFY_EMAIL = 'VERIFY_EMAIL',
   SET_SIGN_IN_ERROR = 'SET_SIGN_IN_ERROR',
 }
 
@@ -90,12 +89,6 @@ export interface ISignedOutAction {
 export interface ISetSignInErrorAction {
   type: AuthActions.SET_SIGN_IN_ERROR;
   error: IError;
-}
-
-export interface IVerifySignUpCodeAction {
-  type: AuthActions.VERIFY_EMAIL;
-  code: string;
-  meta?: IMeta;
 }
 
 export type TAuthAction = ISignUpAction | ISetSignUpDataAction | ISetAuthDataAction |

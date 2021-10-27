@@ -3,7 +3,7 @@ import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import InfoText from 'components/InfoText';
 import Link from 'components/Link';
 import vocab from 'i18n';
-import { verifyEmail } from 'modules/auth/actions';
+import { verifyEmail } from 'modules/user/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React, { useState } from 'react';
 import { View } from 'react-native';
