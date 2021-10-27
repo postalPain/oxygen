@@ -10,6 +10,7 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { selectAuthData, selectAuthError } from 'modules/auth/selectors';
+import { ERROR_CODES } from 'services/api/errors';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
@@ -40,11 +41,11 @@ const SignIn = (
     if (!authError) {
       return;
     }
-    if (authError?.errors) {
-      authError?.errors['email'] && setEmailError(authError.errors['email'][0]);
-      authError?.errors['password'] && setPasswordError(authError.errors['password'][0]);
+    if (authError?.code === ERROR_CODES.validation) {
+      authError.error['email'] && setEmailError(authError.error['email'][0]);
+      authError.error['password'] && setPasswordError(authError.error['password'][0]);
     } else {
-      setEmailError(authError.fallback_message);
+      setEmailError(authError.message);
     }
   }, [authError]);
 

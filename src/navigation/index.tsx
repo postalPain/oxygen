@@ -98,7 +98,7 @@ const Navigation = () => {
             ...getHeaderOptions(),
             header: (headerProps) => (
               <NavigationHeader
-                {...headerProps}
+                {...headerProps}  // eslint-disable-line
                 headerLeft={<BackButton onPress={() => navigation.navigate(AppScreenNames.Onboarding)} />}
               />
             )
