@@ -1,12 +1,17 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { UserActions } from '../types';
-import { ICheckVerificationAction } from 'modules/user/types';
-import api, { addHeader } from 'services/api';
-import { setVerificationStatus } from '../actions';
+import * as actions from '../actions';
+import { errorNotification } from 'modules/notifications/actions';
+import { ICheckVerificationAction, IVerifySignUpCodeAction, UserActions } from 'modules/user/types';
+import api from 'services/api';
+import { setVerificationStatus } from 'modules/user/actions';
+import { addHeader } from 'services/api/request';
+import employees from '../../../services/api/employees';
 
 
 export function* getUserInfoWorker() {
+  const { data: { data: userData } } = yield call(api.employees.userInfo);
+  yield put(actions.userSetInfo(userData));
 }
 
 function* checkVerificationWorker (action: ICheckVerificationAction) {
@@ -17,7 +22,7 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
     value: `Bearer ${access_token}`,
   });
   try {
-    response = yield call(api.checkVerification);
+    response = yield call(api.employees.checkVerification);
   } catch (error) {
     console.log('error ========>>', error);
     yield action.meta?.onError?.();
@@ -28,8 +33,20 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
   yield action.meta?.onSuccess?.(response);
 }
 
+export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
+  let response;
+  try {
+    response = yield api.employees.verifyEmail(action.code);
+  } catch (error) {
+    yield put(errorNotification({ text: error.message }));
+    return;
+  }
+  yield action.meta.onSuccess();
+}
+
 export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
+  yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
   yield takeEvery(UserActions.CHECK_VERIFICATION, checkVerificationWorker);
   
 }

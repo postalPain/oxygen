@@ -3,6 +3,7 @@ import {
   IUserState,
   IUserGetInfoAction,
   IUserSetInfoAction,
+  IVerifySignUpCodeAction,
   ICheckVerificationAction,
   ISetVerificationStatusAction,
   VerificationStatuses,
@@ -16,6 +17,14 @@ export const userGetInfo = (): IUserGetInfoAction => ({
 export const userSetInfo = (payload: Partial<IUserState>): IUserSetInfoAction => ({
   type: UserActions.USER_SET_INFO,
   payload,
+});
+
+export const verifyEmail = (code: string, onSuccess): IVerifySignUpCodeAction => ({
+  type: UserActions.VERIFY_EMAIL,
+  code,
+  meta: {
+    onSuccess
+  }
 });
 
 export const checkVerification = (meta: IMeta): ICheckVerificationAction => ({
