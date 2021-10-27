@@ -1,31 +1,28 @@
 import { call, put, takeEvery, } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import api from 'services/api';
+import api, { IResponse } from 'services/api';
 import * as authActions from 'modules/auth/actions';
-import { AuthActions, ISignUpAction } from 'modules/auth/types';
+import { AuthActions, IAuthData, ISignInAction, ISignUpAction } from 'modules/auth/types';
 import * as appActions from 'modules/app/actions';
 import * as notificationActions from 'modules/notifications/actions';
 import { navigate } from 'navigation/utils';
 import { AppScreenNames } from 'navigation/types';
 import vocab from 'i18n';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
+import { ERROR_CODES, IError } from 'services/api/errors';
 
-
-function* handleError (error) {
-  const errorMessage = {
-    text: error.fallback_message || vocab.get().somethingWentWrong
-  };
-  yield put(notificationActions.errorNotification(errorMessage));
+function* handleError (error: IError) {
+  yield put(notificationActions.errorNotification({ text: error.message }));
 }
 
-function transformSignUpError (err) {
+function transformSignUpError (err: IError) {
   const errors = { ...defaultSignUpErrors };
-  if (err?.code) {
-    errors.registration_id = err.fallback_message;
-  } else {
-    for (let field in err) {
-      errors[field] = err[field].join(' ');
+  if (err?.code === ERROR_CODES.validation) {
+    for (const field in err.error) {
+      errors[field] = err.error[field].join(' ');
     }
+  } else {
+    errors.registration_id = err.message;
   }
   return errors;
 }
@@ -56,7 +53,20 @@ export function* signOutWorker() {
   }
 }
 
+export function* signInWorker(action: ISignInAction) {
+  let response: IResponse<IAuthData>;
+  try {
+    response = yield api.signIn({ email: action.email, password: action.password });
+  } catch (error) {
+    yield put(authActions.setSignInError(error));
+    return;
+  }
+
+  yield put(authActions.setAuthData(response.data));
+}
+
 export default function* userWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
+  yield takeEvery(AuthActions.SIGN_IN, signInWorker);
 }

@@ -14,7 +14,7 @@ export enum AppScreenNames {
   UserVerification = 'UserVerification',
   UserVerificationPending = 'UserVerificationPending',
   ForgotPassword = 'ForgotPassword',
-  Home = 'Home',
+  Dashboard = 'Dashboard',
 }
 
 export enum IUserAccess {
@@ -45,7 +45,7 @@ export const AppScreenPermissions: IScreenPermissionsTable = {
     default: true,
     redirectTo: AppScreenNames.SignIn,
   },
-  [AppScreenNames.Home]: { access: [IUserAccess.active], default: true },
+  [AppScreenNames.Dashboard]: { access: [IUserAccess.active], default: true },
 };
 
 export const isScreenAuthorized = (permissionsTable: IScreenPermissionsTable, screenName: string, userAccess: IUserAccess): boolean => {
@@ -118,6 +118,7 @@ export type AppStackParameters = {
   UserVerificationPending: undefined;
   PasswordReset: undefined;
   ForgotPassword: undefined;
+  Dashboard: undefined;
   Main: undefined;
 };
 
