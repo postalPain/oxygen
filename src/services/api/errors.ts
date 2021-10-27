@@ -18,7 +18,7 @@ export interface IBeValidationError {
 export interface IError {
   code: string;
   message: string;
-  error: IBeError1 | IBeError2 | IBeValidationError;
+  error?: IBeError1 | IBeError2 | IBeValidationError;
 }
 
 export interface IErrorResponse<T> {
@@ -49,16 +49,22 @@ export interface IAxiosError {
   stack?: string;
 }
 
-// TODO make it work with the backend
-export const handleBackendError = (error: IAxiosError) => {
+export const handleBackendError = (error: IAxiosError): IError => {
   if (error?.response?.status === 500) {
-    return { message: vocab.get().somethingWentWrong };
+    return {
+      code: ERROR_CODES.internalServerError,
+      message: vocab.get().internalServerError
+    };
   }
   if (error?.response?.status === 401) {
-    return { message: vocab.get().unauthorized, };
+    return {
+      code: ERROR_CODES.unauthorized,
+      message: vocab.get().unauthorized,
+    };
   }
   if (!error.response && error.message === 'Network Error') {
     return {
+      code: ERROR_CODES.networkError,
       message: vocab.get().networkError,
     };
   }
@@ -67,8 +73,8 @@ export const handleBackendError = (error: IAxiosError) => {
 
     if (error.response.data?.error) {
       errorFe = {
-        code: error.response.data.error?.code,
-        message: error.response.data.error?.fallback_message,
+        message: error.response.data.error.fallback_message,
+        code: error.response.data.error.code,
         error: error.response.data.error
       };
     } else if (error.response.data?.errors) {
@@ -87,9 +93,16 @@ export const handleBackendError = (error: IAxiosError) => {
 
     return errorFe;
   }
-  return error!.response!.data;
+  return {
+    code: ERROR_CODES.unknown,
+    message: JSON.stringify(error!.response!.data)
+  };
 };
 
 export enum ERROR_CODES {
-  validation = 'validation',
+  unknown = '_unknown',
+  validation = '_validation',
+  internalServerError = '_internalServerError',
+  unauthorized = '_unauthorized',
+  networkError = '_networkError',
 }

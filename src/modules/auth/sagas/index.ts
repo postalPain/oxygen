@@ -12,7 +12,6 @@ import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { ERROR_CODES, IError } from 'services/api/errors';
 
 function* handleError (error: IError) {
-  yield put(authActions.setAuthError(error));
   yield put(notificationActions.errorNotification({ text: error.message }));
 }
 
@@ -55,13 +54,11 @@ export function* signOutWorker() {
 }
 
 export function* signInWorker(action: ISignInAction) {
-  yield put(authActions.setAuthError(null));
-
   let response: IResponse<IAuthData>;
   try {
     response = yield api.signIn({ email: action.email, password: action.password });
   } catch (error) {
-    yield handleError(error);
+    yield put(authActions.setSignInError(error));
     return;
   }
 

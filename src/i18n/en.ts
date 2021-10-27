@@ -11,6 +11,7 @@ export default {
   carousel3: 'Cover unexpected costs and avoid expensive loans ',
   networkError: 'Network Error',
   unauthorized: 'Unauthorized',
+  internalServerError: 'Internal Server Error',
   somethingWentWrong: 'Something went wrong',
   validationError: 'Validation Error',
   success: 'Success',
