@@ -15,34 +15,16 @@ const useStyles = () => StyleSheet.create({
   steps: {
     paddingTop: '35%',
     paddingLeft: 65,
-    marginBottom: 53,
+    marginBottom: 64,
   },
   step: {},
   progressBar: {
     alignItems: 'center',
-    width: 40,
+    width: 41,
     height: '100%',
     position: 'absolute',
     top: 0,
     left: -74,
-  },
-  circle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 14,
-    height: 14,
-    borderRadius: 40,
-    backgroundColor: theme.colors.floos1,
-    zIndex: 1,
-  },
-  circleNotVerified: {
-    backgroundColor: '#C9C9C9',
-    marginTop: 4,
-  },
-  circleVerified: {
-    width: 40,
-    height: 40,
-    marginTop: -6,
   },
   line: {
     position: 'absolute',
@@ -88,6 +70,14 @@ const useStyles = () => StyleSheet.create({
     fontSize: 18,
     lineHeight: 28,
     letterSpacing: .5,
+  },
+  infoTextCentered: {
+    textAlign: 'center',
+  },
+  link: {
+    color: theme.colors.floos2,
+    fontWeight: '700',
+    textDecorationLine: 'underline',
   },
 });
 

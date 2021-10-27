@@ -2,7 +2,7 @@ import { call, put, takeEvery, } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import api from 'services/api';
 import * as authActions from 'modules/auth/actions';
-import { AuthActions, ICheckVerificationAction, ISignUpAction } from 'modules/auth/types';
+import { AuthActions, ISignUpAction } from 'modules/auth/types';
 import * as appActions from 'modules/app/actions';
 import * as notificationActions from 'modules/notifications/actions';
 import { navigate } from 'navigation/utils';
@@ -42,17 +42,6 @@ function* signUpWorker(action: ISignUpAction) {
   }
 }
 
-function* checkVerificationWorker (action: ICheckVerificationAction) {
-  try {
-    // TODO get and use response when BE is ready
-    yield call(api.checkVerification);
-    yield action.meta?.onSuccess?.();
-  } catch (error) {
-    yield handleError(error);
-    yield action.meta?.onError?.();
-  }
-}
-
 export function* signOutWorker() {
   try {
     yield call(api.signOut);
@@ -65,8 +54,7 @@ export function* signOutWorker() {
   }
 }
 
-export default function* userWatcher(): SagaIterator {
-  yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
+export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
-  yield takeEvery(AuthActions.CHECK_VERIFICATION, checkVerificationWorker);
+  yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
 }

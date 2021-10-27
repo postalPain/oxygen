@@ -1,6 +1,5 @@
 import {
   AuthActions,
-  ICheckVerificationAction,
   ISetAuthDataAction,
   ISetAuthDataPayload,
   ISetAuthErrorAction,
@@ -37,11 +36,6 @@ export const setAuthData = (payload: ISetAuthDataPayload): ISetAuthDataAction =>
   type: AuthActions.SET_AUTH_DATA,
   payload,
 });
-
-export const checkVerification = (meta: IMeta): ICheckVerificationAction => ({
-  type: AuthActions.CHECK_VERIFICATION,
-  meta,
-})
 
 export const signIn = (payload: ISignInPayload, meta?: IMeta): ISignInAction => ({
   type: AuthActions.SIGN_IN,

@@ -44,7 +44,7 @@ request.interceptors.response.use(
 
 const api = {
   signUp: (data: ISignUpPayload) => request.post(apiUrls.signUp, data),
-  checkVerification: () => request.post(apiUrls.checkVerification),
+  checkVerification: () => request.get(apiUrls.checkVerification),
   signOut: () => request.post(apiUrls.signOut),
 };
 
