@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from 'config/apiUrls';
 import { getHeaderLanguage } from 'i18n/utils';
-import { selectAccessToken } from 'modules/auth/selectors';
+import { selectAccessToken, selectAuthData } from 'modules/auth/selectors';
 import store from 'modules/store';
 import { handleBackendError } from './errors';
 
@@ -29,6 +29,8 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
 
 request.interceptors.request.use(
   (config) => {
+    console.log('auth data', selectAuthData(store.getState())); // eslint-disable-line
+
     const token = selectAccessToken(store.getState());
     config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;

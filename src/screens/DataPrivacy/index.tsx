@@ -32,7 +32,7 @@ const DataPrivacy = (
       onSuccess: () => {
         setButtonDisabled(false);
         navigation.navigate(AppScreenNames.UserVerificationRequested);
-        },
+      },
       onError: (error) => {
         setButtonDisabled(false);
         if (error?.registration_id) {
@@ -47,14 +47,16 @@ const DataPrivacy = (
         }
         if (error?.password) {
           navigation.navigate(
-            AppScreenNames.SetPassword,
+            AppScreenNames.SetPasswordSignUp,
             { backendError: error.password }
           );
         }
       },
-    }))
+    }));
   };
-  const handleOnChange = (value) => { setChecked(value); }
+  const handleOnChange = (value) => {
+    setChecked(value);
+  };
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.container}>
