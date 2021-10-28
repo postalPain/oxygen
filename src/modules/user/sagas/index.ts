@@ -15,11 +15,6 @@ export function* getUserInfoWorker() {
 
 function* checkVerificationWorker (action: ICheckVerificationAction) {
   let response;
-  const access_token = yield select(state => state.auth.authData.access_token);
-  yield call(addHeader, {
-    name: 'Authorization',
-    value: `Bearer ${access_token}`,
-  });
   try {
     response = yield call(api.employees.checkVerification);
   } catch (error) {
