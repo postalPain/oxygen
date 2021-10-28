@@ -5,4 +5,4 @@ export default {
   checkVerification: 'employees/verification/status',
   userInfo: 'users/me',
   signOut: 'logout',
-}
+};

@@ -1,11 +1,10 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects';
+import { call, put, takeEvery, } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import * as actions from '../actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { ICheckVerificationAction, IVerifySignUpCodeAction, UserActions } from 'modules/user/types';
 import api from 'services/api';
 import { setVerificationStatus } from 'modules/user/actions';
-import { addHeader } from 'services/api/request';
 
 
 export function* getUserInfoWorker() {
@@ -39,5 +38,4 @@ export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
   yield takeEvery(UserActions.CHECK_VERIFICATION, checkVerificationWorker);
-  
 }

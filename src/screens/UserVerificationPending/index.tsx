@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
@@ -19,15 +19,19 @@ const UserVerificationPending = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const status = useSelector(selectVerificationStatus);
-  const onPress = () => { navigation.navigate(AppScreenNames.SignIn); };
-  useEffect(
-    () => { dispatch(checkVerification()); },
-    []
-  );
-  useInterval(
-    () => { dispatch(checkVerification()); },
-    5 * 1000 * 60
-  );
+  const onPress = () => navigation.navigate(AppScreenNames.SignIn);
+  const [delay, setDelay] = useState(1000 * 60 * 5);
+  const checkStatus = () => {
+    dispatch(checkVerification({
+      onSuccess: (verification_status) => {
+        if (verification_status !== VerificationStatuses.email_verified) {
+          setDelay(null); // set delay to null in order to clear interva
+        }
+      },
+    }));
+  };
+  useEffect(() => checkStatus(), []);
+  useInterval(() => checkStatus(), delay);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.screen}>
@@ -46,36 +50,35 @@ const UserVerificationPending = (
               {vocab.emailVerified}
             </Text>
           </View>
-        <View style={styles.step}>
-          <View style={styles.progressBar}>
-            <StatusIcon
-              status={(status === VerificationStatuses.employer_not_verified)
-                ? 'rejected'
-                : (status === VerificationStatuses.employer_verified)
-                  ? 'verified' : 'pending'}
-            />
+          <View style={styles.step}>
+            <View style={styles.progressBar}>
+              <StatusIcon
+                status={(status === VerificationStatuses.employer_not_verified)
+                  ? 'rejected'
+                  : (status === VerificationStatuses.employer_verified)
+                    ? 'verified' : 'pending'}
+              />
+            </View>
+            <Text style={styles.stepTitle}>
+              {vocab.employeeVerification}
+            </Text>
+            {(status === VerificationStatuses.email_verified)
+              ? (
+                <View style={styles.stepTextWrapper}>
+                  <Text style={styles.stepText}>
+                    {vocab.waitingTime}{2}{vocab.days}
+                  </Text>
+                </View>
+              ) : null}
           </View>
-          <Text style={styles.stepTitle}>
-            {vocab.employeeVerification}
-          </Text>
-          {(status === VerificationStatuses.email_verified)
-            ? (
-              <View style={styles.stepTextWrapper}>
-                <Text style={styles.stepText}>
-                  {vocab.waitingTime}{2}{vocab.days}
-                </Text>
-              </View>
-            ) : null}
         </View>
-      </View>
-      {(status === VerificationStatuses.email_verified)
+        {(status === VerificationStatuses.email_verified)
         && (
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>
               {vocab.youWillReceiveEmail}
             </Text>
           </View>
-        
         )}
         {(status === VerificationStatuses.employer_not_verified) && (
           <View style={styles.infoContainer}>
