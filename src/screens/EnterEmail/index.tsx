@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
@@ -12,17 +12,14 @@ import {
 } from 'components';
 import { selectSignUpData } from 'modules/auth/selectors';
 import useStyles from './styles';
-
+import { setSignUpData } from 'modules/auth/actions';
 
 const vocab = vocabulary.get();
 const schema = yup.string().email().required();
 
-interface EnterEmailProps extends AppNavigationProps<AppScreenNames.EnterEmail> {
-  onSubmit: (email: string) => void;
-}
-
-const EnterEmail = ({ route, onSubmit }: EnterEmailProps) => {
+const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.EnterEmail>) => {
   const { params } = route;
+  const dispatch = useDispatch();
   const styles = useStyles();
   const { email } = useSelector(selectSignUpData);
   const [inputValue, setInputValue] = useState(email);
@@ -39,7 +36,8 @@ const EnterEmail = ({ route, onSubmit }: EnterEmailProps) => {
       setInputError(vocab.errorCheckEmail);
       return;
     }
-    onSubmit(inputValue);
+    dispatch(setSignUpData({ email: inputValue }));
+    navigation.navigate(AppScreenNames.SetPasswordSignUp);
   };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');

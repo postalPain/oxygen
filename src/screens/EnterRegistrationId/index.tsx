@@ -38,7 +38,7 @@ const EnterRegistrationId = (
       return;
     }
     dispatch(setSignUpData({ registration_id: inputValue }));
-    navigation.navigate(AppScreenNames.EnterEmailSignUp);
+    navigation.navigate(AppScreenNames.EnterEmail);
   };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');

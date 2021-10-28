@@ -42,7 +42,7 @@ const DataPrivacy = (
         }
         if (error?.email) {
           navigation.navigate(
-            AppScreenNames.EnterEmailSignUp,
+            AppScreenNames.EnterEmail,
             { backendError: error.email });
         }
         if (error?.password) {
