@@ -1,8 +1,11 @@
+import { ISignUpPayload } from 'services/api/auth';
+import { IError } from 'services/api/errors';
 import { IMeta } from '../store/types';
 
 export interface IAuthState {
-  authData: ISetAuthDataPayload;
-  errors: ISetSignUpErrorPayload;
+  authData: IAuthData;
+  signUpErrors: ISetSignUpErrorPayload;
+  signInError: IError;
   signUpData: ISignUpPayload;
 }
 
@@ -15,13 +18,7 @@ export const enum AuthActions {
   SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
-  AUTH_ERROR = 'AUTH_ERROR',
-}
-
-export interface ISignUpPayload {
-  registration_id: string;
-  email: string;
-  password: string;
+  SET_SIGN_IN_ERROR = 'SET_SIGN_IN_ERROR',
 }
 
 export interface ISignUpAction {
@@ -46,7 +43,7 @@ export interface ISetSignUpDataAction {
   payload: Partial<ISignUpPayload>;
 }
 
-export interface ISetAuthDataPayload {
+export interface IAuthData {
   access_token: string;
   access_ttl: string;
   refresh_token: string;
@@ -55,7 +52,7 @@ export interface ISetAuthDataPayload {
 
 export interface ISetAuthDataAction {
   type: AuthActions.SET_AUTH_DATA;
-  payload: ISetAuthDataPayload;
+  payload: IAuthData;
 }
 
 export interface ISignInPayload {
@@ -65,7 +62,8 @@ export interface ISignInPayload {
 
 export interface ISignInAction {
   type: AuthActions.SIGN_IN;
-  payload: ISignInPayload;
+  email: string;
+  password: string;
   meta?: IMeta;
 }
 
@@ -83,9 +81,10 @@ export interface ISignedOutAction {
   type: AuthActions.SIGN_OUT_SUCCESS;
 }
 
-export interface ISetAuthErrorAction {
-  type: AuthActions.AUTH_ERROR;
-  payload: string;
+export interface ISetSignInErrorAction {
+  type: AuthActions.SET_SIGN_IN_ERROR;
+  error: IError;
 }
 
-export type TAuthAction = ISignUpAction | ISetSignUpDataAction | ISetAuthDataAction | ISetSignUpErrorAction | ISignInAction | ISignedInAction | ISignOutAction | ISignedOutAction | ISetAuthErrorAction;
+export type TAuthAction = ISignUpAction | ISetSignUpDataAction | ISetAuthDataAction |
+ISetSignUpErrorAction | ISignInAction | ISignedInAction | ISignOutAction | ISignedOutAction | ISetSignInErrorAction;

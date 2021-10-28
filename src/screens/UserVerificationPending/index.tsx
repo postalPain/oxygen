@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
-import { IconCheck, Button } from 'components';
+import { VerificationStatuses } from 'modules/user/types';
+import { selectVerificationStatus } from 'modules/user/selectors';
+import { checkVerification } from 'modules/user/actions';
+import useInterval from 'utils/useInterval';
+import { Button } from 'components';
+import StatusIcon from './StatusIcon';
 import useStyles from './styles';
 
 const vocab = vocabulary.get();
@@ -11,32 +17,34 @@ const UserVerificationPending = (
   { navigation }: AppNavigationProps<AppScreenNames.UserVerificationPending>
 ) => {
   const styles = useStyles();
-  const [emailVerified] = useState(true); // TODO take it from state
-  const [userVerifiedByEmployer] = useState(false); // TODO take it from state
-  const onPress = () => {
-    navigation.navigate(AppScreenNames.SignIn);
-  }
+  const dispatch = useDispatch();
+  const status = useSelector(selectVerificationStatus);
+  const onPress = () => navigation.navigate(AppScreenNames.SignIn);
+  const [delay, setDelay] = useState(1000 * 60 * 5);
+  const checkStatus = () => {
+    dispatch(checkVerification({
+      onSuccess: (verification_status) => {
+        if (verification_status !== VerificationStatuses.email_verified) {
+          setDelay(null); // set delay to null in order to clear interva
+        }
+      },
+    }));
+  };
+  useEffect(() => checkStatus(), []);
+  useInterval(() => checkStatus(), delay);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.screen}>
         <View style={styles.steps}>
           <View style={styles.step}>
             <View style={styles.progressBar}>
-              <View
-                style={[
-                  styles.circle,
-                  emailVerified ? styles.circleVerified : styles.circleNotVerified,
-                ]}>
-                {emailVerified
-                  ? <IconCheck size={24} />
-                  : null}
-              </View>
-              <View style={[styles.line, userVerifiedByEmployer && styles.lineDark]} />
+              <StatusIcon status="verified" />
+              <View style={[styles.line, (status === VerificationStatuses.employer_verified) && styles.lineDark]} />
             </View>
             <Text
               style={[
                 styles.stepTitle,
-                emailVerified && styles.stepTitleVerified
+                styles.stepTitleVerified,
               ]}
             >
               {vocab.emailVerified}
@@ -44,20 +52,17 @@ const UserVerificationPending = (
           </View>
           <View style={styles.step}>
             <View style={styles.progressBar}>
-              <View
-                style={[
-                  styles.circle,
-                  userVerifiedByEmployer ? styles.circleVerified : styles.circleNotVerified,
-                ]}>
-                {userVerifiedByEmployer
-                  ? <IconCheck size={24} />
-                  : null}
-              </View>
+              <StatusIcon
+                status={(status === VerificationStatuses.employer_not_verified)
+                  ? 'rejected'
+                  : (status === VerificationStatuses.employer_verified)
+                    ? 'verified' : 'pending'}
+              />
             </View>
             <Text style={styles.stepTitle}>
               {vocab.employeeVerification}
             </Text>
-            {!userVerifiedByEmployer
+            {(status === VerificationStatuses.email_verified)
               ? (
                 <View style={styles.stepTextWrapper}>
                   <Text style={styles.stepText}>
@@ -66,26 +71,33 @@ const UserVerificationPending = (
                 </View>
               ) : null}
           </View>
-          
         </View>
-        {!userVerifiedByEmployer
-          ? (
-            <View style={styles.infoContainer}>
-              <Text style={styles.infoText}>
-                {vocab.youWillReceiveEmail}
+        {(status === VerificationStatuses.email_verified)
+        && (
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoText}>
+              {vocab.youWillReceiveEmail}
+            </Text>
+          </View>
+        )}
+        {(status === VerificationStatuses.employer_not_verified) && (
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoText}>
+              {vocab.verificationUnsuccessful}
+            </Text>
+            <Text style={[styles.infoText, styles.infoTextCentered]}>
+              {vocab.please}
+              <Text style={[styles.infoText, styles.link]}>
+                {vocab.contactUs}
               </Text>
-            </View>
-            
-          ) : null}
-        {(emailVerified && userVerifiedByEmployer)
-          ? (
-            (
-              <Button onPress={onPress}>
-                {vocab.continue}
-              </Button>
-            )
-          ) : null
-        }
+            </Text>
+          </View>
+        )}
+        {(status === VerificationStatuses.employer_verified) && (
+          <Button onPress={onPress}>
+            {vocab.continue}
+          </Button>
+        )}
       </View>
     </SafeAreaView>
   );

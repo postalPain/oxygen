@@ -11,7 +11,9 @@ export default {
   carousel3: 'Cover unexpected costs and avoid expensive loans ',
   networkError: 'Network Error',
   unauthorized: 'Unauthorized',
+  internalServerError: 'Internal Server Error',
   somethingWentWrong: 'Something went wrong',
+  validationError: 'Validation Error',
   success: 'Success',
   error: 'Error',
   info: 'Info',
@@ -52,4 +54,7 @@ export default {
   forgotPassword: 'Forgot Password?',
   enterEmailForgotPassword: 'Enter your email address associated with your account. We will email you a link to create a new password.',
   send: 'Send',
+  verificationUnsuccessful: 'Verification was unsuccessful.',
+  please: 'Please ',
+  contactUs: 'contact us.',
 };

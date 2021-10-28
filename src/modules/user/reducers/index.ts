@@ -5,6 +5,7 @@ export const initialState: IUserState = {
   email: '',
   first_name: '',
   last_name: '',
+  verification_status: null,
 };
 
 const userReducer = (
@@ -16,6 +17,12 @@ const userReducer = (
       return {
         ...state,
         ...action.payload,
+      };
+    }
+    case UserActions.SET_VERIFICATION_STATUS: {
+      return {
+        ...state,
+        verification_status: action.payload,
       };
     }
     default:

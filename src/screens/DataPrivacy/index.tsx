@@ -24,11 +24,17 @@ const DataPrivacy = (
   const dispatch = useDispatch();
   const signUpData = useSelector(selectSignUpData);
   const [checked, setChecked] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const onPress = async () => {
     if (!checked) return;
+    setButtonDisabled(true);
     dispatch(signUp(signUpData, {
-      onSuccess: () => { navigation.navigate(AppScreenNames.UserVerificationRequested); },
+      onSuccess: () => {
+        setButtonDisabled(false);
+        navigation.navigate(AppScreenNames.UserVerificationRequested);
+        },
       onError: (error) => {
+        setButtonDisabled(false);
         if (error?.registration_id) {
           navigation.navigate(
             AppScreenNames.EnterRegistrationId,
@@ -48,51 +54,51 @@ const DataPrivacy = (
       },
     }))
   };
-    const handleOnChange = (value) => { setChecked(value); }
-    return (
-      <ScreenWithAnimatedHeader title={null}>
-        <View style={styles.container}>
-          <View style={styles.textContainer}>
-            <Text style={styles.heading}>
-              {vocab.dataPrivacy}
-            </Text>
-            <Text style={styles.text}>
-              {vocab.needConsent}
-            </Text>
-          </View>
-          <View style={styles.consentBlock}>
-            <View style={styles.checkboxWrapper}>
-              <Checkbox
-                size={22}
-                fillColor={theme.colors.floos4}
-                unfillColor={theme.colors.screenBackgroundColorLight}
-                iconStyle={styles.checkbox}
-                onPress={handleOnChange}
-                isChecked={checked}
-                iconComponent={<View style={styles.checkboxIcon} />}
-              />
-            </View>
-            <View style={styles.checkboxLabelWrapper}>
-              <Text style={styles.checkboxLabel}>
-                {vocab.iHaveRead}
-              </Text>
-              <Text style={styles.link}>
-                {vocab.dataPrivacy.toLowerCase()}
-              </Text>
-              <Text style={styles.checkboxLabel}>
-                {vocab.guidelines}
-              </Text>
-            </View>
-          </View>
-          <Button
-            onPress={onPress}
-            disabled={!checked}
-          >
-            {vocab.next}
-          </Button>
+  const handleOnChange = (value) => { setChecked(value); }
+  return (
+    <ScreenWithAnimatedHeader title={null}>
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
+          <Text style={styles.heading}>
+            {vocab.dataPrivacy}
+          </Text>
+          <Text style={styles.text}>
+            {vocab.needConsent}
+          </Text>
         </View>
-      </ScreenWithAnimatedHeader>
-    );
-  };
-  
-  export default DataPrivacy;
+        <View style={styles.consentBlock}>
+          <View style={styles.checkboxWrapper}>
+            <Checkbox
+              size={22}
+              fillColor={theme.colors.floos4}
+              unfillColor={theme.colors.screenBackgroundColorLight}
+              iconStyle={styles.checkbox}
+              onPress={handleOnChange}
+              isChecked={checked}
+              iconComponent={<View style={styles.checkboxIcon} />}
+            />
+          </View>
+          <View style={styles.checkboxLabelWrapper}>
+            <Text style={styles.checkboxLabel}>
+              {vocab.iHaveRead}
+            </Text>
+            <Text style={styles.link}>
+              {vocab.dataPrivacy.toLowerCase()}
+            </Text>
+            <Text style={styles.checkboxLabel}>
+              {vocab.guidelines}
+            </Text>
+          </View>
+        </View>
+        <Button
+          onPress={onPress}
+          disabled={!checked || buttonDisabled}
+        >
+          {vocab.next}
+        </Button>
+      </View>
+    </ScreenWithAnimatedHeader>
+  );
+};
+
+export default DataPrivacy;

@@ -1,20 +1,21 @@
 import {
   AuthActions,
-  ISignUpPayload,
   ISignUpAction,
+  ISetAuthDataAction,
   ISetSignUpDataAction,
   ISignInPayload,
-  ISignInAction,
-  ISignedInAction,
-  ISignOutAction,
-  ISignedOutAction,
-  ISetAuthErrorAction,
-  ISetSignUpErrorPayload,
   ISetSignUpErrorAction,
-  ISetAuthDataAction,
-  ISetAuthDataPayload,
+  ISetSignUpErrorPayload,
+  ISignedInAction,
+  ISignedOutAction,
+  IAuthData,
+  ISignInAction,
+  ISetSignInErrorAction,
+  ISignOutAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
+import { ISignUpPayload } from 'services/api/auth';
+import { IError } from 'services/api/errors';
 
 export const signUp = (payload: ISignUpPayload, meta?: IMeta): ISignUpAction => ({
   type: AuthActions.SIGN_UP,
@@ -32,15 +33,15 @@ export const setSignUpError = (payload: ISetSignUpErrorPayload): ISetSignUpError
   payload,
 });
 
-export const setAuthData = (payload: ISetAuthDataPayload): ISetAuthDataAction => ({
+export const setAuthData = (payload: IAuthData): ISetAuthDataAction => ({
   type: AuthActions.SET_AUTH_DATA,
   payload,
 });
 
-export const signIn = (payload: ISignInPayload, meta?: IMeta): ISignInAction => ({
+export const signIn = (email: string, password: string): ISignInAction => ({
   type: AuthActions.SIGN_IN,
-  payload,
-  meta: meta,
+  email,
+  password,
 });
 
 export const signedIn = (payload: ISignInPayload): ISignedInAction => ({
@@ -57,7 +58,7 @@ export const signedOut = (): ISignedOutAction => ({
   type: AuthActions.SIGN_OUT_SUCCESS,
 });
 
-export const setAuthError = (errorMessage: string): ISetAuthErrorAction => ({
-  type: AuthActions.AUTH_ERROR,
-  payload: errorMessage,
+export const setSignInError = (error: IError): ISetSignInErrorAction => ({
+  type: AuthActions.SET_SIGN_IN_ERROR,
+  error
 });
