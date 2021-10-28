@@ -5,9 +5,12 @@ const userInfo = () => request.get(apiUrls.userInfo) ;
 
 const verifyEmail = (code: string) => request.post('employees/verification/email', { code });
 
+const checkVerification = () => request.get(apiUrls.checkVerification);
+
 const employees = {
   verifyEmail,
-  userInfo
+  checkVerification,
+  userInfo,
 };
 
 export default employees;

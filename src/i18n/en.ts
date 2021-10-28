@@ -54,4 +54,7 @@ export default {
   forgotPassword: 'Forgot Password?',
   enterEmailForgotPassword: 'Enter your email address associated with your account. We will email you a link to create a new password.',
   send: 'Send',
+  verificationUnsuccessful: 'Verification was unsuccessful.',
+  please: 'Please ',
+  contactUs: 'contact us.',
 };

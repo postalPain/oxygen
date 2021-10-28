@@ -24,13 +24,17 @@ const DataPrivacy = (
   const dispatch = useDispatch();
   const signUpData = useSelector(selectSignUpData);
   const [checked, setChecked] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const onPress = async () => {
     if (!checked) return;
+    setButtonDisabled(true);
     dispatch(signUp(signUpData, {
       onSuccess: () => {
+        setButtonDisabled(false);
         navigation.navigate(AppScreenNames.UserVerificationRequested);
       },
       onError: (error) => {
+        setButtonDisabled(false);
         if (error?.registration_id) {
           navigation.navigate(
             AppScreenNames.EnterRegistrationId,
@@ -90,7 +94,7 @@ const DataPrivacy = (
         </View>
         <Button
           onPress={onPress}
-          disabled={!checked}
+          disabled={!checked || buttonDisabled}
         >
           {vocab.next}
         </Button>

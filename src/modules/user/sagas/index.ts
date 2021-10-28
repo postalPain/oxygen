@@ -1,9 +1,10 @@
 import { call, put, takeEvery, } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import api from 'services/api';
 import * as actions from '../actions';
-import { IVerifySignUpCodeAction, UserActions } from '../types';
 import { errorNotification } from 'modules/notifications/actions';
+import { ICheckVerificationAction, IVerifySignUpCodeAction, UserActions } from 'modules/user/types';
+import api from 'services/api';
+import { setVerificationStatus } from 'modules/user/actions';
 
 
 export function* getUserInfoWorker() {
@@ -11,10 +12,21 @@ export function* getUserInfoWorker() {
   yield put(actions.userSetInfo(userData));
 }
 
-export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
+function* checkVerificationWorker (action: ICheckVerificationAction) {
   let response;
   try {
-    response = yield api.employees.verifyEmail(action.code);
+    response = yield call(api.employees.checkVerification);
+  } catch (error) {
+    yield action.meta?.onError?.();
+    return;
+  }
+  yield put(setVerificationStatus(response.data.verification_status));
+  yield action.meta?.onSuccess?.(response);
+}
+
+export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
+  try {
+    yield api.employees.verifyEmail(action.code);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
@@ -25,4 +37,5 @@ export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
 export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
+  yield takeEvery(UserActions.CHECK_VERIFICATION, checkVerificationWorker);
 }
