@@ -6,7 +6,9 @@ export enum AppScreenNames {
   SignIn = 'SignIn',
   EnterRegistrationId = 'EnterRegistrationId',
   EnterEmail = 'EnterEmail',
+  EnterEmailSignUp = 'EnterEmailSignUp',
   SetPassword = 'SetPassword',
+  SetPasswordSignUp = 'SetPasswordSignUp',
   DataPrivacy = 'DataPrivacy',
   VerificationCode = 'VerificationCode',
   UserVerificationRequested = 'UserVerificationRequested',
@@ -110,7 +112,9 @@ export type AppStackParameters = {
   SignIn: undefined;
   EnterRegistrationId: { backendError: string };
   EnterEmail: { backendError: string };
+  EnterEmailSignUp: { backendError: string };
   SetPassword: { backendError: string };
+  SetPasswordSignUp: { backendError: string };
   DataPrivacy: undefined;
   VerificationCode: undefined;
   UserVerificationRequested: undefined;

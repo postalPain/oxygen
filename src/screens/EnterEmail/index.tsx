@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
@@ -11,24 +11,26 @@ import {
   InputInfo,
 } from 'components';
 import { selectSignUpData } from 'modules/auth/selectors';
-import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
 
 
 const vocab = vocabulary.get();
-let schema = yup.string().email().required();
+const schema = yup.string().email().required();
 
-const EnterEmail = (
-  { navigation, route }: AppNavigationProps<AppScreenNames.EnterEmail>
-) => {
+interface EnterEmailProps extends AppNavigationProps<AppScreenNames.EnterEmail> {
+  onSubmit: (email: string) => void;
+}
+
+const EnterEmail = ({ route, onSubmit }: EnterEmailProps) => {
   const { params } = route;
   const styles = useStyles();
-  const dispatch = useDispatch();
   const { email } = useSelector(selectSignUpData);
   const [inputValue, setInputValue] = useState(email);
   const [inputError, setInputError] = useState('');
   useEffect(
-    () => { setInputError(params?.backendError); },
+    () => {
+      setInputError(params?.backendError);
+    },
     [params?.backendError]
   );
   const onPress = async () => {
@@ -37,13 +39,12 @@ const EnterEmail = (
       setInputError(vocab.errorCheckEmail);
       return;
     }
-    dispatch(setSignUpData({ email: inputValue }))
-    navigation.navigate(AppScreenNames.SetPassword);
-  }
+    onSubmit(inputValue);
+  };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
     setInputValue(value);
-  }
+  };
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.formContainer}>

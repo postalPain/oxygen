@@ -30,6 +30,8 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
 request.interceptors.request.use(
   (config) => {
     const token = selectAuthData(store.getState())?.access_token;
+    console.log('auth data', selectAuthData(store.getState())); // eslint-disable-line
+
     config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;
   },

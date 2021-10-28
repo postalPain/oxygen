@@ -19,6 +19,8 @@ import { headerStyles } from './styles';
 import VerificationCode from 'screens/VerificationCode';
 import ForgotPassword from 'screens/ForgotPassword';
 import Dashboard from 'screens/Dashboard';
+import SetPasswordSignUp from 'screens/SetPasswordSignUp';
+import EnterEmailSignUp from 'screens/EnterEmailSignUp';
 
 
 const AppStack = createNativeStackNavigator();
@@ -69,8 +71,18 @@ const Navigation = () => {
           options={getHeaderOptions()}
         />
         <AppStack.Screen
+          name={AppScreenNames.EnterEmailSignUp}
+          component={EnterEmailSignUp}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
           name={AppScreenNames.SetPassword}
           component={SetPassword}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SetPasswordSignUp}
+          component={SetPasswordSignUp}
           options={getHeaderOptions()}
         />
         <AppStack.Screen

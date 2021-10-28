@@ -27,7 +27,9 @@ const EnterRegistrationId = (
   const [inputValue, setInputValue] = useState(registration_id);
   const [inputError, setInputError] = useState('');
   useEffect(
-    () => { setInputError(params?.backendError); },
+    () => {
+      setInputError(params?.backendError);
+    },
     [params?.backendError]
   );
   const onPress = () => {
@@ -35,13 +37,13 @@ const EnterRegistrationId = (
       setInputError(vocab.errorEnterEmployeeId);
       return;
     }
-    dispatch(setSignUpData({ registration_id: inputValue }))
-    navigation.navigate(AppScreenNames.EnterEmail);
-  }
+    dispatch(setSignUpData({ registration_id: inputValue }));
+    navigation.navigate(AppScreenNames.EnterEmailSignUp);
+  };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
     setInputValue(value);
-  }
+  };
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.formContainer}>
