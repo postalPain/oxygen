@@ -1,23 +1,19 @@
 import React from 'react';
 import { SafeAreaView, View, Text, Image } from 'react-native';
 import vocabulary from 'i18n';
-import {
-  AppNavigationProps,
-  AppScreenNames,
-} from 'navigation/types';
 import { Button, IconCheck } from 'components';
 import useStyles from './styles';
 
 
 const vocab = vocabulary.get();
 
-const UserVerificationRequested = (
-  { navigation }: AppNavigationProps<AppScreenNames.UserVerificationRequested>
-) => {
+interface IUserVerificationRequested {
+  onSubmit: () => void;
+}
+
+const UserVerificationRequested = ({ onSubmit }: IUserVerificationRequested) => {
   const styles = useStyles();
-  const onPress = () => {
-    navigation.navigate(AppScreenNames.VerificationCodeSignUp);
-  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.screen}>
@@ -44,7 +40,7 @@ const UserVerificationRequested = (
             />
           </View>
         </View>
-        <Button onPress={onPress}>
+        <Button onPress={onSubmit}>
           {vocab.ok}
         </Button>
       </View>
