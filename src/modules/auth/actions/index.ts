@@ -1,17 +1,17 @@
 import {
   AuthActions,
   ISignUpAction,
+  ISetAuthDataAction,
   ISetSignUpDataAction,
   ISignInPayload,
-  ISignedInAction,
-  ISignOutAction,
-  ISignedOutAction,
-  ISetSignUpErrorPayload,
   ISetSignUpErrorAction,
-  ISetAuthDataAction,
+  ISetSignUpErrorPayload,
+  ISignedInAction,
+  ISignedOutAction,
   IAuthData,
   ISignInAction,
   ISetSignInErrorAction,
+  ISignOutAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 import { ISignUpPayload } from 'services/api/auth';

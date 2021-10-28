@@ -13,7 +13,7 @@ export interface IBeError2 {
 
 export interface IBeValidationError {
   [key: string]: string[];
-};
+}
 
 export interface IError {
   code: string;

@@ -7,7 +7,7 @@ export interface IResponse<T> {
 
 const api = {
   auth,
-  employees
+  employees,
 };
 
 export default api;

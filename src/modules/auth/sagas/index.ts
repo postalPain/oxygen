@@ -54,19 +54,19 @@ export function* signOutWorker() {
 
 export function* signInWorker(action: ISignInAction) {
   let response: IResponse<IAuthData>;
-
+  
   try {
     response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
     yield put(authActions.setSignInError(error));
     return;
   }
-
+  
   yield put(authActions.setAuthData(response.data));
 }
 
-export default function* userWatcher(): SagaIterator {
-  yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
+export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
+  yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);
 }

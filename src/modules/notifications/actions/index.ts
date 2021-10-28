@@ -26,7 +26,7 @@ export const successNotification = ({
 
 export const errorNotification = ({
   title = vocab.get().error,
-  text,
+  text = vocab.get().somethingWentWrong,
   timeout = 5000,
 }: Partial<INotification>): INotificationAction => ({
   type: NotificationActions.ADD_NOTIFICATION,
