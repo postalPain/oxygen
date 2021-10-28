@@ -6,7 +6,6 @@ import { ICheckVerificationAction, IVerifySignUpCodeAction, UserActions } from '
 import api from 'services/api';
 import { setVerificationStatus } from 'modules/user/actions';
 import { addHeader } from 'services/api/request';
-import employees from '../../../services/api/employees';
 
 
 export function* getUserInfoWorker() {
@@ -15,7 +14,7 @@ export function* getUserInfoWorker() {
 }
 
 function* checkVerificationWorker (action: ICheckVerificationAction) {
-  let response; // TODO add IResponse type
+  let response;
   const access_token = yield select(state => state.auth.authData.access_token);
   yield call(addHeader, {
     name: 'Authorization',
@@ -24,19 +23,16 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
   try {
     response = yield call(api.employees.checkVerification);
   } catch (error) {
-    console.log('error ========>>', error);
     yield action.meta?.onError?.();
     return;
   }
-  console.log('response ========>>', response);
-  yield put(setVerificationStatus(response.verification_status));
+  yield put(setVerificationStatus(response.data.verification_status));
   yield action.meta?.onSuccess?.(response);
 }
 
 export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
-  let response;
   try {
-    response = yield api.employees.verifyEmail(action.code);
+    yield api.employees.verifyEmail(action.code);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
