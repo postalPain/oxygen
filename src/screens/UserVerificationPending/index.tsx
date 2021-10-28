@@ -21,13 +21,11 @@ const UserVerificationPending = (
   const status = useSelector(selectVerificationStatus);
   const onPress = () => { navigation.navigate(AppScreenNames.SignIn); };
   useEffect(
-    () => { dispatch(checkVerification({})); },
+    () => { dispatch(checkVerification()); },
     []
   );
   useInterval(
-    () => {
-      dispatch(checkVerification({}));
-    },
+    () => { dispatch(checkVerification()); },
     5 * 1000 * 60
   );
   return (

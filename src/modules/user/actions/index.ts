@@ -27,7 +27,7 @@ export const verifyEmail = (code: string, onSuccess): IVerifySignUpCodeAction =>
   }
 });
 
-export const checkVerification = (meta: IMeta): ICheckVerificationAction => ({
+export const checkVerification = (meta?: IMeta): ICheckVerificationAction => ({
   type: UserActions.CHECK_VERIFICATION,
   meta,
 });
