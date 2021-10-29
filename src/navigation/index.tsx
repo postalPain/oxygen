@@ -17,11 +17,11 @@ import ForgotPassword from 'screens/ForgotPassword';
 import Dashboard from 'screens/Dashboard';
 import SetPasswordSignUp from 'screens/SetPasswordSignUp';
 import VerificationCodeSignUp from 'screens/VerificationCodeSignUp';
-import VerificationCodeForgot from 'screens/VerificationCodeForgot';
+import ForgotPasswordCode from 'screens/ForgotPasswordCode';
 import SetPasswordForgot from 'screens/SetPasswordForgot';
-import UserVerificationRequestedForgot from 'screens/UserVerificationRequestedForgot';
+import ForgotPasswordRequested from 'screens/ForgotPasswordRequested';
 import UserVerificationRequestedSignUp from 'screens/UserVerificationRequestedSignUp';
-import SignInForgot from 'screens/SignInForgot';
+import ForgotPasswordSignIn from 'screens/ForgotPasswordSignIn';
 import SignInRegular from 'screens/SignInRegular';
 
 
@@ -115,7 +115,7 @@ const Navigation = () => {
         />
         <AppStack.Screen
           name={AppScreenNames.UserVerificationRequestedForgot}
-          component={UserVerificationRequestedForgot}
+          component={ForgotPasswordRequested}
           options={{
             headerShown: false,
             gestureEnabled: false,
@@ -123,7 +123,7 @@ const Navigation = () => {
         />
         <AppStack.Screen
           name={AppScreenNames.VerificationCodeForgot}
-          component={VerificationCodeForgot}
+          component={ForgotPasswordCode}
           options={getHeaderOptions()}
         />
         <AppStack.Screen
@@ -133,7 +133,7 @@ const Navigation = () => {
         />
         <AppStack.Screen
           name={AppScreenNames.SignInForgot}
-          component={SignInForgot}
+          component={ForgotPasswordSignIn}
           options={{ headerShown: false }}
         />
         <AppStack.Screen

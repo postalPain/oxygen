@@ -2,7 +2,7 @@ import ScreenWrapperLoginForgot from 'components/ScreenWrapperLoginForgot';
 import React from 'react';
 import { SignIn } from 'screens';
 
-const SignInForgot = (props) => {
+const ForgotPasswordSignIn = (props) => {
   return (
     <ScreenWrapperLoginForgot>
       <SignIn {...props} />
@@ -10,4 +10,4 @@ const SignInForgot = (props) => {
   );
 };
 
-export default SignInForgot;
+export default ForgotPasswordSignIn;

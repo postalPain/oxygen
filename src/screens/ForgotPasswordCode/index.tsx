@@ -2,7 +2,7 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React from 'react';
 import VerificationCode from 'screens/VerificationCode';
 
-const VerificationCodeForgot = (props: AppNavigationProps<any>) => {
+const ForgotPasswordCode = (props: AppNavigationProps<any>) => {
   const { navigation } = props;
 
   const onSubmit = (code) => {
@@ -14,4 +14,4 @@ const VerificationCodeForgot = (props: AppNavigationProps<any>) => {
   );
 };
 
-export default VerificationCodeForgot;
+export default ForgotPasswordCode;
