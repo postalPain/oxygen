@@ -74,7 +74,6 @@ export interface ISignedInAction {
 
 export interface ISignOutAction {
   type: AuthActions.SIGN_OUT;
-  meta?: IMeta;
 }
 
 export interface ISignedOutAction {

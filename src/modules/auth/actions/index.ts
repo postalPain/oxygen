@@ -49,9 +49,8 @@ export const signedIn = (payload: ISignInPayload): ISignedInAction => ({
   type: AuthActions.SIGN_IN_SUCCESS,
 });
 
-export const signOut = (meta: IMeta): ISignOutAction => ({
+export const signOut = (): ISignOutAction => ({
   type: AuthActions.SIGN_OUT,
-  meta,
 });
 
 export const signedOut = (): ISignedOutAction => ({

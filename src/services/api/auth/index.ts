@@ -20,10 +20,17 @@ interface ISignInBody {
 
 const signIn = (body: ISignInBody): Promise<IResponse<IAuthData>> => request.post('login', body);
 
+interface IRefreshTokenBody {
+  refresh_token: string;
+}
+
+const refreshToken = (body: IRefreshTokenBody): Promise<IResponse<IAuthData>> => request.post('refresh', body);
+
 const auth = {
   signUp,
   signOut,
   signIn,
+  refreshToken
 };
 
 export default auth;
