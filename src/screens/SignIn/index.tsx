@@ -13,7 +13,7 @@ import { selectAuthData, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
 
 const SignIn = (
-  { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
+  { navigation }: AppNavigationProps<AppScreenNames.SignIn>
 ) => {
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const SignIn = (
   }, [error]);
 
   return (
-    <ScreenWrapperLogin>
+    <>
       <View>
         <View>
           <Input
@@ -92,8 +92,7 @@ const SignIn = (
         </Button>
         <Text style={styles.biometricLink}>{vocab.get().useYourFaceId}</Text>
       </View>
-    </ScreenWrapperLogin>
-
+    </>
   );
 };
 

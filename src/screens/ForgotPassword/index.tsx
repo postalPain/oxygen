@@ -31,7 +31,7 @@ const ForgotPassword = (
         <View>
           <Button
             onPress={() => {
-              navigation.navigate(AppScreenNames.VerificationCode);
+              navigation.navigate(AppScreenNames.UserVerificationRequestedForgot);
             }}
             disabled={!isEmailValid(email)}
           >{vocab.get().send}

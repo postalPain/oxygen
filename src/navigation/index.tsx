@@ -7,20 +7,22 @@ import {
   EnterEmail,
   EnterRegistrationId,
   Onboarding,
-  SetPassword,
-  SignIn,
   UserVerificationPending,
-  UserVerificationRequested,
 } from 'screens';
 import { AppScreenNames } from './types';
 import { BackButton, IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
-import VerificationCode from 'screens/VerificationCode';
 import ForgotPassword from 'screens/ForgotPassword';
 import Dashboard from 'screens/Dashboard';
 import SetPasswordSignUp from 'screens/SetPasswordSignUp';
 import VerificationCodeSignUp from 'screens/VerificationCodeSignUp';
+import ForgotPasswordCode from 'screens/ForgotPasswordCode';
+import SetPasswordForgot from 'screens/SetPasswordForgot';
+import ForgotPasswordRequested from 'screens/ForgotPasswordRequested';
+import UserVerificationRequestedSignUp from 'screens/UserVerificationRequestedSignUp';
+import ForgotPasswordSignIn from 'screens/ForgotPasswordSignIn';
+import SignInRegular from 'screens/SignInRegular';
 
 
 const AppStack = createNativeStackNavigator();
@@ -58,7 +60,7 @@ const Navigation = () => {
               </Pressable>
             )
           })}
-          component={SignIn}
+          component={SignInRegular}
         />
         <AppStack.Screen
           name={AppScreenNames.EnterRegistrationId}
@@ -68,11 +70,6 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.EnterEmail}
           component={EnterEmail}
-          options={getHeaderOptions()}
-        />
-        <AppStack.Screen
-          name={AppScreenNames.SetPassword}
-          component={SetPassword}
           options={getHeaderOptions()}
         />
         <AppStack.Screen
@@ -86,17 +83,12 @@ const Navigation = () => {
           options={getHeaderOptions()}
         />
         <AppStack.Screen
-          name={AppScreenNames.UserVerificationRequested}
-          component={UserVerificationRequested}
+          name={AppScreenNames.UserVerificationRequestedSignUp}
+          component={UserVerificationRequestedSignUp}
           options={{
             headerShown: false,
             gestureEnabled: false,
           }}
-        />
-        <AppStack.Screen
-          name={AppScreenNames.VerificationCode}
-          component={VerificationCode}
-          options={getHeaderOptions()}
         />
         <AppStack.Screen
           name={AppScreenNames.VerificationCodeSignUp}
@@ -120,6 +112,29 @@ const Navigation = () => {
           name={AppScreenNames.ForgotPassword}
           component={ForgotPassword}
           options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.UserVerificationRequestedForgot}
+          component={ForgotPasswordRequested}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.VerificationCodeForgot}
+          component={ForgotPasswordCode}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SetPasswordForgot}
+          component={SetPasswordForgot}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SignInForgot}
+          component={ForgotPasswordSignIn}
+          options={{ headerShown: false }}
         />
         <AppStack.Screen
           name={AppScreenNames.Dashboard}
