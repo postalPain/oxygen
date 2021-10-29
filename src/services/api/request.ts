@@ -3,7 +3,7 @@ import { BASE_URL } from 'config/apiUrls';
 import { getHeaderLanguage } from 'i18n/utils';
 import { setAuthData } from 'modules/auth/actions';
 import { selectAuthData } from 'modules/auth/selectors';
-import store, { getState, getStore } from 'modules/store';
+import store, { getState } from 'modules/store';
 import api from '.';
 import { handleBackendError } from './errors';
 
