@@ -1,12 +1,12 @@
-import ScreenWrapperLoginForgot from 'components/ScreenWrapperLoginForgot';
+import ScreenWrapperForgotPasswordLogin from 'components/ScreenWrapperForgotPasswordLogin';
 import React from 'react';
 import { SignIn } from 'screens';
 
 const ForgotPasswordSignIn = (props) => {
   return (
-    <ScreenWrapperLoginForgot>
+    <ScreenWrapperForgotPasswordLogin>
       <SignIn {...props} />
-    </ScreenWrapperLoginForgot>
+    </ScreenWrapperForgotPasswordLogin>
   );
 };
 

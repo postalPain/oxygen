@@ -8,7 +8,7 @@ interface IScreenWrapperLoginForgot {
   children?: any;
 }
 
-const ScreenWrapperLoginForgot = (props: IScreenWrapperLoginForgot) => {
+const ScreenWrapperForgotPasswordLogin = (props: IScreenWrapperLoginForgot) => {
   return (
     <View style={styles.screenWrapperLogin}>
       <View style={styles.header}>
@@ -26,4 +26,4 @@ const ScreenWrapperLoginForgot = (props: IScreenWrapperLoginForgot) => {
 };
 
 
-export default ScreenWrapperLoginForgot;
+export default ScreenWrapperForgotPasswordLogin;
