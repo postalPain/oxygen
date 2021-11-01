@@ -3,16 +3,27 @@ import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import InfoText from 'components/InfoText';
 import Link from 'components/Link';
 import vocab from 'i18n';
-import React, { useState } from 'react';
+import { errorNotification } from 'modules/notifications/actions';
+import { AppNavigationProps } from 'navigation/types';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import styles from './styles';
 
-interface IVerificationCode {
+interface IVerificationCode extends AppNavigationProps<any>{
   onSubmit: (code: string) => void;
 }
 
-const VerificationCode = ({ onSubmit }: IVerificationCode) => {
+const VerificationCode = ({ onSubmit, route }: IVerificationCode) => {
+  const { params } = route;
+
+  const dispatch = useDispatch();
+
   const [value, setValue] = useState('');
+
+  useEffect(() => {
+    params?.backendError && dispatch(errorNotification({ text: params.backendError }));
+  }, [params?.backendError]);
 
   return (
     <ScreenWithAnimatedHeader title={null}>
