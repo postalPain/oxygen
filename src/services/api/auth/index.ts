@@ -26,11 +26,28 @@ interface IRefreshTokenBody {
 
 const refreshToken = (body: IRefreshTokenBody): Promise<IResponse<IAuthData>> => request.post('refresh', body);
 
+interface IForgotPasswordBody {
+  credentials: string;
+}
+
+const forgotPassword = (body: IForgotPasswordBody): Promise<IResponse<any>> => request.post('forgot-password', body);
+
+export interface IResetPasswordBody {
+  code?: number;
+  credentials?: string; // email
+  password?: string;
+}
+
+const resetPassword = (body: IResetPasswordBody): Promise<IResponse<any>> => request.post('reset-password', body);
+
+
 const auth = {
   signUp,
   signOut,
   signIn,
-  refreshToken
+  refreshToken,
+  forgotPassword,
+  resetPassword,
 };
 
 export default auth;

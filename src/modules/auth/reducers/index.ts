@@ -22,6 +22,7 @@ export const initialState: IAuthState = {
     email: '',
     password: '',
   },
+  forgotPassword: null,
 };
 
 const authReducer = (
@@ -60,6 +61,24 @@ const authReducer = (
       return {
         ...state,
         ...action.payload,
+      };
+    }
+    case AuthActions.SET_FORGOT_PASSWORD_EMAIL: {
+      return {
+        ...state,
+        forgotPassword: {
+          ...state.forgotPassword,
+          credentials: action.email
+        }
+      };
+    }
+    case AuthActions.SET_FORGOT_PASSWORD_CODE: {
+      return {
+        ...state,
+        forgotPassword: {
+          ...state.forgotPassword,
+          code: action.code
+        }
       };
     }
     case AuthActions.SIGN_OUT_SUCCESS: {

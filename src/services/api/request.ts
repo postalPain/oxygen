@@ -44,7 +44,7 @@ request.interceptors.request.use(
     if (token && ttlExpired(authData.access_ttl)) {
       if (!ttlExpired(authData.refresh_ttl)) {
         const response = await api.auth.refreshToken({
-          refresh_token: authData.refresh_token.split('|')[1] // TODO: Remove split part after BE is fixed
+          refresh_token: authData.refresh_token
         });
 
         token = response.data.access_token;

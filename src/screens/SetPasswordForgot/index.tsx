@@ -1,4 +1,4 @@
-import { setSignUpData } from 'modules/auth/actions';
+import { resetPassword } from 'modules/auth/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,9 +8,11 @@ const SetPasswordForgot = (props: AppNavigationProps<any>) => {
   const { navigation } = props;
   const dispatch = useDispatch();
 
-  const onSubmit = (value) => {
-    dispatch(setSignUpData({ password: value }));
-    navigation.navigate(AppScreenNames.SignInForgot);
+  const onSubmit = (password) => {
+    dispatch(resetPassword(password, {
+      onSuccess: () => navigation.navigate(AppScreenNames.SignInForgot),
+      onError: () => navigation.navigate(AppScreenNames.VerificationCodeForgot) // All errors will be displayed as transient messages
+    }));
   };
 
   return (

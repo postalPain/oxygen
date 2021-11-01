@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import {
   AppNavigationProps,
-  AppScreenNames,
 } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, InputInfo, ScreenWithAnimatedHeader } from 'components';
@@ -14,7 +13,7 @@ import useStyles from './styles';
 
 const vocab = vocabulary.get();
 
-interface ISetPassword extends AppNavigationProps<AppScreenNames.SetPassword> {
+interface ISetPassword extends AppNavigationProps<any> {
   onSubmit?: (value: string) => void;
 }
 
