@@ -13,6 +13,7 @@ import { signUp } from 'modules/auth/actions';
 import { selectSignUpData } from 'modules/auth/selectors';
 import theme from 'config/theme';
 import useStyles from './styles';
+import { checkVerification } from '../../modules/user/actions';
 
 
 const vocab = vocabulary.get();
@@ -31,8 +32,9 @@ const DataPrivacy = (
     dispatch(signUp(signUpData, {
       onSuccess: () => {
         setButtonDisabled(false);
-        navigation.navigate(AppScreenNames.UserVerificationRequested);
-        },
+        navigation.navigate(AppScreenNames.UserVerificationPending);
+        dispatch(checkVerification());
+      },
       onError: (error) => {
         setButtonDisabled(false);
         if (error?.registration_id) {
@@ -52,9 +54,9 @@ const DataPrivacy = (
           );
         }
       },
-    }))
+    }));
   };
-  const handleOnChange = (value) => { setChecked(value); }
+  const handleOnChange = (value) => setChecked(value);
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.container}>

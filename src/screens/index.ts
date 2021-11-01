@@ -4,5 +4,4 @@ export { default as EnterRegistrationId } from './EnterRegistrationId';
 export { default as EnterEmail } from './EnterEmail';
 export { default as SetPassword } from './SetPassword';
 export { default as DataPrivacy } from './DataPrivacy';
-export { default as UserVerificationRequested } from './UserVerificationRequested';
 export { default as UserVerificationPending } from './UserVerificationPending';

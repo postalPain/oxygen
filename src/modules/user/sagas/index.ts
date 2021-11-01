@@ -2,7 +2,11 @@ import { call, put, takeEvery, } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import * as actions from '../actions';
 import { errorNotification } from 'modules/notifications/actions';
-import { ICheckVerificationAction, IVerifySignUpCodeAction, UserActions } from 'modules/user/types';
+import {
+  ICheckVerificationAction,
+  IVerifySignUpCodeAction,
+  UserActions,
+} from 'modules/user/types';
 import api from 'services/api';
 import { setVerificationStatus } from 'modules/user/actions';
 
@@ -21,7 +25,7 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
     return;
   }
   yield put(setVerificationStatus(response.data.verification_status));
-  yield action.meta?.onSuccess?.(response);
+  yield action.meta?.onSuccess?.(response.data.verification_status);
 }
 
 export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {

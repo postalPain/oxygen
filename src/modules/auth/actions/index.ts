@@ -2,6 +2,7 @@ import {
   AuthActions,
   ISignUpAction,
   ISetAuthDataAction,
+  IClearAuthDataAction,
   ISetSignUpDataAction,
   ISignInPayload,
   ISetSignUpErrorAction,
@@ -12,6 +13,7 @@ import {
   ISignInAction,
   ISetSignInErrorAction,
   ISignOutAction,
+  IClearSignUpDataAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 import { ISignUpPayload } from 'services/api/auth';
@@ -28,6 +30,10 @@ export const setSignUpData = (payload: Partial<ISignUpPayload>): ISetSignUpDataA
   payload,
 });
 
+export const clearSignUpData = (): IClearSignUpDataAction => ({
+  type: AuthActions.CLEAR_SIGN_UP_DATA,
+});
+
 export const setSignUpError = (payload: ISetSignUpErrorPayload): ISetSignUpErrorAction => ({
   type: AuthActions.SET_SIGN_UP_ERROR,
   payload,
@@ -36,6 +42,10 @@ export const setSignUpError = (payload: ISetSignUpErrorPayload): ISetSignUpError
 export const setAuthData = (payload: IAuthData): ISetAuthDataAction => ({
   type: AuthActions.SET_AUTH_DATA,
   payload,
+});
+
+export const clearAuthData = (): IClearAuthDataAction => ({
+  type: AuthActions.CLEAR_AUTH_DATA,
 });
 
 export const signIn = (email: string, password: string): ISignInAction => ({
@@ -49,7 +59,7 @@ export const signedIn = (payload: ISignInPayload): ISignedInAction => ({
   type: AuthActions.SIGN_IN_SUCCESS,
 });
 
-export const signOut = (meta: IMeta): ISignOutAction => ({
+export const signOut = (meta?: IMeta): ISignOutAction => ({
   type: AuthActions.SIGN_OUT,
   meta,
 });

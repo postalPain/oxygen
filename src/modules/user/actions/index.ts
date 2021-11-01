@@ -7,6 +7,7 @@ import {
   ICheckVerificationAction,
   ISetVerificationStatusAction,
   VerificationStatuses,
+  IUserClearInfoAction,
 } from 'modules/user/types';
 import { IMeta } from 'modules/store/types';
 
@@ -17,6 +18,10 @@ export const userGetInfo = (): IUserGetInfoAction => ({
 export const userSetInfo = (payload: Partial<IUserState>): IUserSetInfoAction => ({
   type: UserActions.USER_SET_INFO,
   payload,
+});
+
+export const userClearInfo = (): IUserClearInfoAction => ({
+  type: UserActions.USER_CLEAR_INFO,
 });
 
 export const verifyEmail = (code: string, onSuccess): IVerifySignUpCodeAction => ({

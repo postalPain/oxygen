@@ -3,6 +3,7 @@ import { IMeta } from 'modules/store/types';
 export const enum UserActions {
   USER_GET_INFO = 'USER_GET_INFO',
   USER_SET_INFO = 'USER_SET_INFO',
+  USER_CLEAR_INFO = 'USER_CLEAR_INFO',
   VERIFY_EMAIL = 'VERIFY_EMAIL',
   CHECK_VERIFICATION = 'CHECK_VERIFICATION',
   SET_VERIFICATION_STATUS = 'SET_VERIFICATION_STATUS',
@@ -23,6 +24,10 @@ export interface IUserGetInfoAction {
 export interface IUserSetInfoAction {
   type: UserActions.USER_SET_INFO;
   payload: Partial<IUserState>;
+}
+
+export interface IUserClearInfoAction {
+  type: UserActions.USER_CLEAR_INFO;
 }
 
 export interface IVerifySignUpCodeAction {
@@ -52,4 +57,4 @@ export enum VerificationStatuses {
   deactivated = 'deactivated',
 }
 
-export type TUserAction = IUserGetInfoAction | IUserSetInfoAction | ICheckVerificationAction | ISetVerificationStatusAction;
+export type TUserAction = IUserGetInfoAction | IUserSetInfoAction | IUserClearInfoAction | ICheckVerificationAction | ISetVerificationStatusAction;
