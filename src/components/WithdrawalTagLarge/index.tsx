@@ -6,9 +6,9 @@ import { Text, View } from 'react-native';
 import { windowDimensions } from 'utils/window';
 import styles from './styles';
 
-const WithdrawalTagBig = () => {
+const WithdrawalTagLarge = () => {
   return (
-    <View style={styles.availableToWithdraw}>
+    <View style={styles.withdrawalTagLarge}>
       <View>
         <View style={styles.amountContainer}>
           <View style={styles.walletContainer}>
@@ -25,4 +25,4 @@ const WithdrawalTagBig = () => {
   );
 };
 
-export default WithdrawalTagBig;
+export default WithdrawalTagLarge;

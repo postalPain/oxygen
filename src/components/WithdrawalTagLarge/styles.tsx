@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
-  availableToWithdraw: {
+  withdrawalTagLarge: {
     height: 0.15 * windowDimensions.height,
     alignSelf: 'stretch',
     backgroundColor: theme.colors.shade2,

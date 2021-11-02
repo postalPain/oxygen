@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
   greetingDate: {
     fontSize: 12,
     fontWeight: 'bold'
+  },
+  smallTagsContainer: {
+    flexDirection: 'row',
   }
 });
 

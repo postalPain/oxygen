@@ -11,7 +11,8 @@ import IconPlus from 'components/IconPlus';
 import vocab from 'i18n';
 import moment from 'moment';
 import styles from './styles';
-import WithdrawalTagBig from 'components/WithdrawalTagBig';
+import WithdrawalTagLarge from 'components/WithdrawalTagLarge';
+import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
 
 interface IDashboardProps {
   navigation: AppNavigationProps<AppScreenNames.Dashboard>;
@@ -34,7 +35,11 @@ const Dashboard: React.FC<IDashboardProps> = ({ theme, navigation }) => {
           {moment().format('ddd D MMM[,] YYYY')}
         </Text>
       </View>
-      <WithdrawalTagBig />
+      <WithdrawalTagLarge />
+      <View style={styles.smallTagsContainer}>
+        <WithdrawalTagSmall />
+        <WithdrawalTagSmall />
+      </View>
       <Text>{JSON.stringify(authData, undefined, 4)}</Text>
       <Text>{JSON.stringify(userInfo, undefined, 4)}</Text>
       <Button
