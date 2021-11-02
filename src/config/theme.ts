@@ -10,6 +10,7 @@ const theme = {
     special1: '#97DAFF',
     floosGragientColor1: '#975FBA',
     floosGragientColor2: '#B26090',
+    floosGradientColor3: '#E6C1FF',
     // Background colors
     screenBackgroundColorLight: '#FFFFFF',
     // Text colors

@@ -139,7 +139,9 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.Dashboard}
           component={Dashboard}
-          options={getHeaderOptions()}
+          options={{
+            headerShown: false
+          }}
         />
       </AppStack.Navigator>
     </NavigationContainer>

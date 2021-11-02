@@ -76,7 +76,11 @@ const SignIn = (
           />
           <Link
             style={styles.forgotPassword}
-            onPress={() => navigation.navigate(AppScreenNames.ForgotPassword)}
+            onPress={() => {
+              navigation.navigate(AppScreenNames.ForgotPassword);
+              setEmailError(null);
+              setPasswordError(null);
+            }}
           >
             {vocab.get().forgotPassword}
           </Link>

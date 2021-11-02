@@ -20,7 +20,10 @@ const ScreenWrapperOnboarding = (props: IOnboardingScreenWrapper) => {
   return (
     <OnboardingContext.Provider value={{ onSlideChange: setSlideIndex }}>
       <View style={styles.onboardingScreenWrapper}>
-        <LinearGradient style={styles.background} colors={['#E6C1FF', theme.colors.screenBackgroundColorLight]} />
+        <LinearGradient
+          style={styles.background}
+          colors={[ theme.colors.floosGradientColor3, theme.colors.screenBackgroundColorLight ]}
+        />
         <AnimatedTranslate
           styles={styles.circle}
           x={circleCoordinates[slideIndex].medium.x}

@@ -58,4 +58,5 @@ export default {
   verificationUnsuccessful: 'Verification was unsuccessful.',
   please: 'Please ',
   contactUs: 'contact us.',
+  withdraw: 'Withdraw',
 };
