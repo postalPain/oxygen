@@ -25,15 +25,16 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
     width: windowDimensions.width,
     paddingHorizontal: 0.05 * windowDimensions.width,
-    paddingTop: 0.2 * windowDimensions.height,
+    paddingTop: 0.15 * windowDimensions.height,
     paddingBottom: 0.05 * windowDimensions.height,
     backgroundColor: theme.colors.screenBackgroundColorLight
   },
   gradient: {
     position: 'absolute',
-    height: 0.2 * windowDimensions.height,
+    height: 0.18 * windowDimensions.height,
     width: windowDimensions.width,
     backgroundColor: theme.colors.floos1,
+    opacity: 0.8
   }
 });
 

@@ -9,7 +9,9 @@ import { selectAuthData } from 'modules/auth/selectors';
 import ScreenWrapperMain from 'components/ScreenWrapperMain';
 import IconPlus from 'components/IconPlus';
 import vocab from 'i18n';
-
+import moment from 'moment';
+import styles from './styles';
+import WithdrawalTagBig from 'components/WithdrawalTagBig';
 
 interface IDashboardProps {
   navigation: AppNavigationProps<AppScreenNames.Dashboard>;
@@ -23,7 +25,16 @@ const Dashboard: React.FC<IDashboardProps> = ({ theme, navigation }) => {
 
   return (
     <ScreenWrapperMain>
-      <Text>Dashboard</Text>
+      <View style={styles.greetingContainer}>
+        <Text style={[styles.greeting]}>
+          <Text>Hi, </Text>
+          <Text style={styles.greetingName}>Bayani</Text>
+        </Text>
+        <Text style={[styles.greeting, styles.greetingDate]}>
+          {moment().format('ddd D MMM[,] YYYY')}
+        </Text>
+      </View>
+      <WithdrawalTagBig />
       <Text>{JSON.stringify(authData, undefined, 4)}</Text>
       <Text>{JSON.stringify(userInfo, undefined, 4)}</Text>
       <Button

@@ -59,4 +59,5 @@ export default {
   please: 'Please ',
   contactUs: 'contact us.',
   withdraw: 'Withdraw',
+  availableToWithdraw: 'available to withdraw'
 };

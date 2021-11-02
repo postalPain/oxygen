@@ -17,7 +17,7 @@ const theme = {
     textDark: '#0F183F',
 
     shade1: '#C6C6C6',
-    shade2: '#F9F9F9',
+    shade2: '#F7F7F7',
     error: '#EA3546',
 
     checkboxBorderColor: '#CFD8DC',
