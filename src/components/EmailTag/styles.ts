@@ -8,6 +8,7 @@ const useStyles = () => StyleSheet.create({
     alignSelf: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    maxWidth: '100%',
     paddingRight: 0.04 * windowDimensions.width,
     paddingLeft: 0.05 * windowDimensions.width,
     paddingVertical: 0.012 * windowDimensions.height,
@@ -15,8 +16,9 @@ const useStyles = () => StyleSheet.create({
     borderRadius: 0.05 * windowDimensions.height
   },
   emailText: {
+    marginRight: 12,
     fontSize: 16,
-    marginRight: 22,
+    letterSpacing: .5,
   },
   icon: {
     alignItems: 'center',

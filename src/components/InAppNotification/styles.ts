@@ -32,6 +32,10 @@ const useStyles = () => StyleSheet.create({
     backgroundColor: theme.notifications.errorBackground,
     color: theme.notifications.errorTextColor,
   },
+  success: {
+    backgroundColor: theme.colors.screenBackgroundColorLight,
+    color: theme.notifications.successTextColor,
+  },
   iconContainer: {},
   textContainer: {
     justifyContent: 'center',

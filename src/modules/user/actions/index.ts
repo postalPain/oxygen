@@ -6,8 +6,9 @@ import {
   IVerifySignUpCodeAction,
   ICheckVerificationAction,
   ISetVerificationStatusAction,
-  VerificationStatuses,
   IUserClearInfoAction,
+  TVerificationStatus,
+  IResendVerificationCodeAction,
 } from 'modules/user/types';
 import { IMeta } from 'modules/store/types';
 
@@ -32,12 +33,18 @@ export const verifyEmail = (code: string, onSuccess): IVerifySignUpCodeAction =>
   }
 });
 
+export const resendVerificationCode = (email: string, meta?): IResendVerificationCodeAction => ({
+  type: UserActions.RESEND_VERIFICATION_CODE,
+  payload: { email },
+  meta,
+});
+
 export const checkVerification = (meta?: IMeta): ICheckVerificationAction => ({
   type: UserActions.CHECK_VERIFICATION,
   meta,
 });
 
-export const setVerificationStatus = (status: keyof typeof VerificationStatuses): ISetVerificationStatusAction => ({
+export const setVerificationStatus = (status: TVerificationStatus): ISetVerificationStatusAction => ({
   type: UserActions.SET_VERIFICATION_STATUS,
   payload: status,
 });

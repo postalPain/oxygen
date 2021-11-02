@@ -6,13 +6,12 @@ import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
 import { VerificationStatuses } from 'modules/user/types';
 import { checkVerification, userClearInfo } from 'modules/user/actions';
-import { clearAuthData, clearSignUpData } from 'modules/auth/actions';
+import { clearAuthData } from 'modules/auth/actions';
+import { selectVerificationStatus } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
-import { Button, EmailTag, Link } from 'components';
+import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
-import styles from '../VerificationCode/styles';
-import { selectVerificationStatus } from '../../modules/user/selectors';
 
 
 const vocab = vocabulary.get();
@@ -129,9 +128,7 @@ const UserVerificationPending = (
         )}
         {(emailVerificationState === 'pending') && (
           <View style={styles.buttonsWrapper}>
-            <Link style={styles.button}>
-              {vocab.sendEmailAgain}
-            </Link>
+            <ResendEmail email={email} />
             <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>
               {vocab.enterVerificationCode}
             </Button>

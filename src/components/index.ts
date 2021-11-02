@@ -9,6 +9,7 @@ export { default as InfoText } from './InfoText';
 export { default as Link } from './Link';
 export { default as InputInfo } from './InputInfo';
 export { default as EmailTag } from './EmailTag';
+export { default as ResendEmail } from './ResendEmail';
 export { default as NavigationHeader } from './NavigationHeader';
 export { default as ScreenWithAnimatedHeader } from './ScreenWithAnimatedKeyboard';
 // export { default as Carousel } from './Carousel';

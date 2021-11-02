@@ -83,11 +83,6 @@ const useStyles = () => StyleSheet.create({
   buttonsWrapper: {
     alignItems: 'center',
   },
-  button: {
-    color: theme.colors.floos2,
-    fontSize: 16,
-    marginBottom: 20,
-  },
 });
 
 export default useStyles;
