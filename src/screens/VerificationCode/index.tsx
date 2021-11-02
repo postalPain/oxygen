@@ -34,7 +34,6 @@ const VerificationCode = ({ onSubmit, backendError }: IVerificationCode) => {
           </InfoText>
         </View>
         <View>
-          <Link style={styles.link}>{vocab.sendEmailAgain}</Link>
           <Button
             disabled={value.length !== CODE_LENGTH}
             onPress={() => onSubmit(value) }

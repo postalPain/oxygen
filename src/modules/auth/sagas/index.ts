@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import api, { IResponse } from 'services/api';
 import * as authActions from 'modules/auth/actions';
@@ -11,14 +11,12 @@ import {
   IForgotPasswordAction,
   IResetPasswordAction,
 } from 'modules/auth/types';
-import { navigate } from 'navigation/utils';
-import { AppScreenNames } from 'navigation/types';
 import { getState } from 'modules/store';
 import * as appActions from 'modules/app/actions';
 import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
-import { clearAuthData, clearSignUpData } from 'modules/auth/actions';
+import { clearSignUpData } from 'modules/auth/actions';
 import { removeItems, setItems } from 'modules/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { ISignUpPayload } from 'services/api/auth';
@@ -41,9 +39,7 @@ function transformSignUpError (err: IError) {
 }
 
 export function* processSignUpData(data: IAuthData) {
-  const authData = Object.keys(data).reduce((acc, key) => {
-    return [...acc, { key, value: data[key] }];
-  }, []);
+  const authData = Object.keys(data).map((key) => ({ key, value: data[key] }), []);
   yield setItems(authData);
 }
 export function* processAuthData(data: ISignUpPayload) {
@@ -72,8 +68,6 @@ function* signOutWorker() {
     yield call(api.auth.signOut);
     yield put(authActions.signedOut());
     yield put(appActions.appResetStore());
-    yield navigate(AppScreenNames.Onboarding);
-    // TODO do we need to remove notification handling on sign out?
   } catch (error) {
     yield handleError(error);
   }

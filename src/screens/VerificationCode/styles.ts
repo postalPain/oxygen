@@ -10,10 +10,6 @@ const styles = StyleSheet.create({
     marginVertical: 0.08 * windowDimensions.height,
     paddingHorizontal: 20,
   },
-  link: {
-    textAlign: 'center',
-    marginBottom: 0.025 * windowDimensions.height
-  },
   infoBlock: {
     paddingHorizontal: 20,
   },

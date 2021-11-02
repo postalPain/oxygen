@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import moment from 'moment';
 import { Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,11 +9,18 @@ import {
   EnterEmail,
   EnterRegistrationId,
   Onboarding,
-  SetPassword,
   SignInRegular,
+  SetPasswordSignUp,
+  SetPasswordForgot,
   UserVerificationPending,
+  VerificationCodeSignUp,
+  ForgotPasswordCode,
+  ForgotPasswordRequested,
+  ForgotPasswordSignIn,
+  ForgotPassword,
+  Dashboard,
 } from 'screens';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { getMultipleItems } from 'modules/asyncStorage';
 import { checkVerification } from 'modules/user/actions';
 import { setAuthData } from 'modules/auth/actions';
@@ -20,15 +28,7 @@ import { selectAuthData } from 'modules/auth/selectors';
 import { VerificationStatuses } from 'modules/user/types';
 import { selectVerificationStatus } from 'modules/user/selectors';
 import { AppScreenNames } from './types';
-import { BackButton, IconBack, NavigationHeader, } from 'components';
-import ForgotPassword from 'screens/ForgotPassword';
-import Dashboard from 'screens/Dashboard';
-import SetPasswordSignUp from 'screens/SetPasswordSignUp';
-import VerificationCodeSignUp from 'screens/VerificationCodeSignUp';
-import ForgotPasswordCode from 'screens/ForgotPasswordCode';
-import SetPasswordForgot from 'screens/SetPasswordForgot';
-import ForgotPasswordRequested from 'screens/ForgotPasswordRequested';
-import ForgotPasswordSignIn from 'screens/ForgotPasswordSignIn';
+import { IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
 
@@ -59,19 +59,21 @@ const Navigation = () => {
   const { access_token, access_ttl } = useSelector(selectAuthData);
   const userStatus = useSelector(selectVerificationStatus);
   const isSignedIn = !!access_token && isTokenValid(access_ttl);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getMultipleItems(['access_token', 'access_ttl', 'refresh_token', 'refresh_ttl']).then((value) => {
       const _authData = value.reduce((acc, v) => ({ ...acc, [v[0]]: v[1], }), {});
-      dispatch(setAuthData(_authData));
+      batch(() => {
+        dispatch(setAuthData(_authData));
+        if (!!_authData.access_token) dispatch(checkVerification({
+          onSuccess: () =>setLoading(false),
+        }));
+        if (!_authData.access_token) setLoading(false);
+      });
     });
   }, []);
-  useEffect(
-    () => {
-      if (!!access_token) dispatch(checkVerification());
-    },
-    [access_token]
-  );
-  return (
+  useEffect(() => { if (!loading) SplashScreen.hide() }, [loading]);
+  return !loading && (
     <NavigationContainer>
       <AppStack.Navigator>
         {(!isSignedIn || !userStatus) && (
