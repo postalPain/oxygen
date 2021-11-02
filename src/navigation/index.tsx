@@ -123,7 +123,7 @@ const Navigation = () => {
               options={getHeaderOptions()}
             />
             <AppStack.Screen
-              name={AppScreenNames.UserVerificationRequestedForgot}
+              name={AppScreenNames.ForgotPasswordRequested}
               component={ForgotPasswordRequested}
               options={{
                 headerShown: false,

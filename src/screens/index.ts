@@ -10,7 +10,6 @@ export { default as ForgotPasswordSignIn } from './ForgotPasswordSignIn';
 export { default as SetPasswordForgot } from './SetPasswordForgot';
 export { default as DataPrivacy } from './DataPrivacy';
 export { default as UserVerificationPending } from './UserVerificationPending';
-export { default as UserVerificationRequested } from './UserVerificationRequested';
 export { default as SignInRegular } from './SignInRegular';
 export { default as ForgotPassword } from './ForgotPassword';
 export { default as Dashboard } from './Dashboard';

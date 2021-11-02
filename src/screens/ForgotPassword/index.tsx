@@ -9,6 +9,7 @@ import { isEmailValid } from 'utils/validate';
 import { useDispatch } from 'react-redux';
 import { forgotPassword, setForgotPasswordEmail } from 'modules/auth/actions';
 
+
 const ForgotPassword = (
   { navigation }: AppNavigationProps<AppScreenNames.ForgotPassword>
 ) => {
@@ -36,7 +37,7 @@ const ForgotPassword = (
             onPress={() => dispatch(forgotPassword(email, {
               onSuccess: () => {
                 dispatch(setForgotPasswordEmail(email));
-                navigation.navigate(AppScreenNames.UserVerificationRequestedForgot);
+                navigation.navigate(AppScreenNames.ForgotPasswordRequested);
               }
             }))}
             disabled={!isEmailValid(email)}

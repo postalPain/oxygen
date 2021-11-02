@@ -12,12 +12,8 @@ export enum AppScreenNames {
   SetPasswordForgot = 'SetPasswordForgot',
   DataPrivacy = 'DataPrivacy',
   VerificationCodeSignUp = 'VerificationCodeSignUp',
-  UserVerificationRequested = 'UserVerificationRequested',
+  ForgotPasswordRequested = 'ForgotPasswordRequested',
   VerificationCodeForgot = 'VerificationCodeForgot',
-  UserVerificationRequestedSignUp = 'UserVerificationRequestedSignUp',
-  UserVerificationRequestedForgot = 'UserVerificationRequestedForgot',
-  ResetPassword = 'ResetPassword',
-  UserVerification = 'UserVerification',
   UserVerificationPending = 'UserVerificationPending',
   ForgotPassword = 'ForgotPassword',
   Dashboard = 'Dashboard',
@@ -63,9 +59,7 @@ export type AppStackParameters = {
   DataPrivacy: undefined;
   VerificationCodeSignUp: undefined;
   VerificationCodeForgot: undefined;
-  UserVerificationRequestedSignUp: undefined;
-  UserVerificationRequestedForgot: undefined;
-  UserVerification: undefined;
+  ForgotPasswordRequested: undefined;
   UserVerificationPending: undefined;
   PasswordReset: undefined;
   ForgotPassword: undefined;
