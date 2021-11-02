@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { windowDimensions } from 'utils/window';
 import theme from 'config/theme';
-import { getFontSize } from 'utils/screen';
 
 const useStyles = () => StyleSheet.create({
   emailTag: {
@@ -19,11 +18,23 @@ const useStyles = () => StyleSheet.create({
     fontSize: 16,
     marginRight: 22,
   },
-  editIcon: {
-    width: 0.05 * windowDimensions.width,
-    height: 0.05 * windowDimensions.width,
-    marginLeft: 0.01 * windowDimensions.width
-  }
+  icon: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 20,
+    height: 20,
+    marginLeft: 0.01 * windowDimensions.width,
+  },
+  iconBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: theme.colors.floos2,
+    borderRadius: 6,
+    opacity: .4,
+  },
 });
 
 export default useStyles;
