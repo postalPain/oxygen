@@ -4,7 +4,7 @@ import CircleSmall from 'components/CircleSmall';
 import IconFloosFull from 'components/IconFloosFull';
 import React from 'react';
 import { Text, View } from 'react-native';
-import EmailTag from './EmailTag';
+import EmailTag from '../EmailTag';
 import styles from './styles';
 
 interface IScreenWrapperLogin {
@@ -33,7 +33,7 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
         </View>
         <View>
           <Text style={styles.hiMessage}>Hi, Bayani!</Text>
-          <EmailTag style={styles.emailTag} email="asd@asd.com" />
+          <EmailTag onPress={() => {}} style={styles.emailTag} email="asd@asd.com" />
         </View>
       </View>
 

@@ -1,30 +1,26 @@
-import { Button, ScreenWithAnimatedHeader } from 'components';
-import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
-import InfoText from 'components/InfoText';
-import Link from 'components/Link';
-import vocab from 'i18n';
-import { errorNotification } from 'modules/notifications/actions';
-import { AppNavigationProps } from 'navigation/types';
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
+import vocabulary from 'i18n';
+import { errorNotification } from 'modules/notifications/actions';
+import { Button, ScreenWithAnimatedHeader, InfoText, Link } from 'components';
+import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import styles from './styles';
 
-interface IVerificationCode extends AppNavigationProps<any>{
+
+const vocab = vocabulary.get();
+
+interface IVerificationCode {
   onSubmit: (code: string) => void;
+  backendError: string;
 }
 
-const VerificationCode = ({ onSubmit, route }: IVerificationCode) => {
-  const { params } = route;
-
+const VerificationCode = ({ onSubmit, backendError }: IVerificationCode) => {
   const dispatch = useDispatch();
-
   const [value, setValue] = useState('');
-
   useEffect(() => {
-    params?.backendError && dispatch(errorNotification({ text: params.backendError }));
-  }, [params?.backendError]);
-
+    backendError && dispatch(errorNotification({ text: backendError }));
+  }, [backendError]);
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.verificationCode}>
@@ -33,15 +29,16 @@ const VerificationCode = ({ onSubmit, route }: IVerificationCode) => {
             style={styles.codeInput}
             onChange={setValue}
           />
-          <InfoText>{vocab.get().pleaseEnterCode}</InfoText>
+          <InfoText style={styles.infoBlock}>
+            <Text style={styles.infoText}>{vocab.pleaseEnterCode}</Text>
+          </InfoText>
         </View>
         <View>
-          <Link style={styles.link}>{vocab.get().sendEmailAgain}</Link>
           <Button
             disabled={value.length !== CODE_LENGTH}
             onPress={() => onSubmit(value) }
           >
-            {vocab.get().confirm}
+            {vocab.confirm}
           </Button>
         </View>
       </View>

@@ -14,23 +14,21 @@ const StatusIcon = ({ status }: IStatusIcon) => {
     case 'verified':
       return (
         <View style={[styles.circle, styles.verified]}>
-          <IconCheck size={24} />
+          <IconCheck size={14} />
         </View>
       );
     case 'rejected':
       return (
         <View style={[styles.circle, styles.rejected]}>
-          <IconCross size={24} />
+          <IconCross size={14} />
         </View>
       );
     case 'pending':
     default:
       return (
-        <View style={[styles.circle, styles.pending]}>
-    
-        </View>
+        <View style={[styles.circle, styles.pending]} />
       );
   }
 };
 
-export default StatusIcon
+export default StatusIcon;

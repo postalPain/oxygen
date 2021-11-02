@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
+import { getItem } from 'modules/asyncStorage';
 import { VerificationStatuses } from 'modules/user/types';
+import { checkVerification, userClearInfo } from 'modules/user/actions';
+import { clearAuthData } from 'modules/auth/actions';
 import { selectVerificationStatus } from 'modules/user/selectors';
-import { checkVerification } from 'modules/user/actions';
 import useInterval from 'utils/useInterval';
-import { Button } from 'components';
+import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
+
 
 const vocab = vocabulary.get();
 
@@ -18,7 +21,13 @@ const UserVerificationPending = (
 ) => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState();
   const status = useSelector(selectVerificationStatus);
+  const emailVerificationState = (status === VerificationStatuses.new) ? 'pending' : 'verified';
+  const employerVerificationState = (status === VerificationStatuses.employer_not_verified)
+    ? 'rejected'
+    : (status === VerificationStatuses.employer_verified)
+      ? 'verified' : 'pending';
   const onPress = () => navigation.navigate(AppScreenNames.SignIn);
   const [delay, setDelay] = useState(1000 * 60 * 5);
   const checkStatus = () => {
@@ -30,73 +39,100 @@ const UserVerificationPending = (
       },
     }));
   };
-  useEffect(() => checkStatus(), []);
+  useEffect(() => {
+    getItem('email').then((_email) => setEmail(_email));
+    checkStatus();
+  }, []);
   useInterval(() => checkStatus(), delay);
+  const clearAuthAndUserData = () => {
+    batch(() => {
+      dispatch(clearAuthData());
+      dispatch(userClearInfo());
+    });
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.screen}>
         <View style={styles.steps}>
           <View style={styles.step}>
-            <View style={styles.progressBar}>
-              <StatusIcon status="verified" />
-              <View style={[styles.line, (status === VerificationStatuses.employer_verified) && styles.lineDark]} />
-            </View>
-            <Text
+            <View
               style={[
-                styles.stepTitle,
-                styles.stepTitleVerified,
+                styles.progressBar,
+                (emailVerificationState === 'verified') && styles.progressBarVerified,
               ]}
             >
-              {vocab.emailVerified}
+              <StatusIcon status={emailVerificationState} />
+              <View style={[styles.line]} />
+            </View>
+            <Text style={[styles.stepTitle]}>
+              {vocab.emailVerification}
             </Text>
+            <EmailTag onPress={clearAuthAndUserData} email={email} />
+            {emailVerificationState === 'pending' && (
+              <Text style={styles.stepText}>
+                {vocab.weSentEmail}
+              </Text>
+            )}
+            <View style={{ height: (emailVerificationState === 'verified') ? 42 : 22 }} />
           </View>
           <View style={styles.step}>
-            <View style={styles.progressBar}>
-              <StatusIcon
-                status={(status === VerificationStatuses.employer_not_verified)
-                  ? 'rejected'
-                  : (status === VerificationStatuses.employer_verified)
-                    ? 'verified' : 'pending'}
-              />
+            <View
+              style={[
+                styles.progressBar,
+                (employerVerificationState !== 'pending') && styles.progressBarVerified,
+              ]}
+            >
+              <StatusIcon status={employerVerificationState} />
             </View>
             <Text style={styles.stepTitle}>
               {vocab.employeeVerification}
             </Text>
             {(status === VerificationStatuses.email_verified)
               ? (
-                <View style={styles.stepTextWrapper}>
+                <>
+                  <View style={styles.textHighlightedWrapper}>
+                    <Text style={styles.textHighlighted}>
+                      {vocab.waitingTime}{2}{vocab.days}
+                    </Text>
+                  </View>
                   <Text style={styles.stepText}>
-                    {vocab.waitingTime}{2}{vocab.days}
+                    {vocab.yourEmployerWillConfirm}
                   </Text>
-                </View>
-              ) : null}
+                  <Text style={styles.stepText}>
+                    {vocab.weWillNotifyYou}
+                  </Text>
+                </>
+              ) : null
+            }
+            {(employerVerificationState === 'rejected') && (
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>
+                  {vocab.verificationUnsuccessful}
+                </Text>
+                <Text style={[styles.infoText, styles.link]}>
+                  {vocab.contactUs}
+                </Text>
+              </View>
+            )}
+            {employerVerificationState === 'verified' && (
+              <Text style={styles.stepText}>
+                {vocab.congratulationsVerification}
+              </Text>
+            )}
           </View>
         </View>
-        {(status === VerificationStatuses.email_verified)
-        && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>
-              {vocab.youWillReceiveEmail}
-            </Text>
-          </View>
-        )}
-        {(status === VerificationStatuses.employer_not_verified) && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.infoText}>
-              {vocab.verificationUnsuccessful}
-            </Text>
-            <Text style={[styles.infoText, styles.infoTextCentered]}>
-              {vocab.please}
-              <Text style={[styles.infoText, styles.link]}>
-                {vocab.contactUs}
-              </Text>
-            </Text>
-          </View>
-        )}
-        {(status === VerificationStatuses.employer_verified) && (
+        {(employerVerificationState === 'verified') && (
           <Button onPress={onPress}>
-            {vocab.continue}
+            {vocab.getStarted}
           </Button>
+        )}
+        {(emailVerificationState === 'pending') && (
+          <View style={styles.buttonsWrapper}>
+            <ResendEmail email={email} />
+            <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>
+              {vocab.enterVerificationCode}
+            </Button>
+          </View>
         )}
       </View>
     </SafeAreaView>

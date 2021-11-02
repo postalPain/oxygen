@@ -11,19 +11,19 @@ const useStyles = () => StyleSheet.create({
   },
   pending: {
     position: 'absolute',
-    top: 6,
+    top: 0,
     width: 14,
     height: 14,
-    backgroundColor: '#C9C9C9',
+    backgroundColor: theme.colors.floos2,
   },
   verified: {
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     backgroundColor: theme.colors.floos2,
   },
   rejected: {
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     backgroundColor: '#C9C9C9',
   },
 });

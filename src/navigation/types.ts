@@ -2,6 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/
 import { RouteProp } from '@react-navigation/core';
 
 export enum AppScreenNames {
+  Loading = 'Loading',
   Onboarding = 'Onboarding',
   SignIn = 'SignIn',
   SignInForgot = 'SignInForgot',
@@ -11,11 +12,8 @@ export enum AppScreenNames {
   SetPasswordForgot = 'SetPasswordForgot',
   DataPrivacy = 'DataPrivacy',
   VerificationCodeSignUp = 'VerificationCodeSignUp',
+  ForgotPasswordRequested = 'ForgotPasswordRequested',
   VerificationCodeForgot = 'VerificationCodeForgot',
-  UserVerificationRequestedSignUp = 'UserVerificationRequestedSignUp',
-  UserVerificationRequestedForgot = 'UserVerificationRequestedForgot',
-  ResetPassword = 'ResetPassword',
-  UserVerification = 'UserVerification',
   UserVerificationPending = 'UserVerificationPending',
   ForgotPassword = 'ForgotPassword',
   Dashboard = 'Dashboard',
@@ -38,67 +36,6 @@ export interface IScreenPermissionsTable {
   [key: string]: IScreenPermission;
 }
 
-export const AppScreenPermissions: IScreenPermissionsTable = {
-  [AppScreenNames.Onboarding]: { access: [IUserAccess.unauthenticated], default: true },
-  [AppScreenNames.SignIn]: { access: [IUserAccess.unauthenticated] },
-  [AppScreenNames.ResetPassword]: { access: [IUserAccess.unauthenticated] },
-  [AppScreenNames.DataPrivacy]: { access: [IUserAccess.unauthenticated] },
-  [AppScreenNames.UserVerification]: { access: [IUserAccess.new] },
-  [AppScreenNames.UserVerificationPending]: {
-    access: [IUserAccess.new, IUserAccess.pending, IUserAccess.active],
-    default: true,
-    redirectTo: AppScreenNames.SignIn,
-  },
-  [AppScreenNames.Dashboard]: { access: [IUserAccess.active], default: true },
-};
-
-export const isScreenAuthorized = (permissionsTable: IScreenPermissionsTable, screenName: string, userAccess: IUserAccess): boolean => {
-  const screenPermissions = permissionsTable[screenName];
-  return !!screenPermissions && screenPermissions.access?.indexOf(userAccess) > -1;
-};
-
-export const getRedirectScreen = (permissionsTable: IScreenPermissionsTable, currentScreen: string, userAccess: IUserAccess): string => {
-  /** Check user permissions to be on a current screen */
-  if (!isScreenAuthorized(permissionsTable, currentScreen, userAccess) || !currentScreen) {
-    /** Check if there is a priority redirect */
-    const screenInfo = permissionsTable[currentScreen];
-    if (screenInfo && screenInfo.redirectTo && isScreenAuthorized(permissionsTable, screenInfo.redirectTo, userAccess)) {
-      return screenInfo.redirectTo;
-    }
-    /** User doesn't have permissions */
-    const defaultScreens: { key: string; value: IScreenPermission }[] = Object
-      .entries(permissionsTable)
-      .map(([key, value]: [string, IScreenPermission]) => ({
-        key,
-        value,
-      }))
-      .filter((d: { key: string; value: IScreenPermission }) => (
-        d.value.access.indexOf(userAccess) > -1 &&
-        d.value.default
-      ));
-    defaultScreens.sort((a, b) => a.value.access.length > b.value.access.length ? 1 : -1);
-    const defaultScreen = defaultScreens[0];
-    if (defaultScreen) {
-      return defaultScreen.key;
-    }
-  }
-
-  return '';
-};
-
-export enum UserVerificationScreenNames {
-  Pending = 'Pending',
-  Success = 'Success',
-}
-
-export enum PasswordResetScreenNames {
-  ForgotPassword = 'ForgotPassword',
-  ForgotPasswordConfirmation = 'ForgotPasswordConfirmation',
-  ResetPasswordVerifyCode = 'ResetPasswordVerifyCode',
-  ResetPassword = 'ResetPassword',
-  ResetPasswordConfirmation = 'ResetPasswordConfirmation',
-}
-
 export enum MainScreenNames {
   HomeStack = 'HomeStack',
   Transactions = 'Transactions',
@@ -110,6 +47,7 @@ export enum HomeScreenNames {
 }
 
 export type AppStackParameters = {
+  Loading: undefined;
   Onboarding: undefined;
   SignIn: undefined;
   SignInForgot: undefined;
@@ -121,9 +59,7 @@ export type AppStackParameters = {
   DataPrivacy: undefined;
   VerificationCodeSignUp: undefined;
   VerificationCodeForgot: undefined;
-  UserVerificationRequestedSignUp: undefined;
-  UserVerificationRequestedForgot: undefined;
-  UserVerification: undefined;
+  ForgotPasswordRequested: undefined;
   UserVerificationPending: undefined;
   PasswordReset: undefined;
   ForgotPassword: undefined;
@@ -134,15 +70,6 @@ export type AppStackParameters = {
 export type UserVerificationStackParameters = {
   Pending: undefined;
   Success: undefined;
-};
-
-export type SignUpStackParameters = {
-  EnterRegistrationId: undefined;
-  EnterEmail: undefined;
-  SetPassword: undefined;
-  DataPrivacy: undefined;
-  UserVerificationRequested: undefined;
-  UserVerification: undefined;
 };
 
 export type PasswordResetParameters = {
