@@ -3,6 +3,7 @@ import {
   ISignUpAction,
   ISetAuthDataAction,
   IClearAuthDataAction,
+  IClearSignUpDataAction,
   ISetSignUpDataAction,
   ISignInPayload,
   ISetSignUpErrorAction,
@@ -13,7 +14,10 @@ import {
   ISignInAction,
   ISetSignInErrorAction,
   ISignOutAction,
-  IClearSignUpDataAction,
+  IForgotPasswordAction,
+  ISetForgotPasswordCodeAction,
+  IResetPasswordAction,
+  ISetForgotPasswordEmailAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 import { ISignUpPayload } from 'services/api/auth';
@@ -71,4 +75,26 @@ export const signedOut = (): ISignedOutAction => ({
 export const setSignInError = (error: IError): ISetSignInErrorAction => ({
   type: AuthActions.SET_SIGN_IN_ERROR,
   error
+});
+
+export const forgotPassword = (email: string, meta?: IMeta): IForgotPasswordAction => ({
+  type: AuthActions.FORGOT_PASSWORD,
+  email,
+  meta
+});
+
+export const setForgotPasswordEmail = (email: string): ISetForgotPasswordEmailAction => ({
+  type: AuthActions.SET_FORGOT_PASSWORD_EMAIL,
+  email
+});
+
+export const setForgotPasswordCode = (code: number): ISetForgotPasswordCodeAction => ({
+  type: AuthActions.SET_FORGOT_PASSWORD_CODE,
+  code
+});
+
+export const resetPassword = (password: string, meta?: IMeta): IResetPasswordAction => ({
+  type: AuthActions.RESET_PASSWORD,
+  password,
+  meta
 });

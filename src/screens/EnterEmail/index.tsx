@@ -11,24 +11,23 @@ import {
   InputInfo,
 } from 'components';
 import { selectSignUpData } from 'modules/auth/selectors';
-import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
-
+import { setSignUpData } from 'modules/auth/actions';
 
 const vocab = vocabulary.get();
-let schema = yup.string().email().required();
+const schema = yup.string().email().required();
 
-const EnterEmail = (
-  { navigation, route }: AppNavigationProps<AppScreenNames.EnterEmail>
-) => {
+const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.EnterEmail>) => {
   const { params } = route;
-  const styles = useStyles();
   const dispatch = useDispatch();
+  const styles = useStyles();
   const { email } = useSelector(selectSignUpData);
   const [inputValue, setInputValue] = useState(email);
   const [inputError, setInputError] = useState('');
   useEffect(
-    () => { setInputError(params?.backendError); },
+    () => {
+      setInputError(params?.backendError);
+    },
     [params?.backendError]
   );
   const onPress = async () => {
@@ -37,13 +36,13 @@ const EnterEmail = (
       setInputError(vocab.errorCheckEmail);
       return;
     }
-    dispatch(setSignUpData({ email: inputValue }))
-    navigation.navigate(AppScreenNames.SetPassword);
-  }
+    dispatch(setSignUpData({ email: inputValue }));
+    navigation.navigate(AppScreenNames.SetPasswordSignUp);
+  };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
     setInputValue(value);
-  }
+  };
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.formContainer}>

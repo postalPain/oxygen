@@ -5,6 +5,7 @@ export const defaultSignUpErrors = {
   email: null,
   password: null,
 };
+
 export const defaultAuthData = {
   access_token: '',
   access_ttl: '',
@@ -22,6 +23,7 @@ export const initialState: IAuthState = {
   signUpErrors: defaultSignUpErrors,
   signInError: null,
   signUpData: defaultSignUpData,
+  forgotPassword: null,
 };
 
 const authReducer = (
@@ -72,6 +74,24 @@ const authReducer = (
       return {
         ...state,
         ...action.payload,
+      };
+    }
+    case AuthActions.SET_FORGOT_PASSWORD_EMAIL: {
+      return {
+        ...state,
+        forgotPassword: {
+          ...state.forgotPassword,
+          credentials: action.email
+        }
+      };
+    }
+    case AuthActions.SET_FORGOT_PASSWORD_CODE: {
+      return {
+        ...state,
+        forgotPassword: {
+          ...state.forgotPassword,
+          code: action.code
+        }
       };
     }
     case AuthActions.SIGN_OUT_SUCCESS: {

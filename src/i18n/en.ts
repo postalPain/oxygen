@@ -50,6 +50,7 @@ export default {
   days: ' days',
   congratulationsVerification: 'Congratulations, your verification is complete!',
   forgotPassword: 'Forgot Password?',
+  newPasswordCreated: 'A new password was created!Please log in into your account.',
   enterEmailForgotPassword: 'Enter your email address associated with your account. We will email you a link to create a new password.',
   send: 'Send',
   verificationUnsuccessful: 'Verification was unsuccessful.',
@@ -58,5 +59,8 @@ export default {
   enterVerificationCode: 'Enter Verification Code',
   weSentEmail: 'We’ve sent you an email with a 5-digit verification code. Please use the code provided in the email to activate your account.',
   yourEmployerWillConfirm: 'Your employer will confirm your registration.',
-  weWillNotifyYou: 'We will notify you when the process is complete'
+  weWillNotifyYou: 'We will notify you when the process is complete',
+  emailVerificationRequested: 'Email verification requested!',
+  youReceivedEmail: 'You received the email from us.',
+  useCode: 'Please use the code provided in the email to activate your account.',
 };

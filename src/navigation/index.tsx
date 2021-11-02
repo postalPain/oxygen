@@ -9,23 +9,28 @@ import {
   EnterRegistrationId,
   Onboarding,
   SetPassword,
-  SignIn,
+  SignInRegular,
   UserVerificationPending,
 } from 'screens';
-import { AppScreenNames } from './types';
-import { BackButton, IconBack, NavigationHeader, } from 'components';
-import VerificationCode from 'screens/VerificationCode';
-import ForgotPassword from 'screens/ForgotPassword';
-import Dashboard from 'screens/Dashboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMultipleItems } from 'modules/asyncStorage';
 import { checkVerification } from 'modules/user/actions';
 import { setAuthData } from 'modules/auth/actions';
 import { selectAuthData } from 'modules/auth/selectors';
 import { VerificationStatuses } from 'modules/user/types';
+import { selectVerificationStatus } from 'modules/user/selectors';
+import { AppScreenNames } from './types';
+import { BackButton, IconBack, NavigationHeader, } from 'components';
+import ForgotPassword from 'screens/ForgotPassword';
+import Dashboard from 'screens/Dashboard';
+import SetPasswordSignUp from 'screens/SetPasswordSignUp';
+import VerificationCodeSignUp from 'screens/VerificationCodeSignUp';
+import ForgotPasswordCode from 'screens/ForgotPasswordCode';
+import SetPasswordForgot from 'screens/SetPasswordForgot';
+import ForgotPasswordRequested from 'screens/ForgotPasswordRequested';
+import ForgotPasswordSignIn from 'screens/ForgotPasswordSignIn';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
-import { selectVerificationStatus } from '../modules/user/selectors';
 
 
 const isTokenValid = (ttl: string) => {
@@ -78,7 +83,7 @@ const Navigation = () => {
             />
             <AppStack.Screen
               name={AppScreenNames.SignIn}
-              component={SignIn}
+              component={SignInRegular}
               options={({ navigation }) => ({
                 headerShown: true,
                 title: '',
@@ -101,8 +106,8 @@ const Navigation = () => {
               options={getHeaderOptions()}
             />
             <AppStack.Screen
-              name={AppScreenNames.SetPassword}
-              component={SetPassword}
+              name={AppScreenNames.SetPasswordSignUp}
+              component={SetPasswordSignUp}
               options={getHeaderOptions()}
             />
             <AppStack.Screen
@@ -114,6 +119,29 @@ const Navigation = () => {
               name={AppScreenNames.ForgotPassword}
               component={ForgotPassword}
               options={getHeaderOptions()}
+            />
+            <AppStack.Screen
+              name={AppScreenNames.UserVerificationRequestedForgot}
+              component={ForgotPasswordRequested}
+              options={{
+                headerShown: false,
+                gestureEnabled: false,
+              }}
+            />
+            <AppStack.Screen
+              name={AppScreenNames.VerificationCodeForgot}
+              component={ForgotPasswordCode}
+              options={getHeaderOptions()}
+            />
+            <AppStack.Screen
+              name={AppScreenNames.SetPasswordForgot}
+              component={SetPasswordForgot}
+              options={getHeaderOptions()}
+            />
+            <AppStack.Screen
+              name={AppScreenNames.SignInForgot}
+              component={ForgotPasswordSignIn}
+              options={{ headerShown: false }}
             />
           </>
         )}
@@ -136,17 +164,9 @@ const Navigation = () => {
               })}
             />
             <AppStack.Screen
-              name={AppScreenNames.VerificationCode}
-              component={VerificationCode}
-              options={{
-                ...getHeaderOptions(),
-                header: (headerProps) => (
-                  <NavigationHeader
-                    {...headerProps}  // eslint-disable-line
-                    headerLeft={null}
-                  />
-                )
-              }}
+              name={AppScreenNames.VerificationCodeSignUp}
+              component={VerificationCodeSignUp}
+              options={getHeaderOptions()}
             />
           </>
         )}

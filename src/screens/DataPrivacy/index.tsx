@@ -49,7 +49,7 @@ const DataPrivacy = (
         }
         if (error?.password) {
           navigation.navigate(
-            AppScreenNames.SetPassword,
+            AppScreenNames.SetPasswordSignUp,
             { backendError: error.password }
           );
         }

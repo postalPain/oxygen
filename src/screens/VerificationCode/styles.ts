@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { windowDimensions } from "utils/window";
+import { StyleSheet } from 'react-native';
+import { windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   verificationCode: {
@@ -7,11 +7,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   codeInput: {
-    marginVertical: 0.08 * windowDimensions.height
+    marginVertical: 0.08 * windowDimensions.height,
+    paddingHorizontal: 20,
   },
   link: {
     textAlign: 'center',
     marginBottom: 0.025 * windowDimensions.height
+  },
+  infoBlock: {
+    paddingHorizontal: 20,
+  },
+  infoText: {
+    fontSize: 16,
+    letterSpacing: .5,
+    lineHeight: 24,
   },
 });
 

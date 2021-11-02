@@ -5,11 +5,17 @@ export enum AppScreenNames {
   Loading = 'Loading',
   Onboarding = 'Onboarding',
   SignIn = 'SignIn',
+  SignInForgot = 'SignInForgot',
   EnterRegistrationId = 'EnterRegistrationId',
   EnterEmail = 'EnterEmail',
-  SetPassword = 'SetPassword',
+  SetPasswordSignUp = 'SetPasswordSignUp',
+  SetPasswordForgot = 'SetPasswordForgot',
   DataPrivacy = 'DataPrivacy',
-  VerificationCode = 'VerificationCode',
+  VerificationCodeSignUp = 'VerificationCodeSignUp',
+  UserVerificationRequested = 'UserVerificationRequested',
+  VerificationCodeForgot = 'VerificationCodeForgot',
+  UserVerificationRequestedSignUp = 'UserVerificationRequestedSignUp',
+  UserVerificationRequestedForgot = 'UserVerificationRequestedForgot',
   ResetPassword = 'ResetPassword',
   UserVerification = 'UserVerification',
   UserVerificationPending = 'UserVerificationPending',
@@ -48,11 +54,17 @@ export type AppStackParameters = {
   Loading: undefined;
   Onboarding: undefined;
   SignIn: undefined;
+  SignInForgot: undefined;
   EnterRegistrationId: { backendError: string };
   EnterEmail: { backendError: string };
-  SetPassword: { backendError: string };
+  EnterEmailSignUp: { backendError: string };
+  SetPasswordSignUp: { backendError: string };
+  SetPasswordForgot: undefined;
   DataPrivacy: undefined;
-  VerificationCode: undefined;
+  VerificationCodeSignUp: undefined;
+  VerificationCodeForgot: undefined;
+  UserVerificationRequestedSignUp: undefined;
+  UserVerificationRequestedForgot: undefined;
   UserVerification: undefined;
   UserVerificationPending: undefined;
   PasswordReset: undefined;

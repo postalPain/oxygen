@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { BASE_URL } from 'config/apiUrls';
 import { getHeaderLanguage } from 'i18n/utils';
-import { selectAccessToken } from 'modules/auth/selectors';
-import store from 'modules/store';
+import { setAuthData } from 'modules/auth/actions';
+import { selectAuthData } from 'modules/auth/selectors';
+import store, { getState } from 'modules/store';
+import api from '.';
 import { handleBackendError } from './errors';
 
 const request = axios.create({
@@ -27,9 +29,30 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
   if (callback) callback();
 };
 
+export const ttlExpired = (ttlUTC: string) => {
+  const expiration = new Date(ttlUTC);
+  const nowUtc = new Date(new Date().toUTCString().substr(0, 25));
+
+  return (expiration.getTime() - nowUtc.getTime()) < 5000; // less then 5 seconds
+};
+
 request.interceptors.request.use(
-  (config) => {
-    const token = selectAccessToken(store.getState());
+  async (config) => {
+    const authData = selectAuthData(getState());
+
+    let token = authData.access_token;
+    if (token && ttlExpired(authData.access_ttl)) {
+      if (!ttlExpired(authData.refresh_ttl)) {
+        const response = await api.auth.refreshToken({
+          refresh_token: authData.refresh_token
+        });
+
+        token = response.data.access_token;
+        store.dispatch(setAuthData(response.data));
+        return;
+      }
+    }
+
     config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;
   },

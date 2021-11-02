@@ -10,11 +10,10 @@ interface IInfoText {
 const InfoText = (props: IInfoText) => {
   return (
     <View style={[styles.infoText, props.style]}>
-      <Text style={styles.infoStyle}>{'ⓘ'}</Text>
+      <Text style={styles.icon}>{'ⓘ'}</Text>
       {(typeof props.children) === 'string'
         ? <Text style={styles.textStyle}>{props.children}</Text>
-        : props.children
-      }
+        : props.children}
     </View>
   );
 };
@@ -25,11 +24,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-  infoStyle: {
-    marginRight: 0.01 * windowDimensions.width
+  icon: {
+    marginTop: 3,
+    marginRight: 0.015 * windowDimensions.width,
   },
   textStyle: {
-    flex: 1
+    flex: 1,
   }
 });
 

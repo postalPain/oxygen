@@ -6,10 +6,13 @@ import { Text, View } from 'react-native';
 import styles from './styles';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import { isEmailValid } from 'utils/validate';
+import { useDispatch } from 'react-redux';
+import { forgotPassword, setForgotPasswordEmail } from 'modules/auth/actions';
 
 const ForgotPassword = (
   { navigation }: AppNavigationProps<AppScreenNames.ForgotPassword>
 ) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
 
   return (
@@ -30,9 +33,12 @@ const ForgotPassword = (
         </View>
         <View>
           <Button
-            onPress={() => {
-              navigation.navigate(AppScreenNames.VerificationCode);
-            }}
+            onPress={() => dispatch(forgotPassword(email, {
+              onSuccess: () => {
+                dispatch(setForgotPasswordEmail(email));
+                navigation.navigate(AppScreenNames.UserVerificationRequestedForgot);
+              }
+            }))}
             disabled={!isEmailValid(email)}
           >{vocab.get().send}
           </Button>

@@ -1,43 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import {
   AppNavigationProps,
-  AppScreenNames,
 } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, InputInfo, ScreenWithAnimatedHeader } from 'components';
 import usePasswordRequirements from 'utils/usePasswordRequirements';
 import { selectSignUpData } from 'modules/auth/selectors';
-import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
-
 
 const vocab = vocabulary.get();
 
-const SetPassword = (
-  { navigation, route }: AppNavigationProps<AppScreenNames.SetPassword>
-) => {
+interface ISetPassword extends AppNavigationProps<any> {
+  onSubmit?: (value: string) => void;
+}
+
+const SetPassword = ({ route, onSubmit }: ISetPassword) => {
   const { params } = route;
   const styles = useStyles();
-  const dispatch = useDispatch();
   const { password } = useSelector(selectSignUpData);
   const [inputValue, setInputValue] = useState(password);
   const [inputError, setInputError] = useState('');
   const { requirementsLabels, isPasswordMatched } = usePasswordRequirements(inputValue);
   useEffect(
-    () => { setInputError(params?.backendError); },
+    () => {
+      setInputError(params?.backendError);
+    },
     [params?.backendError]
   );
   const onPress = async () => {
-    dispatch(setSignUpData({ password: inputValue }))
-    navigation.navigate(AppScreenNames.DataPrivacy);
-  }
+    onSubmit(inputValue);
+  };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
     setInputValue(value);
-  }
+  };
   return (
     <ScreenWithAnimatedHeader title={null}>
       <View style={styles.formContainer}>

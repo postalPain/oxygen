@@ -132,7 +132,7 @@ const UserVerificationPending = (
             <Link style={styles.button}>
               {vocab.sendEmailAgain}
             </Link>
-            <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCode)}>
+            <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>
               {vocab.enterVerificationCode}
             </Button>
           </View>

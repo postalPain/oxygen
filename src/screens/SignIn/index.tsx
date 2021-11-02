@@ -13,7 +13,7 @@ import { selectAuthData, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
 
 const SignIn = (
-  { navigation }: AppNavigationProps<AppScreenNames.DataPrivacy>
+  { navigation }: AppNavigationProps<AppScreenNames.SignIn>
 ) => {
   const dispatch = useDispatch();
 
@@ -46,11 +46,12 @@ const SignIn = (
       error.error['password'] && setPasswordError(error.error['password'][0]);
     } else {
       setEmailError(error.message);
+      setPasswordError(error.message);
     }
   }, [error]);
 
   return (
-    <ScreenWrapperLogin>
+    <>
       <View>
         <View>
           <Input
@@ -82,11 +83,16 @@ const SignIn = (
         </View>
       </View>
       <View style={styles.buttonSection}>
-        <Button onPress={() => dispatch(signIn(email, password))}>{vocab.get().logIn}</Button>
+        <Button onPress={() => {
+          dispatch(signIn(email, password));
+          setEmailError(null);
+          setPasswordError(null);
+        }}
+        >{vocab.get().logIn}
+        </Button>
         <Text style={styles.biometricLink}>{vocab.get().useYourFaceId}</Text>
       </View>
-    </ScreenWrapperLogin>
-
+    </>
   );
 };
 

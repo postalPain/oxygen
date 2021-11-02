@@ -1,7 +1,16 @@
 import apiUrls from 'config/apiUrls';
+import { TVerificationStatus } from 'modules/user/types';
+import { IResponse } from '..';
 import request from '../request';
 
-const userInfo = () => request.get(apiUrls.userInfo) ;
+interface IUserInfo {
+  email: string;
+  iban: string;
+  id: number;
+  registration_id: string;
+  verification_status: TVerificationStatus;
+}
+const userInfo = (): Promise<IResponse<IUserInfo>> => request.get(apiUrls.userInfo) ;
 
 const verifyEmail = (code: string) => request.post('employees/verification/email', { code });
 

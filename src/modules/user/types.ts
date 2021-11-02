@@ -57,4 +57,6 @@ export enum VerificationStatuses {
   deactivated = 'deactivated',
 }
 
+export type TVerificationStatus = keyof typeof VerificationStatuses;
+
 export type TUserAction = IUserGetInfoAction | IUserSetInfoAction | IUserClearInfoAction | ICheckVerificationAction | ISetVerificationStatusAction;
