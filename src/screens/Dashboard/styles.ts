@@ -21,9 +21,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold'
   },
+  largeTagContainer: {
+    marginBottom: 0.04 * windowDimensions.width,
+  },
   smallTagsContainer: {
     flexDirection: 'row',
-  }
+  },
+  smallTagsDivider: {
+    width: 0.04 * windowDimensions.width
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
 });
 
 export default styles;

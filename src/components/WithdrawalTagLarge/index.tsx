@@ -1,14 +1,17 @@
-import IconPlus from 'components/IconPlus';
 import IconWallet from 'components/IconWallet';
 import vocab from 'i18n';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ViewStyle } from 'react-native';
 import { windowDimensions } from 'utils/window';
 import styles from './styles';
 
-const WithdrawalTagLarge = () => {
+interface IWithdrawalTagLarge {
+  style?: ViewStyle;
+}
+
+const WithdrawalTagLarge = ({ style }: IWithdrawalTagLarge) => {
   return (
-    <View style={styles.withdrawalTagLarge}>
+    <View style={[styles.withdrawalTagLarge, style]}>
       <View>
         <View style={styles.amountContainer}>
           <View style={styles.walletContainer}>

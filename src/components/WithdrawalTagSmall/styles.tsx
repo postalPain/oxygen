@@ -4,7 +4,7 @@ import { windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   withdrawalTagSmall: {
-    height: 0.1 * windowDimensions.height,
+    height: 0.14 * windowDimensions.height,
     flex: 1,
     backgroundColor: theme.colors.shade2,
     borderRadius: 0.012 * windowDimensions.height,
@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'flex-start',
     color: theme.colors.floos2,
-
   },
   amount: {
     fontSize: 28,

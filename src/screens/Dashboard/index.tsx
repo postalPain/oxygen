@@ -35,19 +35,20 @@ const Dashboard: React.FC<IDashboardProps> = ({ theme, navigation }) => {
           {moment().format('ddd D MMM[,] YYYY')}
         </Text>
       </View>
-      <WithdrawalTagLarge />
+      <WithdrawalTagLarge style={styles.largeTagContainer} />
       <View style={styles.smallTagsContainer}>
-        <WithdrawalTagSmall />
-        <WithdrawalTagSmall />
+        <WithdrawalTagSmall amount={0} withdrawn />
+        <View style={styles.smallTagsDivider} />
+        <WithdrawalTagSmall amount={2500} earned />
       </View>
-      <Text>{JSON.stringify(authData, undefined, 4)}</Text>
-      <Text>{JSON.stringify(userInfo, undefined, 4)}</Text>
-      <Button
-        onPress={() => api.employees.userInfo().then(x => setUserInfo(x.data))}
-        Icon={<IconPlus size={22} />}
-      >
-        {vocab.get().withdraw}
-      </Button>
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={() => api.employees.userInfo().then(x => setUserInfo(x.data))}
+          Icon={<IconPlus size={22} />}
+        >
+          {vocab.get().withdraw}
+        </Button>
+      </View>
     </ScreenWrapperMain>
   );
 };

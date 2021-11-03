@@ -1,6 +1,6 @@
 import theme from 'config/theme';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 
@@ -8,7 +8,7 @@ interface IButton {
   disabled?: boolean;
   children?: string;
   secondary?: boolean;
-  styles?: any;
+  styles?: ViewStyle;
   onPress?: () => void;
   Icon?: React.ReactNode;
 }

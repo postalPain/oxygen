@@ -26,8 +26,9 @@ const styles = StyleSheet.create({
     width: windowDimensions.width,
     paddingHorizontal: 0.05 * windowDimensions.width,
     paddingTop: 0.15 * windowDimensions.height,
-    paddingBottom: 0.05 * windowDimensions.height,
-    backgroundColor: theme.colors.screenBackgroundColorLight
+    paddingBottom: 0.06 * windowDimensions.height,
+    backgroundColor: theme.colors.screenBackgroundColorLight,
+    alignItems: 'center',
   },
   gradient: {
     position: 'absolute',

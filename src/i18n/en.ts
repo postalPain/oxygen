@@ -61,5 +61,6 @@ export default {
   withdraw: 'Withdraw',
   availableToWithdraw: 'available to withdraw',
   withdrawn: 'withdrawn',
-  earnedUntilToday: 'earned until today'
+  earnedUntilToday: 'earned until today',
+  aed: 'AED',
 };

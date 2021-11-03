@@ -4,7 +4,7 @@ import { windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   withdrawalTagLarge: {
-    height: 0.15 * windowDimensions.height,
+    height: 0.16 * windowDimensions.height,
     alignSelf: 'stretch',
     backgroundColor: theme.colors.shade2,
     borderRadius: 0.025 * windowDimensions.height,
