@@ -37,6 +37,7 @@ const theme = {
     },
     errorBackground: '#FFEFEF',
     errorTextColor: '#720000',
+    successTextColor: '#0F183F',
   },
   sizes: {
     textLargeTitleSize: 34,

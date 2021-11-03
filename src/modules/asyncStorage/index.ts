@@ -22,6 +22,16 @@ export const getItem = async (key) => {
   }
 };
 
+export const getMultipleItems = async (keys: string[]) => {
+  try {
+    const value = await AsyncStorage.multiGet(keys);
+    return value;
+  } catch (error) {
+    // Error retrieving data
+    return error;
+  }
+};
+
 export const removeItem = async (key) => {
   AsyncStorage.removeItem(key);
 };

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import VerificationCode from 'screens/VerificationCode';
 
 const ForgotPasswordCode = (props: AppNavigationProps<any>) => {
-  const { navigation } = props;
+  const { navigation, route } = props;
   const dispatch = useDispatch();
 
   const onSubmit = (code) => {
@@ -14,7 +14,10 @@ const ForgotPasswordCode = (props: AppNavigationProps<any>) => {
   };
 
   return (
-    <VerificationCode {...props} onSubmit={onSubmit}/>  // eslint-disable-line
+    <VerificationCode
+      backendError={route.params?.backendError}
+      onSubmit={onSubmit}
+    />
   );
 };
 

@@ -6,10 +6,8 @@ export const useAsyncStorage = (key: string, refreshOnRender?: boolean) => {
   useEffect(() => {
     storage.getItem(key).then(val => setValue(val));
   }, !refreshOnRender ? [] : undefined);
-  
   useEffect(() => {
     storage.setItem(key, value);
   }, [value]);
-  
   return [value, setValue];
 };

@@ -1,19 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { getFontSize } from 'utils/screen';
 import { windowDimensions } from 'utils/window';
-import IconInfo from '../../../assets/info_circle.svg';
 
 interface IInfoText {
   style?: any;
-  children?: string;
+  children?: string | React.ReactElement;
 }
 
 const InfoText = (props: IInfoText) => {
   return (
     <View style={[styles.infoText, props.style]}>
-      <Text style={styles.infoStyle}>{'ⓘ'}</Text>
-      <Text style={styles.textStyle}>{props.children}</Text>
+      <Text style={styles.icon}>{'ⓘ'}</Text>
+      {(typeof props.children) === 'string'
+        ? <Text style={styles.textStyle}>{props.children}</Text>
+        : props.children}
     </View>
   );
 };
@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
-  infoStyle: {
-    marginRight: 0.01 * windowDimensions.width
+  icon: {
+    marginTop: 3,
+    marginRight: 0.015 * windowDimensions.width,
   },
   textStyle: {
-    flex: 1
+    flex: 1,
   }
 });
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { windowDimensions } from 'utils/window';
 import CarouselCircle from './CarouselCircle';
@@ -28,6 +28,7 @@ export const Carousel = (props: ICarousel) => {
     timeout = setTimeout(() => {
       setIndex(idx => (idx === slides.length - 1) ? 0 : (idx + 1));
     }, 3000);
+    return () => clearTimeout(timeout);
   }, [index]);
 
   const onScrollEnd = (e) => {

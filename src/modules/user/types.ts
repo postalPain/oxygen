@@ -3,7 +3,9 @@ import { IMeta } from 'modules/store/types';
 export const enum UserActions {
   USER_GET_INFO = 'USER_GET_INFO',
   USER_SET_INFO = 'USER_SET_INFO',
+  USER_CLEAR_INFO = 'USER_CLEAR_INFO',
   VERIFY_EMAIL = 'VERIFY_EMAIL',
+  RESEND_VERIFICATION_CODE = 'RESEND_VERIFICATION_CODE',
   CHECK_VERIFICATION = 'CHECK_VERIFICATION',
   SET_VERIFICATION_STATUS = 'SET_VERIFICATION_STATUS',
 }
@@ -13,7 +15,7 @@ export interface IUserState {
   email: string;
   first_name: string;
   last_name: string;
-  verification_status: keyof typeof VerificationStatuses;
+  verification_status: TVerificationStatus;
 }
 
 export interface IUserGetInfoAction {
@@ -25,9 +27,21 @@ export interface IUserSetInfoAction {
   payload: Partial<IUserState>;
 }
 
+export interface IUserClearInfoAction {
+  type: UserActions.USER_CLEAR_INFO;
+}
+
 export interface IVerifySignUpCodeAction {
   type: UserActions.VERIFY_EMAIL;
   code: string;
+  meta?: IMeta;
+}
+
+export interface IResendVerificationCodeAction {
+  type: UserActions.RESEND_VERIFICATION_CODE;
+  payload: {
+    email: string;
+  };
   meta?: IMeta;
 }
 
@@ -38,7 +52,7 @@ export interface ICheckVerificationAction {
 
 export interface ISetVerificationStatusAction {
   type: UserActions.SET_VERIFICATION_STATUS;
-  payload: keyof typeof VerificationStatuses;
+  payload: TVerificationStatus;
 }
 
 export enum VerificationStatuses {
@@ -54,4 +68,6 @@ export enum VerificationStatuses {
 
 export type TVerificationStatus = keyof typeof VerificationStatuses;
 
-export type TUserAction = IUserGetInfoAction | IUserSetInfoAction | ICheckVerificationAction | ISetVerificationStatusAction;
+export type TUserAction = IUserGetInfoAction | IUserSetInfoAction
+| IUserClearInfoAction | ICheckVerificationAction
+| ISetVerificationStatusAction | IResendVerificationCodeAction;

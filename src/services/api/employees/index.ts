@@ -16,10 +16,13 @@ const verifyEmail = (code: string) => request.post('employees/verification/email
 
 const checkVerification = () => request.get(apiUrls.checkVerification);
 
+const resendVerificationCode = (email: string) => request.post(apiUrls.resendVerificationCode, { email });
+
 const employees = {
   verifyEmail,
   checkVerification,
   userInfo,
+  resendVerificationCode,
 };
 
 export default employees;

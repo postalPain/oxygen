@@ -20,7 +20,6 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
   const styles = useStyles();
   const { keyboardIsVisible, animationDuration } = useKeyboard();
   const keyboardAnimation = useRef(new Animated.Value(0)).current;
-  
   useEffect(() => {
     if (keyboardIsVisible) {
       Animated.timing(keyboardAnimation, {
@@ -36,13 +35,11 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
       }).start();
     }
   }, [keyboardIsVisible]);
-  
   const topPaddingScale = keyboardAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
   const headerPosition = keyboardAnimation.interpolate({ inputRange: [0, 1], outputRange: [0, HEADER_SHIFT] });
   const headerOpacity = keyboardAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
   const formPosition = keyboardAnimation.interpolate({ inputRange: [0, 1], outputRange: [0, HEADER_SHIFT] });
   const screenBottomPaddingScale = keyboardAnimation.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
-  
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -50,7 +47,7 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
           keyboardVerticalOffset={10}
           contentContainerStyle={styles.keyboardAvoidingView}
           behavior={env.ios ? 'padding' : 'padding'}
-          style={[styles.screen,]}
+          style={styles.screen}
         >
           <Animated.View
             style={[

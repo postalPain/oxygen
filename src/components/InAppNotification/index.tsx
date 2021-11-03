@@ -1,8 +1,11 @@
 import React from 'react';
+import { Text, View, SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Text, View, Image, SafeAreaView } from 'react-native';
 import { selectNotifications } from 'modules/notifications/selectors';
-import useStyles  from './styles';
+import { NotificationTypes } from 'modules/notifications/types';
+import { IconInfo } from 'components';
+import theme from 'config/theme';
+import useStyles from './styles';
 
 const InAppNotification = () => {
   const styles = useStyles();
@@ -20,9 +23,7 @@ const InAppNotification = () => {
           >
             <View style={styles.notification}>
               <View style={styles.iconContainer}>
-                <Image
-                  source={require('../../../assets/info_circle.png')}
-                />
+                <IconInfo color={theme.notifications[(notification.type === NotificationTypes.Error) ? 'errorTextColor' : 'successTextColor']} />
               </View>
               <View style={styles.textContainer}>
                 {notification.title && (

@@ -19,6 +19,8 @@ const userReducer = (
         ...action.payload,
       };
     }
+    case UserActions.USER_CLEAR_INFO:
+      return initialState;
     case UserActions.SET_VERIFICATION_STATUS: {
       return {
         ...state,

@@ -6,22 +6,23 @@ export const defaultSignUpErrors = {
   password: null,
 };
 
-const defaultAuthData = {
+export const defaultAuthData = {
   access_token: '',
   access_ttl: '',
   refresh_token: '',
   refresh_ttl: '',
+};
+export const defaultSignUpData = {
+  registration_id: '',
+  email: '',
+  password: '',
 };
 
 export const initialState: IAuthState = {
   authData: defaultAuthData,
   signUpErrors: defaultSignUpErrors,
   signInError: null,
-  signUpData: {
-    registration_id: '',
-    email: '',
-    password: '',
-  },
+  signUpData: defaultSignUpData,
   forgotPassword: null,
 };
 
@@ -39,10 +40,22 @@ const authReducer = (
         }
       };
     }
+    case AuthActions.CLEAR_SIGN_UP_DATA: {
+      return {
+        ...state,
+        signUpData: defaultSignUpData,
+      };
+    }
     case AuthActions.SET_AUTH_DATA: {
       return {
         ...state,
         authData: action.payload,
+      };
+    }
+    case AuthActions.CLEAR_AUTH_DATA: {
+      return {
+        ...state,
+        authData: defaultAuthData,
       };
     }
     case AuthActions.SET_SIGN_UP_ERROR: {
