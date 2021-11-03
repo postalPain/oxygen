@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     height: 0.16 * windowDimensions.height,
     alignSelf: 'stretch',
     backgroundColor: theme.colors.shade2,
-    borderRadius: 0.025 * windowDimensions.height,
+    borderRadius: 0.05 * windowDimensions.width,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   amount: {
-    fontSize: 46,
+    fontSize: 0.14 * windowDimensions.width,
     color: theme.colors.floos1,
     fontWeight: '700',
   },

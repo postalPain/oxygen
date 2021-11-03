@@ -1,3 +1,4 @@
+import { MainWrapperPaddingHorizontal } from 'components/ScreenWrapperMain';
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { windowDimensions } from 'utils/window';
@@ -34,6 +35,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
+  info: {
+    position: 'absolute',
+    right: -MainWrapperPaddingHorizontal,
+    top: '10%',
+  }
 });
 
 export default styles;

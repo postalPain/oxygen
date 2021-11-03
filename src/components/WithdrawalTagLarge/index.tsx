@@ -6,20 +6,21 @@ import { windowDimensions } from 'utils/window';
 import styles from './styles';
 
 interface IWithdrawalTagLarge {
+  amount?: number;
   style?: ViewStyle;
 }
 
-const WithdrawalTagLarge = ({ style }: IWithdrawalTagLarge) => {
+const WithdrawalTagLarge = ({ amount, style }: IWithdrawalTagLarge) => {
   return (
     <View style={[styles.withdrawalTagLarge, style]}>
       <View>
         <View style={styles.amountContainer}>
           <View style={styles.walletContainer}>
-            <IconWallet size={0.1 * windowDimensions.width} />
+            <IconWallet size={0.12 * windowDimensions.width} />
           </View>
           <Text>
-            <Text style={styles.amount}>1500</Text>
-            <Text style={styles.currency}>AED</Text>
+            <Text style={styles.amount}>{amount}</Text>
+            <Text style={styles.currency}>{vocab.get().aed}</Text>
           </Text>
         </View>
         <Text style={styles.currency}>{vocab.get().availableToWithdraw}</Text>

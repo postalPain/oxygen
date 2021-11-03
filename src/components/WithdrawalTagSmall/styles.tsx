@@ -7,17 +7,17 @@ const styles = StyleSheet.create({
     height: 0.14 * windowDimensions.height,
     flex: 1,
     backgroundColor: theme.colors.shade2,
-    borderRadius: 0.012 * windowDimensions.height,
+    borderRadius: 0.05 * windowDimensions.width,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingLeft: 0.07 * windowDimensions.width
+    paddingLeft: 0.08 * windowDimensions.width
   },
   textContainer: {
     alignItems: 'flex-start',
     color: theme.colors.floos2,
   },
   amount: {
-    fontSize: 28,
+    fontSize: 0.1 * windowDimensions.width,
     fontWeight: '700',
   },
   textSecondary: {

@@ -20,11 +20,13 @@ const ScreenWrapperMain = (props: IScreenWrapperMain) => {
   );
 };
 
+export const MainWrapperPaddingHorizontal = 0.05 * windowDimensions.width;
+
 const styles = StyleSheet.create({
   screenWrapperMain: {
-    height: windowDimensions.height,
+    flex: 1,
     width: windowDimensions.width,
-    paddingHorizontal: 0.05 * windowDimensions.width,
+    paddingHorizontal: MainWrapperPaddingHorizontal,
     paddingTop: 0.15 * windowDimensions.height,
     paddingBottom: 0.06 * windowDimensions.height,
     backgroundColor: theme.colors.screenBackgroundColorLight,
