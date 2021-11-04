@@ -8,8 +8,8 @@ export const setItem = async (key, value) => {
   }
 };
 
-export const setItems = (items) => {
-  return Promise.all(items.map(({ key, value }) => setItem(key, value)));
+export const setItems = async (items) => {
+  await AsyncStorage.multiSet(items.map(({ key, value }) => [key, value]));
 };
 
 export const getItem = async (key) => {
@@ -25,7 +25,7 @@ export const getItem = async (key) => {
 export const getMultipleItems = async (keys: string[]) => {
   try {
     const value = await AsyncStorage.multiGet(keys);
-    return value;
+    return value.reduce((acc, v) => ({ ...acc, [v[0]]: v[1], }), {});
   } catch (error) {
     // Error retrieving data
     return error;
@@ -38,4 +38,13 @@ export const removeItem = async (key) => {
 
 export const removeItems = (items) => {
   return Promise.all(items.map(key => removeItem(key)));
+};
+
+export const getAllKeys = async () => {
+  try {
+    const value = await AsyncStorage.getAllKeys();
+    return value;
+  } catch (error) {
+    return error;
+  }
 };

@@ -24,7 +24,7 @@ interface IRefreshTokenBody {
   refresh_token: string;
 }
 
-const refreshToken = (body: IRefreshTokenBody): Promise<IResponse<IAuthData>> => request.post('refresh', body);
+const refreshToken = (body: IRefreshTokenBody): Promise<IResponse<IAuthData>> => request.post(apiUrls.refreshToken, body);
 
 interface IForgotPasswordBody {
   credentials: string;

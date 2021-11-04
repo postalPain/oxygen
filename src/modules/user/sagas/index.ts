@@ -21,13 +21,11 @@ export function* getUserInfoWorker() {
 function* checkVerificationWorker (action: ICheckVerificationAction) {
   let response;
   try {
-    response = yield call(api.employees.checkVerification);
+    response = yield api.employees.checkVerification();
   } catch (error) {
     yield action.meta?.onError?.();
-    return;
+    return error;
   }
-  yield put(setVerificationStatus(response.data.verification_status));
-  yield action.meta?.onSuccess?.(response.data.verification_status);
 }
 
 export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
