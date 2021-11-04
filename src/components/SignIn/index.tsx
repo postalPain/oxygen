@@ -70,7 +70,6 @@ const SignIn = (
             onChange={setPassword}
             placeholder="Password"
             secure
-            value="Qqqq111!"
             required
             error={passwordError}
           />
