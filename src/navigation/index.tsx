@@ -72,7 +72,9 @@ const Navigation = () => {
       });
     });
   }, []);
-  useEffect(() => { if (!loading) SplashScreen.hide() }, [loading]);
+  useEffect(() => {
+    if (!loading) SplashScreen.hide();
+  }, [loading]);
   return !loading && (
     <NavigationContainer>
       <AppStack.Navigator>
@@ -177,7 +179,7 @@ const Navigation = () => {
             <AppStack.Screen
               name={AppScreenNames.Dashboard}
               component={Dashboard}
-              options={getHeaderOptions()}
+              options={{ headerShown: false }}
             />
           </>
         )}
