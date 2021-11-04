@@ -64,6 +64,7 @@ export enum VerificationStatuses {
   activated = 'activated',
   blocked = 'blocked',
   deactivated = 'deactivated',
+  _noStatus = '_noStatus',
 }
 
 export type TVerificationStatus = keyof typeof VerificationStatuses;

@@ -8,6 +8,7 @@ import {
   ISetVerificationStatusAction,
   IVerifySignUpCodeAction,
   UserActions,
+  VerificationStatuses,
 } from 'modules/user/types';
 import api, { IResponse } from 'services/api';
 import vocab from 'i18n';
@@ -26,6 +27,7 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
   try {
     response = yield api.employees.checkVerification();
   } catch (error) {
+    yield put(setVerificationStatus(VerificationStatuses._noStatus));
     yield action.meta?.onError?.();
     return error;
   }
@@ -53,7 +55,7 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
   yield put(successNotification({ text: vocab.get().emailSent }));
 }
 
-function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
+function* setVerificationStatusWorker () {
   yield SplashScreen.hide();
 }
 
