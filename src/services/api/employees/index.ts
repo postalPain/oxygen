@@ -14,7 +14,11 @@ const userInfo = (): Promise<IResponse<IUserInfo>> => request.get(apiUrls.userIn
 
 const verifyEmail = (code: string) => request.post(apiUrls.verifyEmail, { code });
 
-const checkVerification = () => request.get(apiUrls.checkVerification);
+export interface IVerificationResponse {
+  verification_status: TVerificationStatus;
+}
+
+const checkVerification = (): Promise<IResponse<IVerificationResponse>> => request.get(apiUrls.checkVerification);
 
 const resendVerificationCode = (email: string) => request.post(apiUrls.resendVerificationCode, { email });
 

@@ -31,7 +31,7 @@ const UserVerificationPending = (
   const onPress = () => {
     // TODO remove tokens from AStorage
     navigation.navigate(AppScreenNames.SignIn);
-  }
+  };
   const [delay, setDelay] = useState(1000 * 60 * 5);
   const checkStatus = () => {
     dispatch(checkVerification({
@@ -52,6 +52,7 @@ const UserVerificationPending = (
     }
   }, delay);
   const clearAuthAndUserData = () => {
+    navigation.navigate(AppScreenNames.Onboarding);
     batch(() => {
       dispatch(clearAuthData());
       dispatch(userClearInfo());
@@ -109,8 +110,7 @@ const UserVerificationPending = (
                     {vocab.weWillNotifyYou}
                   </Text>
                 </>
-              ) : null
-            }
+              ) : null}
             {(employerVerificationState === 'rejected') && (
               <View style={styles.infoContainer}>
                 <Text style={styles.infoText}>

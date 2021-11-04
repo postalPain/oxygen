@@ -8,6 +8,7 @@ export interface IAuthState {
   signInError: IError;
   signUpData: ISignUpPayload;
   forgotPassword: IResetPasswordBody;
+  signedIn: boolean;
 }
 
 export const enum AuthActions {
@@ -26,6 +27,14 @@ export const enum AuthActions {
   SET_FORGOT_PASSWORD_EMAIL = 'SET_FORGOT_PASSWORD_EMAIL',
   SET_FORGOT_PASSWORD_CODE = 'SET_FORGOT_PASSWORD_CODE',
   RESET_PASSWORD = 'RESET_PASSWORD',
+}
+
+export enum AuthStoredKeys {
+  access_token = 'access_token',
+  access_ttl = 'access_ttl',
+  refresh_token = 'refresh_token',
+  refresh_ttl = 'refresh_ttl',
+  email = 'email',
 }
 
 export interface ISignUpAction {
@@ -85,7 +94,7 @@ export interface ISignInAction {
 
 export interface ISignedInAction {
   type: AuthActions.SIGN_IN_SUCCESS;
-  payload: ISignInPayload;
+  payload: boolean;
 }
 
 export interface ISignOutAction {

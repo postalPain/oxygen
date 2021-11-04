@@ -24,6 +24,7 @@ export const initialState: IAuthState = {
   signInError: null,
   signUpData: defaultSignUpData,
   forgotPassword: null,
+  signedIn: false,
 };
 
 const authReducer = (
@@ -73,7 +74,7 @@ const authReducer = (
     case AuthActions.SIGN_IN_SUCCESS: {
       return {
         ...state,
-        ...action.payload,
+        signedIn: action.payload,
       };
     }
     case AuthActions.SET_FORGOT_PASSWORD_EMAIL: {
