@@ -8,7 +8,7 @@ import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
-import { selectSignInError } from 'modules/auth/selectors';
+import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
 
 const SignIn = (
@@ -17,11 +17,16 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const error = useSelector(selectSignInError);
+  const signedIn = useSelector(selectSignedIn);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
+
+  useEffect(() => {
+    signedIn && navigation.navigate(AppScreenNames.Dashboard);
+  }, [signedIn]);
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -65,6 +70,7 @@ const SignIn = (
             onChange={setPassword}
             placeholder="Password"
             secure
+            value="Qqqq111!"
             required
             error={passwordError}
           />

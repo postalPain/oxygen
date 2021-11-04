@@ -37,7 +37,7 @@
     "react/jsx-curly-newline": "warn",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/semi": "warn",
-    "no-underscore-dangle": "warn",
+    "no-underscore-dangle": "off",
     "@typescript-eslint/no-var-requires": "warn",
     "react/jsx-indent": ["warn", 2],
     "react/jsx-indent-props": ["warn", 2],
@@ -87,6 +87,6 @@
     "comma-spacing": ["warn", { "before": false, "after": true }],
     "object-curly-newline": ["warn", {"multiline": true, "consistent": true}],
     "object-property-newline": ["warn", {"allowAllPropertiesOnSameLine": true, "allowMultiplePropertiesPerLine": false}],
-    "quotes": ["warn", "single"]
+    "quotes": ["warn", "single"],
   }
 }

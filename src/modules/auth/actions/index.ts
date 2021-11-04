@@ -58,7 +58,7 @@ export const signIn = (email: string, password: string): ISignInAction => ({
   password,
 });
 
-export const signedIn = (payload: ISignInPayload): ISignedInAction => ({
+export const signedIn = (payload: boolean): ISignedInAction => ({
   payload,
   type: AuthActions.SIGN_IN_SUCCESS,
 });

@@ -33,7 +33,6 @@ const DataPrivacy = (
       onSuccess: () => {
         setButtonDisabled(false);
         navigation.navigate(AppScreenNames.UserVerificationPending);
-        dispatch(checkVerification());
       },
       onError: (error) => {
         setButtonDisabled(false);
