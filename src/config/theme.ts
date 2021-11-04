@@ -10,13 +10,14 @@ const theme = {
     special1: '#97DAFF',
     floosGragientColor1: '#975FBA',
     floosGragientColor2: '#B26090',
+    floosGradientColor3: '#E6C1FF',
     // Background colors
     screenBackgroundColorLight: '#FFFFFF',
     // Text colors
     textDark: '#0F183F',
 
     shade1: '#C6C6C6',
-    shade2: '#F9F9F9',
+    shade2: '#F7F7F7',
     error: '#EA3546',
 
     checkboxBorderColor: '#CFD8DC',

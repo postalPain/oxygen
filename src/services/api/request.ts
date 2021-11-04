@@ -11,6 +11,9 @@ const request = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Accept-Language': getHeaderLanguage(),
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': 0,
   },
 });
 
@@ -49,7 +52,6 @@ request.interceptors.request.use(
         store.dispatch(setAuthData(response.data));
       }
     }
-
     config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;
   },

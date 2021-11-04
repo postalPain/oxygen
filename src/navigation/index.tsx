@@ -83,14 +83,14 @@ const Navigation = () => {
         if (!!_authData.access_token) {
           dispatch(checkVerification({
             onSuccess: (_status) => {
-              console.log('isStatusPending(_status) ==>> ', isStatusPending(_status));
               if (!isStatusPending(_status)) {
                 dispatch(setAuthData(defaultAuthData));
               }
+              setLoading(false);
             }
           }));
         }
-        setLoading(false);
+        if (!_authData.access_token) setLoading(false);
         return _authData;
       });
     },
@@ -100,22 +100,6 @@ const Navigation = () => {
   return !loading && (
     <NavigationContainer>
       <AppStack.Navigator>
-        {!!email || !userStatus && (
-          <AppStack.Screen
-            name={AppScreenNames.SignIn}
-            component={SignInRegular}
-            options={({ navigation }) => ({
-              headerShown: true,
-              title: '',
-              headerTransparent: true,
-              headerLeft: () => (
-                <Pressable onPress={() => navigation.goBack()}>
-                  <IconBack color={theme.colors.screenBackgroundColorLight} />
-                </Pressable>
-              )
-            })}
-          />
-        )}
         {!userStatus && (
           <>
             <AppStack.Screen
@@ -157,6 +141,20 @@ const Navigation = () => {
               }}
             />
             <AppStack.Screen
+              name={AppScreenNames.SignIn}
+              component={SignInRegular}
+              options={({ navigation }) => ({
+                headerShown: true,
+                title: '',
+                headerTransparent: true,
+                headerLeft: () => (
+                  <Pressable onPress={() => navigation.goBack()}>
+                    <IconBack color={theme.colors.screenBackgroundColorLight} />
+                  </Pressable>
+                )
+              })}
+            />
+            <AppStack.Screen
               name={AppScreenNames.VerificationCodeForgot}
               component={ForgotPasswordCode}
               options={getHeaderOptions()}
@@ -173,7 +171,6 @@ const Navigation = () => {
             />
           </>
         )}
-        {/* TODO set user screen in AStorage and remove status check */}
         {isStatusPending(userStatus) && (
           <>
             <AppStack.Screen
@@ -201,7 +198,7 @@ const Navigation = () => {
             <AppStack.Screen
               name={AppScreenNames.Dashboard}
               component={Dashboard}
-              options={getHeaderOptions()}
+              options={{ headerShown: false }}
             />
           </>
         )}
