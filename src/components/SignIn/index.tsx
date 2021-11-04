@@ -1,4 +1,3 @@
-import ScreenWrapperLogin from 'components/ScreenWrapperLogin';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
@@ -9,7 +8,7 @@ import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
-import { selectAuthData, selectSignInError } from 'modules/auth/selectors';
+import { selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
 
 const SignIn = (
@@ -17,7 +16,6 @@ const SignIn = (
 ) => {
   const dispatch = useDispatch();
 
-  const authData = useSelector(selectAuthData);
   const error = useSelector(selectSignInError);
 
   const [email, setEmail] = useState<string>();
@@ -32,10 +30,6 @@ const SignIn = (
   useEffect(() => {
     passwordError && setPasswordError(null);
   }, [password]);
-
-  useEffect(() => {
-    authData.access_token && navigation.navigate(AppScreenNames.Dashboard);
-  }, [authData]);
 
   useEffect(() => {
     if (!error) {

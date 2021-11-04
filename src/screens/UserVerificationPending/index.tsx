@@ -28,7 +28,10 @@ const UserVerificationPending = (
     ? 'rejected'
     : (status === VerificationStatuses.employer_verified)
       ? 'verified' : 'pending';
-  const onPress = () => navigation.navigate(AppScreenNames.SignIn);
+  const onPress = () => {
+    // TODO remove tokens from AStorage
+    navigation.navigate(AppScreenNames.SignIn);
+  }
   const [delay, setDelay] = useState(1000 * 60 * 5);
   const checkStatus = () => {
     dispatch(checkVerification({
@@ -43,7 +46,11 @@ const UserVerificationPending = (
     getItem('email').then((_email) => setEmail(_email));
     checkStatus();
   }, []);
-  useInterval(() => checkStatus(), delay);
+  useInterval(() => {
+    if ((status === VerificationStatuses.new) || (status === VerificationStatuses.email_verified)) {
+      checkStatus();
+    }
+  }, delay);
   const clearAuthAndUserData = () => {
     batch(() => {
       dispatch(clearAuthData());

@@ -1,5 +1,4 @@
 export { default as Onboarding } from './Onboarding';
-export { default as SignIn } from './SignIn';
 export { default as EnterRegistrationId } from './EnterRegistrationId';
 export { default as EnterEmail } from './EnterEmail';
 export { default as SetPasswordSignUp } from './SetPasswordSignUp';

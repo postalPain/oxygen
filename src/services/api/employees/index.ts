@@ -12,7 +12,7 @@ interface IUserInfo {
 }
 const userInfo = (): Promise<IResponse<IUserInfo>> => request.get(apiUrls.userInfo) ;
 
-const verifyEmail = (code: string) => request.post('employees/verification/email', { code });
+const verifyEmail = (code: string) => request.post(apiUrls.verifyEmail, { code });
 
 const checkVerification = () => request.get(apiUrls.checkVerification);
 

@@ -38,13 +38,12 @@ function transformSignUpError (err: IError) {
   return errors;
 }
 
-export function* processSignUpData(data: IAuthData) {
+export function* processAuthData(data: IAuthData) {
   const authData = Object.keys(data).map((key) => ({ key, value: data[key] }), []);
   yield setItems(authData);
 }
-export function* processAuthData(data: ISignUpPayload) {
-  yield setItems([{ key: 'email', value: data.email }]);
-  yield put(clearSignUpData());
+export function* processUserData({ email }: { email: string }) {
+  yield setItems([{ key: 'email', value: email }]);
 }
 
 function* signUpWorker(action: ISignUpAction) {
@@ -57,14 +56,16 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
-  yield processAuthData(action.payload);
-  yield processSignUpData(response.data);
+  yield processUserData({ email: action.payload.email });
+  yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
+  yield put(clearSignUpData());
   yield action.meta?.onSuccess?.(response);
 }
 
 function* signOutWorker() {
   try {
+    // TODO REMOVE TOKENS
     yield call(api.auth.signOut);
     yield put(authActions.signedOut());
     yield put(appActions.appResetStore());
@@ -81,6 +82,8 @@ function* signInWorker(action: ISignInAction) {
     yield put(authActions.setSignInError(error));
     return;
   }
+  yield processUserData({ email: action.email });
+  yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
 }
 
@@ -120,7 +123,6 @@ export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);
   yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearSignUpDataWorker);
-  yield takeLatest(AuthActions.SIGN_IN, signInWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);
 }

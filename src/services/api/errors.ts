@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import vocab from 'i18n';
 
+
 export interface IBeError1 {
   code: string;
   fallback_message: string;

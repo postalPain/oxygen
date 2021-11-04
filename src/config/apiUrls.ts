@@ -4,6 +4,8 @@ export default {
   signUp: 'employees/sign-up',
   checkVerification: 'employees/verification/status',
   resendVerificationCode: 'employees/verification/resend', // TODO change it when BE is ready
+  verifyEmail: 'employees/verification/email',
+  refreshToken: 'refresh',
   userInfo: 'employees/me',
   signOut: 'logout',
 };

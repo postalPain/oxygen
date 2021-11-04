@@ -20,13 +20,14 @@ import {
   ForgotPassword,
   Dashboard,
 } from 'screens';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMultipleItems } from 'modules/asyncStorage';
 import { checkVerification } from 'modules/user/actions';
 import { setAuthData } from 'modules/auth/actions';
 import { selectAuthData } from 'modules/auth/selectors';
-import { VerificationStatuses } from 'modules/user/types';
+import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
 import { selectVerificationStatus } from 'modules/user/selectors';
+import { defaultAuthData } from 'modules/auth/reducers';
 import { AppScreenNames } from './types';
 import { IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
@@ -54,48 +55,73 @@ const getHeaderOptions = () => ({
   header: (headerProps) => <NavigationHeader {...headerProps} />  // eslint-disable-line
 });
 
+const isStatusPending = (userStatus: TVerificationStatus) => (userStatus === VerificationStatuses.new)
+  || (userStatus === VerificationStatuses.email_verified)
+  || (userStatus === VerificationStatuses.employer_verified)
+  || (userStatus === VerificationStatuses.employer_not_verified)
+
 const Navigation = () => {
   const dispatch = useDispatch();
   const { access_token, access_ttl } = useSelector(selectAuthData);
+  const [email, setEmail] = useState(null);
   const userStatus = useSelector(selectVerificationStatus);
-  const isSignedIn = !!access_token && isTokenValid(access_ttl);
+  const hasValidToken = !!access_token && isTokenValid(access_ttl);
+  const isSignedIn = !!hasValidToken && (
+    userStatus === VerificationStatuses.activated
+    || userStatus === VerificationStatuses.deactivated
+    || userStatus === VerificationStatuses.blocked
+    || userStatus === VerificationStatuses.activated_no_beneficiary
+  );
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    getMultipleItems(['access_token', 'access_ttl', 'refresh_token', 'refresh_ttl']).then((value) => {
-      const _authData = value.reduce((acc, v) => ({ ...acc, [v[0]]: v[1], }), {});
-      batch(() => {
+  useEffect(
+    () => {
+      getMultipleItems(['access_token', 'access_ttl', 'refresh_token', 'refresh_ttl', 'email']).then((_authData) => {
+        if (!!_authData.email) {
+          setEmail(_authData.email);
+        }
         dispatch(setAuthData(_authData));
-        if (!!_authData.access_token) dispatch(checkVerification({
-          onSuccess: () =>setLoading(false),
-        }));
-        if (!_authData.access_token) setLoading(false);
+        if (!!_authData.access_token) {
+          dispatch(checkVerification({
+            onSuccess: (_status) => {
+              console.log('isStatusPending(_status) ==>> ', isStatusPending(_status));
+              if (!isStatusPending(_status)) {
+                dispatch(setAuthData(defaultAuthData));
+              }
+            }
+          }));
+        }
+        setLoading(false);
+        return _authData;
       });
-    });
-  }, []);
+    },
+    []
+  );
   useEffect(() => { if (!loading) SplashScreen.hide() }, [loading]);
   return !loading && (
     <NavigationContainer>
       <AppStack.Navigator>
-        {(!isSignedIn || !userStatus) && (
+        {!!email || !userStatus && (
+          <AppStack.Screen
+            name={AppScreenNames.SignIn}
+            component={SignInRegular}
+            options={({ navigation }) => ({
+              headerShown: true,
+              title: '',
+              headerTransparent: true,
+              headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <IconBack color={theme.colors.screenBackgroundColorLight} />
+                </Pressable>
+              )
+            })}
+          />
+        )}
+        {!userStatus && (
           <>
             <AppStack.Screen
               name={AppScreenNames.Onboarding}
               component={Onboarding}
               options={{ headerShown: false }}
-            />
-            <AppStack.Screen
-              name={AppScreenNames.SignIn}
-              component={SignInRegular}
-              options={({ navigation }) => ({
-                headerShown: true,
-                title: '',
-                headerTransparent: true,
-                headerLeft: () => (
-                  <Pressable onPress={() => navigation.goBack()}>
-                    <IconBack color={theme.colors.screenBackgroundColorLight} />
-                  </Pressable>
-                )
-              })}
             />
             <AppStack.Screen
               name={AppScreenNames.EnterRegistrationId}
@@ -147,15 +173,13 @@ const Navigation = () => {
             />
           </>
         )}
-        {((!!access_token && !userStatus) || (userStatus === VerificationStatuses.new)
-          || (userStatus === VerificationStatuses.email_verified)
-          || (userStatus === VerificationStatuses.employer_verified)
-          || (userStatus === VerificationStatuses.employer_not_verified)) && (
+        {/* TODO set user screen in AStorage and remove status check */}
+        {isStatusPending(userStatus) && (
           <>
             <AppStack.Screen
               name={AppScreenNames.UserVerificationPending}
               component={UserVerificationPending}
-              options={({ navigation }) => ({
+              options={{
                 ...getHeaderOptions(),
                 header: (headerProps) => (
                   <NavigationHeader
@@ -163,7 +187,7 @@ const Navigation = () => {
                     headerLeft={null}
                   />
                 )
-              })}
+              }}
             />
             <AppStack.Screen
               name={AppScreenNames.VerificationCodeSignUp}
