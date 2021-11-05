@@ -1,10 +1,11 @@
-import { call, put, takeEvery, } from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import * as actions from '../actions';
 import { errorNotification, successNotification } from 'modules/notifications/actions';
 import {
   ICheckVerificationAction,
   IResendVerificationCodeAction,
+  ISetVerificationStatusAction,
   IVerifySignUpCodeAction,
   UserActions,
   VerificationStatuses,
@@ -58,11 +59,16 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
     yield put(errorNotification({ text: error.message }));
     return;
   }
-  yield put(successNotification({ text: vocab.get().emailSent }));
+  yield put(successNotification({
+    title: vocab.get().emailSent,
+    text: vocab.get().checkInbox,
+  }));
 }
 
-function* setVerificationStatusWorker () {
-  yield SplashScreen.hide();
+function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
+  if (!!action.payload) setTimeout(() => {
+    SplashScreen.hide();
+  }, 300);
 }
 
 export default function* userWatcher(): SagaIterator {
