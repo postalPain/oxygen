@@ -3,7 +3,7 @@ import { Text, View, SafeAreaView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectNotifications } from 'modules/notifications/selectors';
 import { NotificationTypes } from 'modules/notifications/types';
-import { IconInfo } from 'components';
+import IconInfo from 'components/IconInfo';
 import theme from 'config/theme';
 import useStyles from './styles';
 

@@ -18,7 +18,7 @@ import {
   ForgotPassword,
   Dashboard,
 } from 'screens';
-import { AppScreenNames } from './types';
+import { AppNavigationProps, AppScreenNames } from './types';
 import { IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
@@ -123,8 +123,8 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.SignIn}
           component={SignInRegular}
-          options={({ navigation }) => ({
-            headerShown: true,
+          options={({ navigation, route: { params } }: AppNavigationProps<AppScreenNames.SignIn>) => ({
+            headerShown: !params?.noBackButton,
             title: '',
             headerTransparent: true,
             headerLeft: () => (
