@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import vocabulary from 'i18n';
-import { Link } from 'components';
-import useStyles from './styles';
 import { resendVerificationCode } from 'modules/user/actions';
+import Link from 'components/Link';
+import useStyles from './styles';
 
 
 interface IResendEmailProps {
