@@ -5,7 +5,6 @@ import { errorNotification, successNotification } from 'modules/notifications/ac
 import {
   ICheckVerificationAction,
   IResendVerificationCodeAction,
-  ISetVerificationStatusAction,
   IVerifySignUpCodeAction,
   UserActions,
   VerificationStatuses,
@@ -13,13 +12,20 @@ import {
 import api, { IResponse } from 'services/api';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
-import { IVerificationResponse } from 'services/api/employees';
+import { IUserInfo, IVerificationResponse } from 'services/api/employees';
 import SplashScreen from 'react-native-splash-screen';
+import { setItem } from 'modules/asyncStorage';
 
 
 function* getUserInfoWorker() {
-  const { data: { data: userData } } = yield call(api.employees.userInfo);
-  yield put(actions.userSetInfo(userData));
+  const response: IResponse<IUserInfo> = yield call(api.employees.userInfo);
+  const mockedUserData: IUserInfo = {
+    ...response.data,
+    first_name: response.data.email.split('@')[0], // TODO: Remove after BE returns actual fields
+    last_name: '',
+  };
+  yield put(actions.userSetInfo(mockedUserData));
+  yield setItem('name', mockedUserData.first_name); // TODO: will probably move to signIn later
 }
 
 function* checkVerificationWorker (action: ICheckVerificationAction) {

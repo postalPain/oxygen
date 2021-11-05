@@ -1,4 +1,5 @@
 import { IMeta } from 'modules/store/types';
+import { IUserInfo } from 'services/api/employees';
 
 export const enum UserActions {
   USER_GET_INFO = 'USER_GET_INFO',
@@ -24,7 +25,7 @@ export interface IUserGetInfoAction {
 
 export interface IUserSetInfoAction {
   type: UserActions.USER_SET_INFO;
-  payload: Partial<IUserState>;
+  payload: Partial<IUserInfo>;
 }
 
 export interface IUserClearInfoAction {
