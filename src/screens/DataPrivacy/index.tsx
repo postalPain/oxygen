@@ -31,9 +31,9 @@ const DataPrivacy = (
     setButtonDisabled(true);
     dispatch(signUp(signUpData, {
       onSuccess: () => {
-        setButtonDisabled(false);
-        dispatch(checkVerification({ onSuccess: () => navigation.navigate(AppScreenNames.UserVerificationPending) }));
-        navigation.navigate(AppScreenNames.UserVerificationPending);
+        dispatch(checkVerification({ onSuccess: () => {
+          navigation.navigate(AppScreenNames.UserVerificationPending);
+        }}));
       },
       onError: (error) => {
         setButtonDisabled(false);

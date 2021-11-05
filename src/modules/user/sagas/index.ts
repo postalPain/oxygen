@@ -1,20 +1,19 @@
-import { call, put, takeEvery, } from 'redux-saga/effects';
+import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
+import SplashScreen from 'react-native-splash-screen';
 import * as actions from '../actions';
 import { errorNotification, successNotification } from 'modules/notifications/actions';
 import {
   ICheckVerificationAction,
-  IResendVerificationCodeAction,
-  ISetVerificationStatusAction,
+  IResendVerificationCodeAction, ISetVerificationStatusAction,
   IVerifySignUpCodeAction,
   UserActions,
   VerificationStatuses,
 } from 'modules/user/types';
 import api, { IResponse } from 'services/api';
+import { IVerificationResponse } from 'services/api/employees';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
-import { IVerificationResponse } from 'services/api/employees';
-import SplashScreen from 'react-native-splash-screen';
 
 
 function* getUserInfoWorker() {
@@ -55,8 +54,8 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
   yield put(successNotification({ text: vocab.get().emailSent }));
 }
 
-function* setVerificationStatusWorker () {
-  yield SplashScreen.hide();
+function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
+  if (!!action.payload) setTimeout(() => { SplashScreen.hide(); }, 300);
 }
 
 export default function* userWatcher(): SagaIterator {

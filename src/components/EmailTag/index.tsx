@@ -13,16 +13,13 @@ interface IEmailTag {
 const EmailTag = (props: IEmailTag) => {
   const styles = useStyles();
   return (
-    <Pressable
-      onPress={props.onPress}
-      style={[styles.emailTag, props.style]}
-    >
+    <View style={[styles.emailTag, props.style]}>
       <Text style={styles.emailText}>{props.email}</Text>
       <View style={styles.icon}>
-        <View style={styles.iconBackground} />
+        <Pressable style={styles.iconBackground}  onPress={props.onPress}/>
         <IconCross color={theme.colors.floos2} size={8} />
       </View>
-    </Pressable>
+    </View>
   );
 };
 

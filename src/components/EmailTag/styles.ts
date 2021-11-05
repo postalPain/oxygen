@@ -16,7 +16,6 @@ const useStyles = () => StyleSheet.create({
     borderRadius: 0.05 * windowDimensions.height
   },
   emailText: {
-    flex: 2,
     marginRight: 12,
     fontSize: 16,
     letterSpacing: .5,
