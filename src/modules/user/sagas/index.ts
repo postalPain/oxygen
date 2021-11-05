@@ -51,7 +51,10 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
     yield put(errorNotification({ text: error.message }));
     return;
   }
-  yield put(successNotification({ text: vocab.get().emailSent }));
+  yield put(successNotification({
+    title: vocab.get().emailSent,
+    text: vocab.get().checkInbox,
+  }));
 }
 
 function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
