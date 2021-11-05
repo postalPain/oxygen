@@ -87,7 +87,7 @@ function* signInWorker(action: ISignInAction) {
   yield put(authActions.setAuthData(response.data));
 }
 
-export function* clearSignUpDataWorker(action: IClearAuthDataAction) {
+export function* clearAuthDataWorker(action: IClearAuthDataAction) {
   yield removeItems(['access_token', 'access_ttl', 'refresh_token', 'refresh_ttl', 'email']);
   yield action?.meta?.onSuccess();
 }
@@ -122,7 +122,7 @@ export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);
-  yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearSignUpDataWorker);
+  yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearAuthDataWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);
 }

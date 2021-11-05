@@ -13,7 +13,7 @@ import { signUp } from 'modules/auth/actions';
 import { selectSignUpData } from 'modules/auth/selectors';
 import theme from 'config/theme';
 import useStyles from './styles';
-import { checkVerification } from '../../modules/user/actions';
+import { checkVerification } from 'modules/user/actions';
 
 
 const vocab = vocabulary.get();
@@ -32,8 +32,7 @@ const DataPrivacy = (
     dispatch(signUp(signUpData, {
       onSuccess: () => {
         setButtonDisabled(false);
-        navigation.navigate(AppScreenNames.UserVerificationPending);
-        dispatch(checkVerification());
+        dispatch(checkVerification({ onSuccess: () => navigation.navigate(AppScreenNames.UserVerificationPending) }));
       },
       onError: (error) => {
         setButtonDisabled(false);

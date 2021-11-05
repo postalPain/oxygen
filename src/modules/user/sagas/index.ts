@@ -26,6 +26,8 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
     yield action.meta?.onError?.();
     return error;
   }
+  yield put(setVerificationStatus(response.data.verification_status));
+  yield action.meta?.onSuccess?.(response.data.verification_status);
 }
 
 export function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
