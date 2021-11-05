@@ -55,7 +55,7 @@ const SignIn = (
         <View>
           <Input
             style={styles.input}
-            name="password"
+            name="email"
             label={vocab.get().email}
             onChange={setEmail}
             placeholder="Email"

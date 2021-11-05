@@ -26,16 +26,6 @@ export enum IUserAccess {
   active = 'active',
 }
 
-export interface IScreenPermission {
-  default?: boolean; // default screen to fallback to in case user doesn't have access
-  redirectTo?: string; // redirect recommendation; "default" will be used, if user doesn't have permissions for this route
-  access: IUserAccess[];
-}
-
-export interface IScreenPermissionsTable {
-  [key: string]: IScreenPermission;
-}
-
 export enum MainScreenNames {
   HomeStack = 'HomeStack',
   Transactions = 'Transactions',
@@ -49,7 +39,7 @@ export enum HomeScreenNames {
 export type AppStackParameters = {
   Loading: undefined;
   Onboarding: undefined;
-  SignIn: undefined;
+  SignIn: { noBackButton?: boolean };
   SignInForgot: undefined;
   EnterRegistrationId: { backendError: string };
   EnterEmail: { backendError: string };
