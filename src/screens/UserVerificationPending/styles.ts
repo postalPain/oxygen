@@ -5,18 +5,20 @@ import { SCREEN_BOTTOM_PADDING } from 'utils/screen';
 const useStyles = () => StyleSheet.create({
   safeArea: {
     flex: 1,
+    width: '100%',
     backgroundColor: theme.colors.screenBackgroundColorLight,
   },
   screen: {
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
+    width: '100%',
     paddingBottom: SCREEN_BOTTOM_PADDING,
   },
   steps: {
     paddingTop: '35%',
     paddingLeft: '10%',
-    maxWidth: '73%',
+    width: '73%',
   },
   step: {},
   progressBar: {

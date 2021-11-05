@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import vocabulary from 'i18n';
 import theme from 'config/theme';
-import { IconCheck } from '../components';
+import IconCheck from 'components/IconCheck';
 
 
 const vocab = vocabulary.get();
