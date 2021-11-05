@@ -19,7 +19,7 @@ import { selectForgotPassword } from 'modules/auth/selectors';
 import { clearSignUpData } from 'modules/auth/actions';
 import { removeItems, setItems } from 'modules/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
-import { ISignUpPayload } from 'services/api/auth';
+import { checkVerification } from 'modules/user/actions';
 
 
 function* handleError (error: IError) {
@@ -60,6 +60,7 @@ function* signUpWorker(action: ISignUpAction) {
   yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
   yield put(clearSignUpData());
+  yield put(checkVerification());
   yield action.meta?.onSuccess?.(response);
 }
 
@@ -85,6 +86,7 @@ function* signInWorker(action: ISignInAction) {
   yield processUserData({ email: action.email });
   yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
+  yield put(authActions.signedIn(true));
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
