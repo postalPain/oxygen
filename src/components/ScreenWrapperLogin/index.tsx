@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserInfo } from 'modules/user/selectors';
 import { userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
+import vocab from 'i18n';
 
 interface IScreenWrapperLogin {
   children?: any;
@@ -39,7 +40,7 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
           <IconFloosFull />
         </View>
         <View>
-          {!!first_name && <Text style={styles.hiMessage}>Hi, {first_name}!</Text>}
+          {!!first_name && <Text style={styles.hiMessage}>{vocab.get().hi} {first_name}!</Text>}
           {!!email && (
             <EmailTag
               onPress={() => {
