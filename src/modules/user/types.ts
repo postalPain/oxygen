@@ -11,6 +11,10 @@ export const enum UserActions {
   SET_VERIFICATION_STATUS = 'SET_VERIFICATION_STATUS',
 }
 
+export enum UserStoredKeys {
+  first_name = 'first_name'
+}
+
 export interface IUserState {
   id: string;
   email: string;

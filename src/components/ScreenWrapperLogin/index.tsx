@@ -6,12 +6,19 @@ import CircleSmall from 'components/CircleSmall';
 import IconFloosFull from 'components/IconFloosFull';
 import { EmailTag } from 'components';
 import styles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserInfo } from 'modules/user/selectors';
+import { userClearInfo } from 'modules/user/actions';
+import { clearAuthData } from 'modules/auth/actions';
 
 interface IScreenWrapperLogin {
   children?: any;
 }
 
 const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
+  const dispatch = useDispatch();
+  const { first_name, email } = useSelector(selectUserInfo);
+
   return (
     <View style={styles.screenWrapperLogin}>
       <View style={styles.header}>
@@ -31,10 +38,19 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
         <View style={styles.logo}>
           <IconFloosFull />
         </View>
-        {/*<View>*/}
-        {/*  <Text style={styles.hiMessage}>Hi, Bayani!</Text>*/}
-          {/*<EmailTag onPress={() => {}} style={styles.emailTag} email="asd@asd.com" />*/}
-        {/*</View>*/}
+        <View>
+          {!!first_name && <Text style={styles.hiMessage}>Hi, {first_name}!</Text>}
+          {!!email && (
+            <EmailTag
+              onPress={() => {
+                dispatch(userClearInfo());
+                dispatch(clearAuthData());
+              }}
+              light
+              email={email}
+            />
+          ) }
+        </View>
       </View>
       <View style={styles.childrenContainer}>
         {props.children}

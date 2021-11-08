@@ -1,8 +1,8 @@
-import { circleCoordinates } from "components/ScreenWrapperOnboarding";
-import theme from "config/theme";
-import { StyleSheet } from "react-native";
-import { getFontSize } from "utils/screen";
-import { windowDimensions } from "utils/window";
+import { circleCoordinates } from 'components/ScreenWrapperOnboarding';
+import theme from 'config/theme';
+import { StyleSheet } from 'react-native';
+import { getFontSize } from 'utils/screen';
+import { windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   screenWrapperLogin: {
@@ -35,10 +35,8 @@ const styles = StyleSheet.create({
   },
   hiMessage: {
     fontSize: getFontSize(6),
-    marginBottom: 0.015 * windowDimensions.height,
+    marginBottom: 0.018 * windowDimensions.height,
     textAlign: 'center'
-  },
-  emailTag: {
   },
   circle: {
     position: 'absolute'
