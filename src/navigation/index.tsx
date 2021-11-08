@@ -26,8 +26,9 @@ import { AuthStoredKeys } from 'modules/auth/types';
 import { getMultipleItems } from 'modules/asyncStorage';
 import { useDispatch } from 'react-redux';
 import { setAuthData } from 'modules/auth/actions';
-import { checkVerification } from 'modules/user/actions';
+import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
+import { UserStoredKeys } from 'modules/user/types';
 
 const AppStack = createNativeStackNavigator();
 
@@ -60,8 +61,13 @@ const Navigation = () => {
         AuthStoredKeys.refresh_token,
         AuthStoredKeys.refresh_ttl,
         AuthStoredKeys.email,
+        UserStoredKeys.first_name
       ]).then((_authData) => {
         dispatch(setAuthData(_authData));
+        dispatch(userSetInfo({
+          first_name: _authData.first_name,
+          email: _authData.email,
+        }));
         dispatch(checkVerification({
           onSuccess: (status) => {
             if (isPending(status)) {

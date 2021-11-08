@@ -1,17 +1,20 @@
-import { IUserState, TUserAction, UserActions } from '../types';
+import { IUserInfo } from 'services/api/employees';
+import { TUserAction, UserActions } from '../types';
 
-export const initialState: IUserState = {
-  id: '',
+export const initialState: IUserInfo = {
+  id: null,
   email: '',
   first_name: '',
   last_name: '',
+  iban: '',
+  registration_id: '',
   verification_status: null,
 };
 
 const userReducer = (
   state = initialState,
   action: TUserAction,
-): IUserState => {
+): IUserInfo => {
   switch (action.type) {
     case UserActions.USER_SET_INFO: {
       return {

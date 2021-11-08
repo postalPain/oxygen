@@ -1,24 +1,34 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import SplashScreen from 'react-native-splash-screen';
 import * as actions from '../actions';
 import { errorNotification, successNotification } from 'modules/notifications/actions';
 import {
   ICheckVerificationAction,
-  IResendVerificationCodeAction, ISetVerificationStatusAction,
+  IResendVerificationCodeAction,
+  ISetVerificationStatusAction,
+  IUserSetInfoAction,
   IVerifySignUpCodeAction,
   UserActions,
+  UserStoredKeys,
   VerificationStatuses,
 } from 'modules/user/types';
 import api, { IResponse } from 'services/api';
-import { IVerificationResponse } from 'services/api/employees';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
+import { IUserInfo, IVerificationResponse } from 'services/api/employees';
+import SplashScreen from 'react-native-splash-screen';
+import { setItem } from 'modules/asyncStorage';
+import { AuthStoredKeys } from 'modules/auth/types';
 
 
 function* getUserInfoWorker() {
-  const { data: { data: userData } } = yield call(api.employees.userInfo);
-  yield put(actions.userSetInfo(userData));
+  const response: IResponse<IUserInfo> = yield call(api.employees.userInfo);
+  const mockedUserData: IUserInfo = {
+    ...response.data,
+    first_name: response.data.email.split('@')[0], // TODO: Remove after BE returns actual fields
+    last_name: '',
+  };
+  yield put(actions.userSetInfo(mockedUserData));
 }
 
 function* checkVerificationWorker (action: ICheckVerificationAction) {
@@ -58,11 +68,19 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
 }
 
 function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
-  if (!!action.payload) setTimeout(() => { SplashScreen.hide(); }, 300);
+  if (!!action.payload) setTimeout(() => {
+    SplashScreen.hide();
+  }, 300);
+}
+
+function* userSetInfoWorker (action: IUserSetInfoAction) {
+  yield setItem(UserStoredKeys.first_name, action.payload?.first_name);
+  yield setItem(AuthStoredKeys.email, action.payload?.email);
 }
 
 export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
+  yield takeEvery(UserActions.USER_SET_INFO, userSetInfoWorker);
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
   yield takeEvery(UserActions.CHECK_VERIFICATION, checkVerificationWorker);
   yield takeEvery(UserActions.RESEND_VERIFICATION_CODE, resendVerificationCodeWorker);

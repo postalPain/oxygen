@@ -13,23 +13,22 @@ import styles from './styles';
 import WithdrawalTagLarge from 'components/WithdrawalTagLarge';
 import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
 import WithdrawInfo from './WithdrawInfo';
+import { selectUserInfo } from 'modules/user/selectors';
 
 interface IDashboardProps {
   navigation: AppNavigationProps<AppScreenNames.Dashboard>;
 }
 
 const Dashboard: React.FC<IDashboardProps> = ({ navigation }) => {
-  const authData = useSelector(selectAuthData);
-
-  const [userInfo, setUserInfo] = useState(null);
+  const userInfo = useSelector(selectUserInfo);
 
   return (
     <>
       <ScreenWrapperMain>
         <View style={styles.greetingContainer}>
           <Text style={[styles.greeting]}>
-            <Text>Hi, </Text>
-            <Text style={styles.greetingName}>Bayani</Text>
+            <Text>{vocab.get().hi}</Text>
+            <Text style={styles.greetingName}>{userInfo.first_name}</Text>
           </Text>
           <Text style={[styles.greeting, styles.greetingDate]}>
             {moment().format('ddd D MMM[,] YYYY')}
@@ -46,7 +45,6 @@ const Dashboard: React.FC<IDashboardProps> = ({ navigation }) => {
         </View>
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => api.employees.userInfo().then(x => setUserInfo(x.data))}
             Icon={<IconPlus size={22} />}
           >
             {vocab.get().withdraw}

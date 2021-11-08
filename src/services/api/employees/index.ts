@@ -3,8 +3,10 @@ import { TVerificationStatus } from 'modules/user/types';
 import { IResponse } from '..';
 import request from '../request';
 
-interface IUserInfo {
+export interface IUserInfo {
   email: string;
+  first_name: string;
+  last_name: string;
   iban: string;
   id: number;
   registration_id: string;

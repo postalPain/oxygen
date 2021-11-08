@@ -11,12 +11,13 @@ import {
   IResendVerificationCodeAction,
 } from 'modules/user/types';
 import { IMeta } from 'modules/store/types';
+import { IUserInfo } from 'services/api/employees';
 
 export const userGetInfo = (): IUserGetInfoAction => ({
   type: UserActions.USER_GET_INFO,
 });
 
-export const userSetInfo = (payload: Partial<IUserState>): IUserSetInfoAction => ({
+export const userSetInfo = (payload: Partial<IUserInfo>): IUserSetInfoAction => ({
   type: UserActions.USER_SET_INFO,
   payload,
 });
