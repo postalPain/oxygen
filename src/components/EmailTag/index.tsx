@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { IconCross } from 'components';
+import IconCross from 'components/IconCross';
 import theme from 'config/theme';
 import useStyles from './styles';
 

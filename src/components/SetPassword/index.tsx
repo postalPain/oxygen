@@ -6,7 +6,9 @@ import {
   AppNavigationProps,
 } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
-import { Button, InputInfo, ScreenWithAnimatedHeader } from 'components';
+import Button from 'components/Button';
+import InputInfo from 'components/InputInfo';
+import ScreenWithAnimatedHeader from 'components/ScreenWithAnimatedHeader';
 import usePasswordRequirements from 'utils/usePasswordRequirements';
 import { selectSignUpData } from 'modules/auth/selectors';
 import useStyles from './styles';

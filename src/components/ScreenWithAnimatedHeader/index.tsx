@@ -95,7 +95,6 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
       </TouchableWithoutFeedback>
     </SafeAreaView>
   );
-  
 };
 
 export default ScreenWithAnimatedHeader;
