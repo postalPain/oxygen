@@ -21,7 +21,7 @@ const xml = (color: string) => `
 
 export default ({
   size = 20,
-  color = theme.colors.headerTextColor,
+  color = theme.colors.floos1,
 }) => {
   return (
     <SvgXml xml={xml(color)} width={size} height={size} />

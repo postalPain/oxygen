@@ -71,4 +71,7 @@ export default {
   useCode: 'Please use the code provided in the email to activate your account.',
   emailSent: 'Email sent',
   checkInbox: 'Check your inbox',
+  dashboard: 'Dashboard',
+  transactions: 'Transactions',
+  profile: 'Profile',
 };
