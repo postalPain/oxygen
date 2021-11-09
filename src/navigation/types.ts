@@ -56,6 +56,7 @@ export type AppStackParameters = {
   UserVerificationPending: undefined;
   PasswordReset: undefined;
   ForgotPassword: undefined;
+  TabNavigation: undefined;
   Dashboard: undefined;
   Transactions: undefined;
   Profile: undefined;

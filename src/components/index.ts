@@ -17,7 +17,4 @@ export { default as NavigationHeader } from './NavigationHeader';
 export { default as ScreenWithAnimatedHeader } from './ScreenWithAnimatedHeader';
 export { default as SetPassword } from './SetPassword';
 export { default as SignIn } from './SignIn';
-export { default as TabBar } from './TabBar';
-export { default as TabWrapper } from './TabWrapper';
-export { default as TabBarIconWrapper } from './TabBarIconWrapper';
 // export { default as Carousel } from './Carousel';

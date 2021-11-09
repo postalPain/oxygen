@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Pressable } from 'react-native';
+import { View, Pressable, Text } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-// import { NavBackground, NavSide } from 'components/Icons';
 import useStyles from './styles';
+
 
 const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
   const styles = useStyles();
-  
   const onTabPress = (route, isFocused) => {
     const event = navigation.emit({
       type: 'tabPress',
@@ -31,15 +30,15 @@ const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation })
       target: route.key,
     });
   };
-  
   return (
     <View style={styles.tabBarContainer}>
       <View style={styles.iconWrapper}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const icon = options.tabBarIcon;
+          const title = options.tabBarLabel;
           const isFocused = state.index === index;
-          
+          const color = isFocused ? options.tabBarActiveTintColor : options.tabBarInactiveTintColor;
           return (
             <Pressable
               key={route.name}
@@ -49,13 +48,16 @@ const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation })
               testID={options.tabBarTestID}
               onPress={() => onTabPress(route, isFocused)}
               onLongPress={() => onTabLongPress(route)}
-              style={styles.item}
+              style={styles.tabBarIconWrapper}
             >
               {icon({
                 focused: isFocused,
                 size: 25,
-                color: 'transparent',
+                color,
               })}
+              <Text style={[styles.label, { color, }]}>
+                {title}
+              </Text>
             </Pressable>
           );
         })}

@@ -1,15 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppScreenNames } from 'navigation/types';
 import {
   IconDashboard,
   IconProfile,
   IconTransactions,
-  TabBar,
-  TabWrapper,
-  TabBarIconWrapper,
 } from 'components';
+import TabBar from './TabBar';
+import TabWrapper from './TabWrapper';
 import { Dashboard, Profile, Transactions } from 'screens';
 import vocabulary from 'i18n';
 import theme from 'config/theme';
@@ -19,13 +17,17 @@ const vocab = vocabulary.get();
 
 const Tab = createBottomTabNavigator();
 
+const getTabColor = (focused: boolean) => focused
+  ? theme.colors.floos1
+  : '#CCCCCC';
+
 const TabNavigation = () => (
   <Tab.Navigator
     tabBar={(props) => <TabBar {...props} />}
     initialRouteName={AppScreenNames.Dashboard}
     screenOptions={{
-      tabBarShowLabel: false,
-      headerShown: false,
+      tabBarActiveTintColor: theme.colors.floos1,
+      tabBarInactiveTintColor: '#ccc',
     }}
   >
     <Tab.Screen
@@ -33,13 +35,8 @@ const TabNavigation = () => (
       component={TabWrapper(Dashboard)}
       options={{
         headerShown: false,
-        tabBarIcon: ({ focused }) => (
-          <TabBarIconWrapper
-            icon={<IconDashboard color={focused ? theme.colors.floos1 : '#CCCCCC'} />}
-            title={vocab.dashboard}
-            focused={focused}
-          />
-        ),
+        tabBarIcon: ({ color }) => <IconDashboard color={color} />,
+        tabBarLabel: vocab.dashboard,
       }}
     />
     <Tab.Screen
@@ -47,13 +44,8 @@ const TabNavigation = () => (
       component={TabWrapper(Transactions)}
       options={{
         headerShown: false,
-        tabBarIcon: ({ focused }) => (
-          <TabBarIconWrapper
-            icon={<IconTransactions color={focused ? theme.colors.floos1 : '#CCCCCC'} />}
-            title={vocab.dashboard}
-            focused={focused}
-          />
-        ),
+        tabBarIcon: ({ color }) => <IconTransactions color={color} />,
+        tabBarLabel: vocab.transactions,
       }}
     />
     <Tab.Screen
@@ -61,13 +53,8 @@ const TabNavigation = () => (
       component={TabWrapper(Profile)}
       options={{
         headerShown: false,
-        tabBarIcon: ({ focused }) => (
-          <TabBarIconWrapper
-            icon={<IconProfile color={focused ? theme.colors.floos1 : '#CCCCCC'} />}
-            title={vocab.profile}
-            focused={focused}
-          />
-        ),
+        tabBarIcon: ({ color }) => <IconProfile color={color} />,
+        tabBarLabel: vocab.profile,
       }}
     />
   </Tab.Navigator>

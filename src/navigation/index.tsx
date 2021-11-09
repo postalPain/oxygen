@@ -17,7 +17,6 @@ import {
   ForgotPasswordRequested,
   ForgotPasswordSignIn,
   ForgotPassword,
-  Dashboard,
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { AuthStoredKeys } from 'modules/auth/types';
