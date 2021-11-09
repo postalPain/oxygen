@@ -12,7 +12,6 @@ const useStyles = () => StyleSheet.create({
     paddingRight: 0.04 * windowDimensions.width,
     paddingLeft: 0.05 * windowDimensions.width,
     paddingVertical: 0.012 * windowDimensions.height,
-    backgroundColor: theme.colors.shade2,
     borderRadius: 0.05 * windowDimensions.height
   },
   emailText: {

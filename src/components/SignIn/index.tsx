@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
+import { selectUserEmail } from 'modules/user/selectors';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -18,6 +19,7 @@ const SignIn = (
 
   const error = useSelector(selectSignInError);
   const signedIn = useSelector(selectSignedIn);
+  const storedEmail = useSelector(selectUserEmail);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -53,16 +55,18 @@ const SignIn = (
     <>
       <View>
         <View>
-          <Input
-            style={styles.input}
-            name="email"
-            label={vocab.get().email}
-            onChange={setEmail}
-            placeholder="Email"
-            type="email"
-            required
-            error={emailError}
-          />
+          {!storedEmail && (
+            <Input
+              style={styles.input}
+              name="email"
+              label={vocab.get().email}
+              onChange={setEmail}
+              placeholder="Email"
+              type="email"
+              required
+              error={emailError}
+            />
+          )}
           <Input
             style={styles.input}
             name="password"
@@ -87,7 +91,7 @@ const SignIn = (
       </View>
       <View style={styles.buttonSection}>
         <Button onPress={() => {
-          dispatch(signIn(email, password));
+          dispatch(signIn(email || storedEmail, password));
           setEmailError(null);
           setPasswordError(null);
         }}

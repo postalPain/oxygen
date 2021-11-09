@@ -10,6 +10,7 @@ import {
   ISignUpAction,
   IForgotPasswordAction,
   IResetPasswordAction,
+  AuthStoredKeys,
 } from 'modules/auth/types';
 import { getState } from 'modules/store';
 import * as appActions from 'modules/app/actions';
@@ -17,9 +18,10 @@ import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
 import { clearSignUpData } from 'modules/auth/actions';
-import { removeItems, setItems } from 'modules/asyncStorage';
+import { removeItems, setItem, setItems } from 'modules/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
-import { checkVerification } from 'modules/user/actions';
+import { checkVerification, userGetInfo } from 'modules/user/actions';
+import { UserStoredKeys } from 'modules/user/types';
 
 
 function* handleError (error: IError) {
@@ -90,7 +92,14 @@ function* signInWorker(action: ISignInAction) {
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
-  yield removeItems(['access_token', 'access_ttl', 'refresh_token', 'refresh_ttl', 'email']);
+  yield removeItems([
+    AuthStoredKeys.access_token,
+    AuthStoredKeys.access_ttl,
+    AuthStoredKeys.refresh_token,
+    AuthStoredKeys.refresh_ttl,
+    AuthStoredKeys.email,
+    UserStoredKeys.first_name,
+  ]);
   yield action?.meta?.onSuccess();
 }
 
@@ -120,10 +129,15 @@ function* resetPasswordWorker(action: IResetPasswordAction) {
   action.meta?.onSuccess();
 }
 
+function* signInSuccessWorker () {
+  yield put(userGetInfo());
+}
+
 export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);
+  yield takeEvery(AuthActions.SIGN_IN_SUCCESS, signInSuccessWorker);
   yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearAuthDataWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);

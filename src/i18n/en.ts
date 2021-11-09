@@ -74,4 +74,5 @@ export default {
   dashboard: 'Dashboard',
   transactions: 'Transactions',
   profile: 'Profile',
+  hi: 'Hi, '
 };
