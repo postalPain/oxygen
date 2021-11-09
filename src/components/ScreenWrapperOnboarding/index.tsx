@@ -62,8 +62,8 @@ const ScreenWrapperOnboarding = (props: IOnboardingScreenWrapper) => {
 export const circleCoordinates = [{
   large: { x: windowDimensions.width - 0.65 * circleLargeSize, y: -0.3 * circleLargeSize },
   medium: { x: -0.14 * circleMediumSize, y: -0.14 * circleMediumSize },
-  small1: { x: -0.3 * circleSmallSize, y: 3.3 * circleSmallSize },
-  small2: { x: windowDimensions.width - 0.66 * circleSmallSize, y: 3.3 * circleSmallSize }
+  small1: { x: -0.3 * circleSmallSize, y: 3 * circleSmallSize },
+  small2: { x: windowDimensions.width - 0.66 * circleSmallSize, y: 3.2 * circleSmallSize }
 },
 {
   large: { x: - 0.07 * circleLargeSize, y: -0.5 * circleLargeSize },
