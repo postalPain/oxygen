@@ -12,6 +12,7 @@ export { default as EmailTag } from './EmailTag';
 export { default as ResendEmail } from './ResendEmail';
 export { default as NavigationHeader } from './NavigationHeader';
 export { default as ScreenWithAnimatedHeader } from './ScreenWithAnimatedHeader';
+export { default as ScreenWrapperMain } from './ScreenWrapperMain';
 export { default as SetPassword } from './SetPassword';
 export { default as SignIn } from './SignIn';
 // export { default as Carousel } from './Carousel';

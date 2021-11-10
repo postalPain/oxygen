@@ -16,7 +16,7 @@ import {
   ForgotPasswordRequested,
   ForgotPasswordSignIn,
   ForgotPassword,
-  Dashboard,
+  Dashboard, UserInfoConfirmation,
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { IconBack, NavigationHeader, } from 'components';
@@ -171,6 +171,11 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.VerificationCodeSignUp}
           component={VerificationCodeSignUp}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.UserInfoConfirmation}
+          component={UserInfoConfirmation}
           options={getHeaderOptions()}
         />
         <>

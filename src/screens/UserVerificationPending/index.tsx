@@ -28,7 +28,7 @@ const UserVerificationPending = (
     ? 'rejected'
     : (status === VerificationStatuses.employer_verified)
       ? 'verified' : 'pending';
-  const onPress = () => { navigation.navigate(AppScreenNames.SignIn, { noBackButton: true }); };
+  const onPress = () => { navigation.navigate(AppScreenNames.UserInfoConfirmation, { noBackButton: true }); };
   const [delay, setDelay] = useState(1000 * 60 * 5);
   const checkStatus = () => {
     dispatch(checkVerification({
