@@ -8,9 +8,7 @@ interface IModal {
 
 const Modal = (props: IModal) => {
   return (
-    <View style={[styles.modal, {
-    }]}
-    >
+    <View style={styles.modal}>
       <View style={styles.backDrop} />
       {props.children}
     </View>
