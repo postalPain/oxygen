@@ -73,4 +73,7 @@ export default {
   checkInbox: 'Check your inbox',
   hi: 'Hi, ',
   goodToKnow: 'GOOD TO KNOW',
+  dashboard: 'Dashboard',
+  transactions: 'Transactions',
+  profile: 'Profile',
 };

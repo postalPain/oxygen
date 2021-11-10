@@ -27,7 +27,7 @@ const useStyles = () => StyleSheet.create({
     width: 41,
     height: 41,
     borderRadius: 41,
-    backgroundColor: theme.colors.headerTextColor,
+    backgroundColor: theme.colors.floos1,
     marginBottom: 44,
   },
   headerText: {
