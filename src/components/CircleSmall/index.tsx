@@ -1,8 +1,9 @@
 import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { windowDimensions } from 'utils/window';
 
-export const circleSmallSize = 60;
+export const circleSmallSize = 0.15 * windowDimensions.width;
 
 const CircleSmall = () => {
   return (
