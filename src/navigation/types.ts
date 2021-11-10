@@ -17,7 +17,10 @@ export enum AppScreenNames {
   UserVerificationPending = 'UserVerificationPending',
   ForgotPassword = 'ForgotPassword',
   UserInfoConfirmation = 'UserInfoConfirmation',
+  TabNavigation = 'TabNavigation',
   Dashboard = 'Dashboard',
+  Transactions = 'Transactions',
+  Profile = 'Profile',
 }
 
 export enum IUserAccess {
@@ -54,7 +57,10 @@ export type AppStackParameters = {
   UserVerificationPending: undefined;
   PasswordReset: undefined;
   ForgotPassword: undefined;
+  TabNavigation: undefined;
   Dashboard: undefined;
+  Transactions: undefined;
+  Profile: undefined;
   Main: undefined;
   UserInfoConfirmation: { noBackButton?: boolean };
 };

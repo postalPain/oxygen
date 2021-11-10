@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,18 +17,18 @@ import {
   ForgotPasswordRequested,
   ForgotPasswordSignIn,
   ForgotPassword,
-  Dashboard, UserInfoConfirmation,
+  UserInfoConfirmation,
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
-import { IconBack, NavigationHeader, } from 'components';
-import theme from 'config/theme';
-import { headerStyles } from './styles';
 import { AuthStoredKeys } from 'modules/auth/types';
 import { getMultipleItems } from 'modules/asyncStorage';
-import { useDispatch } from 'react-redux';
 import { setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
+import { IconBack, NavigationHeader, } from 'components';
+import TabNavigation from 'navigation/TabNavigation';
+import theme from 'config/theme';
+import { headerStyles } from './styles';
 import { UserStoredKeys } from 'modules/user/types';
 
 const AppStack = createNativeStackNavigator();
@@ -162,7 +163,7 @@ const Navigation = () => {
             ...getHeaderOptions(),
             header: (headerProps) => (
               <NavigationHeader
-                    {...headerProps}  // eslint-disable-line
+                {...headerProps}  // eslint-disable-line
                 headerLeft={null}
               />
             )
@@ -178,13 +179,14 @@ const Navigation = () => {
           component={UserInfoConfirmation}
           options={getHeaderOptions()}
         />
-        <>
-          <AppStack.Screen
-            name={AppScreenNames.Dashboard}
-            component={Dashboard}
-            options={{ headerShown: false }}
-          />
-        </>
+        <AppStack.Screen
+          name={AppScreenNames.TabNavigation}
+          component={TabNavigation}
+          options={{
+            gestureEnabled: false,
+            headerShown: false,
+          }}
+        />
       </AppStack.Navigator>
     </NavigationContainer>
   );
