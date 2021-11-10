@@ -1,6 +1,7 @@
 import theme from 'config/theme';
 import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
+import { windowDimensions } from 'utils/window';
 
 const xml = (color: string) => `
   <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -10,11 +11,13 @@ const xml = (color: string) => `
   </svg>
 `;
 
-export default ({
-  size,
-  color = theme.colors.screenBackgroundColorLight
+const IconInfoLight = ({
+  size = 0.1 * windowDimensions.width,
+  color = theme.colors.screenBackgroundColorLight,
 }) => {
   return (
     <SvgXml xml={xml(color)} width={size} height={size} />
   );
 };
+
+export default IconInfoLight;
