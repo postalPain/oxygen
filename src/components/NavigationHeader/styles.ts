@@ -18,7 +18,7 @@ const useStyles = () => StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerText: {
-    color: theme.colors.headerTextColor,
+    color: theme.colors.floos1,
     fontSize: 20,
   }
 });

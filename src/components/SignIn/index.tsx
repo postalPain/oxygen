@@ -27,7 +27,7 @@ const SignIn = (
   const [passwordError, setPasswordError] = useState<string>();
 
   useEffect(() => {
-    signedIn && navigation.navigate(AppScreenNames.Dashboard);
+    signedIn && navigation.navigate(AppScreenNames.TabNavigation);
   }, [signedIn]);
 
   useEffect(() => {
