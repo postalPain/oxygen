@@ -44,11 +44,11 @@ const regExps = {
 };
 
 const defaultLabelsList: ILabel[] = [
+  { id: LabelNames.oneSpecialChar, state: LabelState.default, text: vocab.oneSpecialChar, },
+  { id: LabelNames.eightOrMoreChars, state: LabelState.default, text: vocab.eightOrMoreChars, },
   { id: LabelNames.oneNumericChar, state: LabelState.default, text: vocab.oneNumericChar, },
   { id: LabelNames.oneLowercase, state: LabelState.default, text: vocab.oneLowercase, },
   { id: LabelNames.oneUppercase, state: LabelState.default, text: vocab.oneUppercase, },
-  { id: LabelNames.eightOrMoreChars, state: LabelState.default, text: vocab.eightOrMoreChars, },
-  { id: LabelNames.oneSpecialChar, state: LabelState.default, text: vocab.oneSpecialChar, },
 ];
 
 const match = (password: string) => (regExp) => password.match(regExp);
@@ -141,7 +141,7 @@ const useStyles = () => StyleSheet.create({
     borderRadius: 16,
   },
   requirementText: {
-    fontSize: 12,
+    fontSize: 16,
   },
   requirementDefault: {
     backgroundColor: theme.colors.passwordRequirementLabelBackgroundDefault,

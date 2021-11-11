@@ -42,8 +42,8 @@ export default {
   eightOrMoreChars: '8 characters',
   oneLowercase: 'lower case',
   oneUppercase: 'upper case',
-  oneNumericChar: 'numbers',
-  oneSpecialChar: 'special characters',
+  oneNumericChar: 'number',
+  oneSpecialChar: 'special character',
   emailVerification: '1. Email verification',
   employeeVerification: '2. Employee verification',
   waitingTime: 'Waiting time: up to ',
@@ -74,5 +74,11 @@ export default {
   dashboard: 'Dashboard',
   transactions: 'Transactions',
   profile: 'Profile',
-  hi: 'Hi, '
+  hi: 'Hi, ',
+  personalInformation: 'Personal Information',
+  informationReceived: 'Here\'s the information we received from your employer.',
+  name: 'Name',
+  iban: 'IBAN',
+  ifNotAccurate: 'If this is not accurate, please ',
+  contactUsImmediately: 'contact us immediately.',
 };

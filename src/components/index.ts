@@ -7,6 +7,7 @@ export { default as IconCross } from './IconCross';
 export { default as IconDashboard } from './IconDashboard';
 export { default as IconTransactions } from './IconTransactions';
 export { default as IconProfile } from './IconProfile';
+export { default as IconBadge } from './IconBadge';
 export { default as BackButton } from './BackButton';
 export { default as InfoText } from './InfoText';
 export { default as Link } from './Link';
@@ -18,4 +19,5 @@ export { default as ScreenWithAnimatedHeader } from './ScreenWithAnimatedHeader'
 export { default as ScreenWrapperMain } from './ScreenWrapperMain';
 export { default as SetPassword } from './SetPassword';
 export { default as SignIn } from './SignIn';
+export { default as UserInformation } from './UserInformation';
 // export { default as Carousel } from './Carousel';

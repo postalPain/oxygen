@@ -4,6 +4,7 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
+import { AuthStoredKeys } from 'modules/auth/types';
 import { VerificationStatuses } from 'modules/user/types';
 import { checkVerification, userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
@@ -28,7 +29,9 @@ const UserVerificationPending = (
     ? 'rejected'
     : (status === VerificationStatuses.employer_verified)
       ? 'verified' : 'pending';
-  const onPress = () => { navigation.navigate(AppScreenNames.UserInfoConfirmation, { noBackButton: true }); };
+  const onPress = () => {
+    navigation.navigate(AppScreenNames.UserInfoConfirmation, { noBackButton: true });
+  };
   const [delay, setDelay] = useState(1000 * 60 * 5);
   const checkStatus = () => {
     dispatch(checkVerification({
@@ -40,7 +43,7 @@ const UserVerificationPending = (
     }));
   };
   useEffect(() => {
-    getItem('email').then((_email) => setEmail(_email));
+    getItem(AuthStoredKeys.email).then((_email) => setEmail(_email));
     checkStatus();
   }, []);
   useInterval(() => {
