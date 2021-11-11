@@ -35,6 +35,7 @@ export enum AuthStoredKeys {
   refresh_token = 'refresh_token',
   refresh_ttl = 'refresh_ttl',
   email = 'email',
+  firstLoginEmails = 'firstLoginEmails',
 }
 
 export interface ISignUpAction {

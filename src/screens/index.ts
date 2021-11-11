@@ -11,6 +11,7 @@ export { default as DataPrivacy } from './DataPrivacy';
 export { default as UserVerificationPending } from './UserVerificationPending';
 export { default as SignInRegular } from './SignInRegular';
 export { default as ForgotPassword } from './ForgotPassword';
+export { default as UserInfoConfirmation } from './UserInfoConfirmation';
 export { default as Dashboard } from './Dashboard';
 export { default as Transactions } from './Transactions';
 export { default as Profile } from './Profile';
