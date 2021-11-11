@@ -24,11 +24,20 @@ const checkVerification = (): Promise<IResponse<IVerificationResponse>> => reque
 
 const resendVerificationCode = (email: string) => request.post(apiUrls.resendVerificationCode, { email });
 
+export interface IBalance {
+  earned_wages: number;
+  withdrawable_wages: number;
+  total_withdrawn_amount: number;
+}
+
+const getBalance = (): Promise<IResponse<IBalance>> => request.get('employees/balance');
+
 const employees = {
   verifyEmail,
   checkVerification,
   userInfo,
   resendVerificationCode,
+  getBalance,
 };
 
 export default employees;
