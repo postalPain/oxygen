@@ -1,4 +1,4 @@
-import IconInfoBackground from 'components/IconInfoBackground';
+import IconInfoLight from 'components/IconInfoLight';
 import theme from 'config/theme';
 import React from 'react';
 import { Pressable, StyleSheet, View, ViewStyle } from 'react-native';
@@ -6,14 +6,15 @@ import { windowDimensions } from 'utils/window';
 
 interface IWithdrawInfo {
   style?: ViewStyle;
+  onPress?: () => void;
 }
 
 
-const WithdrawInfo = ({ style }: IWithdrawInfo) => {
+const WithdrawInfo = ({ style, onPress }: IWithdrawInfo) => {
   return (
     <View style={[styles.withdrawInfo, style]}>
-      <Pressable onPress={() => console.log('info') }>
-        <IconInfoBackground
+      <Pressable onPress={onPress}>
+        <IconInfoLight
           color={theme.colors.screenBackgroundColorLight}
           size={height - 4}
         />
