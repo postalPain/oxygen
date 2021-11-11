@@ -76,6 +76,10 @@ export default {
   dashboard: 'Dashboard',
   transactions: 'Transactions',
   profile: 'Profile',
+  availableSumInfo: (withdrawable, earned) =>
+    `Availiable sum to withdraw is ${withdrawable} AED.  It is calculated from the earned sum, which ${earned} AED.`,
+  sumWasPayoutInfo: 'The sum which was payout.',
+  salaryEarnedInfo: 'The salary which you have earned till this period of time.',
   personalInformation: 'Personal Information',
   informationReceived: 'Here\'s the information we received from your employer.',
   name: 'Name',

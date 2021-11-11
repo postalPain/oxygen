@@ -19,10 +19,17 @@ import { IUserInfo, IVerificationResponse } from 'services/api/employees';
 import SplashScreen from 'react-native-splash-screen';
 import { setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/types';
+import { error } from 'console';
 
 
 function* getUserInfoWorker() {
-  const response: IResponse<IUserInfo> = yield call(api.employees.userInfo);
+  let response: IResponse<IUserInfo>;
+  try {
+    response = yield call(api.employees.userInfo);
+  } catch (error) {
+    yield put(errorNotification({ text: error.message }));
+    return;
+  }
   const mockedUserData: IUserInfo = {
     ...response.data,
     first_name: response.data.email.split('@')[0], // TODO: Remove after BE returns actual fields
