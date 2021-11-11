@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,8 +14,8 @@ import { Button } from 'components';
 import IconPlus from 'components/IconPlus';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
-
-
+import { getBalance } from 'modules/payment/actions';
+import { selectBalance } from 'modules/payment/selectors';
 
 interface IDashboardProps {
   navigation: AppNavigationProps<AppScreenNames.Dashboard>;
@@ -24,8 +24,13 @@ interface IDashboardProps {
 const Dashboard: React.FC<IDashboardProps> = ({ navigation }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
+  const balance = useSelector(selectBalance);
 
   const [infoModal, setInfoModal] = useState(false);
+
+  useEffect(() => {
+    dispatch(getBalance());
+  }, []);
 
   return (
     <>
@@ -45,13 +50,13 @@ const Dashboard: React.FC<IDashboardProps> = ({ navigation }) => {
           </Text>
         </View>
         <View style={{ alignSelf: 'stretch' }}>
-          <WithdrawalTagLarge amount={2500} style={styles.largeTagContainer} />
+          <WithdrawalTagLarge amount={balance.withdrawable_wages} style={styles.largeTagContainer} />
           <WithdrawInfo style={styles.info} onPress={() => setInfoModal(true)} />
         </View>
         <View style={styles.smallTagsContainer}>
-          <WithdrawalTagSmall amount={0} withdrawn style={{ flex: 3 }} />
+          <WithdrawalTagSmall amount={balance.total_withdrawn_amount} withdrawn style={{ flex: 3 }} />
           <View style={styles.smallTagsDivider} />
-          <WithdrawalTagSmall amount={2500} earned style={{ flex: 4 }} />
+          <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 4 }} />
         </View>
         <View style={styles.buttonContainer}>
           <Button

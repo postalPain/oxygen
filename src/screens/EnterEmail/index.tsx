@@ -41,7 +41,7 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
   };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
-    setInputValue(value);
+    setInputValue(value.toLowerCase());
   };
   return (
     <ScreenWithAnimatedHeader title={null}>

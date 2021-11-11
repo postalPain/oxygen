@@ -18,10 +18,10 @@ import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
 import { clearSignUpData } from 'modules/auth/actions';
-import { removeItems, setItem, setItems } from 'modules/asyncStorage';
-import { ERROR_CODES, IError } from 'services/api/errors';
+import { removeItems, setItems } from 'modules/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
+import { ERROR_CODES, IError } from 'services/api/errors';
 
 
 function* handleError (error: IError) {
@@ -45,7 +45,7 @@ export function* processAuthData(data: IAuthData) {
   yield setItems(authData);
 }
 export function* processUserData({ email }: { email: string }) {
-  yield setItems([{ key: 'email', value: email }]);
+  yield setItems([{ key: AuthStoredKeys.email, value: email }]);
 }
 
 function* signUpWorker(action: ISignUpAction) {

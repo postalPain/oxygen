@@ -1,22 +1,23 @@
-import { paymentActions } from '../actions';
+import { IBalance } from 'services/api/employees';
+import { paymentActions, TPaymentAction } from '../types';
 
 export interface IPaymentState {
-  showModal: boolean;
+  balance: IBalance;
 }
 
 export const initialState: IPaymentState = {
-  showModal: false,
+  balance: {} as IBalance
 };
 
 const paymentReducer = (
   state = initialState,
-  action: any,
+  action: TPaymentAction,
 ): IPaymentState => {
   switch (action.type) {
-    case paymentActions.TEST_MODAL:
+    case paymentActions.SET_BALANCE:
       return {
         ...state,
-        showModal: !state.showModal
+        balance: action.balance
       };
     default:
       return state;

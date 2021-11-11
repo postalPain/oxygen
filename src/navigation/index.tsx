@@ -17,6 +17,7 @@ import {
   ForgotPasswordRequested,
   ForgotPasswordSignIn,
   ForgotPassword,
+  UserInfoConfirmation,
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { AuthStoredKeys } from 'modules/auth/types';
@@ -24,11 +25,11 @@ import { getMultipleItems } from 'modules/asyncStorage';
 import { setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
-import { IconBack, NavigationHeader, } from 'components';
+import { UserStoredKeys } from 'modules/user/types';
 import TabNavigation from 'navigation/TabNavigation';
+import { IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
-import { UserStoredKeys } from 'modules/user/types';
 
 const AppStack = createNativeStackNavigator();
 
@@ -173,6 +174,13 @@ const Navigation = () => {
         {/*  component={VerificationCodeSignUp}*/}
         {/*  options={getHeaderOptions()}*/}
         {/*/>*/}
+        <AppStack.Screen
+          name={AppScreenNames.UserInfoConfirmation}
+          component={UserInfoConfirmation}
+          options={{
+            headerShown: false,
+          }}
+        />
         <AppStack.Screen
           name={AppScreenNames.TabNavigation}
           component={TabNavigation}

@@ -1,8 +1,18 @@
 import { IMeta } from 'modules/store/types';
-import { IUserInfo } from 'services/api/employees';
+import { IBalance, IUserInfo } from 'services/api/employees';
 
-export const enum PaymentActions {
-  test = 'test'
+export enum paymentActions {
+  GET_BALANCE = 'GET_BALANCE',
+  SET_BALANCE = 'SET_BALANCE',
 }
 
-// export type TPaymentAction =
+export interface IGetBalanceAction {
+  type: paymentActions.GET_BALANCE;
+}
+
+export interface ISetBalanceAction {
+  type: paymentActions.SET_BALANCE;
+  balance: IBalance;
+}
+
+export type TPaymentAction = IGetBalanceAction | ISetBalanceAction;

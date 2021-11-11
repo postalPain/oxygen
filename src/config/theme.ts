@@ -28,6 +28,8 @@ const theme = {
     passwordRequirementLabelTextDefault: '#767676',
     passwordRequirementLabelBackgroundMatched: '#6CA78B',
     passwordRequirementLabelTextMatched: '#F9F9F9',
+  
+    personalInfoBackground: '#F9F9F9',
     
     textTransactionPending: '#BBBBBB',
     textTransactionError: '#720000',
