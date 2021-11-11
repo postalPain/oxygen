@@ -6,6 +6,7 @@ export { default as IconCheck } from './IconCheck';
 export { default as IconCross } from './IconCross';
 export { default as IconDashboard } from './IconDashboard';
 export { default as IconTransactions } from './IconTransactions';
+export { default as IconTransactionHistory } from './IconTransactionHistory';
 export { default as IconProfile } from './IconProfile';
 export { default as BackButton } from './BackButton';
 export { default as InfoText } from './InfoText';

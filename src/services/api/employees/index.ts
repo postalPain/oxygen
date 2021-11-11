@@ -24,11 +24,14 @@ const checkVerification = (): Promise<IResponse<IVerificationResponse>> => reque
 
 const resendVerificationCode = (email: string) => request.post(apiUrls.resendVerificationCode, { email });
 
+const getTransactions = () => request.get(apiUrls.getTransactions);
+
 const employees = {
   verifyEmail,
   checkVerification,
   userInfo,
   resendVerificationCode,
+  getTransactions,
 };
 
 export default employees;

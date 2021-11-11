@@ -28,6 +28,9 @@ const theme = {
     passwordRequirementLabelTextDefault: '#767676',
     passwordRequirementLabelBackgroundMatched: '#6CA78B',
     passwordRequirementLabelTextMatched: '#F9F9F9',
+    
+    textTransactionPending: '#BBBBBB',
+    textTransactionError: '#720000',
   },
   notifications: {
     boxShadowColor: 'rgba(0, 0, 0, 0.25)',
