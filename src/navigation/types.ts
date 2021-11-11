@@ -16,6 +16,7 @@ export enum AppScreenNames {
   VerificationCodeForgot = 'VerificationCodeForgot',
   UserVerificationPending = 'UserVerificationPending',
   ForgotPassword = 'ForgotPassword',
+  UserInfoConfirmation = 'UserInfoConfirmation',
   TabNavigation = 'TabNavigation',
   Dashboard = 'Dashboard',
   Transactions = 'Transactions',
@@ -61,6 +62,7 @@ export type AppStackParameters = {
   Transactions: undefined;
   Profile: undefined;
   Main: undefined;
+  UserInfoConfirmation: { noBackButton?: boolean };
 };
 
 export type UserVerificationStackParameters = {

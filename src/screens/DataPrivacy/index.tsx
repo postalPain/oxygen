@@ -11,9 +11,11 @@ import { Text } from '@stryberventures/stryber-react-native-ui-components';
 import { Button, ScreenWithAnimatedHeader } from 'components';
 import { signUp } from 'modules/auth/actions';
 import { selectSignUpData } from 'modules/auth/selectors';
+import { AuthStoredKeys } from 'modules/auth/types';
+import { checkVerification } from 'modules/user/actions';
+import { getItem, setItem } from 'modules/asyncStorage';
 import theme from 'config/theme';
 import useStyles from './styles';
-import { checkVerification } from 'modules/user/actions';
 
 
 const vocab = vocabulary.get();
@@ -31,7 +33,9 @@ const DataPrivacy = (
     setButtonDisabled(true);
     dispatch(signUp(signUpData, {
       onSuccess: () => {
-        dispatch(checkVerification({ onSuccess: () => {
+        dispatch(checkVerification({ onSuccess: async () => {
+          const firstLoginEmails = await getItem(AuthStoredKeys.firstLoginEmails).then((emails) => !emails ? '' : `${emails},`);
+          await setItem(AuthStoredKeys.firstLoginEmails, `${firstLoginEmails}${signUpData.email}`);
           navigation.navigate(AppScreenNames.UserVerificationPending);
         }}));
       },

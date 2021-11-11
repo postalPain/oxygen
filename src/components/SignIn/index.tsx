@@ -9,8 +9,11 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
+import { AuthStoredKeys } from 'modules/auth/types';
 import { ERROR_CODES } from 'services/api/errors';
 import { selectUserEmail } from 'modules/user/selectors';
+import { getItem } from 'modules/asyncStorage';
+
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -27,7 +30,12 @@ const SignIn = (
   const [passwordError, setPasswordError] = useState<string>();
 
   useEffect(() => {
-    signedIn && navigation.navigate(AppScreenNames.TabNavigation);
+    signedIn && getItem(AuthStoredKeys.firstLoginEmails)
+      .then((firstLoginEmails) => {
+        firstLoginEmails?.includes(email)
+          ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
+          : navigation.navigate(AppScreenNames.TabNavigation)
+      } )
   }, [signedIn]);
 
   useEffect(() => {
@@ -60,7 +68,7 @@ const SignIn = (
               style={styles.input}
               name="email"
               label={vocab.get().email}
-              onChange={setEmail}
+              onChange={(v) => setEmail(v.toLowerCase())}
               placeholder="Email"
               type="email"
               required
