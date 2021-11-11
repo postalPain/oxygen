@@ -5,13 +5,16 @@ import store from 'modules/store';
 import Navigation from 'navigation';
 import InAppNotification from 'components/InAppNotification';
 import theme from 'config/theme';
+import WithModal from 'components/WithModal';
 
 export const App = () => {
   return (
     <Provider store={store}>
       <ThemeContextProvider themes={[theme]}>
-        <Navigation />
-        <InAppNotification />
+        <WithModal>
+          <Navigation />
+          <InAppNotification />
+        </WithModal>
       </ThemeContextProvider>
     </Provider>
   );
