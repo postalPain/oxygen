@@ -10,7 +10,6 @@ interface IWithdrawalAmountTag {
 const WithdrawalAmountTag = (props: IWithdrawalAmountTag) => {
   return (
     <View style={[styles.withdrawalAmountTag, props.style]}>
-      {/* <Text>{props.children}</Text> */}
       <Text style={styles.text}>{props.children}</Text>
     </View>
   );
