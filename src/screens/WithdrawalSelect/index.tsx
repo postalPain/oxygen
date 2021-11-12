@@ -37,20 +37,24 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         style={styles.slider}
         minimumValue={0}
         maximumValue={balance.withdrawable_wages}
+        value={amount}
         minimumTrackTintColor={theme.colors.floos1}
         maximumTrackTintColor={theme.colors.shade1}
         thumbTintColor={theme.colors.floos3}
-        onValueChange={setAmount}
+        onValueChange={(value) => setAmount(Math.floor(value))}
       />
       <View style={styles.suggestedContainer}>
-        {mockedSuggestedValues.map(value =>
-          <WithdrawalAmountTag
-            key={value}
-            style={styles.suggestedTag}
-          >
-            {value}
-          </WithdrawalAmountTag>
-        )}
+        {mockedSuggestedValues
+          .filter(value => value < balance.withdrawable_wages)
+          .map(value =>
+            <WithdrawalAmountTag
+              key={value}
+              style={styles.suggestedTag}
+              active={amount === value}
+              onPress={setAmount}
+              amount={value}
+            />
+          )}
       </View>
       <Link style={styles.otherAmount}>{vocab.get().otherAmount}</Link>
 
