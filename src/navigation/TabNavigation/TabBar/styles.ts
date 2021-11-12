@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 
+export const tabBarHeight = 100;
+
 const useStyles = () => StyleSheet.create({
   tabBarContainer: {
-    height: 100,
+    height: tabBarHeight,
     paddingHorizontal: 20,
     borderTopWidth: 1,
     borderTopColor: theme.colors.shade1,

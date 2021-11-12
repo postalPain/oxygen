@@ -30,6 +30,9 @@ import TabNavigation from 'navigation/TabNavigation';
 import { IconBack, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
+import WithdrawalSelect from 'screens/WithdrawalSelect';
+import WithdrawalOverview from 'screens/WithdrawalOverview';
+import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 
 const AppStack = createNativeStackNavigator();
 
@@ -72,7 +75,8 @@ const Navigation = () => {
         dispatch(checkVerification({
           onSuccess: (status) => {
             if (isPending(status)) {
-              navigate(AppScreenNames.UserVerificationPending);
+              navigate(AppScreenNames.WithdrawalSelect);
+              // navigate(AppScreenNames.UserVerificationPending);
             } else {
               navigate(AppScreenNames.SignIn);
             }
@@ -188,6 +192,45 @@ const Navigation = () => {
             gestureEnabled: false,
             headerShown: false,
           }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.WithdrawalSelect}
+          component={WithdrawalSelect}
+          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => ({
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.goBack()}>
+                <IconBack color={theme.colors.floos1} />
+              </Pressable>
+            )
+          })}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.WithdrawalOverview}
+          component={WithdrawalOverview}
+          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => ({
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.goBack()}>
+                <IconBack color={theme.colors.floos1} />
+              </Pressable>
+            )
+          })}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.WithdrawalConfirmation}
+          component={WithdrawalConfirmation}
+          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => ({
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.goBack()}>
+                <IconBack color={theme.colors.floos1} />
+              </Pressable>
+            )
+          })}
         />
       </AppStack.Navigator>
     </NavigationContainer>
