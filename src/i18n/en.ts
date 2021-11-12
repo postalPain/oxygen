@@ -91,4 +91,6 @@ export default {
   minimalWithdrawableSum: (amount) => `Minimal withdrawable sum ${amount} AED`,
   plusServiceCharge: (amount) => `+ ${amount} AED Service Charge`,
   otherAmount: 'Other Amount',
+  cantWithdrawLess: (amount) => `Unfortunately you can’t withdraw less than ${amount} AED.`,
+  cantWithdrawMore: (amount) => `You can’t withdraw more than ${amount} AED.`,
 };
