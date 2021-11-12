@@ -86,4 +86,9 @@ export default {
   iban: 'IBAN',
   ifNotAccurate: 'If this is not accurate, please ',
   contactUsImmediately: 'contact us immediately.',
+  confirmWithdrawal: 'Confirm Withdrawal',
+  withdrawalAmount: 'Withdrawal Amount',
+  minimalWithdrawableSum: (amount) => `Minimal withdrawable sum ${amount} AED`,
+  plusServiceCharge: (amount) => `+ ${amount} AED Service Charge`,
+  otherAmount: 'Other Amount',
 };

@@ -21,23 +21,9 @@ export enum AppScreenNames {
   Dashboard = 'Dashboard',
   Transactions = 'Transactions',
   Profile = 'Profile',
-}
-
-export enum IUserAccess {
-  unauthenticated = 'unauthenticated',
-  new = 'new',
-  pending = 'pending',
-  active = 'active',
-}
-
-export enum MainScreenNames {
-  HomeStack = 'HomeStack',
-  Transactions = 'Transactions',
-}
-
-export enum HomeScreenNames {
-  Home = 'Home',
-  InputEarlyWage = 'InputEarlyWage',
+  WithdrawalSelect = 'WithdrawalSelect',
+  WithdrawalOverview = 'WithdrawalOverview',
+  WithdrawalConfirmation = 'WithdrawalConfirmation',
 }
 
 export type AppStackParameters = {
@@ -63,28 +49,9 @@ export type AppStackParameters = {
   Profile: undefined;
   Main: undefined;
   UserInfoConfirmation: { noBackButton?: boolean };
-};
-
-export type UserVerificationStackParameters = {
-  Pending: undefined;
-  Success: undefined;
-};
-
-export type PasswordResetParameters = {
-  ForgotPassword: undefined;
-  ForgotPasswordConfirmation: undefined;
-  ResetPasswordVerifyCode: undefined;
-  ResetPassword: undefined;
-  ResetPasswordConfirmation: undefined;
-};
-
-export type HomeStackParameters = {
-  Home: undefined;
-};
-
-export type UserVerificationNavigationProps<T extends keyof UserVerificationStackParameters> = {
-  navigation: StackNavigationProp<UserVerificationStackParameters, T>;
-  route: RouteProp<UserVerificationStackParameters, T>;
+  WithdrawalSelect: undefined;
+  WithdrawalOverview: undefined;
+  WithdrawalConfirmation: undefined;
 };
 
 export type AppNavigationProps<T extends keyof AppStackParameters> = {
