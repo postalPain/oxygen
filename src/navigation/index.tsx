@@ -71,15 +71,15 @@ const Navigation = () => {
         }));
         dispatch(checkVerification({
           onSuccess: (status) => {
-            // if (isPending(status)) {
-            //   navigate(AppScreenNames.UserVerificationPending);
-            // } else {
-            //   navigate(AppScreenNames.SignIn);
-            // }
+            if (isPending(status)) {
+              navigate(AppScreenNames.UserVerificationPending);
+            } else {
+              navigate(AppScreenNames.SignIn);
+            }
           },
-          // onError: () => {
-          //   navigate(AppScreenNames.Onboarding);
-          // }
+          onError: () => {
+            navigate(AppScreenNames.Onboarding);
+          }
         }));
       });
     },
@@ -89,91 +89,91 @@ const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <AppStack.Navigator>
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.Onboarding}*/}
-        {/*  component={Onboarding}*/}
-        {/*  options={{ headerShown: false }}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.EnterRegistrationId}*/}
-        {/*  component={EnterRegistrationId}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.EnterEmail}*/}
-        {/*  component={EnterEmail}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.SetPasswordSignUp}*/}
-        {/*  component={SetPasswordSignUp}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.DataPrivacy}*/}
-        {/*  component={DataPrivacy}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.ForgotPassword}*/}
-        {/*  component={ForgotPassword}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.ForgotPasswordRequested}*/}
-        {/*  component={ForgotPasswordRequested}*/}
-        {/*  options={{*/}
-        {/*    headerShown: false,*/}
-        {/*    gestureEnabled: false,*/}
-        {/*  }}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.SignIn}*/}
-        {/*  component={SignInRegular}*/}
-        {/*  options={({ navigation, route: { params } }: AppNavigationProps<AppScreenNames.SignIn>) => ({*/}
-        {/*    headerShown: !params?.noBackButton,*/}
-        {/*    title: '',*/}
-        {/*    headerTransparent: true,*/}
-        {/*    headerLeft: () => (*/}
-        {/*      <Pressable onPress={() => navigation.goBack()}>*/}
-        {/*        <IconBack color={theme.colors.screenBackgroundColorLight} />*/}
-        {/*      </Pressable>*/}
-        {/*    )*/}
-        {/*  })}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.VerificationCodeForgot}*/}
-        {/*  component={ForgotPasswordCode}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.SetPasswordForgot}*/}
-        {/*  component={SetPasswordForgot}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.SignInForgot}*/}
-        {/*  component={ForgotPasswordSignIn}*/}
-        {/*  options={{ headerShown: false }}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.UserVerificationPending}*/}
-        {/*  component={UserVerificationPending}*/}
-        {/*  options={{*/}
-        {/*    ...getHeaderOptions(),*/}
-        {/*    header: (headerProps) => (*/}
-        {/*      <NavigationHeader*/}
-        {/*        {...headerProps}  // eslint-disable-line*/}
-        {/*        headerLeft={null}*/}
-        {/*      />*/}
-        {/*    )*/}
-        {/*  }}*/}
-        {/*/>*/}
-        {/*<AppStack.Screen*/}
-        {/*  name={AppScreenNames.VerificationCodeSignUp}*/}
-        {/*  component={VerificationCodeSignUp}*/}
-        {/*  options={getHeaderOptions()}*/}
-        {/*/>*/}
+        <AppStack.Screen
+          name={AppScreenNames.Onboarding}
+          component={Onboarding}
+          options={{ headerShown: false }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.EnterRegistrationId}
+          component={EnterRegistrationId}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.EnterEmail}
+          component={EnterEmail}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SetPasswordSignUp}
+          component={SetPasswordSignUp}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.DataPrivacy}
+          component={DataPrivacy}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.ForgotPassword}
+          component={ForgotPassword}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.ForgotPasswordRequested}
+          component={ForgotPasswordRequested}
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SignIn}
+          component={SignInRegular}
+          options={({ navigation, route: { params } }: AppNavigationProps<AppScreenNames.SignIn>) => ({
+            headerShown: !params?.noBackButton,
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.goBack()}>
+                <IconBack color={theme.colors.screenBackgroundColorLight} />
+              </Pressable>
+            )
+          })}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.VerificationCodeForgot}
+          component={ForgotPasswordCode}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SetPasswordForgot}
+          component={SetPasswordForgot}
+          options={getHeaderOptions()}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.SignInForgot}
+          component={ForgotPasswordSignIn}
+          options={{ headerShown: false }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.UserVerificationPending}
+          component={UserVerificationPending}
+          options={{
+            ...getHeaderOptions(),
+            header: (headerProps) => (
+              <NavigationHeader
+                {...headerProps}  // eslint-disable-line
+                headerLeft={null}
+              />
+            )
+          }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.VerificationCodeSignUp}
+          component={VerificationCodeSignUp}
+          options={getHeaderOptions()}
+        />
         <AppStack.Screen
           name={AppScreenNames.UserInfoConfirmation}
           component={UserInfoConfirmation}

@@ -7,10 +7,10 @@ import {
   IconTransactions,
 } from 'components';
 import TabBar from './TabBar';
-import TabWrapper from './TabWrapper';
-import { Dashboard, Profile, Transactions } from 'screens';
+import { Dashboard, Profile } from 'screens';
 import vocabulary from 'i18n';
 import theme from 'config/theme';
+import TransactionsStack from './TransactionsStack';
 
 
 const vocab = vocabulary.get();
@@ -25,11 +25,12 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
       screenOptions={{
         tabBarActiveTintColor: theme.colors.floos1,
         tabBarInactiveTintColor: '#ccc',
+        unmountOnBlur: true,
       }}
     >
       <Tab.Screen
         name={AppScreenNames.Dashboard}
-        component={TabWrapper(Dashboard)}
+        component={Dashboard}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <IconDashboard color={color} />,
@@ -37,8 +38,8 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
         }}
       />
       <Tab.Screen
-        name={AppScreenNames.Transactions}
-        component={TabWrapper(Transactions)}
+        name={AppScreenNames.TransactionsStack}
+        component={TransactionsStack}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <IconTransactions color={color} />,
@@ -47,7 +48,7 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
       />
       <Tab.Screen
         name={AppScreenNames.Profile}
-        component={TabWrapper(Profile)}
+        component={Profile}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <IconProfile color={color} />,

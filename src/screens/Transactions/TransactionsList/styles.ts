@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import theme from '../../../config/theme';
-import { TransactionStatuses } from '../../../modules/transactions/types';
+import theme from 'config/theme';
+import { TransactionStatuses } from 'modules/transactions/types';
 
 const useStyles = () => StyleSheet.create({
   list: {},
@@ -20,15 +20,11 @@ const useStyles = () => StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 52,
+    height: 60,
     paddingHorizontal: 23,
-    paddingVertical: 10,
+    paddingVertical: 8,
     borderRadius: 36,
-  },
-  transactionEven: {
-    backgroundColor: theme.colors.screenBackgroundColorLight,
-  },
-  transactionOdd: {
+    marginTop: 6,
     backgroundColor: theme.colors.shade2,
   },
   date: {

@@ -1,45 +1,65 @@
-import { MainWrapperPaddingHorizontal } from 'components/ScreenWrapperMain';
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { SCREEN_BOTTOM_PADDING } from 'utils/screen';
 
-const styles = StyleSheet.create({
-  greetingContainer: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    paddingBottom: 0.1 * windowDimensions.height,
+const useStyles = () => StyleSheet.create({
+  container: {
+    flex: 1,
   },
-  greeting: {
-    color: theme.colors.floos1,
-    fontSize: 24,
-    letterSpacing: 0.4,
-    paddingBottom: 5
-  },
-  greetingName: {
-    fontWeight: 'bold'
-  },
-  greetingDate: {
-    fontSize: 12,
-    fontWeight: 'bold'
-  },
-  largeTagContainer: {
-    marginBottom: 0.04 * windowDimensions.width,
-  },
-  smallTagsContainer: {
-    flexDirection: 'row',
-  },
-  smallTagsDivider: {
-    width: 0.04 * windowDimensions.width
-  },
-  buttonContainer: {
+  header: {
     flex: 1,
     justifyContent: 'flex-end',
+    width: '100%',
+    height: 60,
+    paddingHorizontal: 60,
   },
-  info: {
-    position: 'absolute',
-    right: -MainWrapperPaddingHorizontal,
-    top: '10%',
-  }
+  headerText: {
+    fontSize: 22,
+    letterSpacing: .5,
+    lineHeight: 30,
+    textAlign: 'center',
+  },
+  infoBlock: {
+    alignItems: 'center',
+    flex: 2,
+    paddingHorizontal: 50,
+    paddingTop: 40,
+  },
+  infoText: {
+    marginTop: 45,
+    fontSize: 16,
+    letterSpacing: .5,
+    lineHeight: 30,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: SCREEN_BOTTOM_PADDING,
+  },
+  iconBackground: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    backgroundColor: theme.colors.screenBackgroundColorLight
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconText: {
+    color: theme.colors.floos2,
+    fontSize: 20,
+    lineHeight: 21,
+  },
+  buttonText: {
+    marginLeft: 12,
+    color: '#FFF',
+    fontSize: 18,
+  },
 });
 
-export default styles;
+export default useStyles;

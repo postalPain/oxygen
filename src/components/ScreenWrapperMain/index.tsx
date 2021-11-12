@@ -1,8 +1,8 @@
 import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { windowDimensions } from 'utils/window';
+import { ScreenGradient } from 'components';
 
 interface IScreenWrapperMain {
   children?;
@@ -11,10 +11,7 @@ interface IScreenWrapperMain {
 const ScreenWrapperMain = (props: IScreenWrapperMain) => {
   return (
     <View style={styles.screenWrapperMain}>
-      <LinearGradient
-        style={styles.gradient}
-        colors={[ theme.colors.floosGradientColor3, theme.colors.screenBackgroundColorLight ]}
-      />
+      <ScreenGradient />
       {props.children}
     </View>
   );
@@ -32,13 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.screenBackgroundColorLight,
     alignItems: 'center',
   },
-  gradient: {
-    position: 'absolute',
-    height: 0.18 * windowDimensions.height,
-    width: windowDimensions.width,
-    backgroundColor: theme.colors.floos1,
-    opacity: 0.8
-  }
 });
 
 export default ScreenWrapperMain;

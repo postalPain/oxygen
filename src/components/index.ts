@@ -21,4 +21,5 @@ export { default as ScreenWrapperMain } from './ScreenWrapperMain';
 export { default as SetPassword } from './SetPassword';
 export { default as SignIn } from './SignIn';
 export { default as UserInformation } from './UserInformation';
+export { default as ScreenGradient } from './ScreenGradient';
 // export { default as Carousel } from './Carousel';

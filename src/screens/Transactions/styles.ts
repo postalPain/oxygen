@@ -8,6 +8,7 @@ const useStyles = () => StyleSheet.create({
     backgroundColor: theme.colors.screenBackgroundColorLight,
   },
   container: {
+    flex: 1,
     paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
   }
 });

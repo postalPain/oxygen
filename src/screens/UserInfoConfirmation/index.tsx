@@ -1,14 +1,18 @@
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import LinearGradient from 'react-native-linear-gradient';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import theme from 'config/theme';
 import { getItem, setItem } from 'modules/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { Button, IconBadge, Link, UserInformation } from 'components';
+import {
+  Button,
+  IconBadge,
+  Link,
+  ScreenGradient,
+  UserInformation,
+} from 'components';
 import useStyles from './styles';
 
 
@@ -24,10 +28,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
   };
   return (
     <SafeAreaView style={styles.screen}>
-      <LinearGradient
-        style={styles.gradient}
-        colors={[ theme.colors.floosGradientColor3, theme.colors.screenBackgroundColorLight ]}
-      />
+      <ScreenGradient />
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.title}>

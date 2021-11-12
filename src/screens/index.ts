@@ -14,4 +14,5 @@ export { default as ForgotPassword } from './ForgotPassword';
 export { default as UserInfoConfirmation } from './UserInfoConfirmation';
 export { default as Dashboard } from './Dashboard';
 export { default as Transactions } from './Transactions';
+export { default as TransactionDetails } from './TransactionDetails';
 export { default as Profile } from './Profile';

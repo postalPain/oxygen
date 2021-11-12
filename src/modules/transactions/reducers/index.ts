@@ -1,4 +1,4 @@
-import { TransactionsActions, TTransactionsAction } from 'modules/transactions/types';
+import { ITransaction, TransactionsActions, TTransactionsAction } from 'modules/transactions/types';
 
 
 const defaultState = [];
@@ -6,7 +6,7 @@ const defaultState = [];
 const transactionsReducer = (
   state = defaultState,
   action: TTransactionsAction,
-): {} => {
+): ITransaction[] => {
   switch (action.type) {
     case TransactionsActions.SET_TRANSACTIONS:
     return action.payload;

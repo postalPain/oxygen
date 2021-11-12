@@ -23,6 +23,15 @@ export interface IGetTransactionsAction {
 
 export type TTransactionsAction = IGetTransactionsAction | ISetTransactionsAction;
 
+export enum TransactionKeys {
+  id = 'id',
+  amount = 'amount',
+  fee = 'fee',
+  status = 'status',
+  created_at = 'created_at',
+  updated_at = 'updated_at',
+}
+
 export enum TransactionStatuses {
   pending = 'pending',
   processing = 'processing',
