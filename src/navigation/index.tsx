@@ -75,8 +75,7 @@ const Navigation = () => {
         dispatch(checkVerification({
           onSuccess: (status) => {
             if (isPending(status)) {
-              navigate(AppScreenNames.WithdrawalSelect);
-              // navigate(AppScreenNames.UserVerificationPending);
+              navigate(AppScreenNames.UserVerificationPending);
             } else {
               navigate(AppScreenNames.SignIn);
             }
