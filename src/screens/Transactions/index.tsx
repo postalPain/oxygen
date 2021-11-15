@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, } from 'react-native';
-import { batch, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { getTransactions } from 'modules/transactions/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
@@ -18,11 +18,9 @@ const Transactions = (
   const transactions = useSelector(selectTransactions);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    // TODO prevent mount when other tabs are clicked
-    batch(() => {
-      dispatch(getTransactions());
-      setLoading(false);
-    });
+    dispatch(getTransactions({
+      onSuccess: () => setLoading(false),
+    }));
   }, []);
   return (
     <SafeAreaView style={styles.screen}>

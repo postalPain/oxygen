@@ -1,3 +1,5 @@
+import { IMeta } from 'modules/store/types';
+
 export enum TransactionsActions {
   GET_TRANSACTIONS = 'GET_TRANSACTIONS',
   SET_TRANSACTIONS = 'SET_TRANSACTIONS',
@@ -24,6 +26,7 @@ export interface ISetTransactionsAction {
 
 export interface IGetTransactionsAction {
   type: TransactionsActions.GET_TRANSACTIONS;
+  meta?: IMeta;
 }
 
 export type TTransactionsAction = IGetTransactionsAction | ISetTransactionsAction;

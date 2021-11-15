@@ -1,6 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { TransactionsActions, TransactionStatusesBE, TTransactionsAction } from 'modules/transactions/types';
+import {
+  IGetTransactionsAction,
+  TransactionsActions,
+  TransactionStatusesBE,
+} from 'modules/transactions/types';
 import * as transactionsActions from 'modules/transactions/actions';
 import api from 'services/api';
 import { errorNotification } from 'modules/notifications/actions';
@@ -61,9 +65,8 @@ const mockedTransactions = [
     }
   },
 ];
-function* getTransactionsWorker (action: TTransactionsAction) {
+function* getTransactionsWorker (action: IGetTransactionsAction) {
   let response;
-  yield put(transactionsActions.setTransactions(mockedTransactions));
   
   try {
     response = yield api.employees.getTransactions();
@@ -71,7 +74,7 @@ function* getTransactionsWorker (action: TTransactionsAction) {
     yield put(errorNotification());
     return;
   }
-  // yield put(transactionsActions.setTransactions(mockedTransactions));
+  yield action?.meta?.onSuccess?.();
   yield put(transactionsActions.setTransactions(response.data));
 }
 
