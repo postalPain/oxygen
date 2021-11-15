@@ -11,8 +11,8 @@ import WithdrawInfo from './WithdrawInfo';
 import { selectIsUserBlocked, selectUserInfo } from 'modules/user/selectors';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
-import { getBalance } from 'modules/payment/actions';
-import { selectBalance } from 'modules/payment/selectors';
+import { getBalance } from 'modules/withdrawal/actions';
+import { selectBalance } from 'modules/withdrawal/selectors';
 import ButtonWithdraw from 'components/ButtonWithdraw';
 
 const Dashboard: React.FC<any> = () => {

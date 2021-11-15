@@ -11,8 +11,8 @@ import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import theme from 'config/theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAmount, selectBalance } from 'modules/payment/selectors';
-import { setAmount } from 'modules/payment/actions';
+import { selectAmount, selectBalance } from 'modules/withdrawal/selectors';
+import { setAmount } from 'modules/withdrawal/actions';
 
 const mockedSuggestedValues = [10, 20, 30, 40, 50, 60];
 

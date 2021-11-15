@@ -34,6 +34,12 @@ const getBalance = (): Promise<IResponse<IBalance>> => request.get('employees/ba
 
 const getTransactions = () => request.get(apiUrls.getTransactions);
 
+export interface ISuggestedValues {
+
+}
+
+const getSuggestedValues = (): Promise<IResponse<ISuggestedValues>> => request.get('employees/withdraw/suggested-values');
+
 const employees = {
   verifyEmail,
   checkVerification,
@@ -41,6 +47,7 @@ const employees = {
   resendVerificationCode,
   getBalance,
   getTransactions,
+  getSuggestedValues,
 };
 
 export default employees;
