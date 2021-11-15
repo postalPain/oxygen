@@ -23,6 +23,7 @@ const TransactionsStack = () => {
         component={TransactionDetails}
         options={({ navigation }) => ({
           title: '',
+          headerTransparent: true,
           headerLeft: () => (
             <Pressable onPress={() => { navigation.goBack(); }} >
               <IconBack />

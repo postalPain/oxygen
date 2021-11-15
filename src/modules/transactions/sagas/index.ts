@@ -67,10 +67,10 @@ const mockedTransactions = [
 ];
 function* getTransactionsWorker (action: IGetTransactionsAction) {
   let response;
-  
   try {
     response = yield api.employees.getTransactions();
   } catch (error) {
+    yield action?.meta?.onError?.();
     yield put(errorNotification());
     return;
   }

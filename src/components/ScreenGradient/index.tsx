@@ -1,11 +1,12 @@
 import React from 'react';
+import { ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import theme from 'config/theme';
 import useStyles from './styles';
 
 
 interface IScreenGradientProps {
-  style?;
+  style?: ViewStyle;
   color1?: string;
   color2?: string;
 }
