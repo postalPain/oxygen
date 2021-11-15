@@ -32,12 +32,15 @@ export interface IBalance {
 
 const getBalance = (): Promise<IResponse<IBalance>> => request.get('employees/balance');
 
+const getTransactions = () => request.get(apiUrls.getTransactions);
+
 const employees = {
   verifyEmail,
   checkVerification,
   userInfo,
   resendVerificationCode,
   getBalance,
+  getTransactions,
 };
 
 export default employees;

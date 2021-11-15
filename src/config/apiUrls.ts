@@ -7,5 +7,6 @@ export default {
   verifyEmail: 'employees/verification/email',
   refreshToken: 'refresh',
   userInfo: 'employees/me',
+  getTransactions: 'employees/transactions',
   signOut: 'logout',
 };

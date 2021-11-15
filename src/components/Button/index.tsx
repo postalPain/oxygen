@@ -6,7 +6,7 @@ import styles from './styles';
 
 interface IButton {
   disabled?: boolean;
-  children?: string;
+  children?: string | React.ReactNode;
   secondary?: boolean;
   styles?: ViewStyle;
   onPress?: () => void;

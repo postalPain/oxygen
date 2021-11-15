@@ -9,13 +9,13 @@ import { OnboardingContext } from 'components/ScreenWrapperOnboarding/context';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 
 const carouselSlides = [{
-  image: require('./assets/onboarding_01.png'),
+  image: require('../../../assets/onboarding_01.png'),
   label: vocab.get().carousel1,
 }, {
-  image: require('./assets/onboarding_02.png'),
+  image: require('../../../assets/onboarding_02.png'),
   label: vocab.get().carousel2,
 }, {
-  image: require('./assets/onboarding_03.png'),
+  image: require('../../../assets/onboarding_03.png'),
   label: vocab.get().carousel3,
 }];
 

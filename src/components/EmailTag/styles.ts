@@ -12,12 +12,13 @@ const useStyles = () => StyleSheet.create({
     paddingRight: 0.04 * windowDimensions.width,
     paddingLeft: 0.05 * windowDimensions.width,
     paddingVertical: 0.012 * windowDimensions.height,
-    borderRadius: 0.05 * windowDimensions.height
+    borderRadius: 25,
   },
   emailText: {
-    marginRight: 12,
+    width: '80%',
     fontSize: 16,
     letterSpacing: .5,
+    lineHeight: 22,
   },
   icon: {
     alignItems: 'center',

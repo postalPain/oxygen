@@ -1,5 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
 import { RouteProp } from '@react-navigation/core';
+import { ITransaction } from 'modules/transactions/types';
 
 export enum AppScreenNames {
   Loading = 'Loading',
@@ -19,7 +20,9 @@ export enum AppScreenNames {
   UserInfoConfirmation = 'UserInfoConfirmation',
   TabNavigation = 'TabNavigation',
   Dashboard = 'Dashboard',
+  TransactionsStack = 'TransactionsStack',
   Transactions = 'Transactions',
+  TransactionsDetails = 'TransactionsDetails',
   Profile = 'Profile',
   WithdrawalSelect = 'WithdrawalSelect',
   WithdrawalOverview = 'WithdrawalOverview',
@@ -45,7 +48,9 @@ export type AppStackParameters = {
   ForgotPassword: undefined;
   TabNavigation: undefined;
   Dashboard: undefined;
+  TransactionsStack: undefined;
   Transactions: undefined;
+  TransactionsDetails: ITransaction;
   Profile: undefined;
   Main: undefined;
   UserInfoConfirmation: { noBackButton?: boolean };
