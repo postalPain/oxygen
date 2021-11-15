@@ -7,6 +7,7 @@ import store, { getState } from 'modules/store';
 import moment from 'moment';
 import api from '.';
 import { handleBackendError } from './errors';
+import { getUTCOffset } from 'utils/time';
 
 const request = axios.create({
   baseURL: BASE_URL,
@@ -34,8 +35,7 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
 };
 
 const isTokenValid = (ttl: string) => {
-  const offset = moment().utcOffset();
-  const ttl_ts = Number(moment.parseZone(ttl).add(offset, 'm').format('x'));
+  const ttl_ts = Number(moment.parseZone(ttl).add(getUTCOffset(), 'm').format('x'));
   const now_ts = Number(Date.now());
   return (ttl_ts + 5000) > now_ts;
 };

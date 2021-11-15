@@ -18,13 +18,6 @@ const useStyles = () => StyleSheet.create({
     paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
     paddingTop: NAVIGATION_HEADER_HEIGHT,
   },
-  gradient: {
-    position: 'absolute',
-    height: 0.18 * env.dimensions.height,
-    width: env.dimensions.width,
-    backgroundColor: theme.colors.floos1,
-    opacity: .8,
-  },
   header: {
     marginBottom: 20,
   },

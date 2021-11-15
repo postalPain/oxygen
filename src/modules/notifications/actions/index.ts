@@ -24,18 +24,14 @@ export const successNotification = ({
   }
 });
 
-export const errorNotification = ({
-  title = vocab.get().error,
-  text = vocab.get().somethingWentWrong,
-  timeout = 5000,
-}: Partial<INotification>): INotificationAction => ({
+export const errorNotification = (notification?: Partial<INotification>): INotificationAction => ({
   type: NotificationActions.ADD_NOTIFICATION,
   payload: {
     type: NotificationTypes.Error,
     id: uuid(),
-    title,
-    text,
-    timeout,
+    title: notification?.title || vocab.get().error,
+    text: notification?.text || vocab.get().somethingWentWrong,
+    timeout: notification?.timeout || 5000,
   }
 });
 
