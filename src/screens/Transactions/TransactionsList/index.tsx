@@ -11,7 +11,7 @@ import useStyles from './styles';
 const vocab = vocabulary.get();
 
 interface ITransactionsListProps {
-  navigation: any,
+  navigation: any;
   transactions: ITransaction[];
 }
 
@@ -40,8 +40,7 @@ const TransactionsList: React.FC<ITransactionsListProps> = (
           >
             <Text style={styles.date}>{getTransactionDate(transaction.created_at)}</Text>
             <View style={styles.details}>
-              <Text
-                style={[styles.amount, styles[transactionStatus.toLowerCase()]]}>
+              <Text style={[styles.amount, styles[transactionStatus.toLowerCase()]]}>
                 {transaction.amount}{vocab.aed}
               </Text>
               {transactionStatus !== TransactionStatusesFE.completed && (
@@ -51,7 +50,7 @@ const TransactionsList: React.FC<ITransactionsListProps> = (
               )}
             </View>
           </Pressable>
-        )
+        );
       })}
     </View>
   );

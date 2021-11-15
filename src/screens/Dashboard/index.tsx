@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { AppScreenNames, AppStackParameters } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import ScreenWrapperMain from 'components/ScreenWrapperMain';
 import vocab from 'i18n';
@@ -10,21 +9,17 @@ import WithdrawalTagLarge from 'components/WithdrawalTagLarge';
 import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
 import WithdrawInfo from './WithdrawInfo';
 import { selectIsUserBlocked, selectUserInfo } from 'modules/user/selectors';
-import { Button } from 'components';
-import IconPlus from 'components/IconPlus';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
 import { getBalance } from 'modules/payment/actions';
 import { selectBalance } from 'modules/payment/selectors';
-import { useNavigation } from '@react-navigation/core';
-import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
+import ButtonWithdraw from 'components/ButtonWithdraw';
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
   const isUserBlocked = useSelector(selectIsUserBlocked);
-  const navigation: StackNavigationProp<AppStackParameters, AppScreenNames.Dashboard> = useNavigation();
 
   const [infoModal, setInfoModal] = useState(false);
 
@@ -60,13 +55,7 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 4 }} />
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          onPress={() => navigation.navigate(AppScreenNames.WithdrawalSelect)}
-          Icon={<IconPlus size={22} />}
-          disabled={isWithdrawalDisabled}
-        >
-          {vocab.get().withdraw}
-        </Button>
+        <ButtonWithdraw />
       </View>
     </ScreenWrapperMain>
   );
