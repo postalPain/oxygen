@@ -3,7 +3,7 @@ import theme from 'config/theme';
 
 const useStyles = () => StyleSheet.create({
   detailsContainer: {
-    flex: 3,
+    flex: 1,
   },
   details: {
     flexDirection: 'row',

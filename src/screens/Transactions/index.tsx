@@ -19,22 +19,21 @@ const Transactions = (
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     dispatch(getTransactions({
-      onSuccess: () => setLoading(false),
+      onSuccess: () => { setLoading(false) },
+      onError: () => { setLoading(false) },
     }));
   }, []);
   return (
     <SafeAreaView style={styles.screen}>
       <ScreenGradient />
       <View style={styles.container}>
-        {!loading && !transactions.length
-          ? <NoTransactions />
-          : (
-            <TransactionsList
-              navigation={navigation}
-              transactions={transactions}
-            />
-          )
-        }
+        {(!loading && !transactions.length) ? <NoTransactions /> : null}
+        {(!loading && transactions.length) ? (
+          <TransactionsList
+            navigation={navigation}
+            transactions={transactions}
+          />
+        ) : null}
       </View>
     </SafeAreaView>
   );

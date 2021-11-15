@@ -12,10 +12,10 @@ const useStyles = () => StyleSheet.create({
     paddingRight: 0.04 * windowDimensions.width,
     paddingLeft: 0.05 * windowDimensions.width,
     paddingVertical: 0.012 * windowDimensions.height,
-    borderRadius: 25,
+    borderRadius: 0.025 * windowDimensions.height,
   },
   emailText: {
-    width: '80%',
+    maxWidth: '80%',
     fontSize: 16,
     letterSpacing: .5,
     lineHeight: 22,

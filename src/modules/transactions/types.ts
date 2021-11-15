@@ -7,8 +7,8 @@ export enum TransactionsActions {
 
 export interface ITransaction {
   id: number;
-  amount: string;
-  fee: string;
+  amount: number;
+  fee: number;
   status: TTransactionStatusBE;
   created_at: string;
   updated_at: string;
