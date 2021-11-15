@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   screenWrapperWithdrawal: {
     paddingTop: 0.19 * windowDimensions.height,
     paddingBottom: MAIN_WRAPPER_PADDING_BOTTOM + TAB_BAR_HEIGHT,
+    paddingHorizontal: 0.08 * windowDimensions.width,
   },
 });
 

@@ -4,7 +4,7 @@ import { Pressable, Text, View, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 
-interface IButton {
+export interface IButton {
   disabled?: boolean;
   children?: string | React.ReactNode;
   secondary?: boolean;

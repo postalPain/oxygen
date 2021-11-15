@@ -3,6 +3,7 @@ import { Image, Text, View, } from 'react-native';
 import vocabulary from 'i18n';
 import useStyles from './styles';
 import { Button } from 'components';
+import ButtonWithdraw from 'components/ButtonWithdraw';
 
 
 const vocab = vocabulary.get();
@@ -12,9 +13,7 @@ interface INoTransactionsProps {
 
 const NoTransactions: React.FC<INoTransactionsProps> = () => {
   const styles = useStyles();
-  const onPress = () => {
-  
-  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -37,18 +36,7 @@ const NoTransactions: React.FC<INoTransactionsProps> = () => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button onPress={onPress}>
-          <View style={styles.buttonContent}>
-            <View style={styles.iconBackground}>
-              <Text style={styles.iconText}>
-                +
-              </Text>
-            </View>
-            <Text style={styles.buttonText}>
-              {vocab.withdraw}
-            </Text>
-          </View>
-        </Button>
+        <ButtonWithdraw />
       </View>
     </View>
   );

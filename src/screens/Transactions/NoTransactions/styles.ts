@@ -33,9 +33,9 @@ const useStyles = () => StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: SCREEN_BOTTOM_PADDING,
   },
   iconBackground: {
     alignItems: 'center',

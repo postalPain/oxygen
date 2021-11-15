@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, } from 'react-native';
+import { View, } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { getTransactions } from 'modules/transactions/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { ScreenGradient } from 'components';
+import { ScreenWrapperMain } from 'components';
 import NoTransactions from './NoTransactions';
 import TransactionsList from './TransactionsList';
 import useStyles from './styles';
@@ -19,13 +19,16 @@ const Transactions = (
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     dispatch(getTransactions({
-      onSuccess: () => { setLoading(false) },
-      onError: () => { setLoading(false) },
+      onSuccess: () => {
+        setLoading(false);
+      },
+      onError: () => {
+        setLoading(false);
+      },
     }));
   }, []);
   return (
-    <SafeAreaView style={styles.screen}>
-      <ScreenGradient />
+    <ScreenWrapperMain>
       <View style={styles.container}>
         {(!loading && !transactions.length) ? <NoTransactions /> : null}
         {(!loading && transactions.length) ? (
@@ -35,7 +38,7 @@ const Transactions = (
           />
         ) : null}
       </View>
-    </SafeAreaView>
+    </ScreenWrapperMain>
   );
 };
 
