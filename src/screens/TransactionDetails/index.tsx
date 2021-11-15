@@ -3,7 +3,7 @@ import { SafeAreaView, Text, View } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
 import { TransactionKeys, } from 'modules/transactions/types';
-import { IconTransactionHistory, Transaction } from 'components';
+import { IconTransactionHistory, ScreenGradient, Transaction } from 'components';
 import useStyles from './styles';
 
 
@@ -36,9 +36,9 @@ const TransactionDetails = (
   { route: { params } }: AppNavigationProps<AppScreenNames.TransactionsDetails>
 ) => {
   const styles = useStyles();
-  // TODO change navigation header style
   return (
     <SafeAreaView style={styles.screen}>
+      <ScreenGradient style={styles.gradient} />
       <View style={styles.container}>
         <View style={styles.header}>
           <IconTransactionHistory />
