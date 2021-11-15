@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import vocabulary from 'i18n';
+import { getTransactionDate, getTransactionStatus } from 'utils/transactionData';
 import { AppScreenNames } from 'navigation/types';
-import { ITransaction, TransactionStatuses } from 'modules/transactions/types';
+import { ITransaction, TransactionStatusesFE } from 'modules/transactions/types';
 import { IconTransactionHistory } from 'components';
 import useStyles from './styles';
 
@@ -29,28 +30,29 @@ const TransactionsList: React.FC<ITransactionsListProps> = (
           {vocab.transactionHistory.toUpperCase()}
         </Text>
       </View>
-      {transactions.map((transaction, index) => (
-        <Pressable
-          key={transaction.id}
-          style={styles.transaction}
-          onPress={() => openDetails(transaction)}
-        >
-          <Text style={styles.date}>{transaction.created_at}</Text>
-          <View style={styles.details}>
-            <Text
-              style={[styles.amount, styles[transaction.status]]}>
-              {transaction.amount}{vocab.aed}
-            </Text>
-            {transaction.status !== TransactionStatuses.accepted && (
-              <Text style={[styles.status, styles[transaction.status]]}>
-                {(transaction.status === TransactionStatuses.declined) || (transaction.status === TransactionStatuses.error)
-                ? vocab.failed
-                : vocab.pending}
+      {transactions.map((transaction, index) => {
+        const transactionStatus = getTransactionStatus(transaction.status);
+        return (
+          <Pressable
+            key={transaction.id}
+            style={styles.transaction}
+            onPress={() => openDetails(transaction)}
+          >
+            <Text style={styles.date}>{getTransactionDate(transaction.created_at)}</Text>
+            <View style={styles.details}>
+              <Text
+                style={[styles.amount, styles[transactionStatus.toLowerCase()]]}>
+                {transaction.amount}{vocab.aed}
               </Text>
-            )}
-          </View>
-        </Pressable>
-      ))}
+              {transactionStatus !== TransactionStatusesFE.completed && (
+                <Text style={[styles.status, styles[transactionStatus]]}>
+                  {transactionStatus}
+                </Text>
+              )}
+            </View>
+          </Pressable>
+        )
+      })}
     </View>
   );
 };

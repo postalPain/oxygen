@@ -3,22 +3,16 @@ import { SafeAreaView, View, } from 'react-native';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { getTransactions } from 'modules/transactions/actions';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { ScreenGradient } from 'components';
 import NoTransactions from './NoTransactions';
 import TransactionsList from './TransactionsList';
 import useStyles from './styles';
-import { AppNavigationProps, AppScreenNames } from '../../navigation/types';
 
-interface ITransactionsProps {
-}
 
 const Transactions = (
   { navigation }: AppNavigationProps<AppScreenNames.Transactions>
 ) => {
-  useEffect(() => {
-    console.log('Transactions!!!');
-    return () => { console.log('Transactions unmounted'); }
-  }, []);
   const dispatch = useDispatch();
   const styles = useStyles();
   const transactions = useSelector(selectTransactions);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
-import { TransactionStatuses } from 'modules/transactions/types';
+import { TransactionStatusesFE } from 'modules/transactions/types';
 
 const useStyles = () => StyleSheet.create({
   list: {},
@@ -43,20 +43,14 @@ const useStyles = () => StyleSheet.create({
     fontSize: 12,
     letterSpacing: .5,
   },
-  [TransactionStatuses.pending]: {
+  [TransactionStatusesFE.pending]: {
     color: theme.colors.textTransactionPending,
   },
-  [TransactionStatuses.processing]: {
-    color: theme.colors.textTransactionPending,
+  [TransactionStatusesFE.failed]: {
+    color: theme.notifications.errorTextColor,
   },
-  [TransactionStatuses.accepted]: {
+  [TransactionStatusesFE.completed]: {
     color: theme.colors.floos2,
-  },
-  [TransactionStatuses.declined]: {
-    color: theme.notifications.errorTextColor,
-  },
-  [TransactionStatuses.error]: {
-    color: theme.notifications.errorTextColor,
   },
 });
 

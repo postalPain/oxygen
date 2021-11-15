@@ -1,12 +1,11 @@
 import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import useStyles from './styles';
-import { IconTransactionHistory } from 'components';
+import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
 import vocabulary from 'i18n';
 import { TransactionKeys } from 'modules/transactions/types';
-import { useSelector } from 'react-redux';
-import { selectUserInfo } from '../../modules/user/selectors';
+import { IconTransactionHistory } from 'components';
+import useStyles from './styles';
 
 
 const vocab = vocabulary.get();
@@ -28,10 +27,10 @@ const metaData = [
     key: TransactionKeys.id,
     label: vocab.requestId,
   },
-  // {
-  //   key: TransactionKeys.iban,
-  //   label: vocab.iban,
-  // },
+  {
+    key: TransactionKeys.iban,
+    label: vocab.iban,
+  },
 ];
 
 const TransactionDetails = (
@@ -55,13 +54,22 @@ const TransactionDetails = (
             {metaData.map(({ key, label }) => (
               <View
                 key={key}
-                style={styles.item}
+                style={[
+                  styles.item,
+                  key === TransactionKeys.iban
+                    ? styles.itemFullLine
+                    : styles.itemHalfLine
+                ]}
               >
                 <Text style={styles.itemLabel}>
                   {label}
                 </Text>
                 <Text style={styles.itemText}>
-                  {params[key]}
+                  {(key === TransactionKeys.amount) && `${params[key]} ${vocab.aed}`}
+                  {(key === TransactionKeys.status) && getTransactionStatus(params[key])}
+                  {(key === TransactionKeys.iban) && params.bank_details.iban}
+                  {(key === TransactionKeys.id) && params[key]}
+                  {(key === TransactionKeys.created_at) && getTransactionDetailsDate(params[key])}
                 </Text>
               </View>
             ))}

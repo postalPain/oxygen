@@ -38,8 +38,13 @@ const useStyles = () => StyleSheet.create({
     borderRadius: 27,
   },
   item: {
-    width: '50%',
     marginBottom: 44,
+  },
+  itemHalfLine: {
+    width: '50%',
+  },
+  itemFullLine: {
+    width: '100%',
   },
   itemLabel: {
     color: '#B3B3B3',

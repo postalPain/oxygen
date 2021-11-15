@@ -7,9 +7,14 @@ export interface ITransaction {
   id: number;
   amount: string;
   fee: string;
-  status: string;
+  status: TTransactionStatusBE;
   created_at: string;
   updated_at: string;
+  bank_details: ITransactionBankDetails;
+}
+
+export interface ITransactionBankDetails {
+  iban: string;
 }
 
 export interface ISetTransactionsAction {
@@ -30,9 +35,16 @@ export enum TransactionKeys {
   status = 'status',
   created_at = 'created_at',
   updated_at = 'updated_at',
+  iban = 'iban',
 }
 
-export enum TransactionStatuses {
+export enum TransactionStatusesFE {
+  pending = 'pending',
+  failed = 'failed',
+  completed = 'completed',
+}
+
+export enum TransactionStatusesBE {
   pending = 'pending',
   processing = 'processing',
   accepted = 'accepted',
@@ -40,4 +52,6 @@ export enum TransactionStatuses {
   error = 'error',
 }
 
-export type TTransactionStatus = keyof typeof TransactionStatuses
+export type TTransactionStatusBE = keyof typeof TransactionStatusesBE;
+
+export type TTransactionStatusFE = keyof typeof TransactionStatusesFE;
