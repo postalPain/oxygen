@@ -5,7 +5,7 @@ const theme = {
     // Brand colors
     floos1: '#6F62AB',
     floos2: '#7E5BA6',
-    floos3: '#CD5676', // Deprecated. Use floos2 instead
+    floos3: '#CD5676',
     floos4: '#795CE8', // Deprecated. Use floos1 instead
     special1: '#97DAFF',
     floosGragientColor1: '#975FBA',
@@ -28,7 +28,7 @@ const theme = {
     passwordRequirementLabelTextDefault: '#767676',
     passwordRequirementLabelBackgroundMatched: '#6CA78B',
     passwordRequirementLabelTextMatched: '#F9F9F9',
-  
+
     personalInfoBackground: '#F9F9F9',
     
     textTransactionPending: '#BBBBBB',
