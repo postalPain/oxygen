@@ -102,4 +102,9 @@ export default {
   dateTime: 'date / time',
   status: 'status',
   requestId: 'request id',
+  accountDetails: 'Account Details',
+  settings: 'Settings',
+  privacyPolicy: 'Privacy Policy',
+  helpCenter: 'Help Center',
+  logout: 'Logout',
 };

@@ -7,10 +7,11 @@ import {
   IconTransactions,
 } from 'components';
 import TabBar from './TabBar';
-import { Dashboard, Profile } from 'screens';
+import { Dashboard } from 'screens';
 import vocabulary from 'i18n';
 import theme from 'config/theme';
 import TransactionsStack from './TransactionsStack';
+import ProfileStack from './ProfileStack';
 
 
 const vocab = vocabulary.get();
@@ -47,8 +48,8 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
         }}
       />
       <Tab.Screen
-        name={AppScreenNames.Profile}
-        component={Profile}
+        name={AppScreenNames.ProfileStack}
+        component={ProfileStack}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <IconProfile color={color} />,
