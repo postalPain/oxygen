@@ -111,4 +111,5 @@ export default {
   dateTime: 'date / time',
   status: 'status',
   requestId: 'request id',
+  date: 'date'
 };
