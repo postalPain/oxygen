@@ -1,4 +1,5 @@
 import { ThemeType } from '@stryberventures/stryber-react-native-ui-components';
+import { windowDimensions } from 'utils/window';
 
 const theme = {
   colors: {
@@ -48,6 +49,8 @@ const theme = {
     textTitleSmallSize: 20,
     textHeadlineSize: 18,
     textBodySize: 16,
+    fontSizeHeaderSmall: 0.05 * windowDimensions.width,
+    fontSizeHeaderLarge: 0.07 * windowDimensions.width,
   },
   font: {
     fontFamily: 'Open Sans'

@@ -1,6 +1,7 @@
 import IconCardAdd from 'components/IconCardAdd';
 import IconCardSend from 'components/IconCardSend';
 import IconCardTick from 'components/IconCardTick';
+import theme from 'config/theme';
 import vocab from 'i18n';
 import React from 'react';
 import { StyleSheet, Text, View, ViewStyle } from 'react-native';
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     paddingRight: 0.05 * windowDimensions.width
   },
   text: {
-    fontSize: 0.05 * windowDimensions.width
+    fontSize: theme.sizes.fontSizeHeaderSmall,
   },
   amountText: {
     fontWeight: '600',

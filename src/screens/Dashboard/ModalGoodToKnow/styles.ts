@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     paddingLeft: '3%'
   },
   itemHeader: {
-    fontSize: 0.05 * windowDimensions.width,
+    fontSize: theme.sizes.fontSizeHeaderSmall,
     color: theme.colors.floos1,
     fontWeight: '500',
     paddingTop: 0.04 * windowDimensions.height,

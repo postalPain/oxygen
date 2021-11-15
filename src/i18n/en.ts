@@ -93,8 +93,11 @@ export default {
   otherAmount: 'Other Amount',
   cantWithdrawLess: (amount) => `Unfortunately you can’t withdraw less than ${amount} AED.`,
   cantWithdrawMore: (amount) => `You can’t withdraw more than ${amount} AED.`,
+  totalAvailableAmount: (amount) => `Total available amount (${amount} AED)`,
   requestOverview: 'REQUEST OVERVIEW',
   requestedWithdrawal: 'Requested withdrawal',
   serviceCharge: 'Service charge',
   totalSalaryDeduction: 'Total salary deduction',
+  yourRequestConfirmed: 'Your request has been confirmed!',
+  itShouldntTakeTooLong: 'It should’t take too long to process it.',
 };

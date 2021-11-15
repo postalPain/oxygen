@@ -9,7 +9,7 @@ import styles from './styles';
 import WithdrawalTagLarge from 'components/WithdrawalTagLarge';
 import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
 import WithdrawInfo from './WithdrawInfo';
-import { selectUserInfo } from 'modules/user/selectors';
+import { selectIsUserBlocked, selectUserInfo } from 'modules/user/selectors';
 import { Button } from 'components';
 import IconPlus from 'components/IconPlus';
 import ModalGoodToKnow from './ModalGoodToKnow';
@@ -23,6 +23,7 @@ const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
+  const isUserBlocked = useSelector(selectIsUserBlocked);
   const navigation: StackNavigationProp<AppStackParameters, AppScreenNames.Dashboard> = useNavigation();
 
   const [infoModal, setInfoModal] = useState(false);
@@ -30,6 +31,8 @@ const Dashboard: React.FC<any> = () => {
   useEffect(() => {
     dispatch(getBalance());
   }, []);
+
+  const isWithdrawalDisabled = isUserBlocked; // TODO: Add missing conditions
 
   return (
     <ScreenWrapperMain>
@@ -60,6 +63,7 @@ const Dashboard: React.FC<any> = () => {
         <Button
           onPress={() => navigation.navigate(AppScreenNames.WithdrawalSelect)}
           Icon={<IconPlus size={22} />}
+          disabled={isWithdrawalDisabled}
         >
           {vocab.get().withdraw}
         </Button>

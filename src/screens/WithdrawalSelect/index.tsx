@@ -11,7 +11,8 @@ import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import theme from 'config/theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBalance } from 'modules/payment/selectors';
+import { selectAmount, selectBalance } from 'modules/payment/selectors';
+import { setAmount } from 'modules/payment/actions';
 
 const mockedSuggestedValues = [10, 20, 30, 40, 50, 60];
 
@@ -20,7 +21,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
   const navigation: StackNavigationProp<any> = useNavigation();
   const otherAmountRef = useRef(null);
   const balance = useSelector(selectBalance);
-  const [amount, setAmount] = useState(0);
+  const amount = useSelector(selectAmount);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         minimumTrackTintColor={theme.colors.floos1}
         maximumTrackTintColor={theme.colors.shade1}
         thumbTintColor={theme.colors.floos3}
-        onValueChange={(value) => setAmount(Math.floor(value))}
+        onValueChange={(value) => dispatch(setAmount(Math.floor(value)))}
       />
       <View style={styles.suggestedContainer}>
         {mockedSuggestedValues
@@ -71,7 +72,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
               key={value}
               style={styles.suggestedTag}
               active={amount === value}
-              onPress={setAmount}
+              onPress={(_amount) => dispatch(setAmount(_amount))}
               amount={value}
             />
           )}
@@ -90,12 +91,12 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         style={{
           display: 'none'
         }}
-        onChangeText={(value) => setAmount(Number(value)) }
+        onChangeText={(value) => dispatch(setAmount(Number(value))) }
       />
       <View style={styles.buttonContainer}>
         <Button
           onPress={() => navigation.navigate(AppScreenNames.WithdrawalOverview)}
-          disabled={amount && !!error}
+          disabled={!amount || !!error}
         >
           {vocab.get().continue}
         </Button>

@@ -4,6 +4,7 @@ import { IBalance, IUserInfo } from 'services/api/employees';
 export enum paymentActions {
   GET_BALANCE = 'GET_BALANCE',
   SET_BALANCE = 'SET_BALANCE',
+  SET_AMOUNT = 'SET_AMOUNT',
 }
 
 export interface IGetBalanceAction {
@@ -15,4 +16,9 @@ export interface ISetBalanceAction {
   balance: IBalance;
 }
 
-export type TPaymentAction = IGetBalanceAction | ISetBalanceAction;
+export interface ISetAmountAction {
+  type: paymentActions.SET_AMOUNT;
+  amount: number;
+}
+
+export type TPaymentAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction;

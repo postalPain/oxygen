@@ -27,4 +27,4 @@ export default ({
   return (
     <SvgXml xml={xml(color)} width={size} height={size} />
   );
-}
+};

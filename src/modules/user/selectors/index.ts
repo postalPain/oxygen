@@ -1,3 +1,4 @@
+import { stat } from 'fs';
 import { RootState } from 'modules/store/rootReducer';
 import { VerificationStatuses } from '../types';
 
@@ -15,3 +16,5 @@ export const isPending = (userStatus) => {
   || userStatus === VerificationStatuses.employer_verified
   || userStatus === VerificationStatuses.employer_not_verified;
 };
+
+export const selectIsUserBlocked = (state: RootState) => state.user.verification_status === VerificationStatuses.blocked;
