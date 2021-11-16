@@ -26,7 +26,6 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
       screenOptions={{
         tabBarActiveTintColor: theme.colors.floos1,
         tabBarInactiveTintColor: '#ccc',
-        unmountOnBlur: true,
       }}
     >
       <Tab.Screen
@@ -58,6 +57,6 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
       />
     </Tab.Navigator>
   );
-}
+};
 
 export default TabNavigation;
