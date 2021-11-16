@@ -14,8 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAmount, selectBalance, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import { setAmount } from 'modules/withdrawal/actions';
 
-// const mockedSuggestedValues = [10, 20, 30, 40, 50, 60];
-
 const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => {
   const dispatch = useDispatch();
   const navigation: StackNavigationProp<any> = useNavigation();
