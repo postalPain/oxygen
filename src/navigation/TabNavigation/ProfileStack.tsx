@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { AccountDetails, Profile, Settings, } from 'screens';
-import { IconBack } from 'components';
-import theme from 'config/theme';
+import { NavigationHeader } from 'components';
+import vocab from 'i18n';
+import { StyleSheet } from 'react-native';
 
 
 const Stack = createNativeStackNavigator();
@@ -19,33 +19,48 @@ const ProfileStack = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name={AppScreenNames.AccountDetails}
-        component={AccountDetails}
-        options={({ navigation }: AppNavigationProps<AppScreenNames.AccountDetails>) => ({
-          headerShown: true,
-          headerLeft: () => (
-            <Pressable onPress={() => navigation.goBack()}>
-              <IconBack color={theme.colors.floos1} />
-            </Pressable>
-          ),
-        })}
-      />
-      <Stack.Screen
-        name={AppScreenNames.Settings}
-        component={Settings}
-        options={({ navigation }: AppNavigationProps<AppScreenNames.Settings>) => ({
-          headerShown: true,
-          headerTransparent: true,
-          headerLeft: () => (
-            <Pressable onPress={() => navigation.goBack()}>
-              <IconBack color={theme.colors.floos1} />
-            </Pressable>
-          ),
-        })}
-      />
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen
+          name={AppScreenNames.AccountDetails}
+          component={AccountDetails}
+          options={{
+            headerShown: true,
+            header: (headerProps) => (
+              <NavigationHeader
+                {...headerProps}
+                headerStyle={styles.header}
+                title={vocab.get().accountDetails}
+                headerRight={null}
+              />
+            )
+          }}
+        />
+        <Stack.Screen
+          name={AppScreenNames.Settings}
+          component={Settings}
+          options={{
+            headerShown: true,
+            header: (headerProps) => (
+              <NavigationHeader
+                {...headerProps}
+                headerStyle={styles.header}
+                title={vocab.get().settings}
+                headerRight={null}
+              />
+            )
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    alignItems: 'flex-end',
+    height: 80,
+    paddingBottom: 28,
+  }
+});
 
 export default ProfileStack;
