@@ -28,4 +28,5 @@ export { default as SignIn } from './SignIn';
 export { default as UserInformation } from './UserInformation';
 export { default as ScreenGradient } from './ScreenGradient';
 export { default as Transaction } from './Transaction';
+export { default as Details } from './Details';
 // export { default as Carousel } from './Carousel';
