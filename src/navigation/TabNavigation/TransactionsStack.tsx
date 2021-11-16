@@ -1,9 +1,8 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppScreenNames } from 'navigation/types';
 import { Transactions, TransactionDetails } from 'screens';
-import { IconBack } from 'components';
+import { BackButton } from 'components';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,11 +23,7 @@ const TransactionsStack = () => {
         options={({ navigation }) => ({
           title: '',
           headerTransparent: true,
-          headerLeft: () => (
-            <Pressable onPress={() => { navigation.goBack(); }} >
-              <IconBack />
-            </Pressable>
-          )
+          headerLeft: () => <BackButton onPress={() => { navigation.goBack(); }} />
         })}
       />
     </Stack.Navigator>

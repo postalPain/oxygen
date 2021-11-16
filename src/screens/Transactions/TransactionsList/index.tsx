@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, Pressable, ScrollView } from 'react-native';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import vocabulary from 'i18n';
 import { getTransactionDate, getTransactionStatus } from 'utils/transactionData';
 import { AppScreenNames } from 'navigation/types';
@@ -23,7 +22,6 @@ const TransactionsList: React.FC<ITransactionsListProps> = (
   const openDetails = (transaction: ITransaction) => {
     navigation.navigate(AppScreenNames.TransactionsDetails, transaction);
   };
-  const tabBarHeight = useBottomTabBarHeight();
   return (
     <View style={styles.list}>
       <View style={styles.header}>
@@ -32,7 +30,7 @@ const TransactionsList: React.FC<ITransactionsListProps> = (
           {vocab.transactionHistory.toUpperCase()}
         </Text>
       </View>
-      <ScrollView style={{ marginBottom: tabBarHeight * 1.5, backgroundColor: 'coral', }}>
+      <ScrollView style={styles.scrollView}>
         {transactions.map((transaction) => {
           const transactionStatus = getTransactionStatus(transaction.status);
           return (

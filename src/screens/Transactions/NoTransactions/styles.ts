@@ -11,7 +11,7 @@ const useStyles = () => StyleSheet.create({
     justifyContent: 'flex-end',
     width: '100%',
     height: 60,
-    paddingHorizontal: 60,
+    paddingHorizontal: 70,
   },
   headerText: {
     fontSize: 22,
