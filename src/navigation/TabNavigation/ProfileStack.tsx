@@ -5,6 +5,7 @@ import { AccountDetails, Profile, Settings, } from 'screens';
 import { NavigationHeader } from 'components';
 import vocab from 'i18n';
 import { StyleSheet } from 'react-native';
+import theme from '../../config/theme';
 
 
 const Stack = createNativeStackNavigator();
@@ -60,6 +61,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     height: 80,
     paddingBottom: 28,
+    // TODO fix shadow, remove border
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.shade1,
+    shadowColor: theme.notifications.boxShadowColor,
+    shadowOffset: theme.notifications.boxShadowOffset,
   }
 });
 

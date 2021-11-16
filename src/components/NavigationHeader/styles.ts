@@ -24,6 +24,7 @@ const useStyles = () => StyleSheet.create({
     flex: 4,
   },
   title: {
+    color: theme.colors.textDark,
     fontSize: 20,
     letterSpacing: .5,
     textAlign: 'center',
