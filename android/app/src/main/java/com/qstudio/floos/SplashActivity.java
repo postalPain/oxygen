@@ -1,4 +1,4 @@
-package com.floos;
+package com.qstudio.floos;
 
 import android.content.Intent;
 import android.os.Bundle;

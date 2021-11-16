@@ -1,4 +1,4 @@
-package com.floos;
+package com.qstudio.floos;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;

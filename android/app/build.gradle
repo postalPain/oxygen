@@ -131,7 +131,7 @@ android {
         configurations.all {
             resolutionStrategy { force 'androidx.core:core-ktx:1.2.0' }
         }
-        applicationId "com.floos"
+        applicationId "com.qstudio.floos"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
