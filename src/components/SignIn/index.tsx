@@ -34,8 +34,8 @@ const SignIn = (
       .then((firstLoginEmails) => {
         firstLoginEmails?.includes(email)
           ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-          : navigation.navigate(AppScreenNames.TabNavigation)
-      } )
+          : navigation.navigate(AppScreenNames.TabNavigation);
+      });
   }, [signedIn]);
 
   useEffect(() => {
@@ -105,7 +105,6 @@ const SignIn = (
         }}
         >{vocab.get().logIn}
         </Button>
-        <Text style={styles.biometricLink}>{vocab.get().useYourFaceId}</Text>
       </View>
     </>
   );

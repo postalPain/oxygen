@@ -8,9 +8,14 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React from 'react';
 import { Text, View } from 'react-native';
 import IconCheckRound from 'components/IconCheckRound';
+import { useSelector } from 'react-redux';
+import { selectWithdrawalTransaction } from 'modules/withdrawal/selectors';
+import moment from 'moment';
 
 const WithdrawalConfirmation = (props: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => {
   const navigation: StackNavigationProp<any> = useNavigation();
+  const transaction = useSelector(selectWithdrawalTransaction);
+
   return (
     <ScreenWrapperWithdrawal>
       <View style={styles.content}>
@@ -19,11 +24,11 @@ const WithdrawalConfirmation = (props: AppNavigationProps<AppScreenNames.Withdra
         <Text style={styles.description}>{vocab.get().itShouldntTakeTooLong}</Text>
         <View style={styles.transactionContainer}>
           <Text style={styles.transactionHeader}>{vocab.get().requestId}</Text>
-          <Text style={styles.transactionValue}>46753</Text>
+          <Text style={styles.transactionValue}>{transaction.id}</Text>
           <Text style={styles.transactionHeader}>{vocab.get().date}</Text>
-          <Text style={styles.transactionValue}>5.09.2021</Text>
+          <Text style={styles.transactionValue}>{moment(transaction.created_at).format('DD.MM.YYYY')}</Text>
           <Text style={styles.transactionHeader}>{vocab.get().iban}</Text>
-          <Text style={styles.transactionValue}>8564 9264 9475 0363</Text>
+          <Text style={styles.transactionValue}>{transaction.bank_details.iban}</Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>

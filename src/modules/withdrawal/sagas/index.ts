@@ -1,10 +1,11 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { withdrawalActions } from '../types';
+import { IWithdrawalAction, withdrawalActions } from '../types';
 import api, { IResponse } from 'services/api';
-import { IBalance, TSuggestedValues } from 'services/api/employees';
+import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
 import { errorNotification } from 'modules/notifications/actions';
-import { setBalance, setSuggestedValues } from '../actions';
+import { getBalance, setBalance, setFee, setSuggestedValues, setWithdrawalTransaction } from '../actions';
+import { ITransaction } from 'modules/transactions/types';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -16,7 +17,10 @@ function* getBalanceWorker() {
     return;
   }
 
-  yield put(setBalance(response.data));
+  yield put(setBalance({
+    ...response.data,
+    withdrawable_wages: Math.floor(response.data.withdrawable_wages) // TODO: Remove once BE starts rounding value
+  }));
 }
 
 function* getSuggestedValuesWorker() {
@@ -31,7 +35,36 @@ function* getSuggestedValuesWorker() {
   yield put(setSuggestedValues(response));
 }
 
+function* getFeeWorker() {
+  let response: IResponse<TFee>;
+  try {
+    response = yield api.employees.getFee();
+  } catch (error) {
+    yield put(errorNotification({ text: error.message }));
+    return;
+  }
+
+  yield put(setFee(response.data));
+}
+
+function* withdrawalWorker(action: IWithdrawalAction) {
+  let response: IResponse<ITransaction>;
+
+  try {
+    response = yield api.employees.withdrawal(action.amount);
+  } catch (error) {
+    yield put(errorNotification({ text: error.message }));
+    return;
+  }
+
+  yield put(setWithdrawalTransaction(response.data));
+  yield action.meta.onSuccess?.();
+  yield put(getBalance());
+}
+
 export default function* withdrawalSagas(): SagaIterator {
   yield takeLatest(withdrawalActions.GET_BALANCE, getBalanceWorker);
   yield takeLatest(withdrawalActions.GET_SUGGESTED_VALUES, getSuggestedValuesWorker);
+  yield takeLatest(withdrawalActions.GET_FEE, getFeeWorker);
+  yield takeEvery(withdrawalActions.WITHDRAWAL, withdrawalWorker);
 }

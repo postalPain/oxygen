@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 0.035 * windowDimensions.height,
+    height: 0.04 * windowDimensions.height,
     borderRadius: 0.03 * windowDimensions.height,
     paddingHorizontal: '4%',
   },

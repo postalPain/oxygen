@@ -11,7 +11,7 @@ import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import theme from 'config/theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAmount, selectBalance, selectSuggestedValues } from 'modules/withdrawal/selectors';
+import { selectAmount, selectBalance, selectFee, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import { setAmount } from 'modules/withdrawal/actions';
 
 const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => {
@@ -20,33 +20,39 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
   const otherAmountRef = useRef(null);
   const balance = useSelector(selectBalance);
   const amount = useSelector(selectAmount);
-  const suggestedValues = [200, 300, 500, 800, 1350]; // useSelector(selectSuggestedValues);
-  const [error, setError] = useState(null);
+  const suggestedValues = useSelector(selectSuggestedValues);
+  const fee = useSelector(selectFee);
+  const [description, setDescription] = useState<string>(null);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (amount > balance.withdrawable_wages) {
-      setError(vocab.get().cantWithdrawMore(balance.withdrawable_wages));
+      setDescription(vocab.get().maximumWithdrawable);
+      setDisabled(true);
     } else if (amount && (amount < suggestedValues[0])) {
-      setError(vocab.get().cantWithdrawLess(suggestedValues[0]));
+      setDescription(vocab.get().minimumWithdrawable);
+      setDisabled(true);
     } else {
-      setError(null);
+      setDescription(amount
+        ? vocab.get().plusServiceCharge(balance.total_withdrawn_amount ? fee : 0)
+        : vocab.get().minimalWithdrawableSum(suggestedValues?.[0])
+      );
+      setDisabled(false);
     }
-  }, [amount]);
+  }, [amount, suggestedValues]);
 
   return (
     <ScreenWrapperWithdrawal>
       <Text style={styles.headerText}>{vocab.get().withdrawalAmount}</Text>
       <Text style={[styles.amountText, {
         color: amount
-          ? error ? theme.colors.floos3 : theme.colors.floos1
+          ? disabled ? theme.colors.floos3 : theme.colors.floos1
           : theme.colors.shade1
       }]}
       >{Math.floor(amount)} {vocab.get().aed}
       </Text>
-      <Text style={styles.minimalText}>
-        {amount
-          ? vocab.get().plusServiceCharge(25)
-          : vocab.get().minimalWithdrawableSum(20)}
+      <Text style={styles.descriptionText}>
+        {description}
       </Text>
       <Slider
         style={styles.slider}
@@ -58,7 +64,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         thumbTintColor={theme.colors.floos3}
         onValueChange={(value) => dispatch(setAmount(Math.floor(value)))}
       />
-      {suggestedValues.length > 1 && (
+      {suggestedValues?.length > 1 && (
         <View style={styles.suggestedContainer}>
           {suggestedValues
             .map((value, idx) =>
@@ -74,7 +80,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
             )}
         </View>
       )}
-      { suggestedValues.length && (
+      { suggestedValues?.length && (
         <View style={styles.suggestedContainerTotal}>
 
           <WithdrawalAmountTag
@@ -109,7 +115,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
       <View style={styles.buttonContainer}>
         <Button
           onPress={() => navigation.navigate(AppScreenNames.WithdrawalOverview)}
-          disabled={!amount || !!error}
+          disabled={!amount || !!disabled}
         >
           {vocab.get().continue}
         </Button>
