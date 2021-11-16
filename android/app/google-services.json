@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:539438624913:android:5975d190340fe98cb70f30",
         "android_client_info": {
-          "package_name": "com.floos"
+          "package_name": "com.qstudio.floos"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "539438624913-98iq4gjija647ij8utg2lvehvaae14ci.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.floos",
+            "package_name": "com.qstudio.floos",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "539438624913-0f8rfbjjfu02l4fps1fm7u8t46heksri.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "org.reactjs.native.Floos"
+                "bundle_id": "com.qstudio.floos"
               }
             }
           ]
