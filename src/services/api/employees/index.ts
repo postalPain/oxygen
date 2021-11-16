@@ -1,4 +1,5 @@
 import apiUrls from 'config/apiUrls';
+import { ITransaction } from 'modules/transactions/types';
 import { TVerificationStatus } from 'modules/user/types';
 import { IResponse } from '..';
 import request from '../request';
@@ -39,6 +40,12 @@ export type TSuggestedValues = number[];
 
 const getSuggestedValues = (): Promise<TSuggestedValues> => request.get('employees/withdraw/suggested-values');
 
+export type TFee = number;
+
+const getFee = (): Promise<IResponse<TFee>> => request.get('employees/transactions/fee');
+
+const withdrawal = (amount: number): Promise<IResponse<ITransaction>> => request.post('employees/transactions', { amount });
+
 const employees = {
   verifyEmail,
   checkVerification,
@@ -47,6 +54,8 @@ const employees = {
   getBalance,
   getTransactions,
   getSuggestedValues,
+  getFee,
+  withdrawal,
 };
 
 export default employees;

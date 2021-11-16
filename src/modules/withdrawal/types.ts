@@ -1,4 +1,6 @@
-import { IBalance, ISuggestedValues, IUserInfo } from 'services/api/employees';
+import { IMeta } from 'modules/store/types';
+import { ITransaction } from 'modules/transactions/types';
+import { IBalance, TSuggestedValues, TFee } from 'services/api/employees';
 
 export enum withdrawalActions {
   GET_BALANCE = 'GET_BALANCE',
@@ -6,6 +8,10 @@ export enum withdrawalActions {
   SET_AMOUNT = 'SET_AMOUNT',
   GET_SUGGESTED_VALUES = 'GET_SUGGESTED_VALUES',
   SET_SUGGESTED_VALUES = 'SET_SUGGESTED_VALUES',
+  GET_FEE = 'GET_FEE',
+  SET_FEE = 'SET_FEE',
+  WITHDRAWAL = 'WITHDRAWAL',
+  SET_WITHDRAWAL_TRANSACTION = 'SET_WITHDRAWAL_TRANSACTION'
 }
 
 export interface IGetBalanceAction {
@@ -24,8 +30,24 @@ export interface ISetAmountAction {
 
 export interface ISetSuggestedValuesAction {
   type: withdrawalActions.SET_SUGGESTED_VALUES;
-  suggestedValues: ISuggestedValues;
+  suggestedValues: TSuggestedValues;
+}
+
+export interface ISetFeeAction {
+  type: withdrawalActions.SET_FEE;
+  fee: TFee;
+}
+
+export interface IWithdrawalAction {
+  type: withdrawalActions.WITHDRAWAL;
+  amount: number;
+  meta?: IMeta;
+}
+
+export interface ISetWithdrawalTransactionAction {
+  type: withdrawalActions.SET_WITHDRAWAL_TRANSACTION;
+  transaction: ITransaction;
 }
 
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction
-| ISetSuggestedValuesAction;
+| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction;

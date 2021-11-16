@@ -5,15 +5,21 @@ import styles from './styles';
 import IconDocument from 'components/IconDocument';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import vocab from 'i18n';
-import { AppNavigationProps, AppScreenNames, AppStackParameters } from 'navigation/types';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React from 'react';
 import { Text, View } from 'react-native';
 import WithdrawalOverviewItem from './WithdrawalOverviewItem';
-
-const mockedAmounts = [200, 25, 225];
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAmount, selectFee } from 'modules/withdrawal/selectors';
+import { withdrawal } from 'modules/withdrawal/actions';
 
 const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => {
   const navigation: StackNavigationProp<any> = useNavigation();
+  const dispatch = useDispatch();
+
+  const amount = useSelector(selectAmount);
+  const fee = useSelector(selectFee);
+
   return (
     <ScreenWrapperWithdrawal>
       <View style={styles.content}>
@@ -22,15 +28,20 @@ const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalO
           <IconDocument />
           <Text style={styles.headerText}>{vocab.get().requestOverview}</Text>
         </View>
-        <WithdrawalOverviewItem type='requested' amount={mockedAmounts[0]} style={styles.item} />
-        <WithdrawalOverviewItem type='charge' amount={mockedAmounts[1]} style={styles.item} />
-        <WithdrawalOverviewItem type='deduction' amount={mockedAmounts[2]} style={styles.item} />
+        <WithdrawalOverviewItem type='requested' amount={amount} style={styles.item} />
+        <WithdrawalOverviewItem type='charge' amount={fee} style={styles.item} />
+        <WithdrawalOverviewItem type='deduction' amount={amount + fee} style={styles.item} />
       </View>
 
 
       <View style={styles.buttonContainer}>
 
-        <Button onPress={() => navigation.navigate(AppScreenNames.WithdrawalConfirmation)}>
+        <Button onPress={() => {
+          dispatch(withdrawal(amount, {
+            onSuccess: () => navigation.navigate(AppScreenNames.WithdrawalConfirmation)
+          }));
+        }}
+        >
           {vocab.get().confirmWithdrawal}
         </Button>
       </View>

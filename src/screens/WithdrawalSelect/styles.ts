@@ -10,20 +10,28 @@ const styles = StyleSheet.create({
     fontSize: 0.1 * windowDimensions.width,
     paddingTop: 0.03 * windowDimensions.height,
   },
-  minimalText: {
+  descriptionText: {
     color: theme.colors.shade1,
-    fontSize: 0.045 * windowDimensions.width,
+    height: 0.07 * windowDimensions.height,
+    fontSize: 0.035 * windowDimensions.width,
     paddingTop: 0.01 * windowDimensions.height,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   slider: {
     width: '100%',
-    paddingVertical: 0.08 * windowDimensions.height
+    marginTop: 0.02 * windowDimensions.height,
+    marginBottom: 0.05 * windowDimensions.height
   },
   suggestedContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  suggestedContainerTotal: {
+    width: '100%',
   },
   suggestedTag: {
     margin: 0.03 * windowDimensions.width

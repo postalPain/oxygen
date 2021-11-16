@@ -1,16 +1,21 @@
-import { IBalance, TSuggestedValues } from 'services/api/employees';
+import { ITransaction } from 'modules/transactions/types';
+import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
 import { withdrawalActions, TWithdrawalAction } from '../types';
 
 export interface IPaymentState {
   balance: IBalance;
   amount: number;
   suggestedValues: TSuggestedValues;
+  fee: TFee;
+  transaction: ITransaction;
 }
 
 export const initialState: IPaymentState = {
   balance: {} as IBalance,
   amount: 0,
-  suggestedValues: null
+  suggestedValues: null,
+  fee: 25, // TODO: Switch to BE once it's ready
+  transaction: null
 };
 
 const withdrawalReducer = (
@@ -32,6 +37,11 @@ const withdrawalReducer = (
       return {
         ...state,
         suggestedValues: action.suggestedValues
+      };
+    case withdrawalActions.SET_WITHDRAWAL_TRANSACTION:
+      return {
+        ...state,
+        transaction: action.transaction
       };
     default:
       return state;

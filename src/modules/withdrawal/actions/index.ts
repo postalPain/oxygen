@@ -1,7 +1,10 @@
-import { IBalance, ISuggestedValues } from 'services/api/employees';
+import { IMeta } from 'modules/store/types';
+import { ITransaction } from 'modules/transactions/types';
+import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
 import {
   IGetBalanceAction, ISetAmountAction, ISetBalanceAction,
-  ISetSuggestedValuesAction, withdrawalActions
+  ISetFeeAction,
+  ISetSuggestedValuesAction, ISetWithdrawalTransactionAction, IWithdrawalAction, withdrawalActions
 } from '../types';
 
 export const getBalance = (): IGetBalanceAction => ({
@@ -22,7 +25,27 @@ export const getSuggestedValues = () => ({
   type: withdrawalActions.GET_SUGGESTED_VALUES
 });
 
-export const setSuggestedValues = (suggestedValues: ISuggestedValues): ISetSuggestedValuesAction => ({
+export const setSuggestedValues = (suggestedValues: TSuggestedValues): ISetSuggestedValuesAction => ({
   type: withdrawalActions.SET_SUGGESTED_VALUES,
   suggestedValues
+});
+
+export const getFee = () => ({
+  type: withdrawalActions.GET_FEE
+});
+
+export const setFee = (fee: TFee): ISetFeeAction => ({
+  type: withdrawalActions.SET_FEE,
+  fee
+});
+
+export const withdrawal = (amount: number, meta?: IMeta): IWithdrawalAction => ({
+  type: withdrawalActions.WITHDRAWAL,
+  amount,
+  meta,
+});
+
+export const setWithdrawalTransaction = (transaction: ITransaction): ISetWithdrawalTransactionAction => ({
+  type: withdrawalActions.SET_WITHDRAWAL_TRANSACTION,
+  transaction,
 });

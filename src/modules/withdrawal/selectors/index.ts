@@ -7,3 +7,7 @@ export const selectAmount = (state: RootState) => state.withdrawal.amount;
 export const selectSuggestedValues = (state: RootState) => state.withdrawal.suggestedValues;
 
 export const selectIsWithdrawalPaused = (state: RootState) => state.withdrawal.balance.is_withdraw_paused;
+
+export const selectFee = (state: RootState) => state.withdrawal.fee;
+
+export const selectWithdrawalTransaction = (state: RootState) => state.withdrawal.transaction;
