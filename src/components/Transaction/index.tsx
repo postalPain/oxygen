@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, ViewStyle } from 'react-native';
-import { ITransaction, TransactionKeys, TTransactionStatusBE } from 'modules/transactions/types';
+import { ITransaction, TransactionKeys } from 'modules/transactions/types';
 import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
 import useStyles from './styles';
 import vocabulary from 'i18n';

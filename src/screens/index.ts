@@ -16,3 +16,5 @@ export { default as Dashboard } from './Dashboard';
 export { default as Transactions } from './Transactions';
 export { default as TransactionDetails } from './TransactionDetails';
 export { default as Profile } from './Profile';
+export { default as AccountDetails } from './AccountDetails';
+export { default as Settings } from './Settings';

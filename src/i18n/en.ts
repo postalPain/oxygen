@@ -115,5 +115,9 @@ export default {
   withdrawalErrorDays: 'Withdrawals are not possible less than 3 days before payday, please check back again soon',
   withdrawalErrorBlocked: 'Unfortunately withdrawals are currently not possible, please check back again or contact us',
   withdrawalErrorMinimum: 'Your funds available to withdraw is currently less than the minimum possible, please check back again tomorrow.',
-
+  accountDetails: 'Account Details',
+  settings: 'Settings',
+  privacyPolicy: 'Privacy Policy',
+  helpCenter: 'Help Center',
+  logout: 'Logout',
 };

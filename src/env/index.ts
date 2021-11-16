@@ -5,6 +5,7 @@ import { BASE_URL } from 'config/apiUrls';
 const env = {
   baseUrl: BASE_URL,
   apiUrl: `${BASE_URL}/api/v1`,
+  websiteDomain: 'https://www.floos.ae',
   locale: 'en',
   os: Platform.OS,
   ios: Platform.OS === 'ios',

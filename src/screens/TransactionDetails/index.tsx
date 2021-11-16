@@ -2,35 +2,41 @@ import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
-import { TransactionKeys, } from 'modules/transactions/types';
-import { IconTransactionHistory, ScreenGradient, Transaction } from 'components';
+import { Details, IconTransactionHistory, ScreenGradient, Transaction } from 'components';
 import useStyles from './styles';
+import { getTransactionDetailsDate, getTransactionStatus } from '../../utils/transactionData';
 
 
 const vocab = vocabulary.get();
 
-const metaData = [
-  {
-    key: TransactionKeys.amount,
-    label: vocab.amount,
-  },
-  {
-    key: TransactionKeys.created_at,
-    label: vocab.dateTime,
-  },
-  {
-    key: TransactionKeys.status,
-    label: vocab.status,
-  },
-  {
-    key: TransactionKeys.id,
-    label: vocab.requestId,
-  },
-  {
-    key: TransactionKeys.iban,
-    label: vocab.iban,
-  },
-];
+const getData = (params) => {
+  return [
+    {
+      label: vocab.amount,
+      text: `${params.amount} ${vocab.aed}`,
+      width: '50%',
+    },
+    {
+      label: vocab.dateTime,
+      text: getTransactionDetailsDate(params.created_at),
+      width: '50%',
+    },
+    {
+      label: vocab.status,
+      text: getTransactionStatus(params.status),
+      width: '50%',
+    },
+    {
+      label: vocab.requestId,
+      text: params.id.toString(),
+      width: '50%',
+    },
+    {
+      label: vocab.iban,
+      text: params.bank_details.iban,
+    },
+  ];
+}
 
 const TransactionDetails = (
   { route: { params } }: AppNavigationProps<AppScreenNames.TransactionsDetails>
@@ -46,10 +52,7 @@ const TransactionDetails = (
             {vocab.transactionsInformation}
           </Text>
         </View>
-        <Transaction
-          metaData={metaData}
-          data={params}
-        />
+        <Details data={getData(params)} />
       </View>
     </SafeAreaView>
   )

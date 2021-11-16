@@ -23,7 +23,10 @@ export enum AppScreenNames {
   TransactionsStack = 'TransactionsStack',
   Transactions = 'Transactions',
   TransactionsDetails = 'TransactionsDetails',
+  ProfileStack = 'ProfileStack',
   Profile = 'Profile',
+  AccountDetails = 'AccountDetails',
+  Settings = 'Settings',
   WithdrawalSelect = 'WithdrawalSelect',
   WithdrawalOverview = 'WithdrawalOverview',
   WithdrawalConfirmation = 'WithdrawalConfirmation',
@@ -51,7 +54,10 @@ export type AppStackParameters = {
   TransactionsStack: undefined;
   Transactions: undefined;
   TransactionsDetails: ITransaction;
+  ProfileStack: undefined;
   Profile: undefined;
+  AccountDetails: undefined;
+  Settings: undefined;
   Main: undefined;
   UserInfoConfirmation: { noBackButton?: boolean };
   WithdrawalSelect: undefined;
