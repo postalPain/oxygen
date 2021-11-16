@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import authReducers from 'modules/auth/reducers';
 import userReducers from 'modules/user/reducers';
 import notificationsReducers from 'modules/notifications/reducers';
-import paymentReducer from 'modules/payment/reducers';
+import withdrawalReducer from 'modules/withdrawal/reducers';
 import transactionsReducer from 'modules/transactions/reducers';
 
 
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   auth: authReducers,
   user: userReducers,
   notifications: notificationsReducers,
-  payments: paymentReducer,
+  withdrawal: withdrawalReducer,
   transactions: transactionsReducer,
 });
 

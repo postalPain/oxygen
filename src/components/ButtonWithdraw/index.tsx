@@ -11,9 +11,9 @@ const ButtonWithdraw = (props: IButton) => {
   const navigation: StackNavigationProp<any> = useNavigation();
   return (
     <Button
-      onPress={() => navigation.navigate(AppScreenNames.WithdrawalSelect)}
       Icon={<IconPlus size={22} />}
       {...props}  // eslint-disable-line
+      onPress={props.onPress || (() => navigation.navigate(AppScreenNames.WithdrawalSelect))}
     >
       {vocab.get().withdraw}
     </Button>

@@ -28,11 +28,16 @@ export interface IBalance {
   earned_wages: number;
   withdrawable_wages: number;
   total_withdrawn_amount: number;
+  is_withdraw_paused: boolean;
 }
 
 const getBalance = (): Promise<IResponse<IBalance>> => request.get('employees/balance');
 
 const getTransactions = () => request.get(apiUrls.getTransactions);
+
+export type TSuggestedValues = number[];
+
+const getSuggestedValues = (): Promise<TSuggestedValues> => request.get('employees/withdraw/suggested-values');
 
 const employees = {
   verifyEmail,
@@ -41,6 +46,7 @@ const employees = {
   resendVerificationCode,
   getBalance,
   getTransactions,
+  getSuggestedValues,
 };
 
 export default employees;

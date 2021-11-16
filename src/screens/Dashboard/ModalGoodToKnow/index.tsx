@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 import vocab from 'i18n';
 import IconInfoDark from 'components/IconInfoDark';
 import { useSelector } from 'react-redux';
-import { selectBalance } from 'modules/payment/selectors';
+import { selectBalance } from 'modules/withdrawal/selectors';
 
 interface IModalGoodToKnow {
   onClose?: () => void;

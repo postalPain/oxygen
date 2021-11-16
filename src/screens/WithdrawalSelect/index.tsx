@@ -11,10 +11,8 @@ import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import theme from 'config/theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAmount, selectBalance } from 'modules/payment/selectors';
-import { setAmount } from 'modules/payment/actions';
-
-const mockedSuggestedValues = [10, 20, 30, 40, 50, 60];
+import { selectAmount, selectBalance, selectSuggestedValues } from 'modules/withdrawal/selectors';
+import { setAmount } from 'modules/withdrawal/actions';
 
 const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => {
   const dispatch = useDispatch();
@@ -22,22 +20,18 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
   const otherAmountRef = useRef(null);
   const balance = useSelector(selectBalance);
   const amount = useSelector(selectAmount);
+  const suggestedValues = useSelector(selectSuggestedValues);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (amount > balance.withdrawable_wages) {
       setError(vocab.get().cantWithdrawMore(balance.withdrawable_wages));
-    } else if (amount && (amount < mockedSuggestedValues[0])) {
-      setError(vocab.get().cantWithdrawLess(mockedSuggestedValues[0]));
+    } else if (amount && (amount < suggestedValues[0])) {
+      setError(vocab.get().cantWithdrawLess(suggestedValues[0]));
     } else {
       setError(null);
     }
   }, [amount]);
-
-  useEffect(() => {
-    // TODO: Discuss
-    // error && dispatch(errorNotification({ text: error }));
-  }, [error]);
 
   return (
     <ScreenWrapperWithdrawal>
@@ -65,7 +59,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         onValueChange={(value) => dispatch(setAmount(Math.floor(value)))}
       />
       <View style={styles.suggestedContainer}>
-        {mockedSuggestedValues
+        {suggestedValues
           .filter(value => value < balance.withdrawable_wages)
           .map(value =>
             <WithdrawalAmountTag
