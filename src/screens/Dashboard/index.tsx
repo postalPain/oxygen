@@ -11,23 +11,42 @@ import WithdrawInfo from './WithdrawInfo';
 import { selectIsUserBlocked, selectUserInfo } from 'modules/user/selectors';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
-import { getBalance } from 'modules/withdrawal/actions';
-import { selectBalance } from 'modules/withdrawal/selectors';
+import { getBalance, getSuggestedValues } from 'modules/withdrawal/actions';
+import { selectBalance, selectIsWithdrawalPaused, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import ButtonWithdraw from 'components/ButtonWithdraw';
+import Tooltip from 'components/Tooltip';
+
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
   const isUserBlocked = useSelector(selectIsUserBlocked);
+  const isWithdrawalPaused = useSelector(selectIsWithdrawalPaused);
+  const suggestedValues = useSelector(selectSuggestedValues);
 
   const [infoModal, setInfoModal] = useState(false);
+  const [withdrawalDisabled, setWithdrawalDisable] = useState<string>(null);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     dispatch(getBalance());
+    dispatch(getSuggestedValues());
   }, []);
 
-  const isWithdrawalDisabled = isUserBlocked; // TODO: Add missing conditions
+  useEffect(() => {
+    isUserBlocked && setWithdrawalDisable(vocab.get().withdrawalErrorBlocked);
+    isWithdrawalPaused && setWithdrawalDisable(vocab.get().withdrawalErrorDays);
+    suggestedValues && !suggestedValues.length && setWithdrawalDisable(vocab.get().withdrawalErrorMinimum);
+  }, [isUserBlocked, isWithdrawalPaused, suggestedValues]);
+
+  useEffect(() => {
+    withdrawalDisabled && setShowTooltip(true);
+  }, [withdrawalDisabled]);
+
+  useEffect(() => {
+    showTooltip && setTimeout(() => setShowTooltip(false), 4000);
+  }, [showTooltip]);
 
   return (
     <ScreenWrapperMain>
@@ -55,7 +74,14 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 4 }} />
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonWithdraw />
+        <View>
+          {showTooltip && <Tooltip text={withdrawalDisabled} />}
+          <ButtonWithdraw
+            disabled={!!withdrawalDisabled}
+            onPress={!!withdrawalDisabled ? () => setShowTooltip(true) : null}
+          />
+        </View>
+
       </View>
     </ScreenWrapperMain>
   );

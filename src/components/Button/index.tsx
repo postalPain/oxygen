@@ -23,7 +23,7 @@ const Button = (props: IButton) => {
         useAngle
         style={styles.linearGradient}
       >
-        <Pressable onPress={props.disabled ? undefined : onPress}>
+        <Pressable onPress={onPress}>
           <View style={[styles.innerSecondary, {
             backgroundColor: secondary ? theme.colors.screenBackgroundColorLight : 'transparent'
           }]}

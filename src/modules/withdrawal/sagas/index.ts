@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import { withdrawalActions } from '../types';
 import api, { IResponse } from 'services/api';
-import { IBalance, ISuggestedValues } from 'services/api/employees';
+import { IBalance, TSuggestedValues } from 'services/api/employees';
 import { errorNotification } from 'modules/notifications/actions';
 import { setBalance, setSuggestedValues } from '../actions';
 
@@ -20,7 +20,7 @@ function* getBalanceWorker() {
 }
 
 function* getSuggestedValuesWorker() {
-  let response: IResponse<ISuggestedValues>;
+  let response: TSuggestedValues;
   try {
     response = yield api.employees.getSuggestedValues();
   } catch (error) {
@@ -28,7 +28,7 @@ function* getSuggestedValuesWorker() {
     return;
   }
 
-  yield put(setSuggestedValues(response.data));
+  yield put(setSuggestedValues(response));
 }
 
 export default function* withdrawalSagas(): SagaIterator {

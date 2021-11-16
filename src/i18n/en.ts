@@ -111,5 +111,9 @@ export default {
   dateTime: 'date / time',
   status: 'status',
   requestId: 'request id',
-  date: 'date'
+  date: 'date',
+  withdrawalErrorDays: 'Withdrawals are not possible less than 3 days before payday, please check back again soon',
+  withdrawalErrorBlocked: 'Unfortunately withdrawals are currently not possible, please check back again or contact us',
+  withdrawalErrorMinimum: 'Your funds available to withdraw is currently less than the minimum possible, please check back again tomorrow.',
+
 };

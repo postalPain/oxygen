@@ -1,10 +1,10 @@
-import { IBalance, ISuggestedValues } from 'services/api/employees';
+import { IBalance, TSuggestedValues } from 'services/api/employees';
 import { withdrawalActions, TWithdrawalAction } from '../types';
 
 export interface IPaymentState {
   balance: IBalance;
   amount: number;
-  suggestedValues: ISuggestedValues;
+  suggestedValues: TSuggestedValues;
 }
 
 export const initialState: IPaymentState = {

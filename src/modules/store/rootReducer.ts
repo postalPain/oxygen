@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   auth: authReducers,
   user: userReducers,
   notifications: notificationsReducers,
-  payments: withdrawalReducer,
+  withdrawal: withdrawalReducer,
   transactions: transactionsReducer,
 });
 
