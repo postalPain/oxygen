@@ -16,7 +16,19 @@ export interface ITransaction {
 }
 
 export interface ITransactionBankDetails {
+  id: number;
+  employee_id: number;
   iban: string;
+  created_at: string;
+  updated_at: string;
+  bank_branch_name: string;
+  counterparty_id: number;
+  account_number: number;
+  account_name: string;
+  branch_address: string;
+  country: string;
+  swift_code: string;
+  account_type: string;
 }
 
 export interface ISetTransactionsAction {
