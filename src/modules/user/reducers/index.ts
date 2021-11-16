@@ -1,7 +1,7 @@
 import { IUserInfo } from 'services/api/employees';
 import { TUserAction, UserActions } from '../types';
 
-export const initialState: IUserInfo = {
+export const userDefaultState: IUserInfo = {
   id: null,
   email: '',
   first_name: '',
@@ -12,7 +12,7 @@ export const initialState: IUserInfo = {
 };
 
 const userReducer = (
-  state = initialState,
+  state = userDefaultState,
   action: TUserAction,
 ): IUserInfo => {
   switch (action.type) {
@@ -23,7 +23,7 @@ const userReducer = (
       };
     }
     case UserActions.USER_CLEAR_INFO:
-      return initialState;
+      return userDefaultState;
     case UserActions.SET_VERIFICATION_STATUS: {
       return {
         ...state,

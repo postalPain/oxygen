@@ -13,6 +13,7 @@ import useInterval from 'utils/useInterval';
 import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
+import { removeHeader } from '../../services/api/request';
 
 
 const vocab = vocabulary.get();
@@ -54,6 +55,7 @@ const UserVerificationPending = (
   const clearAuthAndUserData = () => {
     navigation.navigate(AppScreenNames.Onboarding);
     batch(() => {
+      removeHeader('Authorization');
       dispatch(clearAuthData());
       dispatch(userClearInfo());
     });

@@ -1,10 +1,10 @@
 import { ITransaction, TransactionsActions, TTransactionsAction } from 'modules/transactions/types';
 
 
-const defaultState = [];
+export const transactionsDefaultState = [];
 
 const transactionsReducer = (
-  state = defaultState,
+  state = transactionsDefaultState,
   action: TTransactionsAction,
 ): ITransaction[] => {
   switch (action.type) {

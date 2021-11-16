@@ -2,26 +2,27 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import api, { IResponse } from 'services/api';
 import * as authActions from 'modules/auth/actions';
+import { clearSignUpData } from 'modules/auth/actions';
 import {
   AuthActions,
+  AuthStoredKeys,
   IAuthData,
   IClearAuthDataAction,
-  ISignInAction,
-  ISignUpAction,
   IForgotPasswordAction,
   IResetPasswordAction,
-  AuthStoredKeys,
+  ISignInAction,
+  ISignOutAction,
+  ISignUpAction,
 } from 'modules/auth/types';
 import { getState } from 'modules/store';
-import * as appActions from 'modules/app/actions';
 import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
-import { clearSignUpData } from 'modules/auth/actions';
 import { removeItems, setItems } from 'modules/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
 import { ERROR_CODES, IError } from 'services/api/errors';
+import { addHeader, removeHeader } from 'services/api/request';
 
 
 function* handleError (error: IError) {
@@ -58,23 +59,16 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
+  yield call(addHeader, {
+    name: 'Authorization',
+    value: `Bearer ${response.data.access_token}`,
+  });
   yield processUserData({ email: action.payload.email });
   yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
   yield put(clearSignUpData());
   yield put(checkVerification());
   yield action.meta?.onSuccess?.(response);
-}
-
-function* signOutWorker() {
-  try {
-    // TODO REMOVE TOKENS
-    yield call(api.auth.signOut);
-    yield put(authActions.signedOut());
-    yield put(appActions.appResetStore());
-  } catch (error) {
-    yield handleError(error);
-  }
 }
 
 function* signInWorker(action: ISignInAction) {
@@ -85,6 +79,10 @@ function* signInWorker(action: ISignInAction) {
     yield put(authActions.setSignInError(error));
     return;
   }
+  yield call(addHeader, {
+    name: 'Authorization',
+    value: `Bearer ${response.data.access_token}`,
+  });
   yield processUserData({ email: action.email });
   yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
@@ -131,6 +129,25 @@ function* resetPasswordWorker(action: IResetPasswordAction) {
 
 function* signInSuccessWorker () {
   yield put(userGetInfo());
+}
+
+function* signOutWorker(action: ISignOutAction) {
+  try {
+    yield call(api.auth.signOut);
+    yield call(removeHeader, 'Authorization');
+    yield put(authActions.signedOut());
+    yield removeItems([
+      AuthStoredKeys.access_token,
+      AuthStoredKeys.access_ttl,
+      AuthStoredKeys.refresh_token,
+      AuthStoredKeys.refresh_ttl,
+    ]);
+    // TODO clear transactions
+    yield action?.meta?.onSuccess?.();
+  } catch (error) {
+    yield handleError(error);
+    yield action?.meta?.onError?.();
+  }
 }
 
 export default function* authWatcher(): SagaIterator {

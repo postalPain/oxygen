@@ -1,11 +1,11 @@
 import { INotification, NotificationActions } from 'modules/notifications/types';
 
 
-const defaultState = [];
+export const notificationsDefaultState = [];
 
 export const maxNumberOfNotifications = 5;
 
-export default function notifications(state = defaultState, action) {
+export default function notifications(state = notificationsDefaultState, action) {
   switch (action.type) {
     case NotificationActions.ADD_NOTIFICATION: {
       return [...state]
