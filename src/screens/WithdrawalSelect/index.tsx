@@ -5,7 +5,7 @@ import styles from './styles';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import WithdrawalAmountTag from 'components/WithdrawalAmountTag';
 import vocab from 'i18n';
-import { AppNavigationProps, AppScreenNames, AppStackParameters } from 'navigation/types';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React, { useEffect, useRef, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
@@ -20,7 +20,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
   const otherAmountRef = useRef(null);
   const balance = useSelector(selectBalance);
   const amount = useSelector(selectAmount);
-  const suggestedValues = useSelector(selectSuggestedValues);
+  const suggestedValues = [200, 300, 500, 800, 1350]; // useSelector(selectSuggestedValues);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -58,19 +58,38 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         thumbTintColor={theme.colors.floos3}
         onValueChange={(value) => dispatch(setAmount(Math.floor(value)))}
       />
-      <View style={styles.suggestedContainer}>
-        {suggestedValues
-          .filter(value => value < balance.withdrawable_wages)
-          .map(value =>
-            <WithdrawalAmountTag
-              key={value}
-              style={styles.suggestedTag}
-              active={amount === value}
-              onPress={(_amount) => dispatch(setAmount(_amount))}
-              amount={value}
-            />
-          )}
-      </View>
+      {suggestedValues.length > 1 && (
+        <View style={styles.suggestedContainer}>
+          {suggestedValues
+            .map((value, idx) =>
+              idx < suggestedValues.length - 1 && (
+                <WithdrawalAmountTag
+                  key={value}
+                  style={styles.suggestedTag}
+                  active={amount === value}
+                  onPress={(_amount) => dispatch(setAmount(_amount))}
+                  amount={value}
+                />
+              )
+            )}
+        </View>
+      )}
+      { suggestedValues.length && (
+        <View style={styles.suggestedContainerTotal}>
+
+          <WithdrawalAmountTag
+            key={suggestedValues[suggestedValues.length - 1]}
+            style={{
+              ...styles.suggestedTag,
+            }}
+            active={amount === suggestedValues[suggestedValues.length - 1]}
+            total
+            onPress={(_amount) => dispatch(setAmount(_amount))}
+            amount={suggestedValues[suggestedValues.length - 1]}
+          />
+        </View>
+
+      )}
       <Link
         style={styles.otherAmount}
         onPress={() => otherAmountRef.current.focus()}

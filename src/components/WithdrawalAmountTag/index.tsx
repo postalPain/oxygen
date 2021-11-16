@@ -11,16 +11,20 @@ interface IWithdrawalAmountTag {
   active?: boolean;
   amount?: number;
   onPress?: (amount: number) => void;
+  total?: boolean;
 }
 
-const WithdrawalAmountTag = ({ style, amount, active = false, onPress: onClick }: IWithdrawalAmountTag) => {
+const WithdrawalAmountTag = ({
+  style,
+  amount,
+  active = false,
+  total = false,
+  onPress,
+}: IWithdrawalAmountTag) => {
   return (
-    <Pressable onPress={() => onClick(amount)}>
+    <Pressable onPress={() => onPress(amount)}>
       <LinearGradient
-        style={[styles.linearGradient,
-          {
-          },
-          style]}
+        style={[styles.linearGradient, style]}
         colors={active
           ? ['#935EBF', '#B15F8F']
           : [theme.colors.screenBackgroundColorLight, theme.colors.screenBackgroundColorLight]}
@@ -33,7 +37,7 @@ const WithdrawalAmountTag = ({ style, amount, active = false, onPress: onClick }
             color: active ? theme.colors.screenBackgroundColorLight : theme.colors.textDark
           }]}
         >
-          {amount} {vocab.get().aed}
+          {!!total ? vocab.get().totalAvailableAmount(amount) : `${amount} ${vocab.get().aed}` }
 
         </Text>
         <View style={[styles.border, {

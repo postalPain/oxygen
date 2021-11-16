@@ -23,7 +23,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  suggestedContainerTotal: {
+    width: '100%',
   },
   suggestedTag: {
     margin: 0.03 * windowDimensions.width
