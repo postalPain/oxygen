@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, } from 'react-native';
+import { SafeAreaView, View, } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { getTransactions } from 'modules/transactions/actions';

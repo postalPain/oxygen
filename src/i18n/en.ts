@@ -111,5 +111,10 @@ export default {
   dateTime: 'date / time',
   status: 'status',
   requestId: 'request id',
-  date: 'date'
+  date: 'date',
+  accountDetails: 'Account Details',
+  settings: 'Settings',
+  privacyPolicy: 'Privacy Policy',
+  helpCenter: 'Help Center',
+  logout: 'Logout',
 };

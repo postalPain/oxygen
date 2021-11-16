@@ -27,7 +27,7 @@ import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
 import { UserStoredKeys } from 'modules/user/types';
 import TabNavigation from 'navigation/TabNavigation';
-import { IconBack, NavigationHeader, } from 'components';
+import { BackButton, NavigationHeader, } from 'components';
 import theme from 'config/theme';
 import { headerStyles } from './styles';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
@@ -138,9 +138,10 @@ const Navigation = () => {
             title: '',
             headerTransparent: true,
             headerLeft: () => (
-              <Pressable onPress={() => navigation.goBack()}>
-                <IconBack color={theme.colors.screenBackgroundColorLight} />
-              </Pressable>
+              <BackButton
+                onPress={() => navigation.goBack()}
+                color={theme.colors.screenBackgroundColorLight}
+              />
             )
           })}
         />
@@ -198,11 +199,7 @@ const Navigation = () => {
           options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => ({
             title: '',
             headerTransparent: true,
-            headerLeft: () => (
-              <Pressable onPress={() => navigation.goBack()}>
-                <IconBack color={theme.colors.floos1} />
-              </Pressable>
-            )
+            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
           })}
         />
         <AppStack.Screen
@@ -211,11 +208,7 @@ const Navigation = () => {
           options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => ({
             title: '',
             headerTransparent: true,
-            headerLeft: () => (
-              <Pressable onPress={() => navigation.goBack()}>
-                <IconBack color={theme.colors.floos1} />
-              </Pressable>
-            )
+            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
           })}
         />
         <AppStack.Screen
@@ -224,11 +217,7 @@ const Navigation = () => {
           options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => ({
             title: '',
             headerTransparent: true,
-            headerLeft: () => (
-              <Pressable onPress={() => navigation.goBack()}>
-                <IconBack color={theme.colors.floos1} />
-              </Pressable>
-            )
+            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
           })}
         />
       </AppStack.Navigator>

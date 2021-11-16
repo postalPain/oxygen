@@ -17,10 +17,25 @@ const useStyles = () => StyleSheet.create({
     paddingBottom: 40,
     paddingHorizontal: 20,
   },
-  headerText: {
+  headerLeft: {
+    flex: 1,
+  },
+  headerTitle: {
+    flex: 4,
+  },
+  title: {
+    color: theme.colors.textDark,
+    fontSize: 20,
+    letterSpacing: .5,
+    textAlign: 'center',
+  },
+  headerRight: {
+    flex: 1,
+  },
+  headerLink: {
     color: theme.colors.floos1,
     fontSize: 20,
-  }
+  },
 });
 
 export default useStyles;

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
-import { SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
 
 const useStyles = () => StyleSheet.create({
   screen: {
@@ -8,8 +7,8 @@ const useStyles = () => StyleSheet.create({
     backgroundColor: theme.colors.screenBackgroundColorLight,
   },
   container: {
+    width: '100%',
     flex: 1,
-    paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
   }
 });
 

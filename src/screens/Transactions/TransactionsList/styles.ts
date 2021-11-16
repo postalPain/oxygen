@@ -2,12 +2,14 @@ import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { TransactionStatusesFE } from 'modules/transactions/types';
 
+
 const useStyles = () => StyleSheet.create({
-  list: {},
+  list: {
+    flex: 1,
+  },
   header: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 60,
     marginBottom: 30,
     paddingLeft: 12,
   },
@@ -15,6 +17,9 @@ const useStyles = () => StyleSheet.create({
     marginLeft: 14,
     color: theme.colors.textDark,
     fontSize: 18,
+  },
+  scrollView: {
+    flex: 1,
   },
   transaction: {
     alignItems: 'center',

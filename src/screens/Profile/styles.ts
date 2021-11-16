@@ -1,45 +1,38 @@
-import { MAIN_WRAPPER_PADDING_HORIZONTAL } from 'components/ScreenWrapperMain';
-import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
+import theme from 'config/theme';
 
 const styles = StyleSheet.create({
-  greetingContainer: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    paddingBottom: 0.1 * windowDimensions.height,
-  },
-  greeting: {
-    color: theme.colors.floos1,
-    fontSize: 24,
-    letterSpacing: 0.4,
-    paddingBottom: 5
-  },
-  greetingName: {
-    fontWeight: 'bold'
-  },
-  greetingDate: {
-    fontSize: 12,
-    fontWeight: 'bold'
-  },
-  largeTagContainer: {
-    marginBottom: 0.04 * windowDimensions.width,
-  },
-  smallTagsContainer: {
-    flexDirection: 'row',
-  },
-  smallTagsDivider: {
-    width: 0.04 * windowDimensions.width
-  },
-  buttonContainer: {
+  safeArea: {
     flex: 1,
-    justifyContent: 'flex-end',
+    backgroundColor: theme.colors.screenBackgroundColorLight,
   },
-  info: {
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
+  },
+  menuItem: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingVertical: 20,
+    borderBottomWidth: .5,
+    borderBottomColor: theme.colors.shade1,
+  },
+  menuItemNoBorder: {
+    borderBottomWidth: 0,
+  },
+  menuItemText: {
+    marginLeft: 20,
+    fontSize: 20,
+    letterSpacing: .5,
+  },
+  arrow: {
     position: 'absolute',
-    right: -MAIN_WRAPPER_PADDING_HORIZONTAL,
-    top: '10%',
-  }
+    top: '100%',
+    right: 8,
+  },
 });
 
 export default styles;
