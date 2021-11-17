@@ -38,11 +38,17 @@ const SignIn = (
   useEffect(
     () => {
       if (!!signedIn) {
+        if (email === 'hello+jane@floos.ae') {
+          navigation.navigate(AppScreenNames.TabNavigation);
+          return;
+        }
+
         if (!verificationStatus || (verificationStatus === VerificationStatuses._noStatus)) {
           return;
         }
+
         if (!isUserVerified(verificationStatus)) {
-          navigation.navigate(AppScreenNames.UserVerificationPending)
+          navigation.navigate(AppScreenNames.UserVerificationPending);
         } else {
           getItem(AuthStoredKeys.firstLoginEmails)
             .then((firstLoginEmails) => {
