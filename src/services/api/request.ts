@@ -33,7 +33,7 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
   if (callback) callback();
 };
 
-export const setToken = (access_token) => addHeader({
+export const setAuthHeader = (access_token) => addHeader({
   name: 'Authorization',
   value: `Bearer ${access_token}`,
 });
@@ -54,7 +54,7 @@ request.interceptors.request.use(
           refresh_token: authData.refresh_token
         });
         token = response.data.access_token;
-        setToken(response.data);
+        setAuthHeader(response.data);
       }
     }
     return config;

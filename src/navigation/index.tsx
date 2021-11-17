@@ -33,7 +33,7 @@ import { headerStyles } from './styles';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
-import { addHeader, setToken } from '../services/api/request';
+import { setAuthHeader } from '../services/api/request';
 
 const AppStack = createNativeStackNavigator();
 
@@ -69,7 +69,7 @@ const Navigation = () => {
         UserStoredKeys.first_name
       ]).then((_authData) => {
         dispatch(setAuthData(_authData));
-        setToken(_authData.access_token);
+        setAuthHeader(_authData.access_token);
         dispatch(userSetInfo({
           first_name: _authData.first_name,
           email: _authData.email,
