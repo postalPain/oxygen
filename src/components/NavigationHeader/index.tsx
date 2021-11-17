@@ -1,9 +1,11 @@
 import React from 'react';
 import { Text, SafeAreaView, View, ViewStyle, TextStyle } from 'react-native';
-import BackButton from 'components/BackButton';
 import vocab from 'i18n';
 import { openBrowser } from 'utils';
+import BackButton from 'components/BackButton';
+import Link from 'components/Link';
 import useStyles from './styles';
+import { externalUrls } from '../../constants';
 
 interface INavigationHeaderProps {
   options: any; // TODO add types
@@ -32,9 +34,12 @@ const NavigationHeader: React.FC<INavigationHeaderProps> = ({
     <BackButton onPress={() => goBack()} />
   );
   const right = (headerRight !== undefined) ? headerRight : (
-    <Text style={styles.headerLink} onPress={() => openBrowser('/help')}>
+    <Link
+      style={styles.headerLink}
+      onPress={() => openBrowser(externalUrls.help)}
+    >
       {vocab.get().help}
-    </Text>
+    </Link>
   );
   return (
     <SafeAreaView style={styles.safeArea}>

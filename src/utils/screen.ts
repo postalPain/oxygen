@@ -6,7 +6,7 @@ export const getSizeForLayout = PixelRatio.getPixelSizeForLayoutSize;
 
 export const getFontSize = PixelRatio.getPixelSizeForLayoutSize;
 
-export const NAVIGATION_HEADER_HEIGHT = getHeight(6);
+export const NAVIGATION_HEADER_HEIGHT = getHeight(8);
 
 export const SCREEN_HORIZONTAL_PADDING = getWidth(8);
 

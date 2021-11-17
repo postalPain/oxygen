@@ -4,18 +4,17 @@ import { SafeAreaView, View, Text, Pressable } from 'react-native';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { openBrowser } from 'utils';
-import env from 'env';
 import { signOut } from 'modules/auth/actions';
 import {
   IconAccountDetails,
   IconHelpCenter,
   IconLogout,
   IconPrivacyPolicy,
-  IconSettings,
   ScreenGradient
 } from 'components';
 import Arrow from './Arrow';
 import styles from './styles';
+import { externalUrls } from '../../constants';
 
 const vocab = vocabulary.get()
 
@@ -48,7 +47,7 @@ const Profile = (
         </Pressable>
         <Pressable
           style={styles.menuItem}
-          onPress={() => openLink(`${env.websiteDomain}/privacy-policy`)}
+          onPress={() => openLink(externalUrls.privacyPolicy)}
         >
           <IconPrivacyPolicy size={22} />
           <Text style={styles.menuItemText}>{vocab.privacyPolicy}</Text>
@@ -56,7 +55,7 @@ const Profile = (
         </Pressable>
         <Pressable
           style={styles.menuItem}
-          onPress={() => openLink('https://support.floos.ae')}
+          onPress={() => openLink(externalUrls.help)}
         >
           <IconHelpCenter size={22} />
           <Text style={styles.menuItemText}>{vocab.helpCenter}</Text>

@@ -41,7 +41,7 @@ export const useKeyboard = (params?: IKeyboardHookParams): IKeyboardHook => {
   const keyboardDidShow = (e) => {
     setKeyboardIsVisible(true);
     setKeyboardHeight(e.endCoordinates.height);
-    setAnimationDuration(50);
+    setAnimationDuration(150);
     onKeyboardShow && onKeyboardShow();
   };
   const keyboardDidHide = () => {

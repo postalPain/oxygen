@@ -2,9 +2,9 @@ import { StatusBar, StyleSheet } from 'react-native';
 import { SCREEN_BOTTOM_PADDING, SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
 import theme from 'config/theme';
 import env from 'env';
-import { getHeight } from 'utils/window';
+import { getHeight, getWidth } from 'utils/window';
 
-const HEADER_HEIGHT = getHeight(21);
+const HEADER_HEIGHT = getHeight(16);
 
 const getHeaderShift = () => {
   const shift = -(HEADER_HEIGHT);
@@ -35,7 +35,7 @@ const useStyles = () => StyleSheet.create({
     left: 0,
     width: '100%',
     height: HEADER_HEIGHT,
-    paddingHorizontal: 24,
+    paddingHorizontal: getWidth(4),
   },
   topPadding: {
     width: '100%',
@@ -45,8 +45,8 @@ const useStyles = () => StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    width: 132,
-    height: 44,
+    width: getWidth(35),
+    height: getHeight(5),
   },
   logo: {
     width: '100%',

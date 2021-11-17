@@ -91,7 +91,6 @@ const usePasswordRequirements = (passwordInputRef: string) => {
                   (label.state === LabelState.default) && styles.requirementDefault,
                   (label.state === LabelState.matched) && styles.requirementMatchedText,
                 ]}
-
               >
                 {label.text}
               </Text>
@@ -136,13 +135,13 @@ const useStyles = () => StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: getWidth(2),
-    marginRight: getWidth(2),
+    marginRight: getWidth(3),
     paddingVertical: getWidth(1),
-    paddingHorizontal: getWidth(2.5),
+    paddingHorizontal: getWidth(4),
     borderRadius: 16,
   },
   requirementText: {
-    fontSize: getWidth(3.5),
+    fontSize: getWidth(4),
   },
   requirementDefault: {
     backgroundColor: theme.colors.passwordRequirementLabelBackgroundDefault,
