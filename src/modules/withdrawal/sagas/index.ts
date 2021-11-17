@@ -19,7 +19,8 @@ function* getBalanceWorker() {
 
   yield put(setBalance({
     ...response.data,
-    withdrawable_wages: Math.floor(response.data.withdrawable_wages) // TODO: Remove once BE starts rounding value
+    withdrawable_wages: Math.floor(response.data.withdrawable_wages), // TODO: Remove once BE starts rounding value
+    earned_wages: Math.floor(response.data.earned_wages)
   }));
 }
 

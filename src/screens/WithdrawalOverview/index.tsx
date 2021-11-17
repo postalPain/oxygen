@@ -6,7 +6,7 @@ import IconDocument from 'components/IconDocument';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import vocab from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import WithdrawalOverviewItem from './WithdrawalOverviewItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import { withdrawal } from 'modules/withdrawal/actions';
 const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => {
   const navigation: StackNavigationProp<any> = useNavigation();
   const dispatch = useDispatch();
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const amount = useSelector(selectAmount);
   const fee = useSelector(selectFee);
@@ -36,11 +37,14 @@ const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalO
 
       <View style={styles.buttonContainer}>
 
-        <Button onPress={() => {
-          dispatch(withdrawal(amount, {
-            onSuccess: () => navigation.navigate(AppScreenNames.WithdrawalConfirmation)
-          }));
-        }}
+        <Button
+          onPress={() => {
+            setDisabled(true);
+            dispatch(withdrawal(amount, {
+              onSuccess: () => navigation.navigate(AppScreenNames.WithdrawalConfirmation)
+            }));
+          }}
+          disabled={disabled}
         >
           {vocab.get().confirmWithdrawal}
         </Button>

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   suggestedTag: {
-    margin: 0.03 * windowDimensions.width
+    marginVertical: 0.03 * windowDimensions.width
   },
   otherAmount: {
     paddingTop: 0.01 * windowDimensions.height,
