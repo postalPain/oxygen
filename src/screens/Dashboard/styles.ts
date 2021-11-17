@@ -1,35 +1,35 @@
 import { MAIN_WRAPPER_PADDING_HORIZONTAL } from 'components/ScreenWrapperMain';
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getHeight, getWidth, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   greetingContainer: {
     alignSelf: 'stretch',
     alignItems: 'center',
-    paddingBottom: 0.1 * windowDimensions.height,
+    paddingBottom: getHeight(10),
   },
   greeting: {
     color: theme.colors.floos1,
-    fontSize: 24,
+    fontSize: getWidth(6),
     letterSpacing: 0.4,
-    paddingBottom: 5
+    paddingBottom: getHeight(1)
   },
   greetingName: {
     fontWeight: 'bold'
   },
   greetingDate: {
-    fontSize: 12,
+    fontSize: getWidth(3),
     fontWeight: 'bold'
   },
   largeTagContainer: {
-    marginBottom: 0.04 * windowDimensions.width,
+    marginBottom: getWidth(4),
   },
   smallTagsContainer: {
     flexDirection: 'row',
   },
   smallTagsDivider: {
-    width: 0.04 * windowDimensions.width
+    width: getWidth(4),
   },
   buttonContainer: {
     flex: 1,
