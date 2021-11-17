@@ -52,10 +52,11 @@ export const clearAuthData = (): IClearAuthDataAction => ({
   type: AuthActions.CLEAR_AUTH_DATA,
 });
 
-export const signIn = (email: string, password: string): ISignInAction => ({
+export const signIn = (email: string, password: string, meta?: IMeta): ISignInAction => ({
   type: AuthActions.SIGN_IN,
   email,
   password,
+  meta,
 });
 
 export const signedIn = (payload: boolean): ISignedInAction => ({

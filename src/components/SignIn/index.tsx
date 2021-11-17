@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import vocab from 'i18n';
 import Button from 'components/Button';
@@ -11,9 +11,14 @@ import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { AuthStoredKeys } from 'modules/auth/types';
 import { ERROR_CODES } from 'services/api/errors';
-import { selectUserEmail } from 'modules/user/selectors';
+import { selectUserEmail, selectVerificationStatus } from 'modules/user/selectors';
 import { getItem } from 'modules/asyncStorage';
+import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
 
+
+const isUserVerified = (status: TVerificationStatus) => {
+  return (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
+};
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -21,7 +26,7 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const error = useSelector(selectSignInError);
-  const signedIn = useSelector(selectSignedIn);
+  const verificationStatus = useSelector(selectVerificationStatus);
   const storedEmail = useSelector(selectUserEmail);
 
   const [email, setEmail] = useState<string>();
@@ -29,14 +34,22 @@ const SignIn = (
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
 
-  useEffect(() => {
-    signedIn && getItem(AuthStoredKeys.firstLoginEmails)
-      .then((firstLoginEmails) => {
-        firstLoginEmails?.includes(email)
-          ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-          : navigation.navigate(AppScreenNames.TabNavigation);
-      });
-  }, [signedIn]);
+  useEffect(
+    () => {
+      if (!verificationStatus) return;
+      if (verificationStatus && !isUserVerified(verificationStatus)) {
+        navigation.navigate(AppScreenNames.UserVerificationPending)
+      } else {
+        getItem(AuthStoredKeys.firstLoginEmails)
+          .then((firstLoginEmails) => {
+            firstLoginEmails?.includes(email)
+              ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
+              : navigation.navigate(AppScreenNames.TabNavigation);
+          });
+      }
+    },
+    [verificationStatus]
+  );
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -58,7 +71,6 @@ const SignIn = (
       setPasswordError(error.message);
     }
   }, [error]);
-
   return (
     <>
       <View>
@@ -100,12 +112,14 @@ const SignIn = (
         </View>
       </View>
       <View style={styles.buttonSection}>
-        <Button onPress={() => {
-          dispatch(signIn(email || storedEmail, password));
-          setEmailError(null);
-          setPasswordError(null);
-        }}
-        >{vocab.get().logIn}
+        <Button
+          onPress={() => {
+            dispatch(signIn(email || storedEmail, password));
+            setEmailError(null);
+            setPasswordError(null);
+          }}
+        >
+          {vocab.get().logIn}
         </Button>
       </View>
     </>

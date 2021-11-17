@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     paddingBottom: getHeight(1)
   },
   greetingName: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   greetingDate: {
     fontSize: getWidth(3),

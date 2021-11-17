@@ -60,9 +60,7 @@ const useStyles = () => StyleSheet.create({
     fontWeight: '600',
   },
   stepText: {
-    paddingTop: (8),
     paddingTop: getHeight(1),
-    paddingBottom: (22),
     paddingBottom: getHeight(1.5),
     color: theme.colors.textDark,
     fontFamily: theme.font.fontFamily,
