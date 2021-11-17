@@ -52,6 +52,7 @@ const SetPassword = ({ route, onSubmit }: ISetPassword) => {
             keyboardType="email-address"
             textContentType="username"
             secure
+            returnKeyType='done'
           />
           {requirementsLabels}
           <InputInfo text={vocab.createSecurePassword} />

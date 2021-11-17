@@ -37,19 +37,18 @@ export const useKeyboard = (params?: IKeyboardHookParams): IKeyboardHook => {
     animationDuration,
     setAnimationDuration,
   ] = React.useState<number>(null);
-  
-  
+
   const keyboardDidShow = (e) => {
     setKeyboardIsVisible(true);
     setKeyboardHeight(e.endCoordinates.height);
-    setAnimationDuration(e.duration);
+    setAnimationDuration(50);
     onKeyboardShow && onKeyboardShow();
   };
   const keyboardDidHide = () => {
     setKeyboardIsVisible(false);
     onKeyboardHide && onKeyboardHide();
   };
-  
+
   React.useEffect(() => {
     setKeyboardDidShowEventListener(
       // @ts-ignore
@@ -68,7 +67,7 @@ export const useKeyboard = (params?: IKeyboardHookParams): IKeyboardHook => {
       keyboardDidShowEventListener && keyboardDidHideEventListener.remove();
     };
   }, []);
-  
+
   return {
     keyboardIsVisible,
     keyboardHeight,

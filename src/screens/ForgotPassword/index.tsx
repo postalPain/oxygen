@@ -30,6 +30,7 @@ const ForgotPassword = (
             placeholder="Email"
             type="email"
             required
+            returnKeyType='done'
           />
         </View>
         <View>
