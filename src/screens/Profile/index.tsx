@@ -47,14 +47,6 @@ const Profile = (
           <Arrow style={styles.arrow} />
         </Pressable>
         <Pressable
-          onPress={() => goTo(AppScreenNames.Settings)}
-          style={styles.menuItem}
-        >
-          <IconSettings size={22} />
-          <Text style={styles.menuItemText}>{vocab.settings}</Text>
-          <Arrow style={styles.arrow} />
-        </Pressable>
-        <Pressable
           style={styles.menuItem}
           onPress={() => openLink(`${env.websiteDomain}/privacy-policy`)}
         >
