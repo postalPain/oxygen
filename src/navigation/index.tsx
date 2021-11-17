@@ -21,7 +21,7 @@ import {
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { getMultipleItems } from 'modules/asyncStorage';
+import { getMultipleItems, setItem, setItems } from 'modules/asyncStorage';
 import { setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
