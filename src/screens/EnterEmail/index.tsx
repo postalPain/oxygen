@@ -57,6 +57,7 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
             autoComplete="email"
             keyboardType="email-address"
             textContentType="username"
+            returnKeyType='done'
           />
           <InputInfo text={vocab.useWorkEmail} />
         </View>

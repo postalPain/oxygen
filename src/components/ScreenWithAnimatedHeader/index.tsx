@@ -64,7 +64,7 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
                 { transform: [{ scaleY: topPaddingScale }] },
               ]}
             />
-            <Animated.View style={[styles.logoContainer,]}>
+            <Animated.View style={styles.logoContainer}>
               <Image source={require('../../../assets/logo_with_name.png')} />
             </Animated.View>
           </Animated.View>

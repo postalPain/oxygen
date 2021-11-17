@@ -73,6 +73,7 @@ const SignIn = (
               type="email"
               required
               error={emailError}
+              returnKeyType='done'
             />
           )}
           <Input
@@ -84,6 +85,7 @@ const SignIn = (
             secure
             required
             error={passwordError}
+            returnKeyType='done'
           />
           <Link
             style={styles.forgotPassword}
