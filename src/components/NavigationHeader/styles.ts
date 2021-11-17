@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { NAVIGATION_HEADER_HEIGHT } from 'utils/screen';
+import { getHeight } from 'utils/window';
 import env from 'env';
 import theme from 'config/theme';
 
@@ -13,9 +14,9 @@ const useStyles = () => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    height: env.ios ? NAVIGATION_HEADER_HEIGHT : (NAVIGATION_HEADER_HEIGHT + 24),
-    paddingBottom: 40,
-    paddingHorizontal: 20,
+    height: env.ios ? NAVIGATION_HEADER_HEIGHT : (NAVIGATION_HEADER_HEIGHT + getHeight(4)),
+    paddingBottom: getHeight(2),
+    paddingHorizontal: getHeight(2),
   },
   headerLeft: {
     flex: 1,
@@ -25,7 +26,7 @@ const useStyles = () => StyleSheet.create({
   },
   title: {
     color: theme.colors.textDark,
-    fontSize: 20,
+    fontSize: getHeight(2.5),
     letterSpacing: .5,
     textAlign: 'center',
   },
@@ -34,7 +35,7 @@ const useStyles = () => StyleSheet.create({
   },
   headerLink: {
     color: theme.colors.floos1,
-    fontSize: 20,
+    fontSize: getHeight(2.5),
   },
 });
 

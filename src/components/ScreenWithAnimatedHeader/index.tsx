@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import useKeyboard from 'utils/useKeyboard';
 import env from 'env';
+import { getHeight } from 'utils/window';
 import useStyles, { HEADER_SHIFT } from './styles';
 
 
@@ -44,7 +45,7 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
     <SafeAreaView style={styles.safeArea}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <KeyboardAvoidingView
-          keyboardVerticalOffset={10}
+          keyboardVerticalOffset={getHeight(1.5)}
           contentContainerStyle={styles.keyboardAvoidingView}
           behavior={env.ios ? 'padding' : 'padding'}
           style={styles.screen}
@@ -72,7 +73,7 @@ const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ ch
             style={[
               styles.headerPlaceholder,
               { transform: [{ scaleY: topPaddingScale }] },
-              { marginTop: keyboardIsVisible ? 0 : 10, },
+              { marginTop: keyboardIsVisible ? 0 : getHeight(1.5), },
             ]}
           />
           <Animated.View

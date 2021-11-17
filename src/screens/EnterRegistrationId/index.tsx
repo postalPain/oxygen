@@ -8,10 +8,10 @@ import {
   Button,
   InputInfo,
 } from 'components';
-import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSignUpData } from '../../modules/auth/selectors';
+import { selectSignUpData } from 'modules/auth/selectors';
 import { setSignUpData } from 'modules/auth/actions';
+import useStyles from './styles';
 
 
 const vocab = vocabulary.get();
@@ -23,7 +23,6 @@ const EnterRegistrationId = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const { registration_id } = useSelector(selectSignUpData);
-  // const errors = useSelector(selectSignUpErrors);
   const [inputValue, setInputValue] = useState(registration_id);
   const [inputError, setInputError] = useState('');
   useEffect(
