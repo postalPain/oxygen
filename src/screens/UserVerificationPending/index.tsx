@@ -10,10 +10,11 @@ import { checkVerification, userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
 import { selectVerificationStatus } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
+import { removeHeader } from 'services/api/request';
 import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
-import { removeHeader } from '../../services/api/request';
+import { getHeight } from 'utils/window';
 
 
 const vocab = vocabulary.get();
@@ -83,7 +84,7 @@ const UserVerificationPending = (
                 {vocab.weSentEmail}
               </Text>
             )}
-            <View style={{ height: (emailVerificationState === 'verified') ? 42 : 22 }} />
+            <View style={{ height: (emailVerificationState === 'verified') ? getHeight(6) : getHeight(2) }} />
           </View>
           <View style={styles.step}>
             <View
@@ -97,7 +98,7 @@ const UserVerificationPending = (
             <Text style={styles.stepTitle}>
               {vocab.employeeVerification}
             </Text>
-            {(status === VerificationStatuses.email_verified)
+            {(emailVerificationState === 'verified') && (employerVerificationState === 'pending')
               ? (
                 <>
                   <View style={styles.textHighlightedWrapper}>
