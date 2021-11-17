@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { SCREEN_BOTTOM_PADDING } from 'utils/screen';
+import { getHeight, getWidth } from 'utils/window';
 
 const useStyles = () => StyleSheet.create({
   safeArea: {
@@ -16,7 +17,7 @@ const useStyles = () => StyleSheet.create({
     paddingBottom: SCREEN_BOTTOM_PADDING,
   },
   steps: {
-    paddingTop: '35%',
+    paddingTop: getHeight(12),
     paddingLeft: '10%',
     width: '73%',
   },
@@ -24,14 +25,13 @@ const useStyles = () => StyleSheet.create({
   progressBar: {
     alignItems: 'center',
     position: 'absolute',
-    top: 8,
-    left: -46,
-    width: 26,
+    top: getHeight(1.2),
+    left: -getWidth(11.5),
+    width: getWidth(6),
     height: '100%',
   },
   progressBarVerified: {
-    top: 4,
-    height: '115%',
+    height: '100%',
   },
   line: {
     position: 'absolute',
@@ -40,39 +40,41 @@ const useStyles = () => StyleSheet.create({
     backgroundColor: theme.colors.floos1,
   },
   stepTitle: {
-    marginBottom: 12,
+    marginBottom: getHeight(1.5),
     fontFamily: theme.font.fontFamily,
-    fontSize: 16,
+    fontSize: getWidth(4),
     fontWeight: '600',
     letterSpacing: .5,
-    lineHeight: 28,
+    lineHeight: getHeight(4),
   },
   textHighlightedWrapper: {
     alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 8,
+    paddingHorizontal: getWidth(3),
+    paddingVertical: getHeight(.5),
+    borderRadius: getHeight(.8),
     backgroundColor: '#F3ECFF',
   },
   textHighlighted: {
     color: theme.colors.floos2,
-    fontSize: 16,
+    fontSize: getWidth(4),
     fontWeight: '600',
   },
   stepText: {
-    paddingTop: 8,
-    paddingBottom: 22,
+    paddingTop: (8),
+    paddingTop: getHeight(1),
+    paddingBottom: (22),
+    paddingBottom: getHeight(1.5),
     color: theme.colors.textDark,
     fontFamily: theme.font.fontFamily,
-    fontSize: 16,
-    letterSpacing: .6,
-    lineHeight: 26,
+    fontSize: getWidth(4),
+    letterSpacing: .5,
+    lineHeight: getHeight(3.5),
   },
   infoContainer: {},
   infoText: {
     color: theme.colors.textDark,
-    fontSize: 16,
-    lineHeight: 28,
+    fontSize: getWidth(4),
+    lineHeight: getHeight(3.5),
     letterSpacing: .5,
   },
   infoTextCentered: {
