@@ -30,9 +30,13 @@ function* getUserInfoWorker() {
     yield put(errorNotification({ text: error.message }));
     return;
   }
+
+  // TODO: Remove after BE returns actual fields
+  const first_name = response.data.email === 'hello+jane@floos.ae' ? 'Jane' : response.data.email.split('@')?.[0];
+
   const mockedUserData: IUserInfo = {
     ...response.data,
-    first_name: response.data.email.split('@')[0], // TODO: Remove after BE returns actual fields
+    first_name,
     last_name: '',
   };
   yield put(actions.userSetInfo(mockedUserData));

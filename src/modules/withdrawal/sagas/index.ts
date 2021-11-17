@@ -6,6 +6,7 @@ import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
 import { errorNotification } from 'modules/notifications/actions';
 import { getBalance, setBalance, setFee, setSuggestedValues, setWithdrawalTransaction } from '../actions';
 import { ITransaction } from 'modules/transactions/types';
+import { getTransactions } from 'modules/transactions/actions';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -61,6 +62,7 @@ function* withdrawalWorker(action: IWithdrawalAction) {
   yield put(setWithdrawalTransaction(response.data));
   yield action.meta.onSuccess?.();
   yield put(getBalance());
+  yield put(getTransactions());
 }
 
 export default function* withdrawalSagas(): SagaIterator {
