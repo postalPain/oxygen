@@ -10,7 +10,7 @@ export interface IPaymentState {
   transaction: ITransaction;
 }
 
-export const initialState: IPaymentState = {
+export const withdrawalDefaultState: IPaymentState = {
   balance: {} as IBalance,
   amount: 0,
   suggestedValues: null,
@@ -19,7 +19,7 @@ export const initialState: IPaymentState = {
 };
 
 const withdrawalReducer = (
-  state = initialState,
+  state = withdrawalDefaultState,
   action: TWithdrawalAction,
 ): IPaymentState => {
   switch (action.type) {

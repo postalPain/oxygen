@@ -1,7 +1,6 @@
 import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { windowDimensions } from 'utils/window';
 import { ScreenGradient } from 'components';
 

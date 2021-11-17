@@ -18,7 +18,7 @@ export const defaultSignUpData = {
   password: '',
 };
 
-export const initialState: IAuthState = {
+export const authDefaultState: IAuthState = {
   authData: defaultAuthData,
   signUpErrors: defaultSignUpErrors,
   signInError: null,
@@ -28,7 +28,7 @@ export const initialState: IAuthState = {
 };
 
 const authReducer = (
-  state = initialState,
+  state = authDefaultState,
   action: TAuthAction,
 ): IAuthState => {
   switch (action.type) {
@@ -97,7 +97,7 @@ const authReducer = (
     }
     case AuthActions.SIGN_OUT_SUCCESS: {
       return {
-        ...initialState,
+        ...authDefaultState,
       };
     }
     default:
