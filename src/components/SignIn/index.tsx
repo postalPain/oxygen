@@ -17,9 +17,7 @@ import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
 
 
 const isUserVerified = (status: TVerificationStatus) => {
-  const a = (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
-  console.log('a ===>>> ', a);
-  return a;
+  return (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
 };
 
 const SignIn = (
@@ -43,7 +41,7 @@ const SignIn = (
         if (!verificationStatus || (verificationStatus === VerificationStatuses._noStatus)) {
           return;
         }
-        if (!isUserVerified(verificationStatus)) { // this is fired
+        if (!isUserVerified(verificationStatus)) {
           navigation.navigate(AppScreenNames.UserVerificationPending)
         } else {
           getItem(AuthStoredKeys.firstLoginEmails)

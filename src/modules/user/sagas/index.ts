@@ -32,7 +32,6 @@ function* getUserInfoWorker() {
   }
   const mockedUserData: IUserInfo = {
     ...response.data,
-    verification_status: 'activated',
     first_name: response.data.email.split('@')[0], // TODO: Remove after BE returns actual fields
     last_name: '',
   };

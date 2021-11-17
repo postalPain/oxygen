@@ -60,7 +60,6 @@ const Navigation = () => {
 
   useEffect(
     () => {
-      setItem(AuthStoredKeys.firstLoginEmails, 'alina@stryber.com');
       getMultipleItems([
         AuthStoredKeys.access_token,
         AuthStoredKeys.access_ttl,
