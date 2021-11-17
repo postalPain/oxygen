@@ -1,9 +1,8 @@
 import axios from 'axios';
 import apiUrls, { BASE_URL } from 'config/apiUrls';
 import { getHeaderLanguage } from 'i18n/utils';
-import { setAuthData } from 'modules/auth/actions';
 import { selectAuthData } from 'modules/auth/selectors';
-import store, { getState } from 'modules/store';
+import { getState } from 'modules/store';
 import moment from 'moment';
 import api from '.';
 import { handleBackendError } from './errors';
@@ -34,6 +33,11 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
   if (callback) callback();
 };
 
+export const setToken = (access_token) => addHeader({
+  name: 'Authorization',
+  value: `Bearer ${access_token}`,
+});
+
 const isTokenValid = (ttl: string) => {
   const ttl_ts = Number(moment.parseZone(ttl).add(getUTCOffset(), 'm').format('x'));
   const now_ts = Number(Date.now());
@@ -50,14 +54,12 @@ request.interceptors.request.use(
           refresh_token: authData.refresh_token
         });
         token = response.data.access_token;
-        store.dispatch(setAuthData(response.data));
+        setToken(response.data);
       }
     }
-    config.headers.Authorization = token ? `Bearer ${token}` : '';
     return config;
   },
   (error) => {
-    // reportToSentryApiError(error.response);
     return Promise.reject(error.response.data);
   },
 );
