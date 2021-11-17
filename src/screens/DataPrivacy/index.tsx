@@ -8,13 +8,16 @@ import {
   AppScreenNames,
 } from 'navigation/types';
 import { Text } from '@stryberventures/stryber-react-native-ui-components';
-import { Button, ScreenWithAnimatedHeader } from 'components';
 import { signUp } from 'modules/auth/actions';
 import { selectSignUpData } from 'modules/auth/selectors';
 import { AuthStoredKeys } from 'modules/auth/types';
 import { checkVerification } from 'modules/user/actions';
 import { getItem, setItem } from 'modules/asyncStorage';
+import { openBrowser } from 'utils';
+import { getWidth } from 'utils/window';
+import env from 'env';
 import theme from 'config/theme';
+import { Button, Link, ScreenWithAnimatedHeader } from 'components';
 import useStyles from './styles';
 
 
@@ -66,7 +69,7 @@ const DataPrivacy = (
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.heading}>
-            {vocab.dataPrivacy}
+            {vocab.dataPolicy}
           </Text>
           <Text style={styles.text}>
             {vocab.needConsent}
@@ -75,7 +78,7 @@ const DataPrivacy = (
         <View style={styles.consentBlock}>
           <View style={styles.checkboxWrapper}>
             <Checkbox
-              size={22}
+              size={getWidth(5.5)}
               fillColor={theme.colors.floos4}
               unfillColor={theme.colors.screenBackgroundColorLight}
               iconStyle={styles.checkbox}
@@ -88,9 +91,12 @@ const DataPrivacy = (
             <Text style={styles.checkboxLabel}>
               {vocab.iHaveRead}
             </Text>
-            <Text style={styles.link}>
-              {vocab.dataPrivacy.toLowerCase()}
-            </Text>
+            <Link
+              onPress={() => openBrowser(`${env.websiteDomain}/privacy-policy`)}
+              style={styles.link}
+            >
+              {vocab.dataPolicy.toLowerCase()}
+            </Link>
             <Text style={styles.checkboxLabel}>
               {vocab.guidelines}
             </Text>

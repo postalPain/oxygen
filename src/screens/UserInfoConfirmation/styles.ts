@@ -5,7 +5,7 @@ import {
   SCREEN_HORIZONTAL_PADDING,
   NAVIGATION_HEADER_HEIGHT,
 } from 'utils/screen';
-import env from 'env';
+import { getHeight, getWidth } from 'utils/window';
 
 
 const useStyles = () => StyleSheet.create({
@@ -19,47 +19,49 @@ const useStyles = () => StyleSheet.create({
     paddingTop: NAVIGATION_HEADER_HEIGHT,
   },
   header: {
-    marginBottom: 20,
+    marginBottom: getHeight(3),
   },
   title: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 24,
-    paddingLeft: 12,
+    marginTop: getHeight(2.5),
+    paddingLeft: getWidth(2),
   },
   headerLabel: {
-    marginLeft: 16,
+    marginLeft: getWidth(4.5),
     color: theme.colors.textDark,
-    fontSize: 18,
+    fontSize: getWidth(4.5),
+    letterSpacing: .5,
   },
   headerText: {
-    marginTop: 20,
-    paddingLeft: 50,
-    paddingRight: 40,
+    marginTop: getHeight(2.5),
+    paddingLeft: getWidth(11.8),
+    paddingRight: getWidth(8),
     color: theme.colors.textDark,
-    fontSize: 18,
+    fontSize: getWidth(4.5),
     letterSpacing: .5,
+    lineHeight: getHeight(3.5)
   },
   footer: {
     flex: 1,
-    marginTop: 30,
+    marginTop: getHeight(3.5),
     justifyContent: 'space-between',
     marginBottom: SCREEN_BOTTOM_PADDING,
   },
   contactUs: {
-    marginBottom: 40,
-    paddingHorizontal: 45,
+    marginBottom: getHeight(4),
+    paddingHorizontal: getHeight(5),
   },
   contactUsText: {
     color: theme.colors.textDark,
-    fontSize: 18,
+    fontSize: getWidth(4.5),
     letterSpacing: .5,
-    lineHeight: 28,
+    lineHeight: getHeight(3),
   },
   contactUsLink: {
-    fontSize: 18,
+    fontSize: getWidth(4.5),
     textDecorationLine: 'underline',
-    lineHeight: 28,
+    lineHeight: getHeight(3),
   },
 });
 
