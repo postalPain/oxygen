@@ -24,7 +24,7 @@ function* getBalanceWorker() {
 }
 
 function* getSuggestedValuesWorker() {
-  let response: TSuggestedValues;
+  let response: IResponse<TSuggestedValues>;
   try {
     response = yield api.employees.getSuggestedValues();
   } catch (error) {
@@ -32,7 +32,7 @@ function* getSuggestedValuesWorker() {
     return;
   }
 
-  yield put(setSuggestedValues(response));
+  yield put(setSuggestedValues(response.data));
 }
 
 function* getFeeWorker() {

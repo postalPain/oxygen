@@ -38,7 +38,7 @@ const getTransactions = () => request.get(apiUrls.getTransactions);
 
 export type TSuggestedValues = number[];
 
-const getSuggestedValues = (): Promise<TSuggestedValues> => request.get('employees/withdraw/suggested-values');
+const getSuggestedValues = (): Promise<IResponse<TSuggestedValues>> => request.get('employees/withdraw/suggested-values');
 
 export type TFee = number;
 
