@@ -31,8 +31,11 @@ const Dashboard: React.FC<any> = () => {
 
   useEffect(() => {
     dispatch(getBalance());
-    dispatch(getSuggestedValues());
   }, []);
+
+  useEffect(() => {
+    balance && !suggestedValues && dispatch(getSuggestedValues()); // BE produces an error when requesting values before the balance
+  }, [balance]);
 
   useEffect(() => {
     isUserBlocked && setWithdrawalDisable(vocab.get().withdrawalErrorBlocked);

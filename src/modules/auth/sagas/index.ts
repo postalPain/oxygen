@@ -22,7 +22,7 @@ import { removeItems, setItems } from 'modules/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
 import { ERROR_CODES, IError } from 'services/api/errors';
-import { addHeader, removeHeader } from 'services/api/request';
+import { setAuthHeader, removeHeader } from 'services/api/request';
 
 
 function* handleError (error: IError) {
@@ -59,10 +59,7 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
-  yield call(addHeader, {
-    name: 'Authorization',
-    value: `Bearer ${response.data.access_token}`,
-  });
+  yield setAuthHeader(response.data.access_token);
   yield processUserData({ email: action.payload.email });
   yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
@@ -79,10 +76,7 @@ function* signInWorker(action: ISignInAction) {
     yield put(authActions.setSignInError(error));
     return;
   }
-  yield call(addHeader, {
-    name: 'Authorization',
-    value: `Bearer ${response.data.access_token}`,
-  });
+  setAuthHeader(response.data.access_token);
   yield processUserData({ email: action.email });
   yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));

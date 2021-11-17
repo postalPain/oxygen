@@ -19,12 +19,13 @@ function* getBalanceWorker() {
 
   yield put(setBalance({
     ...response.data,
-    withdrawable_wages: Math.floor(response.data.withdrawable_wages) // TODO: Remove once BE starts rounding value
+    withdrawable_wages: Math.floor(response.data.withdrawable_wages), // TODO: Remove once BE starts rounding value
+    earned_wages: Math.floor(response.data.earned_wages)
   }));
 }
 
 function* getSuggestedValuesWorker() {
-  let response: TSuggestedValues;
+  let response: IResponse<TSuggestedValues>;
   try {
     response = yield api.employees.getSuggestedValues();
   } catch (error) {
@@ -32,7 +33,7 @@ function* getSuggestedValuesWorker() {
     return;
   }
 
-  yield put(setSuggestedValues(response));
+  yield put(setSuggestedValues(response.data));
 }
 
 function* getFeeWorker() {

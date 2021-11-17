@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { getItem, setItem } from 'modules/asyncStorage';
@@ -14,13 +14,18 @@ import {
   UserInformation,
 } from 'components';
 import useStyles from './styles';
+import { userGetInfo } from 'modules/user/actions';
 
 
 const vocab = vocabulary.get();
 
 const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.UserInfoConfirmation>) => {
+  const dispatch = useDispatch();
   const styles = useStyles();
   const userEmail = useSelector(selectUserEmail);
+  useEffect(() => {
+    dispatch(userGetInfo());
+  }, []);
   const onPress = async () => {
     const firstLoginEmails = await getItem(AuthStoredKeys.firstLoginEmails);
     await setItem(AuthStoredKeys.firstLoginEmails, firstLoginEmails.replace(userEmail, ''));
@@ -53,7 +58,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
         </View>
       </View>
     </SafeAreaView>
-  )
+  );
 };
 
 export default UserInfoConfirmation;
