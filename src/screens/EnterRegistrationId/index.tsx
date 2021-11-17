@@ -54,6 +54,7 @@ const EnterRegistrationId = (
             value={inputValue}
             onChange={handleOnChange}
             error={inputError}
+            returnKeyType='done'
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>

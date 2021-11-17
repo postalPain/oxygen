@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import vocabulary from 'i18n';
 import theme from 'config/theme';
 import IconCheck from 'components/IconCheck';
+import { getHeight, getWidth } from './window';
 
 
 const vocab = vocabulary.get();
@@ -15,10 +16,10 @@ export enum LabelNames {
   oneSpecialChar = 'oneSpecialChar',
 }
 export type LabelNameTypes = LabelNames.eightOrMoreChars
-  | LabelNames.oneLowercase
-  | LabelNames.oneUppercase
-  | LabelNames.oneNumericChar
-  | LabelNames.oneSpecialChar;
+| LabelNames.oneLowercase
+| LabelNames.oneUppercase
+| LabelNames.oneNumericChar
+| LabelNames.oneSpecialChar;
 
 export enum LabelState {
   default= 'default',
@@ -67,7 +68,7 @@ const usePasswordRequirements = (passwordInputRef: string) => {
   const styles = useStyles();
   const [isPasswordMatched, setIsPasswordMatched] = useState<boolean>(false);
   const [requirementsLabels, setRequirementsLabels] = useState<ILabel[]>(defaultLabelsList);
-  
+
   const getLabelsComponents = () => {
     return (
       <View style={styles.requirements}>
@@ -90,7 +91,7 @@ const usePasswordRequirements = (passwordInputRef: string) => {
                   (label.state === LabelState.default) && styles.requirementDefault,
                   (label.state === LabelState.matched) && styles.requirementMatchedText,
                 ]}
-                
+
               >
                 {label.text}
               </Text>
@@ -100,7 +101,7 @@ const usePasswordRequirements = (passwordInputRef: string) => {
       </View>
     );
   };
-  
+
   useEffect(
     () => {
       const newPassword = passwordInputRef;
@@ -114,7 +115,7 @@ const usePasswordRequirements = (passwordInputRef: string) => {
     },
     [passwordInputRef]
   );
-  
+
   return {
     isPasswordMatched,
     requirementsLabels: getLabelsComponents(),
@@ -128,20 +129,20 @@ const useStyles = () => StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
     width: '100%',
-    marginTop: 14,
+    marginTop: getHeight(1.5),
     marginBottom: 0,
   },
   requirement: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
-    marginRight: 8,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
+    marginBottom: getWidth(2),
+    marginRight: getWidth(2),
+    paddingVertical: getWidth(1),
+    paddingHorizontal: getWidth(2.5),
     borderRadius: 16,
   },
   requirementText: {
-    fontSize: 16,
+    fontSize: getWidth(3.5),
   },
   requirementDefault: {
     backgroundColor: theme.colors.passwordRequirementLabelBackgroundDefault,
@@ -151,7 +152,7 @@ const useStyles = () => StyleSheet.create({
     backgroundColor: theme.colors.passwordRequirementLabelBackgroundMatched,
   },
   requirementMatchedText: {
-    marginLeft: 4,
+    marginLeft: getWidth(1),
     color: theme.colors.passwordRequirementLabelTextMatched,
   },
 });

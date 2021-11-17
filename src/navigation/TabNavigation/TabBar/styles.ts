@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
+import { getHeight, getWidth } from 'utils/window';
 
-export const TAB_BAR_HEIGHT = 100;
+export const TAB_BAR_HEIGHT = getHeight(10);
 
 const useStyles = () => StyleSheet.create({
   tabBarContainer: {
     height: TAB_BAR_HEIGHT,
-    paddingHorizontal: 20,
+    paddingHorizontal: getWidth(5),
     borderTopWidth: 1,
     borderTopColor: theme.colors.shade1,
     backgroundColor: theme.colors.screenBackgroundColorLight,
@@ -17,11 +18,11 @@ const useStyles = () => StyleSheet.create({
   iconWrapper: {
     justifyContent: 'space-around',
     flexDirection: 'row',
-    paddingTop: 8,
+    paddingTop: getHeight(1),
   },
   label: {
-    marginTop: 4,
-    fontSize: 12,
+    marginTop: getHeight(0.5),
+    fontSize: getWidth(3),
   }
 });
 
