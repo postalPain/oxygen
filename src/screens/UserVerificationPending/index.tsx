@@ -26,6 +26,7 @@ const UserVerificationPending = (
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const status = useSelector(selectVerificationStatus);
+  console.log('status ==>>', status);
   const emailVerificationState = (status === VerificationStatuses.new) ? 'pending' : 'verified';
   const employerVerificationState = (status === VerificationStatuses.employer_not_verified)
     ? 'rejected'
@@ -45,7 +46,7 @@ const UserVerificationPending = (
     }));
   };
   useEffect(() => {
-    getItem(AuthStoredKeys.email).then((_email) => setEmail(_email));
+    getItem(AuthStoredKeys.email).then((_email) => setEmail(_email)).catch(err => console.log());
     checkStatus();
   }, []);
   useInterval(() => {

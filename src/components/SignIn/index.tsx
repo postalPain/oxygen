@@ -7,7 +7,7 @@ import Link from 'components/Link';
 import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from 'modules/auth/actions';
+import { signedIn, signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { AuthStoredKeys } from 'modules/auth/types';
 import { ERROR_CODES } from 'services/api/errors';
@@ -17,7 +17,9 @@ import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
 
 
 const isUserVerified = (status: TVerificationStatus) => {
-  return (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
+  const a = (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
+  console.log('a ===>>> ', a);
+  return a;
 };
 
 const SignIn = (
@@ -28,6 +30,7 @@ const SignIn = (
   const error = useSelector(selectSignInError);
   const verificationStatus = useSelector(selectVerificationStatus);
   const storedEmail = useSelector(selectUserEmail);
+  const signedIn = useSelector(selectSignedIn);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -36,19 +39,23 @@ const SignIn = (
 
   useEffect(
     () => {
-      if (!verificationStatus) return;
-      if (verificationStatus && !isUserVerified(verificationStatus)) {
-        navigation.navigate(AppScreenNames.UserVerificationPending)
-      } else {
-        getItem(AuthStoredKeys.firstLoginEmails)
-          .then((firstLoginEmails) => {
-            firstLoginEmails?.includes(email)
-              ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-              : navigation.navigate(AppScreenNames.TabNavigation);
-          });
+      if (!!signedIn) {
+        if (!verificationStatus || (verificationStatus === VerificationStatuses._noStatus)) {
+          return;
+        }
+        if (!isUserVerified(verificationStatus)) { // this is fired
+          navigation.navigate(AppScreenNames.UserVerificationPending)
+        } else {
+          getItem(AuthStoredKeys.firstLoginEmails)
+            .then((firstLoginEmails) => {
+              firstLoginEmails?.includes(email)
+                ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
+                : navigation.navigate(AppScreenNames.TabNavigation);
+            });
+        }
       }
     },
-    [verificationStatus]
+    [signedIn, verificationStatus]
   );
 
   useEffect(() => {
