@@ -25,7 +25,7 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: 2000,
+    paddingBottom: getHeight(3),
   },
   header: {
     alignItems: 'center',
