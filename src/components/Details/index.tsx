@@ -27,7 +27,10 @@ const Details = (
   return (
     <View style={[styles.details, containerStyle]}>
       {data.map(({ label, text, width = '100%' }) => (
-        <View style={[styles.item, itemStyles, { width }]}>
+        <View
+          key={label}
+          style={[styles.item, itemStyles, { width }]}
+        >
           <Text style={[styles.label, labelStyles]}>
             {label}
           </Text>

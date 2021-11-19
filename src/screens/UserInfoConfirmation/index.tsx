@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
@@ -15,6 +15,8 @@ import {
 } from 'components';
 import useStyles from './styles';
 import { userGetInfo } from 'modules/user/actions';
+import { openBrowser } from 'utils';
+import { externalUrls } from '../../constants';
 
 
 const vocab = vocabulary.get();
@@ -48,10 +50,13 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
         </View>
         <UserInformation />
         <View style={styles.footer}>
-          <View style={styles.contactUs}>
+          <Pressable
+            onPress={() => openBrowser(externalUrls.help)}
+            style={styles.contactUs}
+          >
             <Text style={styles.contactUsText}>{vocab.ifNotAccurate}</Text>
             <Link style={styles.contactUsLink}>{vocab.contactUsImmediately}</Link>
-          </View>
+          </Pressable>
           <Button onPress={onPress}>
             {vocab.continue}
           </Button>
