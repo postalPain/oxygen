@@ -1,9 +1,9 @@
 import React from 'react';
 import { Image, Text, View, } from 'react-native';
 import vocabulary from 'i18n';
-import useStyles from './styles';
-import { Button } from 'components';
 import ButtonWithdraw from 'components/ButtonWithdraw';
+import useStyles from './styles';
+import { getHeight, getWidth } from 'utils/window';
 
 
 const vocab = vocabulary.get();
@@ -25,8 +25,7 @@ const NoTransactions: React.FC<INoTransactionsProps> = () => {
         <Image
           source={require('../../../../assets/onboarding_03.png')}
           style={{
-            width: 149,
-            height: 130,
+            height: getHeight(16),
             opacity: .3,
           }}
           resizeMode="contain"
