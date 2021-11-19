@@ -15,6 +15,7 @@ import {
 } from 'components';
 import useStyles from './styles';
 import { userGetInfo } from 'modules/user/actions';
+import { deleteFromStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
 
 
 const vocab = vocabulary.get();
@@ -23,14 +24,16 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
   const dispatch = useDispatch();
   const styles = useStyles();
   const userEmail = useSelector(selectUserEmail);
+
   useEffect(() => {
     dispatch(userGetInfo());
   }, []);
+
   const onPress = async () => {
-    const firstLoginEmails = await getItem(AuthStoredKeys.firstLoginEmails);
-    await setItem(AuthStoredKeys.firstLoginEmails, firstLoginEmails.replace(userEmail, ''));
+    await deleteFromStoredLoginEmails(userEmail);
     navigation.navigate(AppScreenNames.TabNavigation);
   };
+
   return (
     <SafeAreaView style={styles.screen}>
       <ScreenGradient />
