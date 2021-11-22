@@ -7,13 +7,12 @@ import Link from 'components/Link';
 import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { signedIn, signIn } from 'modules/auth/actions';
+import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
-import { AuthStoredKeys } from 'modules/auth/types';
 import { ERROR_CODES } from 'services/api/errors';
 import { selectUserEmail, selectVerificationStatus } from 'modules/user/selectors';
-import { getItem } from 'modules/asyncStorage';
 import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
+import { existsInStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
 
 
 const isUserVerified = (status: TVerificationStatus) => {
@@ -50,12 +49,9 @@ const SignIn = (
         if (!isUserVerified(verificationStatus)) {
           navigation.navigate(AppScreenNames.UserVerificationPending);
         } else {
-          getItem(AuthStoredKeys.firstLoginEmails)
-            .then((firstLoginEmails) => {
-              firstLoginEmails?.includes(email)
-                ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-                : navigation.navigate(AppScreenNames.TabNavigation);
-            });
+          existsInStoredLoginEmails(email).then(exists => exists
+            ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
+            : navigation.navigate(AppScreenNames.TabNavigation));
         }
       }
     },

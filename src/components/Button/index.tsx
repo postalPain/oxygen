@@ -10,20 +10,21 @@ export interface IButton {
   secondary?: boolean;
   styles?: ViewStyle;
   onPress?: () => void;
+  onPressDisabled?: () => void;
   Icon?: React.ReactNode;
 }
 
 const Button = (props: IButton) => {
-  const { secondary = false, onPress } = props;
+  const { secondary = false, disabled, onPress, onPressDisabled } = props;
   return (
     <View style={[styles.button, props.styles]}>
       <LinearGradient
-        colors={props.disabled ? [theme.colors.shade1, theme.colors.shade1] : ['#935EBF', '#B15F8F']}
+        colors={disabled ? [theme.colors.shade1, theme.colors.shade1] : ['#935EBF', '#B15F8F']}
         locations={[0, 1]}
         useAngle
         style={styles.linearGradient}
       >
-        <Pressable onPress={onPress}>
+        <Pressable onPress={disabled ? onPressDisabled : onPress}>
           <View style={[styles.innerSecondary, {
             backgroundColor: secondary ? theme.colors.screenBackgroundColorLight : 'transparent'
           }]}

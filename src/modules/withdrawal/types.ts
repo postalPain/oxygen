@@ -50,4 +50,4 @@ export interface ISetWithdrawalTransactionAction {
 }
 
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction
-| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction;
+| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction;

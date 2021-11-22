@@ -3,7 +3,6 @@ import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { getItem, setItem } from 'modules/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { AuthStoredKeys } from 'modules/auth/types';
 import {
@@ -17,6 +16,7 @@ import useStyles from './styles';
 import { userGetInfo } from 'modules/user/actions';
 import { openBrowser } from 'utils';
 import { externalUrls } from '../../constants';
+import { deleteFromStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
 
 
 const vocab = vocabulary.get();
@@ -29,8 +29,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
     dispatch(userGetInfo());
   }, []);
   const onPress = async () => {
-    const firstLoginEmails = await getItem(AuthStoredKeys.firstLoginEmails);
-    await setItem(AuthStoredKeys.firstLoginEmails, firstLoginEmails.replace(userEmail, ''));
+    await deleteFromStoredLoginEmails(userEmail);
     navigation.navigate(AppScreenNames.TabNavigation);
   };
   return (
