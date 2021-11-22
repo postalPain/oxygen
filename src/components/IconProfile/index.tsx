@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
-import theme from 'config/theme';
 
 const xml = (color: string) => `
   <svg

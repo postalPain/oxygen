@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
 import theme from 'config/theme';
+import { getHeight, getWidth } from 'utils/window';
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 20,
+    paddingVertical: getHeight(2.2),
     borderBottomWidth: .5,
     borderBottomColor: theme.colors.shade1,
   },
@@ -24,14 +25,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   menuItemText: {
-    marginLeft: 20,
-    fontSize: 20,
+    marginLeft: getWidth(5),
+    fontSize: getWidth(5),
     letterSpacing: .5,
+  },
+  menuItemTextHighlighted: {
+    color: theme.colors.floos3,
   },
   arrow: {
     position: 'absolute',
     top: '100%',
-    right: 8,
+    right: getWidth(2),
   },
 });
 

@@ -1,11 +1,12 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import { AppScreenNames } from 'navigation/types';
+import vocab from 'i18n';
+import { getHeight } from 'utils/window';
 import { AccountDetails, Profile, Settings, } from 'screens';
 import { NavigationHeader } from 'components';
-import vocab from 'i18n';
-import { StyleSheet } from 'react-native';
-import theme from '../../config/theme';
+import theme from 'config/theme';
 
 
 const Stack = createNativeStackNavigator();
@@ -59,8 +60,8 @@ const ProfileStack = () => {
 const styles = StyleSheet.create({
   header: {
     alignItems: 'flex-end',
-    height: 80,
-    paddingBottom: 28,
+    height: getHeight(12),
+    paddingBottom: getHeight(4),
     // TODO fix shadow, remove border
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.shade1,

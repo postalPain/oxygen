@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
 import theme from 'config/theme';
-import { windowDimensions } from 'utils/window';
+import { getWidth } from 'utils/window';
 
 const xml = (color: string) => `
   <svg
@@ -28,7 +28,7 @@ const xml = (color: string) => `
 `;
 
 export default ({
-  size = 0.05 * windowDimensions.width,
+  size = getWidth(5),
   color = theme.colors.floos3,
 }) => {
   return (

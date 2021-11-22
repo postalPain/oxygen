@@ -4,8 +4,10 @@ import { IconCheck, IconCross } from 'components';
 import useStyles from './styles';
 
 
+export type TFeStatus = 'pending' | 'verified' | 'rejected';
+
 interface IStatusIcon {
-  status: 'pending' | 'verified' | 'rejected';
+  status: TFeStatus;
 }
 
 const StatusIcon = ({ status }: IStatusIcon) => {

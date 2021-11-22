@@ -1,64 +1,40 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { SCREEN_BOTTOM_PADDING } from 'utils/screen';
+import { getHeight, getWidth } from 'utils/window';
+
 
 const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
   },
   header: {
-    flex: 1,
     justifyContent: 'flex-end',
     width: '100%',
-    height: 60,
-    paddingHorizontal: 70,
+    height: getHeight(15),
+    paddingHorizontal: getWidth(16),
   },
   headerText: {
-    fontSize: 22,
+    fontSize: getWidth(6),
     letterSpacing: .5,
-    lineHeight: 30,
+    lineHeight: getHeight(4),
     textAlign: 'center',
   },
   infoBlock: {
     alignItems: 'center',
     flex: 2,
-    paddingHorizontal: 50,
-    paddingTop: 40,
+    paddingHorizontal: getWidth(14),
+    paddingTop: getHeight(3),
   },
   infoText: {
-    marginTop: 45,
-    fontSize: 16,
+    marginTop: getHeight(4),
+    fontSize: getWidth(4),
     letterSpacing: .5,
-    lineHeight: 30,
+    lineHeight: getHeight(3.5),
     textAlign: 'center',
   },
   buttonContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-  },
-  iconBackground: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 20,
-    height: 20,
-    borderRadius: 4,
-    backgroundColor: theme.colors.screenBackgroundColorLight
-  },
-  buttonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  iconText: {
-    color: theme.colors.floos2,
-    fontSize: 20,
-    lineHeight: 21,
-  },
-  buttonText: {
-    marginLeft: 12,
-    color: '#FFF',
-    fontSize: 18,
   },
 });
 
