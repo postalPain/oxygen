@@ -1,6 +1,6 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getWidth, windowDimensions } from 'utils/window';
 
 const mainHeight = 0.1 * windowDimensions.height;
 const mainWidth = mainHeight * 2.5 ;
@@ -45,10 +45,11 @@ const styles = StyleSheet.create({
     top: 0,
     zIndex: 2,
     paddingHorizontal: '10%',
-    paddingVertical: '5%',
+    paddingVertical: '6%',
   },
   text: {
-    color: theme.colors.textDark
+    color: theme.colors.textDark,
+    fontSize: getWidth(3)
   }
 });
 

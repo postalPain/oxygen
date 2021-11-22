@@ -10,15 +10,14 @@ import {
 import { Text } from '@stryberventures/stryber-react-native-ui-components';
 import { signUp } from 'modules/auth/actions';
 import { selectSignUpData } from 'modules/auth/selectors';
-import { AuthStoredKeys } from 'modules/auth/types';
 import { checkVerification } from 'modules/user/actions';
-import { getItem, setItem } from 'modules/asyncStorage';
 import { openBrowser } from 'utils';
 import { getWidth } from 'utils/window';
 import env from 'env';
 import theme from 'config/theme';
 import { Button, Link, ScreenWithAnimatedHeader } from 'components';
 import useStyles from './styles';
+import { addToStoredLoginEmails } from 'modules/user/asyncStorage';
 
 
 const vocab = vocabulary.get();
@@ -36,11 +35,12 @@ const DataPrivacy = (
     setButtonDisabled(true);
     dispatch(signUp(signUpData, {
       onSuccess: () => {
-        dispatch(checkVerification({ onSuccess: async () => {
-          const firstLoginEmails = await getItem(AuthStoredKeys.firstLoginEmails).then((emails) => !emails ? '' : `${emails},`);
-          await setItem(AuthStoredKeys.firstLoginEmails, `${firstLoginEmails}${signUpData.email}`);
-          navigation.navigate(AppScreenNames.UserVerificationPending);
-        }}));
+        dispatch(checkVerification({
+          onSuccess: async () => {
+            await addToStoredLoginEmails(signUpData.email);
+            navigation.navigate(AppScreenNames.UserVerificationPending);
+          }
+        }));
       },
       onError: (error) => {
         setButtonDisabled(false);

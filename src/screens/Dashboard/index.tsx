@@ -81,7 +81,7 @@ const Dashboard: React.FC<any> = () => {
           {showTooltip && <Tooltip text={withdrawalDisabled} />}
           <ButtonWithdraw
             disabled={!!withdrawalDisabled}
-            onPress={!!withdrawalDisabled ? () => setShowTooltip(true) : null}
+            onPressDisabled={() => setShowTooltip(true)}
           />
         </View>
 

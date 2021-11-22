@@ -7,6 +7,8 @@ import { errorNotification } from 'modules/notifications/actions';
 import { getBalance, setBalance, setFee, setSuggestedValues, setWithdrawalTransaction } from '../actions';
 import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
+import { selectBalance } from '../selectors';
+import { getState } from 'modules/store';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -23,6 +25,8 @@ function* getBalanceWorker() {
     withdrawable_wages: Math.floor(response.data.withdrawable_wages), // TODO: Remove once BE starts rounding value
     earned_wages: Math.floor(response.data.earned_wages)
   }));
+
+  yield put(setFee(response.data.total_withdrawn_amount ? 25 : 0));
 }
 
 function* getSuggestedValuesWorker() {
@@ -38,9 +42,11 @@ function* getSuggestedValuesWorker() {
 }
 
 function* getFeeWorker() {
+  const balance = selectBalance(getState());
   let response: IResponse<TFee>;
-  try {
-    response = yield api.employees.getFee();
+  try { // TODO: Uncomment when fee API works
+    // response = yield api.employees.getFee();
+    // response = { data: balance.total_withdrawn_amount ? 25 : 0 }; // TODO: Remove once BE is ready
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;

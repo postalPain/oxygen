@@ -8,14 +8,16 @@ export interface IPaymentState {
   suggestedValues: TSuggestedValues;
   fee: TFee;
   transaction: ITransaction;
+  minimumWithdrawable: number;
 }
 
 export const withdrawalDefaultState: IPaymentState = {
   balance: {} as IBalance,
   amount: 0,
   suggestedValues: null,
-  fee: 25, // TODO: Switch to BE once it's ready
-  transaction: null
+  fee: null, // TODO: Switch to BE in sagas when it's ready
+  transaction: null,
+  minimumWithdrawable: 100 // TODO: Switch to BE once it's ready
 };
 
 const withdrawalReducer = (
@@ -42,6 +44,11 @@ const withdrawalReducer = (
       return {
         ...state,
         transaction: action.transaction
+      };
+    case withdrawalActions.SET_FEE:
+      return {
+        ...state,
+        fee: action.fee
       };
     default:
       return state;

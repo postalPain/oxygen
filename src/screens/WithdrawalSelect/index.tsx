@@ -11,7 +11,7 @@ import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import theme from 'config/theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAmount, selectBalance, selectFee, selectSuggestedValues } from 'modules/withdrawal/selectors';
+import { selectAmount, selectBalance, selectFee, selectMinimumWithdrawable, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import { setAmount } from 'modules/withdrawal/actions';
 
 const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => {
@@ -21,22 +21,20 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
   const balance = useSelector(selectBalance);
   const amount = useSelector(selectAmount);
   const suggestedValues = useSelector(selectSuggestedValues);
+  const minimumWithdrawable = useSelector(selectMinimumWithdrawable);
   const fee = useSelector(selectFee);
   const [description, setDescription] = useState<string>(null);
   const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (amount > balance.withdrawable_wages) {
-      setDescription(vocab.get().maximumWithdrawable);
+      setDescription(vocab.get().maximumWithdrawable(balance.withdrawable_wages));
       setDisabled(true);
-    } else if (amount && (amount < suggestedValues[0])) {
-      setDescription(vocab.get().minimumWithdrawable);
+    } else if (amount < minimumWithdrawable) {
+      setDescription(vocab.get().minimumWithdrawable(minimumWithdrawable));
       setDisabled(true);
     } else {
-      setDescription(amount
-        ? vocab.get().plusServiceCharge(balance.total_withdrawn_amount ? fee : 0)
-        : vocab.get().minimalWithdrawableSum(suggestedValues?.[0])
-      );
+      setDescription(vocab.get().plusServiceCharge(fee));
       setDisabled(false);
     }
   }, [amount, suggestedValues]);
