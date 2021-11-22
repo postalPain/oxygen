@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getHeight, getWidth, windowDimensions } from 'utils/window';
 import theme from 'config/theme';
 
 const useStyles = () => StyleSheet.create({
@@ -8,24 +8,20 @@ const useStyles = () => StyleSheet.create({
     alignSelf: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    maxWidth: '100%',
-    paddingRight: 0.04 * windowDimensions.width,
-    paddingLeft: 0.05 * windowDimensions.width,
-    paddingVertical: 0.012 * windowDimensions.height,
-    borderRadius: 0.025 * windowDimensions.height,
+    paddingRight: getWidth(4),
+    paddingLeft:  getWidth(5),
+    paddingVertical: getHeight(1.2),
+    borderRadius: getHeight(2.5),
   },
   emailText: {
-    maxWidth: '80%',
-    fontSize: 16,
-    letterSpacing: .5,
-    lineHeight: 22,
+    fontSize: getWidth(4),
   },
   icon: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 20,
-    height: 20,
-    marginLeft: 0.01 * windowDimensions.width,
+    width: getWidth(5),
+    height: getWidth(5),
+    marginLeft: getWidth(1),
   },
   iconBackground: {
     position: 'absolute',
