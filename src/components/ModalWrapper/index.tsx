@@ -1,8 +1,8 @@
-import IconClose from 'components/IconClose';
-import theme from 'config/theme';
 import React from 'react';
 import { Pressable, StyleSheet, View, ViewStyle } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getHeight, getWidth } from 'utils/window';
+import IconClose from 'components/IconClose';
+import theme from 'config/theme';
 
 interface IModalWrapper {
   children: any;
@@ -27,15 +27,15 @@ const ModalWrapper = ({ style, children, onClose }: IModalWrapper) => {
 const styles = StyleSheet.create({
   modalWrapper: {
     backgroundColor: theme.colors.screenBackgroundColorLight,
-    borderRadius: 0.07 * windowDimensions.width,
-    width: 0.9 * windowDimensions.width,
-    paddingHorizontal: 0.07 * windowDimensions.width,
-    paddingVertical: 0.06 * windowDimensions.height,
+    borderRadius: getWidth(7),
+    width: getWidth(90),
+    paddingHorizontal: getWidth(9),
+    paddingVertical: getHeight(5),
   },
   closeContainer: {
     position: 'absolute',
-    right: 0.05 * windowDimensions.width,
-    top: 0.05 * windowDimensions.width,
+    right: getWidth(5),
+    top: getWidth(5),
   }
 });
 
