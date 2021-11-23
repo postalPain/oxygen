@@ -13,13 +13,14 @@ const WithModal = (props: IModal) => {
 
   return (
     <ModalContext.Provider value={{ setOpened, setComponent }}>
+      {props.children}
+
       {Component && (
         <View style={styles.modal}>
           <View style={styles.backDrop} />
           {Component}
         </View>
       )}
-      {props.children}
     </ModalContext.Provider>
   );
 };
