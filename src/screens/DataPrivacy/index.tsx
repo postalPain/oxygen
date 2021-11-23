@@ -106,7 +106,7 @@ const DataPrivacy = (
           onPress={onPress}
           disabled={!checked || buttonDisabled}
         >
-          {vocab.next}
+          {vocab.continue}
         </Button>
       </View>
     </ScreenWithAnimatedHeader>
