@@ -19,7 +19,7 @@ const useStyles = () => StyleSheet.create({
     paddingTop: NAVIGATION_HEADER_HEIGHT,
   },
   header: {
-    marginBottom: getHeight(3),
+    marginBottom: getHeight(2.5),
   },
   title: {
     alignItems: 'center',
@@ -40,11 +40,11 @@ const useStyles = () => StyleSheet.create({
     color: theme.colors.textDark,
     fontSize: getWidth(4.5),
     letterSpacing: .5,
-    lineHeight: getHeight(3.5)
+    lineHeight: getHeight(3)
   },
   footer: {
     flex: 1,
-    marginTop: getHeight(3.5),
+    marginTop: getHeight(2.5),
     justifyContent: 'space-between',
     marginBottom: SCREEN_BOTTOM_PADDING,
   },

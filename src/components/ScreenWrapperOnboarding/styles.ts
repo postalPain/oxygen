@@ -1,6 +1,6 @@
-import theme from "config/theme";
-import { StyleSheet } from "react-native";
-import { windowDimensions } from "utils/window";
+import theme from 'config/theme';
+import { StyleSheet } from 'react-native';
+import { windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   onboardingScreenWrapper: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     height: windowDimensions.height,
     backgroundColor: theme.colors.screenBackgroundColorLight,
   },
-  background: {
+  gradient: {
     position: 'absolute',
     top: 0,
     right: 0,

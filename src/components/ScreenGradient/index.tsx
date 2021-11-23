@@ -20,7 +20,7 @@ const ScreenGradient = ({
   return (
     <LinearGradient
       style={[styles.gradient, style]}
-      colors={[color1, color2,]}
+      colors={[color1, color2]}
     />
   );
 };
