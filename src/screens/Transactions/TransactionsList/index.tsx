@@ -47,7 +47,7 @@ const TransactionsList: React.FC<ITransactionsListProps> = (
                   {transaction.amount}{vocab.aed}
                 </Text>
                 {transactionStatus.toLowerCase() !== TransactionStatusesFE.completed && (
-                  <Text style={[styles.status, styles[transactionStatus]]}>
+                  <Text style={[styles.status, styles[transactionStatus.toLowerCase()]]}>
                     {transactionStatus}
                   </Text>
                 )}

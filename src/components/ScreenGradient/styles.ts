@@ -8,9 +8,8 @@ const useStyles = () => StyleSheet.create({
     position: 'absolute',
     height: getHeight(18),
     width: env.dimensions.width,
-    backgroundColor: theme.colors.floos1,
     opacity: .8
-  }
+  },
 });
 
 export default useStyles;
