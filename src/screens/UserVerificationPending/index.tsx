@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, Pressable } from 'react-native';
 import { batch, useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { VerificationStatuses } from 'modules/user/types';
+import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
 import { checkVerification, userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
 import { selectVerificationStatus } from 'modules/user/selectors';
@@ -15,6 +15,8 @@ import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
 import { getHeight } from 'utils/window';
+import { openBrowser } from 'utils';
+import { externalUrls } from '../../constants';
 
 
 const vocab = vocabulary.get();
@@ -119,9 +121,13 @@ const UserVerificationPending = (
                 <Text style={styles.infoText}>
                   {vocab.verificationUnsuccessful}
                 </Text>
-                <Text style={[styles.infoText, styles.link]}>
-                  {vocab.contactUs}
-                </Text>
+                <Pressable
+                  onPress={() => openBrowser(externalUrls.help)}
+                >
+                  <Text style={[styles.infoText, styles.link]}>
+                    {vocab.contactUs}
+                  </Text>
+                </Pressable>
               </View>
             )}
             {employerVerificationState === 'verified' && (

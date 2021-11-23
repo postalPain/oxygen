@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import env from 'env';
 import { SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
 import theme from 'config/theme';
+import { getHeight, getWidth } from 'utils/window';
 
 const useStyles = () => StyleSheet.create({
   screen: {
@@ -19,14 +20,14 @@ const useStyles = () => StyleSheet.create({
   header: {
     alignItems: 'flex-end',
     flexDirection: 'row',
-    marginBottom: 25,
-    paddingTop: .09 * env.dimensions.height,
-    paddingLeft: 8,
+    marginBottom: getHeight(3),
+    paddingTop: getHeight(9),
+    paddingLeft: getWidth(3),
   },
   headerText: {
-    marginLeft: 16,
+    marginLeft: getWidth(4),
     color: theme.colors.textDark,
-    fontSize: 18,
+    fontSize: getWidth(4),
     letterSpacing: .5,
     textTransform: 'uppercase',
   },

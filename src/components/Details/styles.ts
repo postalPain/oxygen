@@ -1,29 +1,32 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
+import { getHeight, getWidth } from 'utils/window';
 
 const styles = StyleSheet.create({
   details: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 36,
-    paddingTop: 50,
-    paddingBottom: 6,
+    paddingHorizontal: getWidth(9),
+    paddingTop: getHeight(5),
+    paddingBottom: getHeight(1),
     backgroundColor: theme.colors.shade2,
     borderRadius: 27,
   },
   item: {
     width: '100%',
-    marginBottom: 38,
+    marginBottom: getHeight(4),
   },
   label: {
     color: '#B3B3B3',
-    fontSize: 16,
+    fontSize: getWidth(4),
+    letterSpacing: .5,
     textTransform: 'uppercase',
   },
   text: {
-    paddingTop: 8,
+    paddingTop: getHeight(1),
     color: theme.colors.textDark,
-    fontSize: 18,
+    fontSize: getWidth(4),
+    letterSpacing: .5,
   },
 });
 

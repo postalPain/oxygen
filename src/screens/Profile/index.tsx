@@ -41,7 +41,7 @@ const Profile = (
           onPress={() => goTo(AppScreenNames.AccountDetails)}
           style={styles.menuItem}
         >
-          <IconAccountDetails size={20} />
+          <IconAccountDetails />
           <Text style={styles.menuItemText}>{vocab.accountDetails}</Text>
           <Arrow style={styles.arrow} />
         </Pressable>
@@ -49,7 +49,7 @@ const Profile = (
           style={styles.menuItem}
           onPress={() => openLink(externalUrls.privacyPolicy)}
         >
-          <IconPrivacyPolicy size={22} />
+          <IconPrivacyPolicy />
           <Text style={styles.menuItemText}>{vocab.privacyPolicy}</Text>
           <Arrow style={styles.arrow} />
         </Pressable>
@@ -57,7 +57,7 @@ const Profile = (
           style={styles.menuItem}
           onPress={() => openLink(externalUrls.help)}
         >
-          <IconHelpCenter size={22} />
+          <IconHelpCenter />
           <Text style={styles.menuItemText}>{vocab.helpCenter}</Text>
           <Arrow style={styles.arrow} />
         </Pressable>
@@ -65,8 +65,8 @@ const Profile = (
           onPress={logout}
           style={[styles.menuItem, styles.menuItemNoBorder]}
         >
-          <IconLogout size={22} />
-          <Text style={styles.menuItemText}>{vocab.logout}</Text>
+          <IconLogout />
+          <Text style={[styles.menuItemText, styles.menuItemTextHighlighted]}>{vocab.logout}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

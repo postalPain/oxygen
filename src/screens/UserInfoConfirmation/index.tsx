@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { getItem, setItem } from 'modules/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { AuthStoredKeys } from 'modules/auth/types';
 import {
@@ -15,6 +14,8 @@ import {
 } from 'components';
 import useStyles from './styles';
 import { userGetInfo } from 'modules/user/actions';
+import { openBrowser } from 'utils';
+import { externalUrls } from '../../constants';
 import { deleteFromStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
 
 
@@ -24,16 +25,13 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
   const dispatch = useDispatch();
   const styles = useStyles();
   const userEmail = useSelector(selectUserEmail);
-
   useEffect(() => {
     dispatch(userGetInfo());
   }, []);
-
   const onPress = async () => {
     await deleteFromStoredLoginEmails(userEmail);
     navigation.navigate(AppScreenNames.TabNavigation);
   };
-
   return (
     <SafeAreaView style={styles.screen}>
       <ScreenGradient />
@@ -51,10 +49,13 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
         </View>
         <UserInformation />
         <View style={styles.footer}>
-          <View style={styles.contactUs}>
+          <Pressable
+            onPress={() => openBrowser(externalUrls.help)}
+            style={styles.contactUs}
+          >
             <Text style={styles.contactUsText}>{vocab.ifNotAccurate}</Text>
             <Link style={styles.contactUsLink}>{vocab.contactUsImmediately}</Link>
-          </View>
+          </Pressable>
           <Button onPress={onPress}>
             {vocab.continue}
           </Button>
