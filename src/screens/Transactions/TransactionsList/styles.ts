@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { TransactionStatusesFE } from 'modules/transactions/types';
+import { getHeight, getWidth } from 'utils/window';
 
 
 const useStyles = () => StyleSheet.create({
@@ -10,13 +11,13 @@ const useStyles = () => StyleSheet.create({
   header: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: 30,
-    paddingLeft: 12,
+    marginBottom: getHeight(3),
+    paddingLeft: getWidth(5),
   },
   headerTitle: {
-    marginLeft: 14,
+    marginLeft: getWidth(3),
     color: theme.colors.textDark,
-    fontSize: 18,
+    fontSize: getWidth(4.5),
   },
   scrollView: {
     flex: 1,
@@ -25,27 +26,27 @@ const useStyles = () => StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 60,
-    paddingHorizontal: 23,
-    paddingVertical: 8,
+    height: getHeight(7),
+    paddingHorizontal: getWidth(5),
+    // paddingVertical: getHeight(2),
     borderRadius: 36,
-    marginTop: 6,
+    marginTop: getHeight(0.7),
     backgroundColor: theme.colors.shade2,
   },
   date: {
-    fontSize: 12,
+    fontSize: getWidth(3),
     letterSpacing: .5,
   },
   details: {
     alignItems: 'flex-end',
   },
   amount: {
-    fontSize: 22,
+    fontSize: getHeight(2.5),
     fontWeight: '600',
     letterSpacing: .5,
   },
   status: {
-    fontSize: 12,
+    fontSize: getWidth(3),
     letterSpacing: .5,
   },
   [TransactionStatusesFE.pending]: {

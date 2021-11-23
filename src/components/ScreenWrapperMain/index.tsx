@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: windowDimensions.width,
     paddingHorizontal: MAIN_WRAPPER_PADDING_HORIZONTAL,
-    paddingTop: 0.15 * windowDimensions.height,
+    paddingTop: getHeight(15),
     paddingBottom: MAIN_WRAPPER_PADDING_BOTTOM,
     backgroundColor: theme.colors.screenBackgroundColorLight,
     alignItems: 'center',

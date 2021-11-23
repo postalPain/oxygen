@@ -1,20 +1,21 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
+import { getHeight, getWidth } from 'utils/window';
 
 
 const useStyles = () => StyleSheet.create({
   infoBlock: {
-    marginTop: 26,
+    marginTop: getHeight(3),
   },
   infoTitle: {
     color: '#B2B2B2',
-    fontSize: 16,
+    fontSize: getWidth(4.5),
     letterSpacing: .5,
   },
   infoText: {
-    marginTop: 4,
+    marginTop: getHeight(.7),
     color: theme.colors.textDark,
-    fontSize: 16,
+    fontSize: getWidth(4.5),
     letterSpacing: .5,
   },
 });

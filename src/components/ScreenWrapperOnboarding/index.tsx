@@ -21,7 +21,7 @@ const ScreenWrapperOnboarding = (props: IOnboardingScreenWrapper) => {
     <OnboardingContext.Provider value={{ onSlideChange: setSlideIndex }}>
       <View style={styles.onboardingScreenWrapper}>
         <LinearGradient
-          style={styles.background}
+          style={styles.gradient}
           colors={[ theme.colors.floosGradientColor3, theme.colors.screenBackgroundColorLight ]}
         />
         <AnimatedTranslate
