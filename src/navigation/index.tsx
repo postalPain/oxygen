@@ -93,7 +93,10 @@ const Navigation = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <AppStack.Navigator>
+      <AppStack.Navigator screenOptions={{
+        headerShadowVisible: false
+      }}
+      >
         <AppStack.Screen
           name={AppScreenNames.Onboarding}
           component={Onboarding}
