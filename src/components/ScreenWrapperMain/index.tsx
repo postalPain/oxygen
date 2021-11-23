@@ -1,7 +1,7 @@
 import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getHeight, getWidth, windowDimensions } from 'utils/window';
 import { ScreenGradient } from 'components';
 
 interface IScreenWrapperMain {
@@ -18,9 +18,9 @@ const ScreenWrapperMain = (props: IScreenWrapperMain) => {
   );
 };
 
-export const MAIN_WRAPPER_PADDING_HORIZONTAL = 0.05 * windowDimensions.width;
+export const MAIN_WRAPPER_PADDING_HORIZONTAL = getWidth(5);
 
-export const MAIN_WRAPPER_PADDING_BOTTOM = 0.06 * windowDimensions.height;
+export const MAIN_WRAPPER_PADDING_BOTTOM = getHeight(3);
 
 const styles = StyleSheet.create({
   screenWrapperMain: {

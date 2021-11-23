@@ -1,6 +1,6 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getHeight, getWidth, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   content: {
@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
   header: {
     fontSize: theme.sizes.fontSizeHeaderLarge,
     textAlign: 'center',
-    paddingTop: 0.04 * windowDimensions.height,
+    paddingTop: getHeight(4),
   },
   description: {
-    paddingTop: 0.02 * windowDimensions.height,
-    fontSize: 0.04 * windowDimensions.width
+    paddingTop: getHeight(2),
+    fontSize: getWidth(4)
   },
   buttonContainer: {
     flex: 1,
@@ -23,23 +23,23 @@ const styles = StyleSheet.create({
   },
   transactionContainer: {
     backgroundColor: theme.colors.shade2,
-    borderRadius: 0.05 * windowDimensions.width,
-    paddingHorizontal: 0.1 * windowDimensions.width,
-    paddingTop: 0.02 * windowDimensions.height,
-    paddingBottom: 0.1 * windowDimensions.width,
-    marginTop: 0.025 * windowDimensions.height,
+    borderRadius: getWidth(5),
+    paddingHorizontal: getWidth(10),
+    paddingTop: getHeight(1),
+    paddingBottom: getHeight(3),
+    marginTop: getHeight(2.5),
     width: '100%',
   },
   transactionHeader: {
     color: theme.colors.shade1,
-    fontSize: 0.04 * windowDimensions.width,
+    fontSize: getWidth(4),
     textTransform: 'uppercase',
-    paddingTop: 0.03 * windowDimensions.height,
+    paddingTop: getHeight(2),
   },
   transactionValue: {
     color: theme.colors.textDark,
-    paddingTop: 0.01 * windowDimensions.height,
-    fontSize: 0.04 * windowDimensions.width,
+    paddingTop: getHeight(1),
+    fontSize: getWidth(4),
   }
 });
 
