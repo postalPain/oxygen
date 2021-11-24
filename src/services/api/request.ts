@@ -2,11 +2,12 @@ import axios from 'axios';
 import apiUrls, { BASE_URL } from 'config/apiUrls';
 import { getHeaderLanguage } from 'i18n/utils';
 import { selectAuthData } from 'modules/auth/selectors';
-import { getState } from 'modules/store';
+import store, { getState } from 'modules/store';
 import moment from 'moment';
 import api from '.';
 import { handleBackendError } from './errors';
 import { getUTCOffset } from 'utils/time';
+import { setAuthData } from 'modules/auth/actions';
 
 const request = axios.create({
   baseURL: BASE_URL,
@@ -47,14 +48,13 @@ const isTokenValid = (ttl: string) => {
 request.interceptors.request.use(
   async (config) => {
     const authData = selectAuthData(getState());
-    let token = authData.access_token;
-    if ((config.url !== apiUrls.refreshToken) && token && isTokenValid(authData.access_ttl)) {
-      if (!isTokenValid(authData.refresh_ttl)) {
+    if ((config.url !== apiUrls.refreshToken) && authData.access_token && !isTokenValid(authData.access_ttl)) {
+      if (isTokenValid(authData.refresh_ttl)) {
         const response = await api.auth.refreshToken({
           refresh_token: authData.refresh_token
         });
-        token = response.data.access_token;
-        setAuthHeader(response.data);
+        config.headers.Authorization = `Bearer ${response.data.access_token}`; // For current request, next request will use new header
+        store.dispatch(setAuthData(response.data));
       }
     }
     return config;
@@ -66,7 +66,6 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    // reportToSentryApiError(error.response);
     return Promise.reject(handleBackendError(error));
   },
 );

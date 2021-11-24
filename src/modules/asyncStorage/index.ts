@@ -22,7 +22,7 @@ export const getItem = async (key) => {
   }
 };
 
-export const getMultipleItems = async (keys: string[]) => {
+export const getItems = async (keys: string[]) => {
   try {
     const value = await AsyncStorage.multiGet(keys);
     return value.reduce((acc, v) => ({ ...acc, [v[0]]: v[1], }), {});
