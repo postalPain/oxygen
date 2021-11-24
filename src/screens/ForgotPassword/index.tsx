@@ -33,7 +33,7 @@ const ForgotPassword = (
             returnKeyType='done'
           />
         </View>
-        <View>
+        <View style={styles.buttonContainer}>
           <Button
             onPress={() => dispatch(forgotPassword(email, {
               onSuccess: () => {
