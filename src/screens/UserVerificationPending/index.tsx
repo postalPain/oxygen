@@ -22,7 +22,7 @@ import { externalUrls } from '../../constants';
 const vocab = vocabulary.get();
 
 const UserVerificationPending = (
-  { navigation, route: { params } }: AppNavigationProps<AppScreenNames.UserVerificationPending>
+  { navigation, }: AppNavigationProps<AppScreenNames.UserVerificationPending>
 ) => {
   const styles = useStyles();
   const dispatch = useDispatch();
@@ -144,7 +144,7 @@ const UserVerificationPending = (
         )}
         {(emailVerificationState === 'pending') && (
           <View style={styles.buttonsWrapper}>
-            <ResendEmail email={email} afterSignUp={params?.afterSignUp} />
+            <ResendEmail email={email} />
             <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>
               {vocab.enterVerificationCode}
             </Button>

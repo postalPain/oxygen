@@ -38,7 +38,7 @@ const DataPrivacy = (
         dispatch(checkVerification({
           onSuccess: async () => {
             await addToStoredLoginEmails(signUpData.email);
-            navigation.navigate(AppScreenNames.UserVerificationPending, { afterSignUp: true });
+            navigation.navigate(AppScreenNames.UserVerificationPending);
           }
         }));
       },
