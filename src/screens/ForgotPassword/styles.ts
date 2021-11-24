@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { getFontSize } from "utils/screen";
-import { windowDimensions } from "utils/window";
+import { getHeight } from 'utils/window';
 
 const styles = StyleSheet.create({
   screenContainer: {
@@ -12,11 +12,14 @@ const styles = StyleSheet.create({
     fontSize: getFontSize(9)
   },
   enterEmail: {
-    marginTop: 0.07 * windowDimensions.height,
+    marginTop: getHeight(7),
     textAlign: 'center'
   },
   emailInput: {
-    marginTop: 0.05 * windowDimensions.height
+    marginTop: getHeight(5)
+  },
+  buttonContainer: {
+    paddingTop: getHeight(5)
   },
 });
 
