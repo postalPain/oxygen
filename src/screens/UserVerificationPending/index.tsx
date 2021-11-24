@@ -5,7 +5,7 @@ import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
+import { VerificationStatuses } from 'modules/user/types';
 import { checkVerification, userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
 import { selectVerificationStatus } from 'modules/user/selectors';

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -21,7 +20,7 @@ import {
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { getMultipleItems, setItem, setItems } from 'modules/asyncStorage';
+import { getMultipleItems, } from 'modules/asyncStorage';
 import { setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
