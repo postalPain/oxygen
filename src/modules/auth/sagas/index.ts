@@ -10,6 +10,7 @@ import {
   IClearAuthDataAction,
   IForgotPasswordAction,
   IResetPasswordAction,
+  ISetAuthDataAction,
   ISignInAction,
   ISignOutAction,
   ISignUpAction,
@@ -24,6 +25,7 @@ import { UserStoredKeys } from 'modules/user/types';
 import { addCodeSentAt } from 'modules/auth/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
+import { storeAuthData } from '../asyncStorage';
 
 
 function* handleError (error: IError) {
@@ -42,10 +44,6 @@ function transformSignUpError (err: IError) {
   return errors;
 }
 
-export function* processAuthData(data: IAuthData) {
-  const authData = Object.keys(data).map((key) => ({ key, value: data[key] }), []);
-  yield setItems(authData);
-}
 export function* processUserData({ email }: { email: string }) {
   yield setItems([{ key: AuthStoredKeys.email, value: email }]);
 }
@@ -60,9 +58,7 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
-  yield setAuthHeader(response.data.access_token);
   yield processUserData({ email: action.payload.email });
-  yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
   yield put(clearSignUpData());
   yield put(checkVerification());
@@ -78,9 +74,7 @@ function* signInWorker(action: ISignInAction) {
     yield put(authActions.setSignInError(error));
     return;
   }
-  setAuthHeader(response.data.access_token);
   yield processUserData({ email: action.email });
-  yield processAuthData(response.data);
   yield put(authActions.setAuthData(response.data));
   yield put(authActions.signedIn(true));
 }
@@ -146,6 +140,11 @@ function* signOutWorker(action: ISignOutAction) {
   }
 }
 
+function* setAuthDataWorker(action: ISetAuthDataAction) {
+  yield setAuthHeader(action.payload.access_token);
+  yield action.payload.access_token && storeAuthData(action.payload);
+}
+
 export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
@@ -154,4 +153,5 @@ export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearAuthDataWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);
+  yield takeLatest(AuthActions.SET_AUTH_DATA, setAuthDataWorker);
 }

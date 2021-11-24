@@ -1,3 +1,5 @@
+import { setItems } from 'modules/asyncStorage';
+import { IAuthData } from '../types';
 import { getItem, removeItem, setItem } from 'modules/asyncStorage';
 
 enum userStoredKeys {
@@ -16,4 +18,9 @@ export const getCodeSentAt = async (): Promise<number> => {
 
 export const deleteCodeSentAt = async () => {
   await removeItem(userStoredKeys.codeSentAt);
+};
+
+export const storeAuthData = async (data: IAuthData) => {
+  const authData = Object.keys(data).map((key) => ({ key, value: data[key] }), []);
+  await setItems(authData);
 };

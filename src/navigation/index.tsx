@@ -20,7 +20,7 @@ import {
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { getMultipleItems, } from 'modules/asyncStorage';
+import { getItems } from 'modules/asyncStorage';
 import { setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { isPending } from 'modules/user/selectors';
@@ -32,7 +32,6 @@ import { headerStyles } from './styles';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
-import { setAuthHeader } from '../services/api/request';
 
 const AppStack = createNativeStackNavigator();
 
@@ -59,7 +58,7 @@ const Navigation = () => {
 
   useEffect(
     () => {
-      getMultipleItems([
+      getItems([
         AuthStoredKeys.access_token,
         AuthStoredKeys.access_ttl,
         AuthStoredKeys.refresh_token,
@@ -68,7 +67,6 @@ const Navigation = () => {
         UserStoredKeys.first_name
       ]).then((_authData) => {
         dispatch(setAuthData(_authData));
-        setAuthHeader(_authData.access_token);
         dispatch(userSetInfo({
           first_name: _authData.first_name,
           email: _authData.email,

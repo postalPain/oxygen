@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderRadius: 0.05 * windowDimensions.width,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingLeft: 0.08 * windowDimensions.width
+    paddingLeft: 0.06 * windowDimensions.width
   },
   textContainer: {
     alignItems: 'flex-start',

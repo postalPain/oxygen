@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const setItem = async (key, value) => {
+  value ?? removeItem(key);
   try {
     await AsyncStorage.setItem(key, value);
   } catch (error) {
@@ -22,7 +23,7 @@ export const getItem = async (key) => {
   }
 };
 
-export const getMultipleItems = async (keys: string[]) => {
+export const getItems = async (keys: string[]) => {
   try {
     const value = await AsyncStorage.multiGet(keys);
     return value.reduce((acc, v) => ({ ...acc, [v[0]]: v[1], }), {});
