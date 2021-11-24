@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
@@ -41,7 +41,7 @@ const EnterRegistrationId = (
   };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
-    setInputValue(value);
+    setInputValue(value.toUpperCase());
   };
   return (
     <ScreenWithAnimatedHeader title={null}>
@@ -54,6 +54,8 @@ const EnterRegistrationId = (
             onChange={handleOnChange}
             error={inputError}
             returnKeyType='done'
+            autoCorrect={false}
+            autoCapitalize="characters"
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>

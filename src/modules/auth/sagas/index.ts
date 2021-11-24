@@ -22,6 +22,7 @@ import { selectForgotPassword } from 'modules/auth/selectors';
 import { removeItems, setItems } from 'modules/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
+import { addCodeSentAt } from 'modules/auth/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
@@ -61,6 +62,7 @@ function* signUpWorker(action: ISignUpAction) {
   yield put(authActions.setAuthData(response.data));
   yield put(clearSignUpData());
   yield put(checkVerification());
+  yield addCodeSentAt();
   yield action.meta?.onSuccess?.(response);
 }
 
