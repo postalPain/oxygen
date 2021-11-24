@@ -46,7 +46,7 @@ export type AppStackParameters = {
   VerificationCodeSignUp: undefined;
   VerificationCodeForgot: undefined;
   ForgotPasswordRequested: undefined;
-  UserVerificationPending: undefined;
+  UserVerificationPending: { afterSignUp: boolean };
   PasswordReset: undefined;
   ForgotPassword: undefined;
   TabNavigation: undefined;

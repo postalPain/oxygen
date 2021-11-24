@@ -14,10 +14,11 @@ const RESEND_IN_SEC = 31;
 
 interface IResendEmailProps {
   email?: string;
+  afterSignUp?: boolean;
   style?: string;
 }
 
-const ResendEmail = ({ email, style }: IResendEmailProps) => {
+const ResendEmail = ({ email, afterSignUp, style }: IResendEmailProps) => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const [seconds, setSeconds] = useState<number>(null);
@@ -29,7 +30,6 @@ const ResendEmail = ({ email, style }: IResendEmailProps) => {
       }
     }));
   };
-  
   useInterval(() => {
     if (seconds && (seconds >= 0)) {
       setSeconds(seconds - 1)
@@ -38,6 +38,11 @@ const ResendEmail = ({ email, style }: IResendEmailProps) => {
   
   useEffect(
     () => {
+      if (afterSignUp) {
+        addCodeSentAt();
+        setSeconds(RESEND_IN_SEC);
+        return;
+      }
       getCodeSentAt().then((ts) => {
         const validTill = moment(ts).add(RESEND_IN_SEC, 's');
         const diff = validTill.diff(moment(), 'seconds');
