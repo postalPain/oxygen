@@ -72,9 +72,9 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawInfo style={styles.info} onPress={() => setInfoModal(true)} />
       </View>
       <View style={styles.smallTagsContainer}>
-        <WithdrawalTagSmall amount={balance.total_withdrawn_amount} withdrawn style={{ flex: 3 }} />
+        <WithdrawalTagSmall amount={balance.total_withdrawn_amount} withdrawn style={{ flex: 5 }} />
         <View style={styles.smallTagsDivider} />
-        <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 4 }} />
+        <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 6 }} />
       </View>
       <View style={styles.buttonContainer}>
         <View>

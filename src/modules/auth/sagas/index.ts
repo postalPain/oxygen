@@ -140,7 +140,7 @@ function* signOutWorker(action: ISignOutAction) {
 
 function* setAuthDataWorker(action: ISetAuthDataAction) {
   yield setAuthHeader(action.payload.access_token);
-  yield storeAuthData(action.payload);
+  yield action.payload.access_token && storeAuthData(action.payload);
 }
 
 export default function* authWatcher(): SagaIterator {
