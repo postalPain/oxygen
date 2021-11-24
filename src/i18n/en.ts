@@ -40,6 +40,7 @@ export default {
   wrongEmail: 'Wrong email?',
   confirm: 'Confirm',
   sendEmailAgain: 'Send the email again',
+  resendCodeIn: 'Resend code in 0:',
   eightOrMoreChars: '8 characters',
   oneLowercase: 'lower case',
   oneUppercase: 'upper case',

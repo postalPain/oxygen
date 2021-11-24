@@ -1,4 +1,4 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import * as actions from '../actions';
 import { errorNotification, successNotification } from 'modules/notifications/actions';
@@ -19,7 +19,6 @@ import { IUserInfo, IVerificationResponse } from 'services/api/employees';
 import SplashScreen from 'react-native-splash-screen';
 import { setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { error } from 'console';
 
 
 function* getUserInfoWorker() {
@@ -76,6 +75,7 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
     title: vocab.get().emailSent,
     text: vocab.get().checkInbox,
   }));
+  yield action?.meta?.onSuccess?.();
 }
 
 function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
