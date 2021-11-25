@@ -1,55 +1,57 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { getWidth, windowDimensions } from 'utils/window';
+import { getHeight, getWidth, windowDimensions } from 'utils/window';
 
 const mainHeight = 0.1 * windowDimensions.height;
 const mainWidth = mainHeight * 2.5 ;
 const tipHeight = 0.01 * windowDimensions.height;
 
+const shadow = {
+  shadowColor: 'black',
+  shadowOffset: { width: 1, height: 1 },
+  shadowOpacity: 0.1,
+  elevation: 2,
+};
+
 const styles = StyleSheet.create({
   tooltip: {
+    width: '100%',
     position: 'absolute',
     backgroundColor: 'transparent',
     top: -mainHeight - tipHeight * 1.5,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
     zIndex: 1,
   },
   main: {
-    height: mainHeight,
+    position: 'absolute',
+    top: 0,
     width: mainWidth,
+    height: mainHeight,
     backgroundColor: theme.colors.screenBackgroundColorLight,
     borderRadius: mainHeight / 10,
+    zIndex: 2
   },
   shadow: {
-    shadowColor: 'black',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.1,
-    elevation: 2,
+    ...shadow,
   },
   tip: {
+    position: 'absolute',
     width: tipHeight,
     height: tipHeight,
     transform: [{ rotate: '45deg' }],
-    bottom: tipHeight / 2,
+    bottom: -tipHeight / 2,
+    left: mainWidth / 2,
     backgroundColor: theme.colors.screenBackgroundColorLight,
-    shadowColor: 'black',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.25,
-    elevation: 2,
-    zIndex: 1,
+    ...shadow
   },
   content: {
-    position: 'absolute',
-    top: 0,
-    zIndex: 2,
-    paddingHorizontal: '10%',
-    paddingVertical: '6%',
+    paddingHorizontal: getWidth(3),
+    paddingVertical: getHeight(1.3),
   },
   text: {
     color: theme.colors.textDark,
-    fontSize: getWidth(3)
+    fontSize: getHeight(1.6)
   }
 });
 
