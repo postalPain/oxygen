@@ -1,10 +1,17 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { IWithdrawalAction, withdrawalActions } from '../types';
+import { IMinWithdrawable, IWithdrawalAction, withdrawalActions } from '../types';
 import api, { IResponse } from 'services/api';
 import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
 import { errorNotification } from 'modules/notifications/actions';
-import { getBalance, setBalance, setFee, setSuggestedValues, setWithdrawalTransaction } from '../actions';
+import {
+  getBalance,
+  setBalance,
+  setFee,
+  setMinWithdrawable,
+  setSuggestedValues,
+  setWithdrawalTransaction
+} from '../actions';
 import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectBalance } from '../selectors';
@@ -71,9 +78,21 @@ function* withdrawalWorker(action: IWithdrawalAction) {
   yield put(getTransactions());
 }
 
+function* getMinWithdrawableWorker(action: IWithdrawalAction) {
+  let response: IResponse<IMinWithdrawable>;
+  try {
+    response = yield api.employees.getMinWithdrawable();
+  } catch (error) {
+    return;
+  }
+  yield put(setMinWithdrawable(response.data[0].amount));
+  yield action?.meta?.onSuccess?.();
+}
+
 export default function* withdrawalSagas(): SagaIterator {
   yield takeLatest(withdrawalActions.GET_BALANCE, getBalanceWorker);
   yield takeLatest(withdrawalActions.GET_SUGGESTED_VALUES, getSuggestedValuesWorker);
   yield takeLatest(withdrawalActions.GET_FEE, getFeeWorker);
+  yield takeLatest(withdrawalActions.GET_MIN_WITHDRAWABLE, getMinWithdrawableWorker);
   yield takeEvery(withdrawalActions.WITHDRAWAL, withdrawalWorker);
 }

@@ -11,7 +11,9 @@ export enum withdrawalActions {
   GET_FEE = 'GET_FEE',
   SET_FEE = 'SET_FEE',
   WITHDRAWAL = 'WITHDRAWAL',
-  SET_WITHDRAWAL_TRANSACTION = 'SET_WITHDRAWAL_TRANSACTION'
+  SET_WITHDRAWAL_TRANSACTION = 'SET_WITHDRAWAL_TRANSACTION',
+  GET_MIN_WITHDRAWABLE = 'GET_MIN_WITHDRAWABLE',
+  SET_MIN_WITHDRAWABLE = 'SET_MIN_WITHDRAWABLE',
 }
 
 export interface IGetBalanceAction {
@@ -49,5 +51,19 @@ export interface ISetWithdrawalTransactionAction {
   transaction: ITransaction;
 }
 
+export interface IGetMinWithdrawableAction {
+  type: withdrawalActions.GET_MIN_WITHDRAWABLE;
+}
+
+export interface IMinWithdrawable {
+  amount: number,
+  type: string,
+}
+
+export interface ISetMinWithdrawableAction {
+  type: withdrawalActions.SET_MIN_WITHDRAWABLE;
+  payload: number,
+}
+
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction
-| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction;
+| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction | IGetMinWithdrawableAction | ISetMinWithdrawableAction;
