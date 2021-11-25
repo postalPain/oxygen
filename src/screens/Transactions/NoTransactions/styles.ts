@@ -5,6 +5,7 @@ import { getHeight, getWidth } from 'utils/window';
 const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
   },
   header: {
     justifyContent: 'flex-end',
@@ -36,7 +37,6 @@ const useStyles = () => StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    alignItems: 'center',
     justifyContent: 'flex-end',
   },
 });
