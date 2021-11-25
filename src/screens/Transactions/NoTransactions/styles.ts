@@ -1,4 +1,3 @@
-import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
 
@@ -24,6 +23,10 @@ const useStyles = () => StyleSheet.create({
     flex: 2,
     paddingHorizontal: getWidth(14),
     paddingTop: getHeight(3),
+  },
+  image: {
+    height: getHeight(16),
+    opacity: .3,
   },
   infoText: {
     marginTop: getHeight(4),
