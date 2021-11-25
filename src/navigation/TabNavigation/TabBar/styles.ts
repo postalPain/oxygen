@@ -14,6 +14,7 @@ const useStyles = () => StyleSheet.create({
   },
   tabBarIconWrapper: {
     alignItems: 'center',
+    width: '30%',
   },
   iconWrapper: {
     justifyContent: 'space-around',

@@ -11,7 +11,7 @@ import WithdrawInfo from './WithdrawInfo';
 import { selectIsUserBlocked, selectUserInfo } from 'modules/user/selectors';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
-import { getBalance, getSuggestedValues } from 'modules/withdrawal/actions';
+import { getBalance, getMinWithdrawable, getSuggestedValues } from 'modules/withdrawal/actions';
 import { selectBalance, selectIsWithdrawalPaused, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import ButtonWithdraw from 'components/ButtonWithdraw';
 import Tooltip from 'components/Tooltip';
@@ -31,6 +31,7 @@ const Dashboard: React.FC<any> = () => {
 
   useEffect(() => {
     dispatch(getBalance());
+    dispatch(getMinWithdrawable());
   }, []);
 
   useEffect(() => {

@@ -17,7 +17,7 @@ export const withdrawalDefaultState: IPaymentState = {
   suggestedValues: null,
   fee: null, // TODO: Switch to BE in sagas when it's ready
   transaction: null,
-  minimumWithdrawable: 100 // TODO: Switch to BE once it's ready
+  minimumWithdrawable: null,
 };
 
 const withdrawalReducer = (
@@ -49,6 +49,11 @@ const withdrawalReducer = (
       return {
         ...state,
         fee: action.fee
+      };
+    case withdrawalActions.SET_MIN_WITHDRAWABLE:
+      return {
+        ...state,
+        minimumWithdrawable: action.payload,
       };
     default:
       return state;

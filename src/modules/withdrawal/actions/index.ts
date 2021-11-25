@@ -2,9 +2,16 @@ import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
 import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
 import {
-  IGetBalanceAction, ISetAmountAction, ISetBalanceAction,
+  IGetBalanceAction,
+  IGetMinWithdrawableAction,
+  ISetMinWithdrawableAction,
+  ISetAmountAction,
+  ISetBalanceAction,
   ISetFeeAction,
-  ISetSuggestedValuesAction, ISetWithdrawalTransactionAction, IWithdrawalAction, withdrawalActions
+  ISetSuggestedValuesAction,
+  ISetWithdrawalTransactionAction,
+  IWithdrawalAction,
+  withdrawalActions
 } from '../types';
 
 export const getBalance = (): IGetBalanceAction => ({
@@ -48,4 +55,13 @@ export const withdrawal = (amount: number, meta?: IMeta): IWithdrawalAction => (
 export const setWithdrawalTransaction = (transaction: ITransaction): ISetWithdrawalTransactionAction => ({
   type: withdrawalActions.SET_WITHDRAWAL_TRANSACTION,
   transaction,
+});
+
+export const getMinWithdrawable = (): IGetMinWithdrawableAction => ({
+  type: withdrawalActions.GET_MIN_WITHDRAWABLE,
+});
+
+export const setMinWithdrawable = (minWithdrawable: number): ISetMinWithdrawableAction => ({
+  type: withdrawalActions.SET_MIN_WITHDRAWABLE,
+  payload: minWithdrawable,
 });

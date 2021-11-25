@@ -216,11 +216,7 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.WithdrawalConfirmation}
           component={WithdrawalConfirmation}
-          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => ({
-            title: '',
-            headerTransparent: true,
-            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />
-          })}
+          options={{ headerShown: false }}
         />
       </AppStack.Navigator>
     </NavigationContainer>
