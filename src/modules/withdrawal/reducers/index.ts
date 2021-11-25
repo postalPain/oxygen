@@ -13,7 +13,10 @@ export interface IPaymentState {
 
 export const withdrawalDefaultState: IPaymentState = {
   balance: {
+    earned_wages: null,
     is_withdraw_paused: null,
+    total_withdrawn_amount: null,
+    withdrawable_wages: null,
   } as IBalance,
   amount: 0,
   suggestedValues: null,
