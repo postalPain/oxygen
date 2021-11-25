@@ -12,7 +12,12 @@ export interface IPaymentState {
 }
 
 export const withdrawalDefaultState: IPaymentState = {
-  balance: {} as IBalance,
+  balance: {
+    earned_wages: null,
+    is_withdraw_paused: null,
+    total_withdrawn_amount: null,
+    withdrawable_wages: null,
+  } as IBalance,
   amount: 0,
   suggestedValues: null,
   fee: null, // TODO: Switch to BE in sagas when it's ready

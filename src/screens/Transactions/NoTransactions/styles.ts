@@ -1,4 +1,3 @@
-import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
 
@@ -6,6 +5,7 @@ import { getHeight, getWidth } from 'utils/window';
 const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
   },
   header: {
     justifyContent: 'flex-end',
@@ -25,6 +25,10 @@ const useStyles = () => StyleSheet.create({
     paddingHorizontal: getWidth(14),
     paddingTop: getHeight(3),
   },
+  image: {
+    height: getHeight(16),
+    opacity: .3,
+  },
   infoText: {
     marginTop: getHeight(4),
     fontSize: getWidth(4),
@@ -33,7 +37,6 @@ const useStyles = () => StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    alignItems: 'center',
     justifyContent: 'flex-end',
   },
 });

@@ -7,28 +7,21 @@ import moment from 'moment';
 import styles from './styles';
 import WithdrawalTagLarge from 'components/WithdrawalTagLarge';
 import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
+import ButtonWithdraw from 'components/ButtonWithdraw';
 import WithdrawInfo from './WithdrawInfo';
-import { selectIsUserBlocked, selectUserInfo } from 'modules/user/selectors';
+import { selectUserInfo } from 'modules/user/selectors';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
 import { getBalance, getMinWithdrawable, getSuggestedValues } from 'modules/withdrawal/actions';
-import { selectBalance, selectIsWithdrawalPaused, selectSuggestedValues } from 'modules/withdrawal/selectors';
-import ButtonWithdraw from 'components/ButtonWithdraw';
-import Tooltip from 'components/Tooltip';
+import { selectBalance, selectSuggestedValues } from 'modules/withdrawal/selectors';
 
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
-  const isUserBlocked = useSelector(selectIsUserBlocked);
-  const isWithdrawalPaused = useSelector(selectIsWithdrawalPaused);
   const suggestedValues = useSelector(selectSuggestedValues);
-
   const [infoModal, setInfoModal] = useState(false);
-  const [withdrawalDisabled, setWithdrawalDisable] = useState<string>(null);
-  const [showTooltip, setShowTooltip] = useState(false);
-
   useEffect(() => {
     dispatch(getBalance());
     dispatch(getMinWithdrawable());
@@ -37,20 +30,6 @@ const Dashboard: React.FC<any> = () => {
   useEffect(() => {
     balance && !suggestedValues && dispatch(getSuggestedValues()); // BE produces an error when requesting values before the balance
   }, [balance]);
-
-  useEffect(() => {
-    isUserBlocked && setWithdrawalDisable(vocab.get().withdrawalErrorBlocked);
-    isWithdrawalPaused && setWithdrawalDisable(vocab.get().withdrawalErrorDays);
-    suggestedValues && !suggestedValues.length && setWithdrawalDisable(vocab.get().withdrawalErrorMinimum);
-  }, [isUserBlocked, isWithdrawalPaused, suggestedValues]);
-
-  useEffect(() => {
-    withdrawalDisabled && setShowTooltip(true);
-  }, [withdrawalDisabled]);
-
-  useEffect(() => {
-    showTooltip && setTimeout(() => setShowTooltip(false), 4000);
-  }, [showTooltip]);
 
   return (
     <ScreenWrapperMain>
@@ -78,14 +57,7 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 6 }} />
       </View>
       <View style={styles.buttonContainer}>
-        <View>
-          {showTooltip && <Tooltip text={withdrawalDisabled} />}
-          <ButtonWithdraw
-            disabled={!!withdrawalDisabled}
-            onPressDisabled={() => setShowTooltip(true)}
-          />
-        </View>
-
+        <ButtonWithdraw />
       </View>
     </ScreenWrapperMain>
   );
