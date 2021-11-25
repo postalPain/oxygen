@@ -1,4 +1,7 @@
-export const BASE_URL = 'https://api-dev.stryproject-o.ch/api/v1';
+export const DEV_URL = 'https://api-dev.stryproject-o.ch/api/v1';
+export const STAGE_URL = 'https://api-stage.stryproject-o.ch/api/v1';
+export const PROD_URL = 'https://api-prod.stryproject-o.ch/api/v1';
+export const BASE_URL = DEV_URL;
 
 export default {
   signUp: 'employees/sign-up',
