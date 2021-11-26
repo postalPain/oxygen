@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   itemHeaderText: {
     color: theme.colors.floos1,
-    fontSize: getWidth(6),
+    fontSize: getWidth(5),
     fontWeight: '500',
     lineHeight: getHeight(4),
     letterSpacing: .7,
