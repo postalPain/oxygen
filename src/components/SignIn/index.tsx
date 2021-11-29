@@ -10,14 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
-import { selectUserEmail, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
-import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
+import { isUserEmployerVerified, selectUserEmail, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
 import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
-
-
-const isUserVerified = (status: TVerificationStatus) => {
-  return (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
-};
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -47,7 +41,7 @@ const SignIn = (
           return;
         }
 
-        if (!isUserVerified(verificationStatus)) {
+        if (!isUserEmployerVerified(verificationStatus)) {
           navigation.navigate(AppScreenNames.UserVerificationPending);
         } else {
           existsInStoredLoginEmails(email).then(exists => exists
