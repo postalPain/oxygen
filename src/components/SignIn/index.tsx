@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
-import { selectUserEmail, selectVerificationStatus } from 'modules/user/selectors';
+import { selectUserEmail, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
 import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
-import { existsInStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
+import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
 
 
 const isUserVerified = (status: TVerificationStatus) => {
@@ -28,6 +28,7 @@ const SignIn = (
   const verificationStatus = useSelector(selectVerificationStatus);
   const storedEmail = useSelector(selectUserEmail);
   const signedIn = useSelector(selectSignedIn);
+  const statusError = useSelector(selectUserStatusError);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -42,7 +43,7 @@ const SignIn = (
           return;
         }
 
-        if (!verificationStatus || (verificationStatus === VerificationStatuses._noStatus)) {
+        if (!verificationStatus || statusError) {
           return;
         }
 

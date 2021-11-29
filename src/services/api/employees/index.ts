@@ -1,6 +1,6 @@
 import apiUrls from 'config/apiUrls';
 import { ITransaction } from 'modules/transactions/types';
-import { TVerificationStatus } from 'modules/user/types';
+import { VerificationStatuses } from 'modules/user/types';
 import { IMinWithdrawable } from 'modules/withdrawal/types';
 import { IResponse } from '..';
 import request from '../request';
@@ -12,14 +12,15 @@ export interface IUserInfo {
   iban: string;
   id: number;
   registration_id: string;
-  verification_status: TVerificationStatus;
+  verification_status: VerificationStatuses;
+  statusError: boolean;
 }
 const userInfo = (): Promise<IResponse<IUserInfo>> => request.get(apiUrls.userInfo) ;
 
 const verifyEmail = (code: string) => request.post(apiUrls.verifyEmail, { code });
 
 export interface IVerificationResponse {
-  verification_status: TVerificationStatus;
+  verification_status: VerificationStatuses;
 }
 
 const checkVerification = (): Promise<IResponse<IVerificationResponse>> => request.get(apiUrls.checkVerification);

@@ -46,10 +46,11 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
   try {
     response = yield api.employees.checkVerification();
   } catch (error) {
-    yield put(setVerificationStatus(VerificationStatuses._noStatus));
+    yield put(actions.setStatusError(true));
     yield action.meta?.onError?.();
     return error;
   }
+  yield put(actions.setStatusError(false));
   yield put(setVerificationStatus(response.data.verification_status));
   yield action.meta?.onSuccess?.(response.data.verification_status);
 }

@@ -88,6 +88,7 @@ export function* clearAuthDataWorker(action: IClearAuthDataAction) {
     AuthStoredKeys.email,
     UserStoredKeys.first_name,
   ]);
+  removeHeader('Authorization');
   yield action?.meta?.onSuccess();
 }
 

@@ -7,8 +7,9 @@ import {
   ICheckVerificationAction,
   ISetVerificationStatusAction,
   IUserClearInfoAction,
-  TVerificationStatus,
   IResendVerificationCodeAction,
+  ISetUserStatusError,
+  VerificationStatuses,
 } from 'modules/user/types';
 import { IMeta } from 'modules/store/types';
 import { IUserInfo } from 'services/api/employees';
@@ -45,7 +46,12 @@ export const checkVerification = (meta?: IMeta): ICheckVerificationAction => ({
   meta,
 });
 
-export const setVerificationStatus = (status: TVerificationStatus): ISetVerificationStatusAction => ({
+export const setVerificationStatus = (status: VerificationStatuses): ISetVerificationStatusAction => ({
   type: UserActions.SET_VERIFICATION_STATUS,
   payload: status,
+});
+
+export const setStatusError = (statusError: boolean): ISetUserStatusError => ({
+  type: UserActions.SET_STATUS_ERROR,
+  statusError,
 });

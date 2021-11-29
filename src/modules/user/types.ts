@@ -9,6 +9,7 @@ export const enum UserActions {
   RESEND_VERIFICATION_CODE = 'RESEND_VERIFICATION_CODE',
   CHECK_VERIFICATION = 'CHECK_VERIFICATION',
   SET_VERIFICATION_STATUS = 'SET_VERIFICATION_STATUS',
+  SET_STATUS_ERROR = 'SET_STATUS_ERROR',
 }
 
 export enum UserStoredKeys {
@@ -57,7 +58,12 @@ export interface ICheckVerificationAction {
 
 export interface ISetVerificationStatusAction {
   type: UserActions.SET_VERIFICATION_STATUS;
-  payload: TVerificationStatus;
+  payload: VerificationStatuses;
+}
+
+export interface ISetUserStatusError {
+  type: UserActions.SET_STATUS_ERROR;
+  statusError: boolean;
 }
 
 export enum VerificationStatuses {
@@ -69,11 +75,16 @@ export enum VerificationStatuses {
   activated = 'activated',
   blocked = 'blocked',
   deactivated = 'deactivated',
-  _noStatus = '_noStatus',
+}
+
+export enum VerificationStatusesFe {
+  pending = 'pending',
+  verified = 'verified',
+  rejected = 'rejected'
 }
 
 export type TVerificationStatus = keyof typeof VerificationStatuses;
 
 export type TUserAction = IUserGetInfoAction | IUserSetInfoAction
 | IUserClearInfoAction | ICheckVerificationAction
-| ISetVerificationStatusAction | IResendVerificationCodeAction;
+| ISetVerificationStatusAction | IResendVerificationCodeAction | ISetUserStatusError;
