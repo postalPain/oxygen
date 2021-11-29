@@ -41,6 +41,10 @@ function* getUserInfoWorker() {
   yield put(actions.userSetInfo(mockedUserData));
 }
 
+const hideSplashScreen = () => setTimeout(() => {
+  SplashScreen.hide();
+}, 300);
+
 function* checkVerificationWorker (action: ICheckVerificationAction) {
   let response: IResponse<IVerificationResponse>;
   try {
@@ -48,11 +52,13 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
   } catch (error) {
     yield put(actions.setStatusError(true));
     yield action.meta?.onError?.();
+    yield hideSplashScreen();
     return error;
   }
   yield put(actions.setStatusError(false));
   yield put(setVerificationStatus(response.data.verification_status));
   yield action.meta?.onSuccess?.(response.data.verification_status);
+  yield hideSplashScreen();
 }
 
 function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
@@ -79,12 +85,6 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
   yield action?.meta?.onSuccess?.();
 }
 
-function* setVerificationStatusWorker (action: ISetVerificationStatusAction) {
-  if (!!action.payload) setTimeout(() => {
-    SplashScreen.hide();
-  }, 300);
-}
-
 function* userSetInfoWorker (action: IUserSetInfoAction) {
   yield setItem(UserStoredKeys.first_name, action.payload?.first_name);
   yield setItem(AuthStoredKeys.email, action.payload?.email);
@@ -96,5 +96,4 @@ export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
   yield takeEvery(UserActions.CHECK_VERIFICATION, checkVerificationWorker);
   yield takeEvery(UserActions.RESEND_VERIFICATION_CODE, resendVerificationCodeWorker);
-  yield takeEvery(UserActions.SET_VERIFICATION_STATUS, setVerificationStatusWorker);
 }
