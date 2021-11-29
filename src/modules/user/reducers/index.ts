@@ -9,6 +9,7 @@ export const userDefaultState: IUserInfo = {
   iban: '',
   registration_id: '',
   verification_status: null,
+  statusError: false,
 };
 
 const userReducer = (
@@ -28,6 +29,12 @@ const userReducer = (
       return {
         ...state,
         verification_status: action.payload,
+      };
+    }
+    case UserActions.SET_STATUS_ERROR: {
+      return {
+        ...state,
+        statusError: action.statusError
       };
     }
     default:

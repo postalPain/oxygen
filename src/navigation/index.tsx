@@ -23,7 +23,6 @@ import { AuthStoredKeys } from 'modules/auth/types';
 import { getItems } from 'modules/asyncStorage';
 import { setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
-import { isPending } from 'modules/user/selectors';
 import { UserStoredKeys } from 'modules/user/types';
 import TabNavigation from 'navigation/TabNavigation';
 import { BackButton, NavigationHeader, } from 'components';
@@ -32,6 +31,7 @@ import { headerStyles } from './styles';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
+import { isUserEmployerVerified } from 'modules/user/selectors';
 
 const AppStack = createNativeStackNavigator();
 
@@ -73,7 +73,7 @@ const Navigation = () => {
         }));
         dispatch(checkVerification({
           onSuccess: (status) => {
-            if (isPending(status)) {
+            if (!isUserEmployerVerified(status)) {
               navigate(AppScreenNames.UserVerificationPending);
             } else {
               navigate(AppScreenNames.SignIn);

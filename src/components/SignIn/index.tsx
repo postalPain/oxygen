@@ -10,14 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
-import { selectUserEmail, selectVerificationStatus } from 'modules/user/selectors';
-import { TVerificationStatus, VerificationStatuses } from 'modules/user/types';
-import { existsInStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
-
-
-const isUserVerified = (status: TVerificationStatus) => {
-  return (status === VerificationStatuses.activated) || (status === VerificationStatuses.blocked);
-};
+import { isUserEmployerVerified, selectUserEmail, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
+import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -28,6 +22,7 @@ const SignIn = (
   const verificationStatus = useSelector(selectVerificationStatus);
   const storedEmail = useSelector(selectUserEmail);
   const signedIn = useSelector(selectSignedIn);
+  const statusError = useSelector(selectUserStatusError);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -42,11 +37,11 @@ const SignIn = (
           return;
         }
 
-        if (!verificationStatus || (verificationStatus === VerificationStatuses._noStatus)) {
+        if (!verificationStatus || statusError) {
           return;
         }
 
-        if (!isUserVerified(verificationStatus)) {
+        if (!isUserEmployerVerified(verificationStatus)) {
           navigation.navigate(AppScreenNames.UserVerificationPending);
         } else {
           existsInStoredLoginEmails(email).then(exists => exists

@@ -5,12 +5,11 @@ import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/types';
-import { VerificationStatuses } from 'modules/user/types';
+import { VerificationStatusesFe } from 'modules/user/types';
 import { checkVerification, userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
-import { selectVerificationStatus } from 'modules/user/selectors';
+import { selectEmailVerifiedStatus, selectEmployerVerifiedStatus, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
-import { removeHeader } from 'services/api/request';
 import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
@@ -27,43 +26,39 @@ const UserVerificationPending = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
-  const status = useSelector(selectVerificationStatus);
-  const emailVerificationState = (status === VerificationStatuses.new) ? 'pending' : 'verified';
-  const employerVerificationState = (status === VerificationStatuses.employer_not_verified)
-    ? 'rejected'
-    : (status === VerificationStatuses.employer_verified)
-      ? 'verified' : 'pending';
+
+  const emailVerificationState = useSelector(selectEmailVerifiedStatus);
+  const employerVerificationState = useSelector(selectEmployerVerifiedStatus);
+
+  const emailVerified = emailVerificationState === VerificationStatusesFe.verified;
+  const emailPending = emailVerificationState === VerificationStatusesFe.pending;
+  const employerVerified = employerVerificationState === VerificationStatusesFe.verified;
+  const employerPending = employerVerificationState === VerificationStatusesFe.pending;
+  const employerRejected = employerVerificationState === VerificationStatusesFe.rejected;
+
   const onPress = () => {
     navigation.navigate(AppScreenNames.UserInfoConfirmation, { noBackButton: true });
   };
+
   const [delay, setDelay] = useState(1000 * 60 * 5);
-  const checkStatus = () => {
-    dispatch(checkVerification({
-      onSuccess: (verification_status) => {
-        if (verification_status !== VerificationStatuses.email_verified) {
-          setDelay(null); // set delay to null in order to clear interval
-        }
-      },
-    }));
-  };
-  useEffect(() => {
-    getItem(AuthStoredKeys.email).then((_email) => setEmail(_email));
-    checkStatus();
-  }, []);
+
   useInterval(() => {
-    if ((status === VerificationStatuses.new) || (status === VerificationStatuses.email_verified)) {
-      checkStatus();
-    }
+    employerPending ? dispatch(checkVerification()) : setDelay(null); // set delay to null in order to clear interval
   }, delay);
+
+  useEffect(() => {
+    getItem(AuthStoredKeys.email).then(setEmail);
+  }, []);
+
   const clearAuthAndUserData = () => {
     navigation.navigate(AppScreenNames.Onboarding);
     batch(() => {
-      removeHeader('Authorization');
       dispatch(clearAuthData());
       dispatch(userClearInfo());
     });
   };
-  return (status !== VerificationStatuses._noStatus) && (
+
+  return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.screen}>
         <View style={styles.steps}>
@@ -71,7 +66,7 @@ const UserVerificationPending = (
             <View
               style={[
                 styles.progressBar,
-                (emailVerificationState === 'verified') && styles.progressBarVerified,
+                emailVerified && styles.progressBarVerified,
               ]}
             >
               <StatusIcon status={emailVerificationState} />
@@ -81,18 +76,18 @@ const UserVerificationPending = (
               {vocab.emailVerification}
             </Text>
             <EmailTag onPress={clearAuthAndUserData} email={email} />
-            {emailVerificationState === 'pending' && (
+            {emailPending && (
               <Text style={styles.stepText}>
                 {vocab.weSentEmail}
               </Text>
             )}
-            <View style={{ height: (emailVerificationState === 'verified') ? getHeight(6) : getHeight(2) }} />
+            <View style={{ height: emailVerified ? getHeight(6) : getHeight(2) }} />
           </View>
           <View style={styles.step}>
             <View
               style={[
                 styles.progressBar,
-                (employerVerificationState !== 'pending') && styles.progressBarVerified,
+                !employerPending && styles.progressBarVerified,
               ]}
             >
               <StatusIcon status={employerVerificationState} />
@@ -100,7 +95,7 @@ const UserVerificationPending = (
             <Text style={styles.stepTitle}>
               {vocab.employeeVerification}
             </Text>
-            {(emailVerificationState === 'verified') && (employerVerificationState === 'pending')
+            {emailVerified && employerPending
               ? (
                 <>
                   <View style={styles.textHighlightedWrapper}>
@@ -116,7 +111,7 @@ const UserVerificationPending = (
                   </Text>
                 </>
               ) : null}
-            {(employerVerificationState === 'rejected') && (
+            {employerRejected && (
               <View style={styles.infoContainer}>
                 <Text style={styles.infoText}>
                   {vocab.verificationUnsuccessful}
@@ -130,19 +125,19 @@ const UserVerificationPending = (
                 </Pressable>
               </View>
             )}
-            {employerVerificationState === 'verified' && (
+            {employerVerified && (
               <Text style={styles.stepText}>
                 {vocab.congratulationsVerification}
               </Text>
             )}
           </View>
         </View>
-        {(employerVerificationState === 'verified') && (
+        {employerVerified && (
           <Button onPress={onPress}>
             {vocab.getStarted}
           </Button>
         )}
-        {(emailVerificationState === 'pending') && (
+        {emailPending && (
           <View style={styles.buttonsWrapper}>
             <ResendEmail email={email} />
             <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>
