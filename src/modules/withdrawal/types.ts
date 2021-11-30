@@ -55,14 +55,9 @@ export interface IGetMinWithdrawableAction {
   type: withdrawalActions.GET_MIN_WITHDRAWABLE;
 }
 
-export interface IMinWithdrawable {
-  amount: number,
-  type: string,
-}
-
 export interface ISetMinWithdrawableAction {
   type: withdrawalActions.SET_MIN_WITHDRAWABLE;
-  payload: number,
+  payload: number;
 }
 
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction

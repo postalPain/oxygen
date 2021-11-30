@@ -6,28 +6,29 @@ import { AppScreenNames } from 'navigation/types';
 import vocab from 'i18n';
 import React, { useEffect, useState } from 'react';
 import { selectIsUserBlocked } from 'modules/user/selectors';
-import { selectIsWithdrawalPaused, selectSuggestedValues } from 'modules/withdrawal/selectors';
+import { selectBalance, selectIsWithdrawalPaused, selectMinimumWithdrawable, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import Button from 'components/Button';
 import IconPlus from 'components/IconPlus';
 import Tooltip from '../Tooltip';
 
 const ButtonWithdraw = () => {
   const navigation: StackNavigationProp<any> = useNavigation();
+  const balance = useSelector(selectBalance);
   const isUserBlocked = useSelector(selectIsUserBlocked);
   const isWithdrawalPaused = useSelector(selectIsWithdrawalPaused);
-  const suggestedValues = useSelector(selectSuggestedValues);
+  const minimumWithdrawable = useSelector(selectMinimumWithdrawable);
   const [showTooltip, setShowTooltip] = useState(false);
   const [withdrawalDisabled, setWithdrawalDisabled] = useState(null);
   useEffect(() => {
     isUserBlocked && setWithdrawalDisabled(vocab.get().withdrawalErrorBlocked);
     isWithdrawalPaused && setWithdrawalDisabled(vocab.get().withdrawalErrorDays);
-    suggestedValues && !suggestedValues.length && setWithdrawalDisabled(vocab.get().withdrawalErrorMinimum);
-  }, [isUserBlocked, isWithdrawalPaused, suggestedValues]);
+    (balance.withdrawable_wages < minimumWithdrawable) && setWithdrawalDisabled(vocab.get().withdrawalErrorMinimum);
+  }, [isUserBlocked, isWithdrawalPaused, minimumWithdrawable]);
   useEffect(() => {
     !!withdrawalDisabled && setShowTooltip(true);
   }, [withdrawalDisabled]);
   useEffect(() => {
-    showTooltip && setTimeout(() => setShowTooltip(false), 400000);
+    showTooltip && setTimeout(() => setShowTooltip(false), 4000);
   }, [showTooltip]);
   return (
     <View>
@@ -41,7 +42,7 @@ const ButtonWithdraw = () => {
         {vocab.get().withdraw}
       </Button>
     </View>
-    
+
   );
 };
 
