@@ -10,7 +10,7 @@ export const setItem = async (key, value) => {
 };
 
 export const setItems = async (items) => {
-  await AsyncStorage.multiSet(items.map(({ key, value }) => [key, value]));
+  await AsyncStorage.multiSet(items.map(({ key, value }) => [key, value ?? '']));
 };
 
 export const getItem = async (key) => {
