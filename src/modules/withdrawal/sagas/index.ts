@@ -1,8 +1,8 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { IMinWithdrawable, IWithdrawalAction, withdrawalActions } from '../types';
+import { IWithdrawalAction, withdrawalActions } from '../types';
 import api, { IResponse } from 'services/api';
-import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
+import { IBalance, IWithdrawableDefault, IWithdrawableDefaultTypes, TFee, TSuggestedValues } from 'services/api/employees';
 import { errorNotification } from 'modules/notifications/actions';
 import {
   getBalance,
@@ -52,7 +52,8 @@ function* getFeeWorker() {
   const balance = selectBalance(getState());
   let response: IResponse<TFee>;
   try { // TODO: Uncomment when fee API works
-    // response = yield api.employees.getFee();
+    // response = yield api.employees.getFee(100);
+
     // response = { data: balance.total_withdrawn_amount ? 25 : 0 }; // TODO: Remove once BE is ready
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
@@ -79,13 +80,13 @@ function* withdrawalWorker(action: IWithdrawalAction) {
 }
 
 function* getMinWithdrawableWorker(action: IWithdrawalAction) {
-  let response: IResponse<IMinWithdrawable>;
+  let response: IResponse<IWithdrawableDefault[]>;
   try {
     response = yield api.employees.getMinWithdrawable();
   } catch (error) {
     return;
   }
-  yield put(setMinWithdrawable(response.data[0].amount));
+  yield put(setMinWithdrawable(response.data.find(_ => _.type === IWithdrawableDefaultTypes.minimal).amount));
   yield action?.meta?.onSuccess?.();
 }
 

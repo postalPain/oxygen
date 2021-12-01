@@ -104,7 +104,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         ref={otherAmountRef}
         value={amount.toString()}
         style={{
-          display: 'none'
+          opacity: 0
         }}
         onChangeText={(value) => dispatch(setAmount(Number(value))) }
       />

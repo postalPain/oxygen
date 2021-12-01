@@ -1,7 +1,6 @@
 import apiUrls from 'config/apiUrls';
 import { ITransaction } from 'modules/transactions/types';
 import { VerificationStatuses } from 'modules/user/types';
-import { IMinWithdrawable } from 'modules/withdrawal/types';
 import { IResponse } from '..';
 import request from '../request';
 
@@ -44,11 +43,20 @@ const getSuggestedValues = (): Promise<IResponse<TSuggestedValues>> => request.g
 
 export type TFee = number;
 
-const getFee = (): Promise<IResponse<TFee>> => request.get('employees/transactions/fee');
+const getFee = (amount): Promise<IResponse<TFee>> => request.get(`employees/transactions/fee?amount=${amount}`);
 
 const withdrawal = (amount: number): Promise<IResponse<ITransaction>> => request.post('employees/transactions', { amount });
 
-const getMinWithdrawable = (): Promise<IResponse<IMinWithdrawable>> => request.get('employees/withdraw/defaults');
+export enum IWithdrawableDefaultTypes {
+  minimal = 'minimal'
+}
+
+export interface IWithdrawableDefault {
+  amount: number;
+  type: IWithdrawableDefaultTypes;
+}
+
+const getMinWithdrawable = (): Promise<IResponse<IWithdrawableDefault[]>> => request.get('employees/withdraw/defaults');
 
 const employees = {
   verifyEmail,
