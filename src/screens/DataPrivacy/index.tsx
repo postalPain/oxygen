@@ -65,7 +65,7 @@ const DataPrivacy = (
   };
   const handleOnChange = (value) => setChecked(value);
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.heading}>

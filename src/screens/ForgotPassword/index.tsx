@@ -17,7 +17,7 @@ const ForgotPassword = (
   const [email, setEmail] = useState('');
 
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.screenContainer}>
         <View>
           <Text style={styles.forgotPassword}>{vocab.get().forgotPassword}</Text>
