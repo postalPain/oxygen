@@ -72,11 +72,12 @@ function* signInWorker(action: ISignInAction) {
     response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
     yield put(authActions.setSignInError(error));
+    yield action.meta?.onError?.();
     return;
   }
   yield processUserData({ email: action.email });
   yield put(authActions.setAuthData(response.data));
-  yield put(authActions.signedIn(true));
+  yield action.meta?.onSuccess?.();
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
@@ -118,10 +119,6 @@ function* resetPasswordWorker(action: IResetPasswordAction) {
   action.meta?.onSuccess();
 }
 
-function* signInSuccessWorker () {
-  yield put(userGetInfo());
-}
-
 function* signOutWorker(action: ISignOutAction) {
   try {
     yield call(api.auth.signOut);
@@ -150,7 +147,6 @@ export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);
-  yield takeEvery(AuthActions.SIGN_IN_SUCCESS, signInSuccessWorker);
   yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearAuthDataWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);
