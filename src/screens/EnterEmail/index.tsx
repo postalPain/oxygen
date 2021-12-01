@@ -44,7 +44,7 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
     setInputValue(value.toLowerCase());
   };
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.formContainer}>
         <View>
           <Input

@@ -71,12 +71,6 @@ const authReducer = (
         signInError: action.error,
       };
     }
-    case AuthActions.SIGN_IN_SUCCESS: {
-      return {
-        ...state,
-        signedIn: action.payload,
-      };
-    }
     case AuthActions.SET_FORGOT_PASSWORD_EMAIL: {
       return {
         ...state,

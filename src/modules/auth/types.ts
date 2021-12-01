@@ -19,7 +19,6 @@ export const enum AuthActions {
   SET_AUTH_DATA = 'SET_AUTH_DATA',
   CLEAR_AUTH_DATA = 'CLEAR_AUTH_DATA',
   SIGN_IN = 'SIGN_IN',
-  SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
   SET_SIGN_IN_ERROR = 'SET_SIGN_IN_ERROR',
@@ -92,11 +91,6 @@ export interface ISignInAction {
   meta?: IMeta;
 }
 
-export interface ISignedInAction {
-  type: AuthActions.SIGN_IN_SUCCESS;
-  payload: boolean;
-}
-
 export interface ISignOutAction {
   type: AuthActions.SIGN_OUT;
   meta?: IMeta;
@@ -134,5 +128,5 @@ export interface IResetPasswordAction {
 }
 
 export type TAuthAction = ISignUpAction | ISetSignUpDataAction | IClearSignUpDataAction | ISetAuthDataAction | IClearAuthDataAction | ISetSignUpErrorAction
-| ISignInAction | ISignedInAction | ISignOutAction | ISignedOutAction | ISetSignInErrorAction
+| ISignInAction | ISignOutAction | ISignedOutAction | ISetSignInErrorAction
 | ISetForgotPasswordEmailAction | ISetForgotPasswordCodeAction | IResetPasswordAction;

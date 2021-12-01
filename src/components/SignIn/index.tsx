@@ -8,10 +8,13 @@ import styles from './styles';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
-import { selectSignedIn, selectSignInError } from 'modules/auth/selectors';
+import { selectSignInError } from 'modules/auth/selectors';
 import { ERROR_CODES } from 'services/api/errors';
 import { isUserEmployerVerified, selectUserEmail, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
 import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
+import { checkVerification, userGetInfo } from 'modules/user/actions';
+import { errorNotification } from 'modules/notifications/actions';
+import { VerificationStatuses } from 'modules/user/types';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -19,39 +22,34 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const error = useSelector(selectSignInError);
-  const verificationStatus = useSelector(selectVerificationStatus);
   const storedEmail = useSelector(selectUserEmail);
-  const signedIn = useSelector(selectSignedIn);
-  const statusError = useSelector(selectUserStatusError);
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
-  useEffect(
-    () => {
-      if (!!signedIn) {
-        if (email === 'hello+jane@floos.ae') {
-          navigation.navigate(AppScreenNames.TabNavigation);
-          return;
-        }
+  const onSignedIn = () => {
+    dispatch(checkVerification({
+      onSuccess: (status: VerificationStatuses) => {
+        dispatch(userGetInfo());
 
-        if (!verificationStatus || statusError) {
-          return;
-        }
-
-        if (!isUserEmployerVerified(verificationStatus)) {
+        if (!isUserEmployerVerified(status)) {
           navigation.navigate(AppScreenNames.UserVerificationPending);
         } else {
-          existsInStoredLoginEmails(email).then(exists => exists
-            ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-            : navigation.navigate(AppScreenNames.TabNavigation));
+          existsInStoredLoginEmails(email).then(exists => {
+            exists
+              ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
+              : navigation.navigate(AppScreenNames.TabNavigation);
+          });
         }
+      },
+      onError: () => {
+        dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));
       }
-    },
-    [signedIn, verificationStatus]
-  );
+    }));
+  };
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -116,10 +114,15 @@ const SignIn = (
       <View style={styles.buttonSection}>
         <Button
           onPress={() => {
-            dispatch(signIn(email || storedEmail, password));
+            setButtonDisabled(true);
+            dispatch(signIn(email || storedEmail, password, {
+              onSuccess: onSignedIn,
+              onError: () => setButtonDisabled(false)
+            }));
             setEmailError(null);
             setPasswordError(null);
           }}
+          disabled={buttonDisabled}
         >
           {vocab.get().logIn}
         </Button>

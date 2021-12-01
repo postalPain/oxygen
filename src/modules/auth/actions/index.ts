@@ -5,10 +5,8 @@ import {
   IClearAuthDataAction,
   IClearSignUpDataAction,
   ISetSignUpDataAction,
-  ISignInPayload,
   ISetSignUpErrorAction,
   ISetSignUpErrorPayload,
-  ISignedInAction,
   ISignedOutAction,
   IAuthData,
   ISignInAction,
@@ -57,11 +55,6 @@ export const signIn = (email: string, password: string, meta?: IMeta): ISignInAc
   email,
   password,
   meta,
-});
-
-export const signedIn = (payload: boolean): ISignedInAction => ({
-  payload,
-  type: AuthActions.SIGN_IN_SUCCESS,
 });
 
 export const signOut = (meta?: IMeta): ISignOutAction => ({
