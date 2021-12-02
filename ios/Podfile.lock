@@ -448,14 +448,8 @@ PODS:
   - RNScreens (3.7.2):
     - React-Core
     - React-RCTImage
-  - RNSentry (3.1.0):
-    - React-Core
-    - Sentry (= 7.2.6)
   - RNSVG (12.1.1):
     - React
-  - Sentry (7.2.6):
-    - Sentry/Core (= 7.2.6)
-  - Sentry/Core (7.2.6)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -532,7 +526,6 @@ DEPENDENCIES:
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -559,7 +552,6 @@ SPEC REPOS:
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
-    - Sentry
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -659,8 +651,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSentry:
-    :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -736,9 +726,7 @@ SPEC CHECKSUMS:
   RNInAppBrowser: 5672feb84e731411f6911979c71649c240a90202
   RNReanimated: 65583befd5706cc9c86ae9a081786181ced37b93
   RNScreens: 0591543e343c7444ea1756b6265d81a4295922c9
-  RNSentry: a3c522c9f17f191e4972c3e4d6065aba253b593e
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  Sentry: be2f8f7a63e5274cc83d0813e40c1680119c0153
   Yoga: c11abbf5809216c91fcd62f5571078b83d9b6720
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
