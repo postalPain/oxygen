@@ -20,12 +20,12 @@ import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
 import { removeItems, setItems } from 'modules/asyncStorage';
-import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
 import { addCodeSentAt } from 'modules/auth/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
+import { addToStoredLoginEmails } from 'modules/user/asyncStorage';
 
 
 function* handleError (error: IError) {
@@ -44,12 +44,12 @@ function transformSignUpError (err: IError) {
   return errors;
 }
 
-export function* processUserData({ email }: { email: string }) {
+export function* storeUserData({ email }: { email: string }) {
   yield setItems([{ key: AuthStoredKeys.email, value: email }]);
 }
 
 function* signUpWorker(action: ISignUpAction) {
-  let response;
+  let response: IResponse<IAuthData>;
   try {
     response = yield call(api.auth.signUp, action.payload);
   } catch (error) {
@@ -58,10 +58,10 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
-  yield processUserData({ email: action.payload.email });
+  yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield put(clearSignUpData());
-  yield put(checkVerification());
+  yield addToStoredLoginEmails(action.payload.email);
   yield addCodeSentAt();
   yield action.meta?.onSuccess?.(response);
 }
@@ -75,7 +75,7 @@ function* signInWorker(action: ISignInAction) {
     yield action.meta?.onError?.();
     return;
   }
-  yield processUserData({ email: action.email });
+  yield storeUserData({ email: action.email });
   yield put(authActions.setAuthData(response.data));
   yield action.meta?.onSuccess?.();
 }
