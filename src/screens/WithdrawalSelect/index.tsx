@@ -55,6 +55,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
       <Slider
         style={styles.slider}
         minimumValue={minimumWithdrawable}
+        value={amount}
         maximumValue={balance.withdrawable_wages}
         minimumTrackTintColor={theme.colors.floos1}
         maximumTrackTintColor={theme.colors.shade1}
@@ -77,7 +78,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
             )}
         </View>
       )}
-      { suggestedValues?.length && (
+      { !!suggestedValues?.length && (
         <View style={styles.suggestedContainerTotal}>
           <WithdrawalAmountTag
             key={suggestedValues[suggestedValues.length - 1]}
