@@ -16,7 +16,7 @@ import Arrow from './Arrow';
 import styles from './styles';
 import { externalUrls } from '../../constants';
 
-const vocab = vocabulary.get()
+const vocab = vocabulary.get();
 
 const Profile = (
   { navigation }: AppNavigationProps<AppScreenNames.Profile>
@@ -27,7 +27,7 @@ const Profile = (
   };
   const openLink = (link: string) => {
     openBrowser(link);
-  }
+  };
   const logout = () => {
     dispatch(signOut({
       onSuccess: () => navigation.navigate(AppScreenNames.Onboarding),
@@ -70,7 +70,7 @@ const Profile = (
         </Pressable>
       </View>
     </SafeAreaView>
-  )
+  );
 };
 
 export default Profile;
