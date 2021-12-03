@@ -21,7 +21,6 @@ export const defaultSignUpData = {
 export const authDefaultState: IAuthState = {
   authData: defaultAuthData,
   signUpErrors: defaultSignUpErrors,
-  signInError: null,
   signUpData: defaultSignUpData,
   forgotPassword: null,
   signedIn: false,
@@ -63,12 +62,6 @@ const authReducer = (
       return {
         ...state,
         signUpErrors: action.payload,
-      };
-    }
-    case AuthActions.SET_SIGN_IN_ERROR: {
-      return {
-        ...state,
-        signInError: action.error,
       };
     }
     case AuthActions.SET_FORGOT_PASSWORD_EMAIL: {

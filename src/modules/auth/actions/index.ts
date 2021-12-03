@@ -10,7 +10,6 @@ import {
   ISignedOutAction,
   IAuthData,
   ISignInAction,
-  ISetSignInErrorAction,
   ISignOutAction,
   IForgotPasswordAction,
   ISetForgotPasswordCodeAction,
@@ -64,11 +63,6 @@ export const signOut = (meta?: IMeta): ISignOutAction => ({
 
 export const signedOut = (): ISignedOutAction => ({
   type: AuthActions.SIGN_OUT_SUCCESS,
-});
-
-export const setSignInError = (error: IError): ISetSignInErrorAction => ({
-  type: AuthActions.SET_SIGN_IN_ERROR,
-  error
 });
 
 export const forgotPassword = (email: string, meta?: IMeta): IForgotPasswordAction => ({

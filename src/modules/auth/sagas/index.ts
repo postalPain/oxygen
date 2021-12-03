@@ -71,8 +71,7 @@ function* signInWorker(action: ISignInAction) {
   try {
     response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
-    yield put(authActions.setSignInError(error));
-    yield action.meta?.onError?.();
+    yield action.meta?.onError?.(error);
     return;
   }
   yield storeUserData({ email: action.email });
