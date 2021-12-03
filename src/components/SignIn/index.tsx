@@ -81,11 +81,13 @@ const SignIn = (
               name="email"
               label={vocab.get().email}
               onChange={(v) => setEmail(v.toLowerCase())}
-              placeholder="Email"
+              placeholder={vocab.get().emailAddress}
               type="email"
               required
               error={emailError}
+              autoCorrect={false}
               returnKeyType='done'
+              autoCapitalize="none"
             />
           )}
           <Input
