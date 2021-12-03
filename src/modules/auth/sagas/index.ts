@@ -71,8 +71,7 @@ function* signInWorker(action: ISignInAction) {
   try {
     response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
-    yield put(authActions.setSignInError(error));
-    yield action.meta?.onError?.();
+    yield action.meta?.onError?.(error);
     return;
   }
   yield storeUserData({ email: action.email });
@@ -122,20 +121,19 @@ function* resetPasswordWorker(action: IResetPasswordAction) {
 function* signOutWorker(action: ISignOutAction) {
   try {
     yield call(api.auth.signOut);
-    yield call(removeHeader, 'Authorization');
-    yield put(authActions.signedOut());
-    yield removeItems([
-      AuthStoredKeys.access_token,
-      AuthStoredKeys.access_ttl,
-      AuthStoredKeys.refresh_token,
-      AuthStoredKeys.refresh_ttl,
-    ]);
-    // TODO clear transactions
-    yield action?.meta?.onSuccess?.();
   } catch (error) {
-    yield handleError(error);
     yield action?.meta?.onError?.();
   }
+  yield call(removeHeader, 'Authorization');
+  yield put(authActions.signedOut());
+  yield removeItems([
+    AuthStoredKeys.access_token,
+    AuthStoredKeys.access_ttl,
+    AuthStoredKeys.refresh_token,
+    AuthStoredKeys.refresh_ttl,
+  ]);
+  // TODO clear transactions
+  yield action?.meta?.onSuccess?.();
 }
 
 function* setAuthDataWorker(action: ISetAuthDataAction) {

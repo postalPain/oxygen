@@ -37,6 +37,7 @@ const CodeInput = (props: ICodeInput) => {
       {...codeFieldProps}  // eslint-disable-line
       value={value}
       onChangeText={setValue}
+      caretHidden={false}
       onEndEditing={(e) => props.onEndEditing && props.onEndEditing(e.nativeEvent.text)}
       cellCount={CODE_LENGTH}
       rootStyle={[styles.codeFiledRoot, props.style]}
