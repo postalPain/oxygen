@@ -9,7 +9,7 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { ERROR_CODES, IError } from 'services/api/errors';
-import { isUserEmployerVerified, selectUserEmail, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
+import { isUserEmployerVerified, selectUserEmail } from 'modules/user/selectors';
 import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
@@ -37,7 +37,7 @@ const SignIn = (
         if (!isUserEmployerVerified(status)) {
           navigation.navigate(AppScreenNames.UserVerificationPending);
         } else {
-          existsInStoredLoginEmails(email).then(exists => {
+          existsInStoredLoginEmails(storedEmail).then(exists => {
             exists
               ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
               : navigation.navigate(AppScreenNames.TabNavigation);
