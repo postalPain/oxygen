@@ -11,6 +11,7 @@ import { selectUserInfo } from 'modules/user/selectors';
 import { userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
 import vocab from 'i18n';
+import { getHeight } from 'utils/window';
 
 interface IScreenWrapperLogin {
   children?: any;
@@ -23,7 +24,7 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
   return (
     <KeyboardAvoidingView
       behavior={'position'}
-      keyboardVerticalOffset={0}
+      keyboardVerticalOffset={-getHeight(5)}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
