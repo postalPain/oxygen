@@ -5,12 +5,10 @@ import { errorNotification, successNotification } from 'modules/notifications/ac
 import {
   ICheckVerificationAction,
   IResendVerificationCodeAction,
-  ISetVerificationStatusAction,
   IUserSetInfoAction,
   IVerifySignUpCodeAction,
   UserActions,
   UserStoredKeys,
-  VerificationStatuses,
 } from 'modules/user/types';
 import api, { IResponse } from 'services/api';
 import vocab from 'i18n';
@@ -30,13 +28,11 @@ function* getUserInfoWorker() {
     return;
   }
 
-  // TODO: Remove after BE returns actual fields
-  const first_name = response.data.email === 'hello+jane@floos.ae' ? 'Jane' : response.data.email.split('@')?.[0];
-
   const mockedUserData: IUserInfo = {
     ...response.data,
-    first_name,
-    last_name: '',
+    // TODO: Remove after BE returns actual fields
+    first_name: response.data.first_name || response.data.email.split('@')?.[0],
+    last_name: response.data.last_name || '',
   };
   yield put(actions.userSetInfo(mockedUserData));
 }

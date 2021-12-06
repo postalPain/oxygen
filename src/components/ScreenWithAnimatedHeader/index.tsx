@@ -14,7 +14,7 @@ import useStyles, { HEADER_SHIFT } from './styles';
 
 
 interface IScreenWithAnimatedHeaderProps {
-  title: string | React.ReactNode;
+  children: React.ReactNode;
 }
 
 const ScreenWithAnimatedHeader: React.FC<IScreenWithAnimatedHeaderProps> = ({ children }): React.ReactElement => {

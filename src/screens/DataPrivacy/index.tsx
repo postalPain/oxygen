@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Checkbox from 'react-native-bouncy-checkbox';
@@ -9,7 +9,7 @@ import {
 } from 'navigation/types';
 import { Text } from '@stryberventures/stryber-react-native-ui-components';
 import { signUp } from 'modules/auth/actions';
-import { selectSignUpData } from 'modules/auth/selectors';
+import { selectAuthData, selectSignUpData } from 'modules/auth/selectors';
 import { checkVerification } from 'modules/user/actions';
 import { openBrowser } from 'utils';
 import { getWidth } from 'utils/window';
@@ -17,8 +17,6 @@ import env from 'env';
 import theme from 'config/theme';
 import { Button, Link, ScreenWithAnimatedHeader } from 'components';
 import useStyles from './styles';
-import { addToStoredLoginEmails } from 'modules/user/asyncStorage';
-
 
 const vocab = vocabulary.get();
 
@@ -27,35 +25,35 @@ const DataPrivacy = (
 ) => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const authData = useSelector(selectAuthData);
   const signUpData = useSelector(selectSignUpData);
   const [checked, setChecked] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    authData.access_token && dispatch(checkVerification({
+      onSuccess: () => navigation.navigate(AppScreenNames.UserVerificationPending)
+    }));
+  }, [authData]);
+
   const onPress = async () => {
     if (!checked) return;
     setButtonDisabled(true);
     dispatch(signUp(signUpData, {
-      onSuccess: () => {
-        dispatch(checkVerification({
-          onSuccess: async () => {
-            await addToStoredLoginEmails(signUpData.email);
-            navigation.navigate(AppScreenNames.UserVerificationPending);
-          }
-        }));
-      },
       onError: (error) => {
         setButtonDisabled(false);
         if (error?.registration_id) {
-          navigation.navigate(
+          return navigation.navigate(
             AppScreenNames.EnterRegistrationId,
             { backendError: error.registration_id });
         }
         if (error?.email) {
-          navigation.navigate(
+          return navigation.navigate(
             AppScreenNames.EnterEmail,
             { backendError: error.email });
         }
         if (error?.password) {
-          navigation.navigate(
+          return navigation.navigate(
             AppScreenNames.SetPasswordSignUp,
             { backendError: error.password }
           );
@@ -65,7 +63,7 @@ const DataPrivacy = (
   };
   const handleOnChange = (value) => setChecked(value);
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.heading}>

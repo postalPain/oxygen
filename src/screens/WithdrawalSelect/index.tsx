@@ -39,6 +39,10 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
     }
   }, [amount, suggestedValues]);
 
+  useEffect(() => {
+    !amount && minimumWithdrawable && dispatch(setAmount(minimumWithdrawable));
+  }, [minimumWithdrawable]);
+
   return (
     <ScreenWrapperWithdrawal>
       <Text style={styles.headerText}>{vocab.get().withdrawalAmount}</Text>
@@ -55,6 +59,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
       <Slider
         style={styles.slider}
         minimumValue={minimumWithdrawable}
+        value={amount}
         maximumValue={balance.withdrawable_wages}
         minimumTrackTintColor={theme.colors.floos1}
         maximumTrackTintColor={theme.colors.shade1}
@@ -77,20 +82,18 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
             )}
         </View>
       )}
-      { suggestedValues?.length && (
+
+      { !!suggestedValues?.length && (
         <View style={styles.suggestedContainerTotal}>
           <WithdrawalAmountTag
             key={suggestedValues[suggestedValues.length - 1]}
-            style={{
-              ...styles.suggestedTag,
-            }}
+            style={styles.suggestedTag}
             active={amount === suggestedValues[suggestedValues.length - 1]}
             total
             onPress={(_amount) => dispatch(setAmount(_amount))}
             amount={suggestedValues[suggestedValues.length - 1]}
           />
         </View>
-
       )}
       <Link
         style={styles.otherAmount}

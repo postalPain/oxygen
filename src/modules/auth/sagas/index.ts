@@ -20,12 +20,12 @@ import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
 import { removeItems, setItems } from 'modules/asyncStorage';
-import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
 import { addCodeSentAt } from 'modules/auth/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
+import { addToStoredLoginEmails } from 'modules/user/asyncStorage';
 
 
 function* handleError (error: IError) {
@@ -44,12 +44,12 @@ function transformSignUpError (err: IError) {
   return errors;
 }
 
-export function* processUserData({ email }: { email: string }) {
+export function* storeUserData({ email }: { email: string }) {
   yield setItems([{ key: AuthStoredKeys.email, value: email }]);
 }
 
 function* signUpWorker(action: ISignUpAction) {
-  let response;
+  let response: IResponse<IAuthData>;
   try {
     response = yield call(api.auth.signUp, action.payload);
   } catch (error) {
@@ -58,10 +58,10 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
-  yield processUserData({ email: action.payload.email });
+  yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield put(clearSignUpData());
-  yield put(checkVerification());
+  yield addToStoredLoginEmails(action.payload.email);
   yield addCodeSentAt();
   yield action.meta?.onSuccess?.(response);
 }
@@ -71,12 +71,12 @@ function* signInWorker(action: ISignInAction) {
   try {
     response = yield api.auth.signIn({ email: action.email, password: action.password });
   } catch (error) {
-    yield put(authActions.setSignInError(error));
+    yield action.meta?.onError?.(error);
     return;
   }
-  yield processUserData({ email: action.email });
+  yield storeUserData({ email: action.email });
   yield put(authActions.setAuthData(response.data));
-  yield put(authActions.signedIn(true));
+  yield action.meta?.onSuccess?.();
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
@@ -118,27 +118,22 @@ function* resetPasswordWorker(action: IResetPasswordAction) {
   action.meta?.onSuccess();
 }
 
-function* signInSuccessWorker () {
-  yield put(userGetInfo());
-}
-
 function* signOutWorker(action: ISignOutAction) {
   try {
     yield call(api.auth.signOut);
-    yield call(removeHeader, 'Authorization');
-    yield put(authActions.signedOut());
-    yield removeItems([
-      AuthStoredKeys.access_token,
-      AuthStoredKeys.access_ttl,
-      AuthStoredKeys.refresh_token,
-      AuthStoredKeys.refresh_ttl,
-    ]);
-    // TODO clear transactions
-    yield action?.meta?.onSuccess?.();
   } catch (error) {
-    yield handleError(error);
     yield action?.meta?.onError?.();
   }
+  yield call(removeHeader, 'Authorization');
+  yield put(authActions.signedOut());
+  yield removeItems([
+    AuthStoredKeys.access_token,
+    AuthStoredKeys.access_ttl,
+    AuthStoredKeys.refresh_token,
+    AuthStoredKeys.refresh_ttl,
+  ]);
+  // TODO clear transactions
+  yield action?.meta?.onSuccess?.();
 }
 
 function* setAuthDataWorker(action: ISetAuthDataAction) {
@@ -150,7 +145,6 @@ export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);
-  yield takeEvery(AuthActions.SIGN_IN_SUCCESS, signInSuccessWorker);
   yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearAuthDataWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);

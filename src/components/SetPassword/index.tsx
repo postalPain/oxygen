@@ -40,7 +40,7 @@ const SetPassword = ({ route, onSubmit }: ISetPassword) => {
     setInputValue(value);
   };
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.formContainer}>
         <View>
           <Input

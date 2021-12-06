@@ -10,7 +10,6 @@ const env = {
   os: Platform.OS,
   ios: Platform.OS === 'ios',
   android: Platform.OS === 'android',
-  sentry_dsn: '',
   appStoreLink: '',
   playStoreLink: '',
   dimensions: {

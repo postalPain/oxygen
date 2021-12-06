@@ -45,7 +45,7 @@ function* getSuggestedValuesWorker() {
     return;
   }
 
-  yield put(setSuggestedValues(response.data));
+  yield put(setSuggestedValues(response.data.filter(x => x))); // TODO: Remove once BE applies fix
 }
 
 function* getFeeWorker() {

@@ -44,7 +44,7 @@ const EnterRegistrationId = (
     setInputValue(value.toUpperCase());
   };
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.formContainer}>
         <View>
           <Input

@@ -17,7 +17,7 @@ const ForgotPassword = (
   const [email, setEmail] = useState('');
 
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.screenContainer}>
         <View>
           <Text style={styles.forgotPassword}>{vocab.get().forgotPassword}</Text>
@@ -27,10 +27,12 @@ const ForgotPassword = (
             name="email"
             label={vocab.get().email}
             onChange={setEmail}
-            placeholder="Email"
+            placeholder={vocab.get().emailAddress}
             type="email"
             required
+            autoCorrect={false}
             returnKeyType='done'
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.buttonContainer}>

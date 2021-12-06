@@ -5,7 +5,6 @@ import { IMeta } from '../store/types';
 export interface IAuthState {
   authData: IAuthData;
   signUpErrors: ISetSignUpErrorPayload;
-  signInError: IError;
   signUpData: ISignUpPayload;
   forgotPassword: IResetPasswordBody;
   signedIn: boolean;
@@ -19,10 +18,8 @@ export const enum AuthActions {
   SET_AUTH_DATA = 'SET_AUTH_DATA',
   CLEAR_AUTH_DATA = 'CLEAR_AUTH_DATA',
   SIGN_IN = 'SIGN_IN',
-  SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
-  SET_SIGN_IN_ERROR = 'SET_SIGN_IN_ERROR',
   FORGOT_PASSWORD = 'FORGOT_PASSWORD',
   SET_FORGOT_PASSWORD_EMAIL = 'SET_FORGOT_PASSWORD_EMAIL',
   SET_FORGOT_PASSWORD_CODE = 'SET_FORGOT_PASSWORD_CODE',
@@ -92,11 +89,6 @@ export interface ISignInAction {
   meta?: IMeta;
 }
 
-export interface ISignedInAction {
-  type: AuthActions.SIGN_IN_SUCCESS;
-  payload: boolean;
-}
-
 export interface ISignOutAction {
   type: AuthActions.SIGN_OUT;
   meta?: IMeta;
@@ -104,11 +96,6 @@ export interface ISignOutAction {
 
 export interface ISignedOutAction {
   type: AuthActions.SIGN_OUT_SUCCESS;
-}
-
-export interface ISetSignInErrorAction {
-  type: AuthActions.SET_SIGN_IN_ERROR;
-  error: IError;
 }
 
 export interface IForgotPasswordAction {
@@ -134,5 +121,4 @@ export interface IResetPasswordAction {
 }
 
 export type TAuthAction = ISignUpAction | ISetSignUpDataAction | IClearSignUpDataAction | ISetAuthDataAction | IClearAuthDataAction | ISetSignUpErrorAction
-| ISignInAction | ISignedInAction | ISignOutAction | ISignedOutAction | ISetSignInErrorAction
-| ISetForgotPasswordEmailAction | ISetForgotPasswordCodeAction | IResetPasswordAction;
+| ISignInAction | ISignOutAction | ISignedOutAction | ISetForgotPasswordEmailAction | ISetForgotPasswordCodeAction | IResetPasswordAction;

@@ -22,7 +22,7 @@ const VerificationCode = ({ onSubmit, backendError }: IVerificationCode) => {
     backendError && dispatch(errorNotification({ text: backendError }));
   }, [backendError]);
   return (
-    <ScreenWithAnimatedHeader title={null}>
+    <ScreenWithAnimatedHeader>
       <View style={styles.verificationCode}>
         <View>
           <CodeInput

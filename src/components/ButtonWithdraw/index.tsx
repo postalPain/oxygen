@@ -20,10 +20,12 @@ const ButtonWithdraw = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [withdrawalDisabled, setWithdrawalDisabled] = useState(null);
   useEffect(() => {
-    isUserBlocked && setWithdrawalDisabled(vocab.get().withdrawalErrorBlocked);
-    isWithdrawalPaused && setWithdrawalDisabled(vocab.get().withdrawalErrorDays);
-    (balance.withdrawable_wages < minimumWithdrawable) && setWithdrawalDisabled(vocab.get().withdrawalErrorMinimum);
-  }, [isUserBlocked, isWithdrawalPaused, minimumWithdrawable]);
+    let newWithdrawalDisabled = null;
+    isUserBlocked && (newWithdrawalDisabled = vocab.get().withdrawalErrorBlocked);
+    isWithdrawalPaused && (newWithdrawalDisabled = vocab.get().withdrawalErrorDays);
+    (balance.withdrawable_wages < minimumWithdrawable) && (newWithdrawalDisabled = vocab.get().withdrawalErrorMinimum);
+    setWithdrawalDisabled(newWithdrawalDisabled);
+  }, [isUserBlocked, isWithdrawalPaused, minimumWithdrawable, balance]);
   useEffect(() => {
     !!withdrawalDisabled && setShowTooltip(true);
   }, [withdrawalDisabled]);
