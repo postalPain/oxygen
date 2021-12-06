@@ -59,10 +59,7 @@ const EnterRegistrationId = (
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>
-        <Button
-          onPress={onPress}
-          styles={styles.button}
-        >
+        <Button onPress={onPress} >
           {vocab.continue}
         </Button>
       </View>
