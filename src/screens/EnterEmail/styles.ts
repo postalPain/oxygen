@@ -6,9 +6,6 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
-  button: {
-    width: '100%',
-  }
 });
 
 export default useStyles;

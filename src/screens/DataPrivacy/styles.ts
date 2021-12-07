@@ -63,9 +63,6 @@ const useStyles = () => StyleSheet.create({
     textDecorationColor: theme.colors.floos4,
     textDecorationLine: 'underline',
   },
-  button: {
-    width: '100%',
-  },
 });
 
 export default useStyles;

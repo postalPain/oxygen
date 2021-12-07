@@ -29,6 +29,9 @@ export const deleteFromStoredLoginEmails = async (email: string): Promise<void> 
 };
 
 export const existsInStoredLoginEmails = async (email: string): Promise<boolean> => {
+  if (!email) {
+    return false;
+  }
   const storedEmails = await getStoredFirstLoginEmails();
 
   return storedEmails.includes(email);

@@ -59,7 +59,6 @@ const SetPassword = ({ route, onSubmit }: ISetPassword) => {
         </View>
         <Button
           onPress={onPress}
-          styles={styles.button}
           disabled={!isPasswordMatched}
         >
           {vocab.savePassword}

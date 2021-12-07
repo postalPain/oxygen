@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { SCREEN_BOTTOM_PADDING } from 'utils/screen';
-import { windowDimensions } from 'utils/window';
+import { getHeight, getWidth, windowDimensions } from 'utils/window';
 
 const useStyles = () => StyleSheet.create({
   safeArea: {
@@ -18,39 +18,38 @@ const useStyles = () => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     width: '100%',
-    height: '42%',
-    paddingBottom: 22,
+    height: '39%',
+    paddingBottom: getHeight(3),
   },
   iconWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 41,
-    height: 41,
-    borderRadius: 41,
+    width: getWidth(10),
+    height: getWidth(10),
+    borderRadius: getWidth(10),
     backgroundColor: theme.colors.floos1,
-    marginBottom: 44,
+    marginBottom: getHeight(5),
   },
   headerText: {
-    fontSize: 22,
-    lineHeight: 23,
+    fontSize: getHeight(3),
   },
   content: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'flex-start',
     width: '100%',
-    paddingHorizontal: 40,
+    paddingHorizontal: getWidth(15),
   },
   contentText: {
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: getHeight(2.3),
+    lineHeight: getHeight(3),
     textAlign: 'center',
   },
   imageWrapper: {
-    paddingTop: '10%',
+    paddingTop: getHeight(6),
   },
   image: {
-    width: 0.5 * windowDimensions.width,
+    width: getHeight(30),
   },
 });
 

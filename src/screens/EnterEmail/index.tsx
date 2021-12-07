@@ -63,10 +63,7 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
           />
           <InputInfo text={vocab.useWorkEmail} />
         </View>
-        <Button
-          onPress={onPress}
-          styles={styles.button}
-        >
+        <Button onPress={onPress} >
           {vocab.continue}
         </Button>
       </View>

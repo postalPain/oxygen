@@ -2,6 +2,7 @@ import { IconCheck } from 'components';
 import vocab from 'i18n';
 import React from 'react';
 import { Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { getHeight } from 'utils/window';
 import styles from './styles';
 
 interface IScreenWrapperLoginForgot {
@@ -12,7 +13,7 @@ const ScreenWrapperForgotPasswordLogin = (props: IScreenWrapperLoginForgot) => {
   return (
     <KeyboardAvoidingView
       behavior={'position'}
-      keyboardVerticalOffset={0}
+      keyboardVerticalOffset={-getHeight(5)}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

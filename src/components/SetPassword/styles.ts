@@ -10,9 +10,6 @@ const useStyles = () => StyleSheet.create({
   inputLabelError: {
     color: theme.colors.error,
   },
-  button: {
-    width: '100%',
-  },
 });
 
 export default useStyles;
