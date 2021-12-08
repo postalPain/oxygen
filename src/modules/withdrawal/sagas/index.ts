@@ -8,7 +8,7 @@ import {
   getBalance,
   setBalance,
   setFee,
-  setMinWithdrawable,
+  setWithdrawableDefaults,
   setSuggestedValues,
   setWithdrawalTransaction
 } from '../actions';
@@ -79,14 +79,14 @@ function* withdrawalWorker(action: IWithdrawalAction) {
   yield put(getTransactions());
 }
 
-function* getMinWithdrawableWorker(action: IWithdrawalAction) {
-  let response: IResponse<IWithdrawableDefault[]>;
+function* getWithdrawableDefaultsWorker(action: IWithdrawalAction) {
+  let response: IResponse<IWithdrawableDefault>;
   try {
-    response = yield api.employees.getMinWithdrawable();
+    response = yield api.employees.getWithdrawableDefaults();
   } catch (error) {
     return;
   }
-  yield put(setMinWithdrawable(response.data.find(_ => _.type === IWithdrawableDefaultTypes.minimal).amount));
+  yield put(setWithdrawableDefaults(response.data));
   yield action?.meta?.onSuccess?.();
 }
 
@@ -94,6 +94,6 @@ export default function* withdrawalSagas(): SagaIterator {
   yield takeLatest(withdrawalActions.GET_BALANCE, getBalanceWorker);
   yield takeLatest(withdrawalActions.GET_SUGGESTED_VALUES, getSuggestedValuesWorker);
   yield takeLatest(withdrawalActions.GET_FEE, getFeeWorker);
-  yield takeLatest(withdrawalActions.GET_MIN_WITHDRAWABLE, getMinWithdrawableWorker);
+  yield takeLatest(withdrawalActions.GET_WITHDRAWABLE_DEFAULTS, getWithdrawableDefaultsWorker);
   yield takeEvery(withdrawalActions.WITHDRAWAL, withdrawalWorker);
 }

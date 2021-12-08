@@ -13,3 +13,5 @@ export const selectFee = (state: RootState) => state.withdrawal.fee;
 export const selectWithdrawalTransaction = (state: RootState) => state.withdrawal.transaction;
 
 export const selectMinimumWithdrawable = (state: RootState) => state.withdrawal.minimumWithdrawable;
+
+export const selectMaximumWithdrawable = (state: RootState) => state.withdrawal.maximumWithdrawable;

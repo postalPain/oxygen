@@ -48,15 +48,15 @@ const getFee = (amount): Promise<IResponse<TFee>> => request.get(`employees/tran
 const withdrawal = (amount: number): Promise<IResponse<ITransaction>> => request.post('employees/transactions', { amount });
 
 export enum IWithdrawableDefaultTypes {
-  minimal = 'minimal'
+  minimal = 'minimal',
+  maximum = 'maximum',
 }
 
-export interface IWithdrawableDefault {
-  amount: number;
-  type: IWithdrawableDefaultTypes;
-}
+export type IWithdrawableDefault = {
+  [type in IWithdrawableDefaultTypes]: number;
+};
 
-const getMinWithdrawable = (): Promise<IResponse<IWithdrawableDefault[]>> => request.get('employees/withdraw/defaults');
+const getWithdrawableDefaults = (): Promise<IResponse<IWithdrawableDefault>> => request.get('employees/withdraw/defaults');
 
 const employees = {
   verifyEmail,
@@ -68,7 +68,7 @@ const employees = {
   getSuggestedValues,
   getFee,
   withdrawal,
-  getMinWithdrawable,
+  getWithdrawableDefaults,
 };
 
 export default employees;
