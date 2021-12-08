@@ -60,6 +60,7 @@ function* signUpWorker(action: ISignUpAction) {
   }
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
+  yield storeAuthData(response.data);
   yield put(clearSignUpData());
   yield addToStoredLoginEmails(action.payload.email);
   yield addCodeSentAt();
@@ -85,8 +86,6 @@ export function* clearAuthDataWorker(action: IClearAuthDataAction) {
     AuthStoredKeys.access_ttl,
     AuthStoredKeys.refresh_token,
     AuthStoredKeys.refresh_ttl,
-    AuthStoredKeys.email,
-    UserStoredKeys.first_name,
   ]);
   removeHeader('Authorization');
   yield action?.meta?.onSuccess();
@@ -126,19 +125,11 @@ function* signOutWorker(action: ISignOutAction) {
   }
   yield call(removeHeader, 'Authorization');
   yield put(authActions.signedOut());
-  yield removeItems([
-    AuthStoredKeys.access_token,
-    AuthStoredKeys.access_ttl,
-    AuthStoredKeys.refresh_token,
-    AuthStoredKeys.refresh_ttl,
-  ]);
-  // TODO clear transactions
   yield action?.meta?.onSuccess?.();
 }
 
 function* setAuthDataWorker(action: ISetAuthDataAction) {
   yield setAuthHeader(action.payload.access_token);
-  yield action.payload.access_token && storeAuthData(action.payload);
 }
 
 export default function* authWatcher(): SagaIterator {
