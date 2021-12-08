@@ -9,6 +9,7 @@ export interface IPaymentState {
   fee: TFee;
   transaction: ITransaction;
   minimumWithdrawable: number;
+  maximumWithdrawable: number;
 }
 
 export const withdrawalDefaultState: IPaymentState = {
@@ -23,6 +24,7 @@ export const withdrawalDefaultState: IPaymentState = {
   fee: null, // TODO: Switch to BE in sagas when it's ready
   transaction: null,
   minimumWithdrawable: null,
+  maximumWithdrawable: null,
 };
 
 const withdrawalReducer = (
@@ -55,10 +57,11 @@ const withdrawalReducer = (
         ...state,
         fee: action.fee
       };
-    case withdrawalActions.SET_MIN_WITHDRAWABLE:
+    case withdrawalActions.SET_WITHDRAWABLE_DEFAULTS:
       return {
         ...state,
-        minimumWithdrawable: action.payload,
+        minimumWithdrawable: Math.floor(action.payload.minimal), // TODO: Remove rounding when BE adds it
+        maximumWithdrawable: Math.floor(action.payload.maximum), // TODO: Remove rounding when BE adds it
       };
     default:
       return state;

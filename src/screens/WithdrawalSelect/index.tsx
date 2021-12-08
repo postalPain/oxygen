@@ -5,30 +5,30 @@ import styles from './styles';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import WithdrawalAmountTag from 'components/WithdrawalAmountTag';
 import vocab from 'i18n';
-import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import { AppScreenNames } from 'navigation/types';
 import React, { useEffect, useRef, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import theme from 'config/theme';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAmount, selectBalance, selectFee, selectMinimumWithdrawable, selectSuggestedValues } from 'modules/withdrawal/selectors';
+import { selectAmount, selectFee, selectMaximumWithdrawable, selectMinimumWithdrawable, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import { setAmount } from 'modules/withdrawal/actions';
 
-const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => {
+const WithdrawalSelect = () => {
   const dispatch = useDispatch();
   const navigation: StackNavigationProp<any> = useNavigation();
   const otherAmountRef = useRef(null);
-  const balance = useSelector(selectBalance);
   const amount = useSelector(selectAmount);
   const suggestedValues = useSelector(selectSuggestedValues);
   const minimumWithdrawable = useSelector(selectMinimumWithdrawable);
+  const maximumWithdrawable = useSelector(selectMaximumWithdrawable);
   const fee = useSelector(selectFee);
   const [description, setDescription] = useState<string>(null);
   const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
-    if (amount > balance.withdrawable_wages) {
-      setDescription(vocab.get().maximumWithdrawable(balance.withdrawable_wages));
+    if (amount > maximumWithdrawable) {
+      setDescription(vocab.get().maximumWithdrawable(maximumWithdrawable));
       setDisabled(true);
     } else if (amount < minimumWithdrawable) {
       setDescription(vocab.get().minimumWithdrawable(minimumWithdrawable));
@@ -60,7 +60,7 @@ const WithdrawalSelect = (props: AppNavigationProps<AppScreenNames.WithdrawalSel
         style={styles.slider}
         minimumValue={minimumWithdrawable}
         value={amount}
-        maximumValue={balance.withdrawable_wages}
+        maximumValue={maximumWithdrawable}
         minimumTrackTintColor={theme.colors.floos1}
         maximumTrackTintColor={theme.colors.shade1}
         thumbTintColor={theme.colors.floos3}

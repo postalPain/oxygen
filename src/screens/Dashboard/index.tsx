@@ -12,7 +12,7 @@ import WithdrawInfo from './WithdrawInfo';
 import { selectUserInfo } from 'modules/user/selectors';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
-import { getBalance, getMinWithdrawable, getSuggestedValues } from 'modules/withdrawal/actions';
+import { getBalance, getWithdrawableDefaults, getSuggestedValues } from 'modules/withdrawal/actions';
 import { selectBalance, selectSuggestedValues } from 'modules/withdrawal/selectors';
 
 
@@ -24,7 +24,7 @@ const Dashboard: React.FC<any> = () => {
   const [infoModal, setInfoModal] = useState(false);
   useEffect(() => {
     dispatch(getBalance());
-    dispatch(getMinWithdrawable());
+    dispatch(getWithdrawableDefaults());
   }, []);
 
   useEffect(() => {

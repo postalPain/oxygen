@@ -1,14 +1,14 @@
 import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
+import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees';
 import {
   IGetBalanceAction,
-  IGetMinWithdrawableAction,
-  ISetMinWithdrawableAction,
+  IGetWithdrawableDefaultsAction,
   ISetAmountAction,
   ISetBalanceAction,
   ISetFeeAction,
   ISetSuggestedValuesAction,
+  ISetWithdrawableDefaultsAction,
   ISetWithdrawalTransactionAction,
   IWithdrawalAction,
   withdrawalActions
@@ -57,11 +57,11 @@ export const setWithdrawalTransaction = (transaction: ITransaction): ISetWithdra
   transaction,
 });
 
-export const getMinWithdrawable = (): IGetMinWithdrawableAction => ({
-  type: withdrawalActions.GET_MIN_WITHDRAWABLE,
+export const getWithdrawableDefaults = (): IGetWithdrawableDefaultsAction => ({
+  type: withdrawalActions.GET_WITHDRAWABLE_DEFAULTS,
 });
 
-export const setMinWithdrawable = (minWithdrawable: number): ISetMinWithdrawableAction => ({
-  type: withdrawalActions.SET_MIN_WITHDRAWABLE,
-  payload: minWithdrawable,
+export const setWithdrawableDefaults = (withdrawableDefaults: IWithdrawableDefault): ISetWithdrawableDefaultsAction => ({
+  type: withdrawalActions.SET_WITHDRAWABLE_DEFAULTS,
+  payload: withdrawableDefaults,
 });

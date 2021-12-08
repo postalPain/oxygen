@@ -1,6 +1,6 @@
 import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TSuggestedValues, TFee } from 'services/api/employees';
+import { IBalance, TSuggestedValues, TFee, IWithdrawableDefault } from 'services/api/employees';
 
 export enum withdrawalActions {
   GET_BALANCE = 'GET_BALANCE',
@@ -12,8 +12,8 @@ export enum withdrawalActions {
   SET_FEE = 'SET_FEE',
   WITHDRAWAL = 'WITHDRAWAL',
   SET_WITHDRAWAL_TRANSACTION = 'SET_WITHDRAWAL_TRANSACTION',
-  GET_MIN_WITHDRAWABLE = 'GET_MIN_WITHDRAWABLE',
-  SET_MIN_WITHDRAWABLE = 'SET_MIN_WITHDRAWABLE',
+  GET_WITHDRAWABLE_DEFAULTS = 'GET_WITHDRAWABLE_DEFAULTS',
+  SET_WITHDRAWABLE_DEFAULTS = 'SET_WITHDRAWABLE_DEFAULTS',
 }
 
 export interface IGetBalanceAction {
@@ -51,14 +51,15 @@ export interface ISetWithdrawalTransactionAction {
   transaction: ITransaction;
 }
 
-export interface IGetMinWithdrawableAction {
-  type: withdrawalActions.GET_MIN_WITHDRAWABLE;
+export interface IGetWithdrawableDefaultsAction {
+  type: withdrawalActions.GET_WITHDRAWABLE_DEFAULTS;
 }
 
-export interface ISetMinWithdrawableAction {
-  type: withdrawalActions.SET_MIN_WITHDRAWABLE;
-  payload: number;
+export interface ISetWithdrawableDefaultsAction {
+  type: withdrawalActions.SET_WITHDRAWABLE_DEFAULTS;
+  payload: IWithdrawableDefault;
 }
 
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction
-| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction | IGetMinWithdrawableAction | ISetMinWithdrawableAction;
+| ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction
+| IGetWithdrawableDefaultsAction | ISetWithdrawableDefaultsAction;
