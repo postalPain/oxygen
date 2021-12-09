@@ -4,7 +4,6 @@ import { batch, useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
-import { AuthStoredKeys } from 'modules/auth/types';
 import { VerificationStatusesFe } from 'modules/user/types';
 import { checkVerification, userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
@@ -16,6 +15,7 @@ import useStyles from './styles';
 import { getHeight } from 'utils/window';
 import { openBrowser } from 'utils';
 import { externalUrls } from '../../constants';
+import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 
 
 const vocab = vocabulary.get();

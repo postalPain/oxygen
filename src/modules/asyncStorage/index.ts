@@ -9,6 +9,12 @@ export const setItem = async (key, value) => {
   }
 };
 
+export const setObjectAsItem = async (key, obj) => {
+  const json = JSON.stringify(obj);
+
+  await setItem(key, json);
+};
+
 export const setItems = async (items) => {
   await AsyncStorage.multiSet(items.map(({ key, value }) => [key, value ?? '']));
 };
@@ -21,6 +27,12 @@ export const getItem = async (key) => {
     // Error retrieving data
     return error;
   }
+};
+
+export const getItemAsObject = async (key) => {
+  const json = await getItem(key);
+
+  return JSON.parse(json) || {};
 };
 
 export const getItems = async (keys: string[]) => {

@@ -17,7 +17,7 @@ import { setVerificationStatus } from 'modules/user/actions';
 import { IUserInfo, IVerificationResponse } from 'services/api/employees';
 import SplashScreen from 'react-native-splash-screen';
 import { removeItems, setItem } from 'modules/asyncStorage';
-import { AuthStoredKeys } from 'modules/auth/types';
+import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 
 
 function* getUserInfoWorker() {

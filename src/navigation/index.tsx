@@ -19,7 +19,7 @@ import {
   UserInfoConfirmation,
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
-import { AuthStoredKeys, IAuthData } from 'modules/auth/types';
+import { IAuthData } from 'modules/auth/types';
 import { getItems } from 'modules/asyncStorage';
 import { clearAuthData, setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
@@ -33,6 +33,7 @@ import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 import { isUserEmployerVerified } from 'modules/user/selectors';
 import { IUserInfo } from 'services/api/employees';
+import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 
 const AppStack = createNativeStackNavigator();
 

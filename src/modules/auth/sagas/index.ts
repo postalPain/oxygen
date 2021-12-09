@@ -5,7 +5,6 @@ import * as authActions from 'modules/auth/actions';
 import { clearSignUpData } from 'modules/auth/actions';
 import {
   AuthActions,
-  AuthStoredKeys,
   IAuthData,
   IClearAuthDataAction,
   IForgotPasswordAction,
@@ -20,12 +19,11 @@ import * as notificationActions from 'modules/notifications/actions';
 import { defaultSignUpErrors } from 'modules/auth/reducers';
 import { selectForgotPassword } from 'modules/auth/selectors';
 import { removeItems, setItems } from 'modules/asyncStorage';
-import { UserStoredKeys } from 'modules/user/types';
-import { addCodeSentAt } from 'modules/auth/asyncStorage';
+import { addCodeSentAt, AuthStoredKeys } from 'modules/auth/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
-import { addToStoredLoginEmails } from 'modules/user/asyncStorage';
+import { addToStoredLoginEmails, incrementLoginCount } from 'modules/user/asyncStorage';
 
 
 function* handleError (error: IError) {
@@ -76,6 +74,7 @@ function* signInWorker(action: ISignInAction) {
     return;
   }
   yield storeUserData({ email: action.email });
+  yield incrementLoginCount(action.email);
   yield put(authActions.setAuthData(response.data));
   yield action.meta?.onSuccess?.();
 }
