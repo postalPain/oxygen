@@ -3,7 +3,7 @@ export default {
   back: 'Back',
   continue: 'Continue',
   create: 'Create',
-  ok: 'Ok',
+  ok: 'OK',
   signUp: 'Sign Up',
   logIn: 'Log In',
   carousel1: 'Access your earned wages - whenever you need to',
@@ -125,4 +125,7 @@ export default {
   privacyPolicy: 'Privacy Policy',
   helpCenter: 'Help Center',
   logout: 'Logout',
+  allowBiometricsTitle: 'Do you want to allow ‘Floos’ to use Biometric ID?',
+  allowBiometricsText: 'Enabling Biometric ID allows you to pick and secure access to your account',
+  dontAllow: 'Don’t Allow',
 };
