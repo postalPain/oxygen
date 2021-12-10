@@ -1,6 +1,6 @@
-import theme from "config/theme";
-import { StyleSheet } from "react-native";
-import { windowDimensions } from "utils/window";
+import theme from 'config/theme';
+import { StyleSheet } from 'react-native';
+import { getHeight, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
 
@@ -9,16 +9,24 @@ const styles = StyleSheet.create({
   },
   buttonSection: {
     flex: 1,
+    paddingTop: getHeight(6),
     justifyContent: 'flex-end',
+  },
+  buttonSectionExistingUser: {
+    justifyContent: 'flex-start',
   },
   biometricLink: {
     textAlign: 'center',
-    marginTop: 0.025 * windowDimensions.height,
+    marginTop: getHeight(2.5),
     color: theme.colors.floos1
   },
   forgotPassword: {
-    marginTop: 0.025 * windowDimensions.height,
+    marginTop: getHeight(2.5),
     textAlign: 'right'
+  },
+  useBiometrics: {
+    marginTop: getHeight(2.5),
+    textAlign: 'center',
   }
 });
 
