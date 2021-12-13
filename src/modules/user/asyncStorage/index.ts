@@ -1,7 +1,8 @@
-import { getItem, setItem } from 'modules/asyncStorage';
+import { getItem, getItemAsObject, setItem, setObjectAsItem } from 'modules/asyncStorage';
 
 enum userStoredKeys {
   firstLoginEmails = 'firstLoginEmails',
+  loginCounter = 'loginCounter'
 }
 
 export const getStoredFirstLoginEmails = async (): Promise<string> => {
@@ -35,4 +36,25 @@ export const existsInStoredLoginEmails = async (email: string): Promise<boolean>
   const storedEmails = await getStoredFirstLoginEmails();
 
   return storedEmails.includes(email);
+};
+
+export const getLoginCount = async (email: string): Promise<number> => {
+  const loginCounter = await getItemAsObject(userStoredKeys.loginCounter);
+
+  return loginCounter[email];
+};
+
+export const resetLoginCount = async (email: string)=> {
+  const loginCounter = await getItemAsObject(userStoredKeys.loginCounter);
+
+  loginCounter[email] = 0;
+  await setObjectAsItem(userStoredKeys.loginCounter, loginCounter);
+};
+
+export const incrementLoginCount = async (email: string) => {
+  const loginCounter = await getItemAsObject(userStoredKeys.loginCounter);
+
+  loginCounter[email] = (loginCounter[email] || 0) + 1;
+
+  await setObjectAsItem(userStoredKeys.loginCounter, loginCounter);
 };

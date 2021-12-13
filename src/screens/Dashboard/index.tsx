@@ -13,14 +13,12 @@ import { selectUserInfo } from 'modules/user/selectors';
 import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
 import { getBalance, getWithdrawableDefaults, getSuggestedValues } from 'modules/withdrawal/actions';
-import { selectBalance, selectSuggestedValues } from 'modules/withdrawal/selectors';
-
+import { selectBalance } from 'modules/withdrawal/selectors';
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
-  const suggestedValues = useSelector(selectSuggestedValues);
   const [infoModal, setInfoModal] = useState(false);
   useEffect(() => {
     dispatch(getBalance());

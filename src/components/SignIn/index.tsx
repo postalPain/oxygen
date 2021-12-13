@@ -29,6 +29,26 @@ const SignIn = (
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
+  useEffect(() => {
+    emailError && setEmailError(null);
+    passwordError && setPasswordError(null);
+  }, [email, password]);
+
+  useEffect(() => {
+    if (!error) {
+      setEmailError(null);
+      setPasswordError(null);
+    }
+    if (error?.code === ERROR_CODES.validation) {
+      error.error['email'] && setEmailError(error.error['email'][0]);
+      error.error['password'] && setPasswordError(error.error['password'][0]);
+    }
+    if (error?.message) {
+      setEmailError(error.message);
+      setPasswordError(error.message);
+    }
+  }, [error]);
+
   const onSignedIn = () => {
     dispatch(checkVerification({
       onSuccess: (status: VerificationStatuses) => {
@@ -50,28 +70,6 @@ const SignIn = (
     }));
   };
 
-  useEffect(() => {
-    emailError && setEmailError(null);
-  }, [email]);
-
-  useEffect(() => {
-    passwordError && setPasswordError(null);
-  }, [password]);
-
-  useEffect(() => {
-    if (!error) {
-      setEmailError(null);
-      setPasswordError(null);
-    }
-    if (error?.code === ERROR_CODES.validation) {
-      error.error['email'] && setEmailError(error.error['email'][0]);
-      error.error['password'] && setPasswordError(error.error['password'][0]);
-    }
-    if (error?.message) {
-      setEmailError(error.message);
-      setPasswordError(error.message);
-    }
-  }, [error]);
   return (
     <>
       <View>

@@ -26,14 +26,6 @@ export const enum AuthActions {
   RESET_PASSWORD = 'RESET_PASSWORD',
 }
 
-export enum AuthStoredKeys {
-  access_token = 'access_token',
-  access_ttl = 'access_ttl',
-  refresh_token = 'refresh_token',
-  refresh_ttl = 'refresh_ttl',
-  email = 'email',
-}
-
 export interface ISignUpAction {
   type: AuthActions.SIGN_UP;
   payload: ISignUpPayload;
