@@ -12,6 +12,8 @@ target 'Floos' do
     :hermes_enabled => false
   )
 
+  pod 'TouchID', :path => "#{node_modules_path}/react-native-touch-id"
+
   target 'FloosTests' do
     inherit! :complete
     # Pods for testing

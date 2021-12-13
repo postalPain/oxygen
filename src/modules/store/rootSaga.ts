@@ -5,6 +5,7 @@ import { sagas as authSagas } from '../auth';
 import { sagas as notificationsSagas } from '../notifications';
 import withdrawalSagas from 'modules/withdrawal/sagas';
 import { sagas as transactionsSagas } from '../transactions';
+import biometricsWatcher from 'modules/biometrics/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -13,5 +14,6 @@ export default function* rootSaga() {
     fork(notificationsSagas),
     fork(withdrawalSagas),
     fork(transactionsSagas),
+    fork(biometricsWatcher),
   ]);
 };

@@ -35,7 +35,7 @@ export default {
   iHaveRead: 'I have read the ',
   guidelines: 'guidelines and accept them.',
   next: 'Next',
-  useYourFaceId: 'Use your Face ID',
+  useYourBiometrics: (biometricType) => `Use your ${biometricType}`,
   pleaseEnterCode: 'Please enter the verification code you received via email.',
   wrongEmail: 'Wrong email?',
   confirm: 'Confirm',

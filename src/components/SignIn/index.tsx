@@ -10,10 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { isUserEmployerVerified, selectUserEmail } from 'modules/user/selectors';
-import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
+import { existsInStoredLoginEmails, getLoginCount, resetLoginCount } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
+import DialogBiometricPermissions from 'components/DialogBiometricPermissions';
+import { getBiometricsAllowed, storeBiometricsAllowed } from 'modules/biometrics/asyncStorage';
+import BiometricLogin from 'components/BiometricLogin';
+
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -72,6 +76,7 @@ const SignIn = (
 
   return (
     <>
+
       <View>
         <View>
           {!storedEmail && (
@@ -111,7 +116,7 @@ const SignIn = (
           </Link>
         </View>
       </View>
-      <View style={styles.buttonSection}>
+      <View style={[styles.buttonSection, !!storedEmail && styles.buttonSectionExistingUser]}>
         <Button
           onPress={() => {
             setButtonDisabled(true);
@@ -128,6 +133,7 @@ const SignIn = (
         >
           {vocab.get().logIn}
         </Button>
+        <BiometricLogin />
       </View>
     </>
   );
