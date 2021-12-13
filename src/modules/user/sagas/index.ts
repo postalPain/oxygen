@@ -5,6 +5,7 @@ import { errorNotification, successNotification } from 'modules/notifications/ac
 import {
   ICheckVerificationAction,
   IResendVerificationCodeAction,
+  IUserClearInfoAction,
   IUserSetInfoAction,
   IVerifySignUpCodeAction,
   UserActions,
@@ -15,8 +16,8 @@ import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
 import { IUserInfo, IVerificationResponse } from 'services/api/employees';
 import SplashScreen from 'react-native-splash-screen';
-import { setItem } from 'modules/asyncStorage';
-import { AuthStoredKeys } from 'modules/auth/types';
+import { removeItems, setItem } from 'modules/asyncStorage';
+import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 
 
 function* getUserInfoWorker() {
@@ -86,10 +87,18 @@ function* userSetInfoWorker (action: IUserSetInfoAction) {
   yield setItem(AuthStoredKeys.email, action.payload?.email);
 }
 
+function* userClearInfoWorker(action: IUserClearInfoAction) {
+  yield removeItems([
+    AuthStoredKeys.email,
+    UserStoredKeys.first_name,
+  ]);
+}
+
 export default function* userWatcher(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
   yield takeEvery(UserActions.USER_SET_INFO, userSetInfoWorker);
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
   yield takeEvery(UserActions.CHECK_VERIFICATION, checkVerificationWorker);
   yield takeEvery(UserActions.RESEND_VERIFICATION_CODE, resendVerificationCodeWorker);
+  yield takeEvery(UserActions.USER_CLEAR_INFO, userClearInfoWorker);
 }

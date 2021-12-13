@@ -2,22 +2,27 @@ import { setItems } from 'modules/asyncStorage';
 import { IAuthData } from '../types';
 import { getItem, removeItem, setItem } from 'modules/asyncStorage';
 
-enum userStoredKeys {
+export enum AuthStoredKeys {
   codeSentAt = 'codeSentAt',
+  access_token = 'access_token',
+  access_ttl = 'access_ttl',
+  refresh_token = 'refresh_token',
+  refresh_ttl = 'refresh_ttl',
+  email = 'email',
 }
 
 export const addCodeSentAt = async (ts = Date.now()): Promise<number> => {
-  await setItem(userStoredKeys.codeSentAt, ts.toString());
+  await setItem(AuthStoredKeys.codeSentAt, ts.toString());
   return ts;
 };
 
 export const getCodeSentAt = async (): Promise<number> => {
-  const codeSentAt = await getItem(userStoredKeys.codeSentAt);
+  const codeSentAt = await getItem(AuthStoredKeys.codeSentAt);
   return Number(codeSentAt) || null;
 };
 
 export const deleteCodeSentAt = async () => {
-  await removeItem(userStoredKeys.codeSentAt);
+  await removeItem(AuthStoredKeys.codeSentAt);
 };
 
 export const storeAuthData = async (data: IAuthData) => {
