@@ -14,6 +14,7 @@ import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
+import DebugView from 'components/DebugView';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -111,6 +112,9 @@ const SignIn = (
           </Link>
         </View>
       </View>
+      { password === 'debug debugovich' && (
+        <DebugView />
+      )}
       <View style={styles.buttonSection}>
         <Button
           onPress={() => {
