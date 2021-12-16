@@ -83,7 +83,7 @@ const Navigation = () => {
             }
           },
           onError: () => {
-            navigate(AppScreenNames.Onboarding);
+            storedData.email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
           }
         }));
       });
