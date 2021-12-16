@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "build:preparation": "node build-preparation.js",
+    "android:stage": "node set-build-env.js STAGE && npm run android",
+    "build:preparation": "node set-build-env.js",
     "android:clean": "cd android && ./gradlew clean",
     "android:prebuild": "rm -rf android/build && rm -rf android/app/build",
     "ios": "react-native run-ios",
+    "ios:stage": "node set-build-env.js STAGE && npm run ios",
     "start": "react-native start",
     "start:clean": "watchman watch-del-all && react-native start --reset-cache",
     "init:template": "yarn install && react-native init $PROJECT_NAME && mv ./$PROJECT_NAME/android ./ && mv ./$PROJECT_NAME/ios ./ && rm -rf ./$PROJECT_NAME && node ./init_template_scripts/init_template_scripts && cd ios && pod install",

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { API_URL } from '@env';
 import moment from 'moment';
 import apiUrls from 'config/apiUrls';
 import { selectAuthData } from 'modules/auth/selectors';
@@ -9,10 +8,11 @@ import { getHeaderLanguage } from 'i18n/utils';
 import { getUTCOffset } from 'utils/time';
 import api from '.';
 import { handleBackendError } from './errors';
+import env from 'env';
 
 
 const request = axios.create({
-  baseURL: API_URL,
+  baseURL: env.apiUrl,
   headers: {
     'Accept-Language': getHeaderLanguage(),
     'Cache-Control': 'no-cache, no-store, must-revalidate',
