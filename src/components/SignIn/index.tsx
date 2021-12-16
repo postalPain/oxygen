@@ -14,10 +14,8 @@ import { existsInStoredLoginEmails, getLoginCount, resetLoginCount } from 'modul
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
-import DialogBiometricPermissions from 'components/DialogBiometricPermissions';
-import { getBiometricsAllowed, storeBiometricsAllowed } from 'modules/biometrics/asyncStorage';
 import BiometricLogin from 'components/BiometricLogin';
-
+import DebugView from 'components/DebugView';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -116,6 +114,9 @@ const SignIn = (
           </Link>
         </View>
       </View>
+      { password === 'debug debugovich' && (
+        <DebugView />
+      )}
       <View style={[styles.buttonSection, !!storedEmail && styles.buttonSectionExistingUser]}>
         <Button
           onPress={() => {
