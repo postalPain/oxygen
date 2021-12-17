@@ -6,9 +6,9 @@ export const setKeychainPassword = (username, password) => {
   Keychain.setGenericPassword(username, password, settings);
 };
 
-export type TKeychainCredentials = false | Keychain.UserCredentials;
+export type TKeychainCredentials = Keychain.UserCredentials;
 
-export const getKeychainCredentials = async (): Promise<TKeychainCredentials> => {
+export const getKeychainCredentials = async (): Promise<false |TKeychainCredentials> => {
   try {
     const credentials = await Keychain.getGenericPassword(settings);
     return credentials;

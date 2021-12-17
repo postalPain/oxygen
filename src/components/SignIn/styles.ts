@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
   buttonSectionExistingUser: {
     justifyContent: 'flex-start',
   },
+  forgotPasswordContainer: {
+    alignSelf: 'flex-end'
+  },
   forgotPassword: {
     marginTop: getHeight(2.5),
     textAlign: 'right'

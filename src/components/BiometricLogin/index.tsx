@@ -1,54 +1,49 @@
 import { Link } from 'components';
 import DialogBiometricPermissions from 'components/DialogBiometricPermissions';
-import theme from 'config/theme';
 import vocab from 'i18n';
-import { getBiometricsAllowed, storeBiometricsAllowed } from 'modules/biometrics/asyncStorage';
-import { biometricAuthenticate } from 'modules/biometrics/biometrics';
-import { useBiometricsSupported } from 'modules/biometrics/hooks';
+import { biometricLogin, getBiometricEnabled } from 'modules/biometrics/actions';
+import { storeBiometricsPermission } from 'modules/biometrics/asyncStorage';
+import { BiometryTypes, getBiometricsSupported } from 'modules/biometrics/biometrics';
 import { selectBiometricsEnabled } from 'modules/biometrics/selectors';
-import { getLoginCount, resetLoginCount } from 'modules/user/asyncStorage';
+import { getLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { getHeight } from 'utils/window';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BiometricLogin = () => {
+  const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
   const biometricsEnabled = useSelector(selectBiometricsEnabled);
 
-  const biometricsSupported = useBiometricsSupported();
+  const [biometricsSupported, setBiometricsSupported] = useState<BiometryTypes>(null);
   const [biometricPrompt, setBiometricPrompt] = useState<boolean>(false);
-  const [biometricsAllowed, setBiometricsAllowed] = useState<boolean>(null);
-
-  console.log('biometricsSupported', biometricsSupported);
 
   useEffect(() => {
-    if (!biometricsEnabled) {
+    dispatch(getBiometricEnabled());
+    getBiometricsSupported().then(setBiometricsSupported);
+  }, []);
 
+  useEffect(() => {
+    if (biometricsEnabled === false && biometricsSupported) {
       getLoginCount(email).then((loginCount) => {
         [1, 4].includes(loginCount) && setBiometricPrompt(true); // On 2nd and 5th login
       });
     }
-
-
-  }, [email]);
+  }, [email, biometricsSupported, biometricsEnabled]);
 
   return (
     <>
       <DialogBiometricPermissions
         visible={biometricPrompt}
         onConfirm={() => {
-          storeBiometricsAllowed(email, true);
-          setBiometricsAllowed(true);
+          storeBiometricsPermission(email, true);
         }}
         onPressAny={() => setBiometricPrompt(false)}
       />
-      {biometricsAllowed && (
+      {biometricsEnabled && (
         <Link
-          // style={styles.biometricLink}
           onPress={() => {
-            biometricAuthenticate();
+            dispatch(biometricLogin(email));
           }}
         >
           {vocab.get().useYourBiometrics(biometricsSupported)}

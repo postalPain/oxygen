@@ -18,6 +18,7 @@ export const enum AuthActions {
   SET_AUTH_DATA = 'SET_AUTH_DATA',
   CLEAR_AUTH_DATA = 'CLEAR_AUTH_DATA',
   SIGN_IN = 'SIGN_IN',
+  SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
   SIGN_OUT = 'SIGN_OUT',
   SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
   FORGOT_PASSWORD = 'FORGOT_PASSWORD',
@@ -78,6 +79,13 @@ export interface ISignInAction {
   type: AuthActions.SIGN_IN;
   email: string;
   password: string;
+  meta?: IMeta;
+}
+
+export interface ISignInSuccessAction {
+  type: AuthActions.SIGN_IN_SUCCESS;
+  email: string;
+  authData: IAuthData;
   meta?: IMeta;
 }
 

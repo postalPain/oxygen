@@ -103,15 +103,17 @@ const SignIn = (
             error={passwordError}
             returnKeyType='done'
           />
-          <Link
-            style={styles.forgotPassword}
-            onPress={() => {
-              navigation.navigate(AppScreenNames.ForgotPassword);
-              setError(null);
-            }}
-          >
-            {vocab.get().forgotPassword}
-          </Link>
+          <View style={styles.forgotPasswordContainer}>
+            <Link
+              style={styles.forgotPassword}
+              onPress={() => {
+                navigation.navigate(AppScreenNames.ForgotPassword);
+                setError(null);
+              }}
+            >
+              {vocab.get().forgotPassword}
+            </Link>
+          </View>
         </View>
       </View>
       { password === 'debug debugovich' && (

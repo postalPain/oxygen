@@ -1,6 +1,7 @@
 export enum BiometricsActions {
   GET_BIOMETRICS_ENABLED = 'GET_BIOMETRICS_ENABLED',
   SET_BIOMETRICS_ENABLED = 'SET_BIOMETRICS_ENABLED',
+  SAVE_BIOMETRICS = 'SAVE_BIOMETRICS',
   BIOMETRIC_LOGIN = 'BIOMETRIC_LOGIN',
 }
 
@@ -14,24 +15,28 @@ export const biometricLogin = (email: string): IBiometricLoginAction => ({
   email,
 });
 
-export interface IGetBiometricEnabledAction {
-  type: BiometricsActions.GET_BIOMETRICS_ENABLED;
-  email: string;
-}
-
-export const getBiometricEnabled = (email): IGetBiometricEnabledAction => ({
+export const getBiometricEnabled = () => ({
   type: BiometricsActions.GET_BIOMETRICS_ENABLED,
-  email
 });
 
-export interface ISetBiometricEnabledAction {
+export interface ISetBiometricsEnabledAction {
   type: BiometricsActions.SET_BIOMETRICS_ENABLED;
   enabled: boolean;
 }
 
-export const setBiometricEnabled = (enabled: boolean): ISetBiometricEnabledAction => ({
+export const setBiometricsEnabled = (enabled: boolean): ISetBiometricsEnabledAction => ({
   type: BiometricsActions.SET_BIOMETRICS_ENABLED,
   enabled,
 });
 
-export type BiometricAction = IGetBiometricEnabledAction | ISetBiometricEnabledAction;
+export interface ISaveBiometricsAction {
+  type: BiometricsActions.SAVE_BIOMETRICS;
+  email: string;
+}
+
+export const saveBiometrics = (email: string): ISaveBiometricsAction => ({
+  type: BiometricsActions.SAVE_BIOMETRICS,
+  email,
+});
+
+export type BiometricAction = ISetBiometricsEnabledAction;

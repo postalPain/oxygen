@@ -1,1 +1,1 @@
-export const BUILD_ENV = 'DEV';
+export const BUILD_ENV = 'DEV'

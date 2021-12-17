@@ -66,3 +66,4 @@ buck-out/
 # Local Environment
 .env.development.local
 .env.production.local
+build-env.js
