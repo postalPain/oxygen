@@ -10,12 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { isUserEmployerVerified, selectUserEmail } from 'modules/user/selectors';
-import { existsInStoredLoginEmails, getLoginCount, resetLoginCount } from 'modules/user/asyncStorage';
+import { existsInStoredLoginEmails, getLoginCount } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
-import DebugView from 'components/DebugView';
+import env from 'env';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -34,6 +34,7 @@ const SignIn = (
   useEffect(() => {
     emailError && setEmailError(null);
     passwordError && setPasswordError(null);
+    password === '  dbg' && env.dev && navigation.navigate(AppScreenNames.Debug);
   }, [email, password]);
 
   useEffect(() => {
@@ -116,9 +117,6 @@ const SignIn = (
           </View>
         </View>
       </View>
-      { password === 'debug debugovich' && (
-        <DebugView />
-      )}
       <View style={[styles.buttonSection, !!storedEmail && styles.buttonSectionExistingUser]}>
         <Button
           onPress={() => {
@@ -136,7 +134,7 @@ const SignIn = (
         >
           {vocab.get().logIn}
         </Button>
-        <BiometricLogin />
+        <BiometricLogin onSignedIn={onSignedIn} />
       </View>
     </>
   );

@@ -1,11 +1,11 @@
 import { BiometricAction, BiometricsActions } from '../actions';
 
 export interface IBiometricsState {
-  enabled: boolean;
+  permitted: boolean;
 }
 
 const defaultState: IBiometricsState = {
-  enabled: null
+  permitted: null
 };
 
 const biometricsReducer = (
@@ -16,7 +16,7 @@ const biometricsReducer = (
     case BiometricsActions.SET_BIOMETRICS_ENABLED: {
       return {
         ...state,
-        enabled: action.enabled
+        permitted: action.enabled
       };
     }
     default:

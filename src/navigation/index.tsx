@@ -34,6 +34,7 @@ import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 import { isUserEmployerVerified } from 'modules/user/selectors';
 import { IUserInfo } from 'services/api/employees';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
+import DebugView from 'components/DebugView';
 
 const AppStack = createNativeStackNavigator();
 
@@ -220,6 +221,10 @@ const Navigation = () => {
           name={AppScreenNames.WithdrawalConfirmation}
           component={WithdrawalConfirmation}
           options={{ headerShown: false }}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.Debug}
+          component={DebugView}
         />
       </AppStack.Navigator>
     </NavigationContainer>

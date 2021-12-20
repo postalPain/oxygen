@@ -7,23 +7,22 @@ import { selectUserEmail } from 'modules/user/selectors';
 import api, { IResponse } from 'services/api';
 import { isTtlActive } from 'utils/time';
 import { BiometricsActions, IBiometricLoginAction, setBiometricsEnabled } from '../actions';
-import { getBiometricData } from '../asyncStorage';
-import { biometricAuthenticate } from '../biometrics';
+import { getBiometricData, getBiometricsPermission } from '../asyncStorage';
+import { biometricAuthenticate, getBiometricsSupported } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
 
 function* getBiometricEnabledWorker () {
-  const storedEmail = yield selectUserEmail(getState());
-  if (!storedEmail) {
-    yield put(setBiometricsEnabled(null));
+  const email = yield selectUserEmail(getState());
+  const biometricsSupported = yield getBiometricsSupported();
+  const biometricPermitted = yield getBiometricsPermission(email);
+
+  if (!email || !biometricsSupported || !biometricPermitted) {
+    yield put(setBiometricsEnabled(false));
     return;
   }
 
   const { ttl, credentials } = yield getBiometricData();
-  const enabled = credentials && (credentials.username === storedEmail) && isTtlActive(ttl);
-  console.log('credentials', credentials);
-  console.log('storedEmail', storedEmail);
-  console.log('isTtlActive(ttl)', isTtlActive(ttl));
-  console.log('enabled', enabled);
+  const enabled = credentials && (credentials.username === email) && isTtlActive(ttl);
 
   yield put(setBiometricsEnabled(enabled));
 }
@@ -51,7 +50,7 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
     console.log('ERROR: api.auth.refreshToken({ refresh_token: credentials.password });');
     return;
   }
-  yield put(signInSuccess(action.email, response.data));
+  yield put(signInSuccess(action.email, response.data, { onSuccess: action.meta?.onSuccess }));
 }
 
 

@@ -1,3 +1,3 @@
 import { RootState } from 'modules/store/rootReducer';
 
-export const selectBiometricsEnabled = (state: RootState) => state.biometrics.enabled;
+export const selectBiometricsPermitted = (state: RootState) => state.biometrics.permitted;

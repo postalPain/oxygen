@@ -1,3 +1,5 @@
+import { IMeta } from 'modules/store/types';
+
 export enum BiometricsActions {
   GET_BIOMETRICS_ENABLED = 'GET_BIOMETRICS_ENABLED',
   SET_BIOMETRICS_ENABLED = 'SET_BIOMETRICS_ENABLED',
@@ -8,11 +10,13 @@ export enum BiometricsActions {
 export interface IBiometricLoginAction {
   type: BiometricsActions.BIOMETRIC_LOGIN;
   email: string;
+  meta?: IMeta;
 }
 
-export const biometricLogin = (email: string): IBiometricLoginAction => ({
+export const biometricLogin = (email: string, meta?: IMeta): IBiometricLoginAction => ({
   type: BiometricsActions.BIOMETRIC_LOGIN,
   email,
+  meta,
 });
 
 export const getBiometricEnabled = () => ({

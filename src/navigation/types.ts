@@ -30,6 +30,7 @@ export enum AppScreenNames {
   WithdrawalSelect = 'WithdrawalSelect',
   WithdrawalOverview = 'WithdrawalOverview',
   WithdrawalConfirmation = 'WithdrawalConfirmation',
+  Debug = 'Debug',
 }
 
 export type AppStackParameters = {
@@ -63,6 +64,7 @@ export type AppStackParameters = {
   WithdrawalSelect: undefined;
   WithdrawalOverview: undefined;
   WithdrawalConfirmation: undefined;
+  Debug: undefined;
 };
 
 export type AppNavigationProps<T extends keyof AppStackParameters> = {
