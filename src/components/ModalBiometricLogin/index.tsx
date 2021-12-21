@@ -10,6 +10,7 @@ import { getHeight, getWidth } from 'utils/window';
 interface IModalBiometricLogin {
   onAllow?: () => void;
   onDisallow?: () => void;
+  onAnyPress?: () => void;
 }
 
 const ModalBiometricLogin = (props: IModalBiometricLogin) => {
@@ -26,10 +27,18 @@ const ModalBiometricLogin = (props: IModalBiometricLogin) => {
             <Button
               width={getWidth(75)}
               styles={styles.button}
-              onPress={props.onAllow}
+              onPress={() => {
+                props.onAllow?.();
+                props.onAnyPress?.();
+              } }
             >{vocab.get().allowBiometrics}
             </Button>
-            <Link onPress={props.onDisallow}>{vocab.get().useMyEmail}</Link>
+            <Link onPress={() => {
+              props.onDisallow?.();
+              props.onAnyPress?.();
+            }}
+            >{vocab.get().useMyEmail}
+            </Link>
           </View>
         </View>
 
