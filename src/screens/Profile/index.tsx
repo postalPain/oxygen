@@ -30,7 +30,7 @@ const Profile = (
   };
   const logout = () => {
     dispatch(signOut({
-      onSuccess: () => navigation.navigate(AppScreenNames.SignIn),
+      onSuccess: () => navigation.navigate(AppScreenNames.Onboarding),
     }));
   };
   return (
