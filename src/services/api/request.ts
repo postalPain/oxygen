@@ -5,7 +5,7 @@ import { selectAuthData } from 'modules/auth/selectors';
 import store, { getState } from 'modules/store';
 import { setAuthData } from 'modules/auth/actions';
 import { getHeaderLanguage } from 'i18n/utils';
-import { getUTCOffset } from 'utils/time';
+import { isTtlActive } from 'utils/time';
 import api from '.';
 import { handleBackendError } from './errors';
 import env from 'env';
@@ -41,17 +41,11 @@ export const setAuthHeader = (access_token) => addHeader({
   value: `Bearer ${access_token}`,
 });
 
-const isTokenValid = (ttl: string) => {
-  const ttl_ts = Number(moment.parseZone(ttl).add(getUTCOffset(), 'm').format('x'));
-  const now_ts = Number(Date.now());
-  return (ttl_ts + 5000) > now_ts;
-};
-
 request.interceptors.request.use(
   async (config) => {
     const authData = selectAuthData(getState());
-    if ((config.url !== apiUrls.refreshToken) && authData.access_token && !isTokenValid(authData.access_ttl)) {
-      if (isTokenValid(authData.refresh_ttl)) {
+    if ((config.url !== apiUrls.refreshToken) && authData.access_token && !isTtlActive(authData.access_ttl)) {
+      if (isTtlActive(authData.refresh_ttl)) {
         const response = await api.auth.refreshToken({
           refresh_token: authData.refresh_token
         });

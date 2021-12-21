@@ -16,6 +16,8 @@ const baseUrls = {
 const BASE_URL = baseUrls[BUILD_ENV || Envs.DEV];
 
 const env = {
+  buildEnv: BUILD_ENV,
+  dev: BUILD_ENV === Envs.DEV,
   baseUrl: BASE_URL,
   apiUrl: `${BASE_URL}/api/v1`,
   websiteDomain: 'https://www.floos.ae',

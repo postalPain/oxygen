@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { isUserEmployerVerified, selectUserEmail } from 'modules/user/selectors';
-import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
+import { existsInStoredLoginEmails, getLoginCount } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
-import DebugView from 'components/DebugView';
+import BiometricLogin from 'components/BiometricLogin';
+import env from 'env';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -33,6 +34,7 @@ const SignIn = (
   useEffect(() => {
     emailError && setEmailError(null);
     passwordError && setPasswordError(null);
+    password === '  dbg' && env.dev && navigation.navigate(AppScreenNames.Debug);
   }, [email, password]);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const SignIn = (
 
   return (
     <>
+
       <View>
         <View>
           {!storedEmail && (
@@ -101,21 +104,20 @@ const SignIn = (
             error={passwordError}
             returnKeyType='done'
           />
-          <Link
-            style={styles.forgotPassword}
-            onPress={() => {
-              navigation.navigate(AppScreenNames.ForgotPassword);
-              setError(null);
-            }}
-          >
-            {vocab.get().forgotPassword}
-          </Link>
+          <View style={styles.forgotPasswordContainer}>
+            <Link
+              style={styles.forgotPassword}
+              onPress={() => {
+                navigation.navigate(AppScreenNames.ForgotPassword);
+                setError(null);
+              }}
+            >
+              {vocab.get().forgotPassword}
+            </Link>
+          </View>
         </View>
       </View>
-      { password === 'debug debugovich' && (
-        <DebugView />
-      )}
-      <View style={styles.buttonSection}>
+      <View style={[styles.buttonSection, !!storedEmail && styles.buttonSectionExistingUser]}>
         <Button
           onPress={() => {
             setButtonDisabled(true);
@@ -132,6 +134,7 @@ const SignIn = (
         >
           {vocab.get().logIn}
         </Button>
+        <BiometricLogin onSignedIn={onSignedIn} />
       </View>
     </>
   );

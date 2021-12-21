@@ -1,0 +1,60 @@
+import { put, takeLatest } from '@redux-saga/core/effects';
+import { SagaIterator } from '@redux-saga/types';
+import { signInSuccess } from 'modules/auth/actions';
+import { IAuthData } from 'modules/auth/types';
+import { getState } from 'modules/store';
+import { selectUserEmail } from 'modules/user/selectors';
+import api, { IResponse } from 'services/api';
+import { isTtlActive } from 'utils/time';
+import { BiometricsActions, IBiometricLoginAction, setBiometricsEnabled } from '../actions';
+import { getBiometricData, getBiometricsPermission } from '../asyncStorage';
+import { biometricAuthenticate, getBiometricsSupported } from '../biometrics';
+import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
+
+function* getBiometricEnabledWorker () {
+  const email = yield selectUserEmail(getState());
+  const biometricsSupported = yield getBiometricsSupported();
+  const biometricPermitted = yield getBiometricsPermission(email);
+
+  if (!email || !biometricsSupported || !biometricPermitted) {
+    yield put(setBiometricsEnabled(false));
+    return;
+  }
+
+  const { ttl, credentials } = yield getBiometricData();
+  const enabled = credentials && (credentials.username === email) && isTtlActive(ttl);
+
+  yield put(setBiometricsEnabled(enabled));
+}
+
+function* biometricLoginWorker(action: IBiometricLoginAction) {
+  let biometricSuccess;
+  try {
+    biometricSuccess = yield biometricAuthenticate();
+    if (!biometricSuccess) {
+      return;
+    }
+  } catch (error) {
+    if (error?.name === 'LAErrorUserCancel') {
+      // yield put(errorNotification({ text: BiometricErrors.BIOMETRICS_CANCELLED }));
+      return;
+    }
+    // yield put(errorNotification({ text: BiometricErrors.BIOMETRICS_FAILED }));
+  }
+  const credentials: TKeychainCredentials = yield getKeychainCredentials();
+
+  let response: IResponse<IAuthData>;
+  try {
+    response = yield api.auth.refreshToken({ refresh_token: credentials.password });
+  } catch (e) {
+    console.log('ERROR: api.auth.refreshToken({ refresh_token: credentials.password });');
+    return;
+  }
+  yield put(signInSuccess(action.email, response.data, { onSuccess: action.meta?.onSuccess }));
+}
+
+
+export default function* biometricsWatcher(): SagaIterator {
+  yield takeLatest(BiometricsActions.GET_BIOMETRICS_ENABLED, getBiometricEnabledWorker);
+  yield takeLatest(BiometricsActions.BIOMETRIC_LOGIN, biometricLoginWorker);
+}
