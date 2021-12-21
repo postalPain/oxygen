@@ -127,5 +127,10 @@ export default {
   logout: 'Logout',
   allowBiometricsTitle: 'Do you want to allow ‘Floos’ to use Biometric ID?',
   allowBiometricsText: 'Enabling Biometric ID allows you to pick and secure access to your account',
+  logWithBiometrics: 'Log In Instantly with Biometric ID',
+  allowBiometrics: 'Allow Biometric ID access',
+  useMyEmail: 'Use my email and password',
+  youAreAllSet: 'You’re All Set!',
+  biometricIdAssigned: 'The Biometric ID is assigned to this device. Please access the app.',
   dontAllow: 'Don’t Allow',
 };

@@ -1,5 +1,6 @@
 import { Link } from 'components';
-import DialogBiometricPermissions from 'components/DialogBiometricPermissions';
+import ModalBiometricLogin from 'components/ModalBiometricLogin';
+import ModalBiometricsSet from 'components/ModalBiometricSet';
 import vocab from 'i18n';
 import { biometricLogin, getBiometricEnabled } from 'modules/biometrics/actions';
 import { storeBiometricsPermission } from 'modules/biometrics/asyncStorage';
@@ -33,22 +34,37 @@ const BiometricLogin = (props: IBiometricsLogin) => {
   }, [email]);
 
   useEffect(() => {
+    console.log('biometricsPermitted', biometricsPermitted);
+    console.log('biometricsSupported', biometricsSupported);
+
     if (biometricsPermitted === false && biometricsSupported) {
       getLoginCount(email).then((loginCount) => {
+        console.log('loginCount', loginCount);
+
         [1, 4].includes(loginCount) && setBiometricPrompt(true); // On 2nd and 5th login
       });
     }
-  }, [email, biometricsSupported, biometricsPermitted]);
+  }, [email, biometricsPermitted]);
 
   return (
     <>
-      <DialogBiometricPermissions
+      {biometricPrompt && (
+        <ModalBiometricLogin
+          onAllow={ () => {
+            storeBiometricsPermission(email, true) .then(() => dispatch(getBiometricEnabled()));
+            setBiometricPrompt(false);
+          }}
+          onDisallow={() => setBiometricPrompt(false)}
+        />
+        // <ModalBiometricsSet />
+      )}
+      {/* <DialogBiometricPermissions
         visible={biometricPrompt}
         onConfirm={() => {
           storeBiometricsPermission(email, true).then(() => dispatch(getBiometricEnabled()));
         }}
         onPressAny={() => setBiometricPrompt(false)}
-      />
+      /> */}
       {biometricsPermitted && (
         <View style={styles.biometricLogin}>
           <Link
