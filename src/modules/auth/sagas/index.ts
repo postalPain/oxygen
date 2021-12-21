@@ -25,7 +25,8 @@ import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
 import { addToStoredLoginEmails, incrementLoginCount } from 'modules/user/asyncStorage';
-import { storeBiometricData, storeBiometricTtl } from 'modules/biometrics/asyncStorage';
+import { deleteBiometricData, storeBiometricData } from 'modules/biometrics/asyncStorage';
+import { selectUserEmail } from 'modules/user/selectors';
 
 
 function* handleError (error: IError) {
@@ -124,6 +125,7 @@ function* resetPasswordWorker(action: IResetPasswordAction) {
 }
 
 function* signOutWorker(action: ISignOutAction) {
+  const email = selectUserEmail(getState());
   try {
     yield call(api.auth.signOut);
   } catch (error) {
@@ -131,6 +133,7 @@ function* signOutWorker(action: ISignOutAction) {
   }
   yield call(removeHeader, 'Authorization');
   yield put(authActions.signedOut());
+  yield deleteBiometricData(email);
   yield action?.meta?.onSuccess?.();
 }
 

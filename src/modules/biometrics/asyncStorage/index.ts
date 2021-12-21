@@ -1,5 +1,5 @@
-import { getItem, getItemAsObject, setItem, setObjectAsItem } from 'modules/asyncStorage';
-import { getKeychainCredentials, setKeychainPassword, TKeychainCredentials } from '../keychain';
+import { getItem, getItemAsObject, removeItem, setItem, setObjectAsItem } from 'modules/asyncStorage';
+import { deleteKeychainPassword, getKeychainCredentials, setKeychainPassword, TKeychainCredentials } from '../keychain';
 
 export enum BiometricsStoredKeys {
   use = 'use',
@@ -29,6 +29,10 @@ export const storeBiometricTtl = async (ttl: string): Promise<void> => {
   await setItem(BiometricsStoredKeys.ttl, ttl);
 };
 
+export const deleteBiometricTtl = async (): Promise<void> => {
+  await removeItem(BiometricsStoredKeys.ttl);
+};
+
 export const storeBiometricData = async (email: string, refreshToken: string, refreshTtl: string) => {
   await setKeychainPassword(email, refreshToken);
   await storeBiometricTtl(refreshTtl);
@@ -39,4 +43,9 @@ export const getBiometricData = async () => {
   const credentials = await getKeychainCredentials();
 
   return { ttl, credentials };
+};
+
+export const deleteBiometricData = async (email: string) => {
+  await deleteKeychainPassword();
+  await deleteBiometricTtl();
 };
