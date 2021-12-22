@@ -5,14 +5,14 @@ import styles from './styles';
 
 interface IDetailsProps {
   data: {
-    label: string,
-    text: string,
-    width?: string,
-  }[],
-  containerStyle?: ViewStyle,
-  itemStyles?: ViewStyle,
-  labelStyles?: ViewStyle,
-  textStyles?: ViewStyle,
+    label: string;
+    text: string;
+    width?: string;
+  }[];
+  containerStyle?: ViewStyle;
+  itemStyles?: ViewStyle;
+  labelStyles?: ViewStyle;
+  textStyles?: ViewStyle;
 }
 
 const Details = (

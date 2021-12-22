@@ -18,6 +18,7 @@ export default {
   error: 'Error',
   info: 'Info',
   registrationId: 'Registration ID',
+  employeeNumber: 'Employee Number',
   errorEnterEmployeeId: 'Please enter your Employee ID',
   email: 'Email',
   password: 'Password',
