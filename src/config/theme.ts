@@ -4,6 +4,7 @@ import { windowDimensions } from 'utils/window';
 const theme = {
   colors: {
     // Brand colors
+    primary: '#6F62AB',
     floos1: '#6F62AB',
     floos2: '#7E5BA6',
     floos3: '#CD5676',
