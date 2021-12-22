@@ -8,6 +8,7 @@ export const userDefaultState: IUserInfo = {
   last_name: '',
   iban: '',
   registration_id: '',
+  employee_number: '',
   verification_status: null,
   statusError: false,
 };

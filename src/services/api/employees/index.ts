@@ -11,6 +11,7 @@ export interface IUserInfo {
   iban: string;
   id: number;
   registration_id: string;
+  employee_number: string;
   verification_status: VerificationStatuses;
   statusError: boolean;
 }

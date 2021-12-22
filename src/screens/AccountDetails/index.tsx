@@ -6,7 +6,7 @@ import { Details } from 'components';
 import vocabulary from 'i18n';
 import styles from './styles';
 
-const vocab = vocabulary.get()
+const vocab = vocabulary.get();
 
 const AccountDetails = () => {
   const userInfo = useSelector(selectUserInfo);
@@ -23,8 +23,8 @@ const AccountDetails = () => {
             text: userInfo.email,
           },
           {
-            label: vocab.registrationId,
-            text: userInfo.registration_id,
+            label: vocab.employeeNumber,
+            text: userInfo.employee_number,
           },
           {
             label: vocab.iban,
@@ -33,7 +33,7 @@ const AccountDetails = () => {
         ]}
       />
     </View>
-  )
+  );
 };
 
 export default AccountDetails;

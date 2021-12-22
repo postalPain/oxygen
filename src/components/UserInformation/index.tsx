@@ -9,7 +9,7 @@ import useStyles from './styles';
 
 const vocab = vocabulary.get();
 
-const displayInfo = ['email', 'registration_id', 'iban']
+const displayInfo = ['email', 'employee_number', 'iban'];
 
 const UserInformation = () => {
   const styles = useStyles();
