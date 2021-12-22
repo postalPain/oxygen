@@ -11,11 +11,19 @@ export const getBiometricsSupported = async (): Promise<BiometryTypes> => {
     unifiedErrors: false, // use unified error messages (default false)
     passcodeFallback: false // if true is passed, it will allow isSupported to return an error if the device is not enrolled in touch id/face id etc. Otherwise, it will just tell you what method is supported, even if the user is not enrolled.  (default false)
   };
-  const biometricsSupported: any = await TouchID.isSupported(optionalConfigObject);
-  return (biometricsSupported === true
-    ? BiometryTypes.Fingerprint
-    : biometricsSupported
-  );
+  let biometricsSupported: any = false;
+  try {
+    biometricsSupported = await TouchID.isSupported(optionalConfigObject);
+    return (biometricsSupported === true
+      ? BiometryTypes.Fingerprint
+      : biometricsSupported
+    );
+  } catch (error) {
+    console.log('TouchID.isSupported error', error);
+
+  }
+
+  return biometricsSupported;
 };
 
 export const biometricAuthenticate = () => TouchID.authenticate('Login');

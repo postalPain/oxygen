@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 0.05 * windowDimensions.height,
     zIndex: 100,
   },
   backDrop: {

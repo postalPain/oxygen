@@ -6,7 +6,7 @@ import { getState } from 'modules/store';
 import { selectUserEmail } from 'modules/user/selectors';
 import api, { IResponse } from 'services/api';
 import { isTtlActive } from 'utils/time';
-import { BiometricsActions, IBiometricLoginAction, setBiometricsEnabled } from '../actions';
+import { BiometricsActions, IBiometricLoginAction, setBiometricsReady } from '../actions';
 import { getBiometricData, getBiometricsPermission } from '../asyncStorage';
 import { biometricAuthenticate, getBiometricsSupported } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
@@ -17,14 +17,14 @@ function* getBiometricEnabledWorker () {
   const biometricPermitted = yield getBiometricsPermission(email);
 
   if (!email || !biometricsSupported || !biometricPermitted) {
-    yield put(setBiometricsEnabled(false));
+    yield put(setBiometricsReady(false));
     return;
   }
 
   const { ttl, credentials } = yield getBiometricData();
   const enabled = credentials && (credentials.username === email) && isTtlActive(ttl);
 
-  yield put(setBiometricsEnabled(enabled));
+  yield put(setBiometricsReady(enabled));
 }
 
 function* biometricLoginWorker(action: IBiometricLoginAction) {
@@ -35,10 +35,13 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
       return;
     }
   } catch (error) {
+    console.log('Authenticate error', error);
+
     if (error?.name === 'LAErrorUserCancel') {
-      // yield put(errorNotification({ text: BiometricErrors.BIOMETRICS_CANCELLED }));
-      return;
+      console.log('LAErrorUserCancel');
     }
+    return;
+
     // yield put(errorNotification({ text: BiometricErrors.BIOMETRICS_FAILED }));
   }
   const credentials: TKeychainCredentials = yield getKeychainCredentials();
@@ -55,6 +58,6 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
 
 
 export default function* biometricsWatcher(): SagaIterator {
-  yield takeLatest(BiometricsActions.GET_BIOMETRICS_ENABLED, getBiometricEnabledWorker);
+  yield takeLatest(BiometricsActions.GET_BIOMETRICS_READY, getBiometricEnabledWorker);
   yield takeLatest(BiometricsActions.BIOMETRIC_LOGIN, biometricLoginWorker);
 }

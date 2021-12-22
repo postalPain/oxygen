@@ -1,8 +1,8 @@
 import { IMeta } from 'modules/store/types';
 
 export enum BiometricsActions {
-  GET_BIOMETRICS_ENABLED = 'GET_BIOMETRICS_ENABLED',
-  SET_BIOMETRICS_ENABLED = 'SET_BIOMETRICS_ENABLED',
+  GET_BIOMETRICS_READY = 'GET_BIOMETRICS_READY',
+  SET_BIOMETRICS_READY = 'SET_BIOMETRICS_READY',
   SAVE_BIOMETRICS = 'SAVE_BIOMETRICS',
   BIOMETRIC_LOGIN = 'BIOMETRIC_LOGIN',
 }
@@ -19,18 +19,18 @@ export const biometricLogin = (email: string, meta?: IMeta): IBiometricLoginActi
   meta,
 });
 
-export const getBiometricEnabled = () => ({
-  type: BiometricsActions.GET_BIOMETRICS_ENABLED,
+export const getBiometricReady = () => ({
+  type: BiometricsActions.GET_BIOMETRICS_READY,
 });
 
 export interface ISetBiometricsEnabledAction {
-  type: BiometricsActions.SET_BIOMETRICS_ENABLED;
-  enabled: boolean;
+  type: BiometricsActions.SET_BIOMETRICS_READY;
+  ready: boolean;
 }
 
-export const setBiometricsEnabled = (enabled: boolean): ISetBiometricsEnabledAction => ({
-  type: BiometricsActions.SET_BIOMETRICS_ENABLED,
-  enabled,
+export const setBiometricsReady = (ready: boolean): ISetBiometricsEnabledAction => ({
+  type: BiometricsActions.SET_BIOMETRICS_READY,
+  ready,
 });
 
 export interface ISaveBiometricsAction {

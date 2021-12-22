@@ -10,12 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { isUserEmployerVerified, selectUserEmail } from 'modules/user/selectors';
-import { existsInStoredLoginEmails, getLoginCount } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
+import { useBiometrics } from 'modules/biometrics/hooks';
+import ModalBiometricLogin from 'components/ModalBiometricLogin';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -23,6 +24,13 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
+  const {
+    biometricsReady,
+    biometricsType,
+    onBiometricAllow,
+    shouldRequestBiometrics,
+    authenticate,
+  } = useBiometrics();
 
   const [error, setError] = useState<IError>(null);
   const [email, setEmail] = useState<string>();
@@ -30,6 +38,7 @@ const SignIn = (
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [biometricsPrompt, setBiometricsPrompt] = useState<boolean>(false);
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -52,20 +61,17 @@ const SignIn = (
     }
   }, [error]);
 
+  useEffect(() => {
+    biometricsReady && authenticate(onSignedIn);
+  }, [biometricsReady]);
+
   const onSignedIn = () => {
     dispatch(checkVerification({
       onSuccess: (status: VerificationStatuses) => {
         dispatch(userGetInfo());
-
-        if (!isUserEmployerVerified(status)) {
-          navigation.navigate(AppScreenNames.UserVerificationPending);
-        } else {
-          existsInStoredLoginEmails(storedEmail).then(exists => {
-            exists
-              ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-              : navigation.navigate(AppScreenNames.TabNavigation);
-          });
-        }
+        isUserEmployerVerified(status)
+          ? navigation.navigate(AppScreenNames.TabNavigation)
+          : navigation.navigate(AppScreenNames.UserVerificationPending);
       },
       onError: () => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));
@@ -75,7 +81,6 @@ const SignIn = (
 
   return (
     <>
-
       <View>
         <View>
           {!storedEmail && (
@@ -122,7 +127,11 @@ const SignIn = (
           onPress={() => {
             setButtonDisabled(true);
             dispatch(signIn(email || storedEmail, password, {
-              onSuccess: onSignedIn,
+              onSuccess: () => {
+                shouldRequestBiometrics().then((requestBiometrics) =>
+                  requestBiometrics ? setBiometricsPrompt(true) : onSignedIn()
+                );
+              },
               onError: (_error) => {
                 setError(_error);
                 setButtonDisabled(false);
@@ -134,8 +143,19 @@ const SignIn = (
         >
           {vocab.get().logIn}
         </Button>
-        <BiometricLogin onSignedIn={onSignedIn} />
+        {biometricsReady && (
+          <BiometricLogin onPress={() => authenticate(onSignedIn)} biometricsType={biometricsType} />
+        )}
       </View>
+      {biometricsPrompt && (
+        <ModalBiometricLogin
+          onAllow={onBiometricAllow}
+          onAnyPress={() => {
+            setBiometricsPrompt(false);
+            onSignedIn();
+          }}
+        />
+      )}
     </>
   );
 };

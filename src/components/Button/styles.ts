@@ -4,8 +4,6 @@ import { getWidth, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   button: {
-    width: getWidth(84),
-    height: getWidth(14),
     borderRadius: getWidth(14),
     overflow: 'hidden',
   },
