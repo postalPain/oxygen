@@ -2,9 +2,9 @@ import React from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
-import { Details, IconTransactionHistory, ScreenGradient, Transaction } from 'components';
+import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
+import { Details, IconTransactionHistory, ScreenGradient } from 'components';
 import useStyles from './styles';
-import { getTransactionDetailsDate, getTransactionStatus } from '../../utils/transactionData';
 
 
 const vocab = vocabulary.get();
@@ -36,7 +36,7 @@ const getData = (params) => {
       text: params.bank_details.iban,
     },
   ];
-}
+};
 
 const TransactionDetails = (
   { route: { params } }: AppNavigationProps<AppScreenNames.TransactionsDetails>
@@ -55,7 +55,7 @@ const TransactionDetails = (
         <Details data={getData(params)} />
       </View>
     </SafeAreaView>
-  )
+  );
 };
 
 export default TransactionDetails;
