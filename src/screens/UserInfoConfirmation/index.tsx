@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { Pressable, SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { selectUserEmail } from 'modules/user/selectors';
-import { AuthStoredKeys } from 'modules/auth/types';
 import {
   Button,
   IconBadge,
@@ -16,7 +15,7 @@ import useStyles from './styles';
 import { userGetInfo } from 'modules/user/actions';
 import { openBrowser } from 'utils';
 import { externalUrls } from '../../constants';
-import { deleteFromStoredLoginEmails, getStoredFirstLoginEmails } from 'modules/user/asyncStorage';
+import { deleteFromStoredLoginEmails } from 'modules/user/asyncStorage';
 
 
 const vocab = vocabulary.get();
@@ -49,13 +48,15 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
         </View>
         <UserInformation />
         <View style={styles.footer}>
-          <Pressable
-            onPress={() => openBrowser(externalUrls.help)}
-            style={styles.contactUs}
-          >
+          <View style={styles.contactUs}>
             <Text style={styles.contactUsText}>{vocab.ifNotAccurate}</Text>
-            <Link style={styles.contactUsLink}>{vocab.contactUsImmediately}</Link>
-          </Pressable>
+            <Link
+              onPress={() => openBrowser(externalUrls.help)}
+              style={styles.contactUsLink}
+            >
+              {vocab.contactUsImmediately}
+            </Link>
+          </View>
           <Button onPress={onPress}>
             {vocab.continue}
           </Button>

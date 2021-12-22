@@ -59,6 +59,7 @@ const useStyles = () => StyleSheet.create({
     lineHeight: getHeight(3),
   },
   contactUsLink: {
+    color: theme.colors.floos2,
     fontSize: getWidth(4.5),
     textDecorationLine: 'underline',
     lineHeight: getHeight(3),
