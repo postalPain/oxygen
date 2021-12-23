@@ -9,7 +9,12 @@ const Stack = createNativeStackNavigator();
 
 const TransactionsStack = () => {
   return (
-    <Stack.Navigator initialRouteName={AppScreenNames.Transactions}>
+    <Stack.Navigator
+      initialRouteName={AppScreenNames.Transactions}
+      screenOptions={{
+        headerShadowVisible: false
+      }}
+    >
       <Stack.Screen
         name={AppScreenNames.Transactions}
         component={Transactions}
