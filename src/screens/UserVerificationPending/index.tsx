@@ -40,7 +40,7 @@ const UserVerificationPending = (
     navigation.navigate(AppScreenNames.UserInfoConfirmation, { noBackButton: true });
   };
 
-  const [delay, setDelay] = useState(1000 * 60 * 5);
+  const [delay, setDelay] = useState(1000 * 60 * .5);
 
   useInterval(() => {
     employerPending ? dispatch(checkVerification()) : setDelay(null); // set delay to null in order to clear interval
