@@ -1,6 +1,7 @@
 import theme from 'config/theme';
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import { getWidth } from 'utils/window';
 
 interface ILink {
   onPress?: () => void;
@@ -20,7 +21,8 @@ const Link = (props: ILink) => {
 
 const styles = StyleSheet.create({
   link: {
-    color: theme.colors.floos1
+    color: theme.colors.floos1,
+    fontSize: getWidth(4.5)
   }
 });
 

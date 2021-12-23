@@ -130,7 +130,7 @@ export default {
   logWithBiometrics: 'Log In Instantly with Biometric ID',
   allowBiometrics: 'Allow Biometric ID access',
   useMyEmail: 'Use my email and password',
-  youAreAllSet: 'You’re All Set!',
-  biometricIdAssigned: 'The Biometric ID is assigned to this device. Please access the app.',
+  biometricNotSuccessful: (biometricsType) => `${biometricsType} not successful`,
+  tryAgain: 'Try again',
   dontAllow: 'Don’t Allow',
 };

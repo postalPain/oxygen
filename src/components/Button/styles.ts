@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 18,
+    fontSize: getWidth(5),
     alignItems: 'center',
     justifyContent: 'center'
   },
