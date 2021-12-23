@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import vocabulary from 'i18n';
 import { errorNotification } from 'modules/notifications/actions';
+import { IMeta } from 'modules/store/types';
 import { Button, ScreenWithAnimatedHeader, InfoText, ResendEmail } from 'components';
 import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import styles from './styles';
@@ -13,9 +14,10 @@ const vocab = vocabulary.get();
 interface IVerificationCode {
   onSubmit: (code: string) => void;
   backendError: string;
+  resend?: (email: string, meta: IMeta) => {};
 }
 
-const VerificationCode = ({ onSubmit, backendError }: IVerificationCode) => {
+const VerificationCode = ({ onSubmit, backendError, resend }: IVerificationCode) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   useEffect(() => {
@@ -34,7 +36,7 @@ const VerificationCode = ({ onSubmit, backendError }: IVerificationCode) => {
           </InfoText>
         </View>
         <View style={styles.buttonsContainer}>
-          <ResendEmail />
+          {!!resend && <ResendEmail onPress={resend} />}
           <Button
             disabled={value.length !== CODE_LENGTH}
             onPress={() => onSubmit(value) }

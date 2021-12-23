@@ -13,3 +13,5 @@ export const selectSignUpErrors = (state: RootState) => state.auth.signUpErrors;
 export const selectAuthData = (state: RootState) => state.auth.authData;
 
 export const selectForgotPassword = (state: RootState) => state.auth.forgotPassword;
+
+export const selectForgotPasswordEmail = (state: RootState) => state.auth.forgotPassword?.credentials;

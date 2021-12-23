@@ -1,8 +1,10 @@
-import { setForgotPasswordCode } from 'modules/auth/actions';
-import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { setForgotPasswordCode } from 'modules/auth/actions';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import VerificationCode from 'screens/VerificationCode';
+import { forgotPassword } from 'modules/auth/actions';
+
 
 const ForgotPasswordCode = (props: AppNavigationProps<any>) => {
   const { navigation, route } = props;
@@ -17,6 +19,7 @@ const ForgotPasswordCode = (props: AppNavigationProps<any>) => {
     <VerificationCode
       backendError={route.params?.backendError}
       onSubmit={onSubmit}
+      resend={forgotPassword}
     />
   );
 };

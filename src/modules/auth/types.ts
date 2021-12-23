@@ -1,5 +1,4 @@
 import { IResetPasswordBody, ISignUpPayload, } from 'services/api/auth';
-import { IError } from 'services/api/errors';
 import { IMeta } from '../store/types';
 
 export interface IAuthState {
@@ -107,6 +106,7 @@ export interface IForgotPasswordAction {
 export interface ISetForgotPasswordEmailAction {
   type: AuthActions.SET_FORGOT_PASSWORD_EMAIL;
   email: string;
+  meta?: IMeta;
 }
 
 export interface ISetForgotPasswordCodeAction {

@@ -6,7 +6,7 @@ import vocab from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { isEmailValid } from 'utils/validate';
 import { forgotPassword, setForgotPasswordEmail } from 'modules/auth/actions';
-import { selectForgotPassword } from 'modules/auth/selectors';
+import { selectForgotPasswordEmail } from 'modules/auth/selectors';
 import { Button, ScreenWithAnimatedHeader } from 'components';
 import styles from './styles';
 
@@ -15,7 +15,7 @@ const ForgotPassword = (
   { navigation }: AppNavigationProps<AppScreenNames.ForgotPassword>
 ) => {
   const dispatch = useDispatch();
-  const forgotPasswordData = useSelector(selectForgotPassword);
+  const forgotPasswordEmail = useSelector(selectForgotPasswordEmail);
   const [email, setEmail] = useState('');
 
   return (
@@ -35,7 +35,7 @@ const ForgotPassword = (
             autoCorrect={false}
             returnKeyType='done'
             autoCapitalize="none"
-            value={forgotPasswordData?.credentials || email}
+            value={email || forgotPasswordEmail}
           />
         </View>
         <View style={styles.buttonContainer}>
