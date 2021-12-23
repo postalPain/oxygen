@@ -134,4 +134,5 @@ export default {
   youAreAllSet: 'You’re All Set!',
   biometricIdAssigned: 'The Biometric ID is assigned to this device. Please access the app.',
   dontAllow: 'Don’t Allow',
+  cantFindRegistrationId: 'Can\'t find your Registration ID?'
 };
