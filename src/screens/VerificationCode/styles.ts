@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     letterSpacing: .5,
     lineHeight: 24,
   },
+  buttonsContainer: {
+    alignItems: 'center',
+  }
 });
 
 export default styles;

@@ -154,7 +154,16 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.VerificationCodeForgot}
           component={ForgotPasswordCode}
-          options={getHeaderOptions()}
+          options={({
+            title: '',
+            headerTransparent: true,
+            header: (headerProps) => (
+              <NavigationHeader
+                {...headerProps} // eslint-disable-line
+                headerLeft={null}
+              />
+            )
+          })}
         />
         <AppStack.Screen
           name={AppScreenNames.SetPasswordForgot}
