@@ -35,14 +35,9 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
       return;
     }
   } catch (error) {
-    console.log('Authenticate error', error);
-
-    if (error?.name === 'LAErrorUserCancel') {
-      console.log('LAErrorUserCancel');
-    }
+    action.meta?.onError?.();
+    console.log(error);
     return;
-
-    // yield put(errorNotification({ text: BiometricErrors.BIOMETRICS_FAILED }));
   }
   const credentials: TKeychainCredentials = yield getKeychainCredentials();
 
@@ -50,6 +45,7 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
   try {
     response = yield api.auth.refreshToken({ refresh_token: credentials.password });
   } catch (e) {
+    action.meta?.onError?.();
     console.log('ERROR: api.auth.refreshToken({ refresh_token: credentials.password });');
     return;
   }

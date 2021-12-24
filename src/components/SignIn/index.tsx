@@ -15,8 +15,6 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
-import { useBiometrics } from 'modules/biometrics/hooks';
-import ModalBiometricLogin from 'components/ModalBiometricLogin';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -24,13 +22,6 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
-  const {
-    biometricsReady,
-    biometricsType,
-    onBiometricAllow,
-    shouldRequestBiometrics,
-    authenticate,
-  } = useBiometrics();
 
   const [error, setError] = useState<IError>(null);
   const [email, setEmail] = useState<string>();
@@ -38,7 +29,7 @@ const SignIn = (
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-  const [biometricsPrompt, setBiometricsPrompt] = useState<boolean>(false);
+  const [signedIn, setSignedIn] = useState<boolean>(false);
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -60,10 +51,6 @@ const SignIn = (
       setPasswordError(error.message);
     }
   }, [error]);
-
-  useEffect(() => {
-    biometricsReady && authenticate(onSignedIn);
-  }, [biometricsReady]);
 
   const onSignedIn = () => {
     dispatch(checkVerification({
@@ -128,9 +115,7 @@ const SignIn = (
             setButtonDisabled(true);
             dispatch(signIn(email || storedEmail, password, {
               onSuccess: () => {
-                shouldRequestBiometrics().then((requestBiometrics) =>
-                  requestBiometrics ? setBiometricsPrompt(true) : onSignedIn()
-                );
+                setSignedIn(true);
               },
               onError: (_error) => {
                 setError(_error);
@@ -143,19 +128,8 @@ const SignIn = (
         >
           {vocab.get().logIn}
         </Button>
-        {biometricsReady && (
-          <BiometricLogin onPress={() => authenticate(onSignedIn)} biometricsType={biometricsType} />
-        )}
+        <BiometricLogin onSignedIn={onSignedIn} signedIn={signedIn} />
       </View>
-      {biometricsPrompt && (
-        <ModalBiometricLogin
-          onAllow={onBiometricAllow}
-          onAnyPress={() => {
-            setBiometricsPrompt(false);
-            onSignedIn();
-          }}
-        />
-      )}
     </>
   );
 };

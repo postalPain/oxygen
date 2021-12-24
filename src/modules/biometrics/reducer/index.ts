@@ -5,7 +5,7 @@ export interface IBiometricsState {
 }
 
 const defaultState: IBiometricsState = {
-  ready: null
+  ready: null,
 };
 
 const biometricsReducer = (
