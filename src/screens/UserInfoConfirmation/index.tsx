@@ -14,7 +14,7 @@ import {
 import useStyles from './styles';
 import { userGetInfo } from 'modules/user/actions';
 import { openBrowser } from 'utils';
-import { externalUrls } from '../../constants';
+import externalUrls from 'config/externalUrls';
 import { deleteFromStoredLoginEmails } from 'modules/user/asyncStorage';
 
 
