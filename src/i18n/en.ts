@@ -134,4 +134,5 @@ export default {
   biometricNotSuccessful: (biometricsType) => `${biometricsType} not successful`,
   tryAgain: 'Try again',
   dontAllow: 'Don’t Allow',
+  cantFindRegistrationId: 'Can\'t find your Registration ID?'
 };

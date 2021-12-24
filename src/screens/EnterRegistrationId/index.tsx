@@ -7,12 +7,14 @@ import {
   ScreenWithAnimatedHeader,
   Button,
   InputInfo,
+  Link,
 } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSignUpData } from 'modules/auth/selectors';
 import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
-
+import { openBrowser } from 'utils';
+import externalUrls from 'config/externalUrls';
 
 const vocab = vocabulary.get();
 
@@ -25,12 +27,19 @@ const EnterRegistrationId = (
   const { registration_id } = useSelector(selectSignUpData);
   const [inputValue, setInputValue] = useState(registration_id);
   const [inputError, setInputError] = useState('');
+  const [cantFind, setCantFind] = useState<boolean>(null);
+
   useEffect(
     () => {
       setInputError(params?.backendError);
     },
     [params?.backendError]
   );
+
+  useEffect(() => {
+    setTimeout(() => setCantFind(true), 10000);
+  }, []);
+
   const onPress = () => {
     if (!inputValue) {
       setInputError(vocab.errorEnterEmployeeId);
@@ -59,9 +68,20 @@ const EnterRegistrationId = (
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>
-        <Button onPress={onPress} >
-          {vocab.continue}
-        </Button>
+        <View>
+          { cantFind && (
+            <Link
+              onPress={() => openBrowser(externalUrls.findMyEmployer)}
+              style={styles.link}
+            >
+              {vocab.cantFindRegistrationId}
+            </Link>
+          )}
+          <Button onPress={onPress} >
+            {vocab.continue}
+          </Button>
+        </View>
+
       </View>
     </ScreenWithAnimatedHeader>
   );

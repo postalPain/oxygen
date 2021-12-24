@@ -14,8 +14,8 @@ import StatusIcon from './StatusIcon';
 import useStyles from './styles';
 import { getHeight } from 'utils/window';
 import { openBrowser } from 'utils';
-import { externalUrls } from '../../constants';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
+import externalUrls from 'config/externalUrls';
 
 
 const vocab = vocabulary.get();
