@@ -32,10 +32,7 @@ const Transactions = (
       <View style={styles.container}>
         {(!loading && !transactions.length) ? <NoTransactions /> : null}
         {(!loading && transactions.length) ? (
-          <TransactionsList
-            navigation={navigation}
-            transactions={transactions}
-          />
+          <TransactionsList navigation={navigation} />
         ) : null}
       </View>
     </ScreenWrapperMain>

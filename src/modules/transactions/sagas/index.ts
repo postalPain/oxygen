@@ -142,7 +142,7 @@ function* getTransactionsWorker (action: IGetTransactionsAction) {
     yield put(errorNotification());
     return;
   }
-  yield action?.meta?.onSuccess?.();
+  yield action?.meta?.onSuccess?.(response.data);
   yield put(transactionsActions.setTransactions(response.data));
 }
 
