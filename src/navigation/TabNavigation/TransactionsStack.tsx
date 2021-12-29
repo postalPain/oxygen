@@ -22,17 +22,6 @@ const TransactionsStack = () => {
           headerShown: false,
         }}
       />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen
-          name={AppScreenNames.TransactionsDetails}
-          component={TransactionDetails}
-          options={({ navigation }) => ({
-            title: '',
-            headerTransparent: true,
-            headerLeft: () => <BackButton onPress={() => { navigation.goBack(); }} />
-          })}
-        />
-      </Stack.Group>
     </Stack.Navigator>
   );
 };
