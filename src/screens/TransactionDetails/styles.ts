@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import env from 'env';
 import { SCREEN_HORIZONTAL_PADDING } from 'utils/screen';
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
@@ -12,6 +11,7 @@ const useStyles = () => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
+    paddingTop: getHeight(10),
   },
   gradient: {
     position: 'absolute',

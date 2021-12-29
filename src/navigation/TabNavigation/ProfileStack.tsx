@@ -1,12 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppScreenNames } from 'navigation/types';
-import vocab from 'i18n';
-import { getHeight } from 'utils/window';
-import { AccountDetails, Profile, Settings, } from 'screens';
-import { NavigationHeader } from 'components';
-import theme from 'config/theme';
+import { Profile, } from 'screens';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,53 +16,8 @@ const ProfileStack = () => {
           headerShown: false,
         }}
       />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen
-          name={AppScreenNames.AccountDetails}
-          component={AccountDetails}
-          options={{
-            headerShown: true,
-            header: (headerProps) => (
-              <NavigationHeader
-                {...headerProps}
-                headerStyle={styles.header}
-                title={vocab.get().accountDetails}
-                headerRight={null}
-              />
-            )
-          }}
-        />
-        <Stack.Screen
-          name={AppScreenNames.Settings}
-          component={Settings}
-          options={{
-            headerShown: true,
-            header: (headerProps) => (
-              <NavigationHeader
-                {...headerProps}
-                headerStyle={styles.header}
-                title={vocab.get().settings}
-                headerRight={null}
-              />
-            )
-          }}
-        />
-      </Stack.Group>
     </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    alignItems: 'flex-end',
-    height: getHeight(12),
-    paddingBottom: getHeight(4),
-    // TODO fix shadow, remove border
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.shade1,
-    shadowColor: theme.notifications.boxShadowColor,
-    shadowOffset: theme.notifications.boxShadowOffset,
-  }
-});
 
 export default ProfileStack;
