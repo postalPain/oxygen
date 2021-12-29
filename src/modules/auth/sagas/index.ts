@@ -105,6 +105,7 @@ function* forgotPasswordWorker(action: IForgotPasswordAction) {
     yield handleError(error);
     return;
   }
+  yield addCodeSentAt();
   yield action.meta.onSuccess();
 }
 
