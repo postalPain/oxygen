@@ -26,7 +26,7 @@ const noPendingTransaction = (transactions: ITransaction[]): boolean => {
   });
 };
 
-const REQUEST_DELAY = 1000 * 60 * .5;
+const REQUEST_DELAY = 1000 * 60 * .25;
 
 const TransactionsList: React.FC<ITransactionsListProps> = ({ navigation }) => {
   const styles = useStyles();
@@ -54,7 +54,7 @@ const TransactionsList: React.FC<ITransactionsListProps> = ({ navigation }) => {
     });
   };
   const openDetails = (transaction: ITransaction) => {
-    navigation.navigate(AppScreenNames.TransactionsDetails, transaction);
+    navigation.navigate(AppScreenNames.TransactionsDetails, { transaction: transaction });
   };
   return (
     <View style={styles.list}>
