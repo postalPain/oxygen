@@ -4,8 +4,6 @@ import { getWidth, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   button: {
-    width: getWidth(84),
-    height: getWidth(14),
     borderRadius: getWidth(14),
     overflow: 'hidden',
   },
@@ -24,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 18,
+    fontSize: getWidth(5),
     alignItems: 'center',
     justifyContent: 'center'
   },

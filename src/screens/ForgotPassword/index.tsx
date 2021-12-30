@@ -1,19 +1,21 @@
-import { Button, ScreenWithAnimatedHeader } from 'components';
-import vocab from 'i18n';
-import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import styles from './styles';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
+import vocab from 'i18n';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { isEmailValid } from 'utils/validate';
-import { useDispatch } from 'react-redux';
 import { forgotPassword, setForgotPasswordEmail } from 'modules/auth/actions';
+import { selectForgotPasswordEmail } from 'modules/auth/selectors';
+import { Button, ScreenWithAnimatedHeader } from 'components';
+import styles from './styles';
 
 
 const ForgotPassword = (
   { navigation }: AppNavigationProps<AppScreenNames.ForgotPassword>
 ) => {
   const dispatch = useDispatch();
+  const forgotPasswordEmail = useSelector(selectForgotPasswordEmail);
   const [email, setEmail] = useState('');
 
   return (
@@ -33,6 +35,7 @@ const ForgotPassword = (
             autoCorrect={false}
             returnKeyType='done'
             autoCapitalize="none"
+            value={email || forgotPasswordEmail}
           />
         </View>
         <View style={styles.buttonContainer}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, } from 'react-native';
+import { View, } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { getTransactions } from 'modules/transactions/actions';
@@ -32,10 +32,7 @@ const Transactions = (
       <View style={styles.container}>
         {(!loading && !transactions.length) ? <NoTransactions /> : null}
         {(!loading && transactions.length) ? (
-          <TransactionsList
-            navigation={navigation}
-            transactions={transactions}
-          />
+          <TransactionsList navigation={navigation} />
         ) : null}
       </View>
     </ScreenWrapperMain>

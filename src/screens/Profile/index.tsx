@@ -14,7 +14,7 @@ import {
 } from 'components';
 import Arrow from './Arrow';
 import styles from './styles';
-import { externalUrls } from '../../constants';
+import externalUrls from 'config/externalUrls';
 
 const vocab = vocabulary.get();
 

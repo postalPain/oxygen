@@ -9,7 +9,20 @@ import useStyles from './styles';
 
 const vocab = vocabulary.get();
 
-const displayInfo = ['email', 'registration_id', 'iban']
+const displayInfo = [
+  {
+    id: 'email',
+    label: vocab.email,
+  },
+  {
+    id: 'employee_number',
+    label: vocab.employeeNumber,
+  },
+  {
+    id: 'iban',
+    label: vocab.iban,
+  },
+];
 
 const UserInformation = () => {
   const styles = useStyles();
@@ -22,9 +35,9 @@ const UserInformation = () => {
       />
       {displayInfo.map((key) => (
         <InfoBlock
-          key={key}
-          title={key.toUpperCase()}
-          text={userInfo[key]}
+          key={key.id}
+          title={key.label.toUpperCase()}
+          text={userInfo[key.id]}
         />
       ))}
     </View>

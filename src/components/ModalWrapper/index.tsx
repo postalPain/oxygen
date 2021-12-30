@@ -13,11 +13,13 @@ interface IModalWrapper {
 const ModalWrapper = ({ style, children, onClose }: IModalWrapper) => {
   return (
     <View style={[styles.modalWrapper, style]}>
-      <View style={styles.closeContainer}>
-        <Pressable onPress={onClose}>
-          <IconClose />
-        </Pressable>
-      </View>
+      {onClose && (
+        <View style={styles.closeContainer}>
+          <Pressable onPress={onClose}>
+            <IconClose />
+          </Pressable>
+        </View>
+      )}
       {children}
 
     </View>

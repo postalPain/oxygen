@@ -6,8 +6,9 @@ import { getHeight, getWidth } from 'utils/window';
 
 interface IDialogBiometricPermissions {
   visible?: boolean;
-  onOk?: () => void;
-  onDontAllow?: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  onPressAny?: () => void;
 }
 
 const DialogBiometricPermissions = (props: IDialogBiometricPermissions) => {
@@ -17,8 +18,20 @@ const DialogBiometricPermissions = (props: IDialogBiometricPermissions) => {
       <Dialog.Description style={styles.text}>
         {vocab.get().allowBiometricsText}
       </Dialog.Description>
-      <Dialog.Button label={vocab.get().dontAllow} onPress={props.onDontAllow} />
-      <Dialog.Button label={vocab.get().ok} onPress={() => {}} />
+      <Dialog.Button
+        label={vocab.get().dontAllow}
+        onPress={() => {
+          props.onCancel();
+          props.onPressAny();
+        }}
+      />
+      <Dialog.Button
+        label={vocab.get().ok}
+        onPress={() => {
+          props.onConfirm();
+          props.onPressAny();
+        }}
+      />
     </Dialog.Container>
   );
 };

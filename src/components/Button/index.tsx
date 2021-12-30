@@ -12,17 +12,18 @@ export interface IButton {
   onPress?: () => void;
   onPressDisabled?: () => void;
   Icon?: React.ReactNode;
+  width?: number;
 }
 
 const Button = (props: IButton) => {
-  const { secondary = false, disabled, onPress, onPressDisabled } = props;
+  const { secondary = false, disabled, onPress, onPressDisabled, width } = props;
   return (
-    <View style={[styles.button, props.styles]}>
+    <View style={[styles.button, props.styles, width && { width }]}>
       <LinearGradient
         colors={disabled ? [theme.colors.shade1, theme.colors.shade1] : ['#935EBF', '#B15F8F']}
         locations={[0, 1]}
         useAngle
-        style={styles.linearGradient}
+        style={[styles.linearGradient, width && { width }]}
       >
         <Pressable onPress={disabled ? onPressDisabled : onPress}>
           <View style={[styles.innerSecondary, {

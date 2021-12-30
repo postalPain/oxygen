@@ -5,7 +5,7 @@ import { openBrowser } from 'utils';
 import BackButton from 'components/BackButton';
 import Link from 'components/Link';
 import useStyles from './styles';
-import { externalUrls } from '../../constants';
+import externalUrls from 'config/externalUrls';
 
 interface INavigationHeaderProps {
   options: any; // TODO add types

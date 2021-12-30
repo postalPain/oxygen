@@ -15,19 +15,13 @@ const styles = StyleSheet.create({
   buttonSectionExistingUser: {
     justifyContent: 'flex-start',
   },
-  biometricLink: {
-    textAlign: 'center',
-    marginTop: getHeight(2.5),
-    color: theme.colors.floos1
+  forgotPasswordContainer: {
+    alignSelf: 'flex-end'
   },
   forgotPassword: {
     marginTop: getHeight(2.5),
     textAlign: 'right'
   },
-  useBiometrics: {
-    marginTop: getHeight(2.5),
-    textAlign: 'center',
-  }
 });
 
 export default styles;

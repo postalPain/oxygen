@@ -47,7 +47,7 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
               <IconFloosFull />
             </View>
             <View>
-              {!!first_name && <Text style={styles.hiMessage}>{vocab.get().hi} {first_name}!</Text>}
+              {!!first_name && <Text style={styles.hiMessage}>{vocab.get().hi}{first_name}!</Text>}
               {!!email && (
                 <EmailTag
                   onPress={() => {
