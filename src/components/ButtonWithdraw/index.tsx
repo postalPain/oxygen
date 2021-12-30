@@ -27,6 +27,7 @@ const ButtonWithdraw = () => {
     setWithdrawalDisabled(newWithdrawalDisabled);
   }, [isUserBlocked, isWithdrawalPaused, minimumWithdrawable, balance]);
   useEffect(() => {
+    console.log('withdrawalDisabled => ', withdrawalDisabled);
     !!withdrawalDisabled && setShowTooltip(true);
   }, [withdrawalDisabled]);
   useEffect(() => {
