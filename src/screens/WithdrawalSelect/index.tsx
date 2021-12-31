@@ -65,6 +65,7 @@ const WithdrawalSelect = () => {
         maximumTrackTintColor={theme.colors.shade1}
         thumbTintColor={theme.colors.floos3}
         onValueChange={(value) => dispatch(setAmount(Math.floor(value)))}
+        step={10}
       />
       {suggestedValues?.length > 1 && (
         <View style={styles.suggestedContainer}>
