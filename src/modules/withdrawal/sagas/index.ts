@@ -2,7 +2,7 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import { IWithdrawalAction, withdrawalActions } from '../types';
 import api, { IResponse } from 'services/api';
-import { IBalance, IWithdrawableDefault, IWithdrawableDefaultTypes, TFee, TSuggestedValues } from 'services/api/employees';
+import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees';
 import { errorNotification } from 'modules/notifications/actions';
 import {
   getBalance,
@@ -10,7 +10,8 @@ import {
   setFee,
   setWithdrawableDefaults,
   setSuggestedValues,
-  setWithdrawalTransaction
+  setWithdrawalTransaction,
+  getWithdrawableDefaults,
 } from '../actions';
 import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
@@ -77,6 +78,7 @@ function* withdrawalWorker(action: IWithdrawalAction) {
   yield action.meta.onSuccess?.();
   yield put(getBalance());
   yield put(getTransactions());
+  yield put(getWithdrawableDefaults());
 }
 
 function* getWithdrawableDefaultsWorker(action: IWithdrawalAction) {
