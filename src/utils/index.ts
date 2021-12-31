@@ -4,9 +4,9 @@ import { Linking, Alert } from 'react-native';
 export const openBrowser = async (uri: string) => {
   try {
     if (await InAppBrowser.isAvailable()) {
-      const result = await InAppBrowser.open(uri, {
+      await InAppBrowser.open(uri, {
         // iOS Properties
-        dismissButtonStyle: 'cancel',
+        dismissButtonStyle: 'close',
         readerMode: false,
         animated: true,
         modalPresentationStyle: 'popover',
