@@ -105,10 +105,8 @@ const WithdrawalSelect = () => {
         keyboardType='numeric'
         returnKeyType='done'
         ref={otherAmountRef}
-        value={amount.toString()}
-        style={{
-          opacity: 0
-        }}
+        placeholder={amount.toString()}
+        style={{ opacity: 0 }}
         onChangeText={(value) => dispatch(setAmount(Number(value))) }
       />
       <View style={styles.buttonContainer}>
