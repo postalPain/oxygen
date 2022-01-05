@@ -21,7 +21,7 @@ const ButtonWithdraw = () => {
   const [withdrawalDisabled, setWithdrawalDisabled] = useState(null);
   useEffect(() => {
     let newWithdrawalDisabled = null;
-    !isUserBlocked && (newWithdrawalDisabled = vocab.get().withdrawalErrorBlocked);
+    isUserBlocked && (newWithdrawalDisabled = vocab.get().withdrawalErrorBlocked);
     isWithdrawalPaused && (newWithdrawalDisabled = vocab.get().withdrawalErrorDays);
     if ((balance.withdrawable_wages !== null) && (minimumWithdrawable !== null)) {
       (balance.withdrawable_wages < minimumWithdrawable) && (newWithdrawalDisabled = vocab.get().withdrawalErrorMinimum);
