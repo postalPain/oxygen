@@ -37,6 +37,12 @@ const EnterRegistrationId = (
   );
 
   useEffect(() => {
+    console.log('params?.registrationId', params?.registrationId);
+    params?.registrationId && setInputValue(params.registrationId);
+
+  }, [params?.registrationId]);
+
+  useEffect(() => {
     setTimeout(() => setCantFind(true), 10000);
   }, []);
 

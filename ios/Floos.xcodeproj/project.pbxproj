@@ -64,6 +64,7 @@
 		CED3BDBF26FB677800A4434E /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		D170B1B6325CFC23A758E259 /* Pods-Floos-FloosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floos-FloosTests.debug.xcconfig"; path = "Target Support Files/Pods-Floos-FloosTests/Pods-Floos-FloosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D33EA6E8270DD70500941805 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D3EDA1D027875A4700D9397E /* Floos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Floos.entitlements; path = Floos/Floos.entitlements; sourceTree = "<group>"; };
 		EAA4B66CE6A368C9540BFF14 /* Pods-Floos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floos.release.xcconfig"; path = "Target Support Files/Pods-Floos/Pods-Floos.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -108,6 +109,7 @@
 		13B07FAE1A68108700A75B9A /* Floos */ = {
 			isa = PBXGroup;
 			children = (
+				D3EDA1D027875A4700D9397E /* Floos.entitlements */,
 				D33EA6E8270DD70500941805 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -549,6 +551,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Floos/Floos.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 69;
@@ -580,6 +583,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Floos/Floos.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 69;

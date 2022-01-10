@@ -15,6 +15,7 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
+import { getInitialDeepLink } from 'modules/dynamicLinks';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>

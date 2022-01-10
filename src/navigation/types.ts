@@ -38,7 +38,7 @@ export type AppStackParameters = {
   Onboarding: undefined;
   SignIn: { noBackButton?: boolean };
   SignInForgot: undefined;
-  EnterRegistrationId: { backendError: string };
+  EnterRegistrationId: { backendError: string; registrationId: string };
   EnterEmail: { backendError: string };
   EnterEmailSignUp: { backendError: string };
   SetPasswordSignUp: { backendError: string };
