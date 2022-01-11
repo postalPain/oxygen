@@ -4,7 +4,7 @@ export const getQueryStringParams = query => {
       .split('&')
       .reduce((params, param) => {
         const [key, value] = param.split('=');
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        params[key] = value ? decodeURIComponent(value) : '';
         return params;
       }, {}
       )

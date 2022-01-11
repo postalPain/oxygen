@@ -36,8 +36,7 @@ import { IUserInfo } from 'services/api/employees';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
 import { headerStyles, modalScreenStyles } from './styles';
-import { UserDeepLinks } from 'modules/user/deepLinks';
-import { getInitialDeepLink } from 'modules/dynamicLinks';
+import SplashScreen from 'react-native-splash-screen';
 
 const AppStack = createNativeStackNavigator();
 
@@ -66,16 +65,6 @@ const Navigation = () => {
   useEffect(
     () => {
       (async () => {
-        const deepLink = await getInitialDeepLink();
-        console.log('deepLink', deepLink);
-
-
-        // if (deepLink.topic === UserDeepLinks.invite_employee) {
-        //   console.log('navigating');
-        //   navigate(AppScreenNames.EnterRegistrationId, { registrationId: deepLink.registration_id });
-        //   return;
-        // }
-
         const storedData: IAuthData & Partial<IUserInfo> = await getItems([
           AuthStoredKeys.access_token,
           AuthStoredKeys.access_ttl,
@@ -102,6 +91,7 @@ const Navigation = () => {
             storedData.email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
           }
         }));
+        setTimeout(() => SplashScreen.hide(), 300);
       })();
     },
     []

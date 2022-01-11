@@ -1,25 +1,38 @@
 import { useEffect, useState } from 'react';
 import dynamicLinks, { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links';
-import { parseDeepLink } from '..';
+import { getQueryStringParams } from 'utils/url';
 
 export interface DeepLink {
   url: string;
   topic: string;
-  [param: string]: string;
 }
+
+export const parseDeepLink = (fbLink: FirebaseDynamicLinksTypes.DynamicLink) => {
+  if (!fbLink) { // Is null in getInitialLink() when app is launched without initial link
+    return;
+  }
+
+  const [url, paramsString] = fbLink.url.split('?');
+  const params = getQueryStringParams(paramsString);
+
+  return {
+    url,
+    ...params,
+  };
+};
 
 export const useDynamicLinks = () => {
   const [link, setLink] = useState<DeepLink>(null);
 
   useEffect(() => {
-    const unsubscribe = dynamicLinks().onLink(fbLink => setLink(parseDeepLink(fbLink)));
+    const unsubscribe = dynamicLinks().onLink(fbLink => {
+      setLink(parseDeepLink(fbLink));
+    });
+
+    // getInitialLink() won't return a link instantly https://github.com/invertase/react-native-firebase/issues/4548
+    dynamicLinks().getInitialLink().then(fbLink => setLink(parseDeepLink(fbLink)));
     return () => unsubscribe();
   }, []);
-
-  useEffect(() => {
-    console.log('link', link);
-
-  }, [link]);
 
   return [link];
 };
