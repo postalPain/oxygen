@@ -70,11 +70,11 @@ const Navigation = () => {
         console.log('deepLink', deepLink);
 
 
-        if (deepLink.topic === UserDeepLinks.invite_employee) {
-          console.log('navigating');
-          navigate(AppScreenNames.EnterRegistrationId, { registrationId: deepLink.registration_id });
-          return;
-        }
+        // if (deepLink.topic === UserDeepLinks.invite_employee) {
+        //   console.log('navigating');
+        //   navigate(AppScreenNames.EnterRegistrationId, { registrationId: deepLink.registration_id });
+        //   return;
+        // }
 
         const storedData: IAuthData & Partial<IUserInfo> = await getItems([
           AuthStoredKeys.access_token,
