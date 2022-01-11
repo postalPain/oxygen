@@ -23,7 +23,6 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
   const dispatch = useDispatch();
   const styles = useStyles();
   const { email } = useSelector(selectSignUpData);
-  const [, inviteEmail] = useInviteUserDeepLink();
 
   const [inputError, setInputError] = useState('');
   useEffect(
@@ -32,12 +31,6 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
     },
     [params?.backendError]
   );
-
-  useEffect(() => {
-    inviteEmail && dispatch(setSignUpData({
-      email: inviteEmail
-    }));
-  }, [inviteEmail]);
 
   const onPress = async () => {
     const isValid = await schema.isValid(email);

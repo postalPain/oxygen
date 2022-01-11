@@ -26,7 +26,7 @@ const EnterRegistrationId = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const { registration_id } = useSelector(selectSignUpData);
-  const [inviteRegistrationId] = useInviteUserDeepLink();
+  const [inviteRegistrationId, inviteEmail] = useInviteUserDeepLink();
   const [inputError, setInputError] = useState('');
   const [cantFind, setCantFind] = useState<boolean>(null);
 
@@ -44,8 +44,9 @@ const EnterRegistrationId = (
   useEffect(() => {
     inviteRegistrationId && dispatch(setSignUpData({
       registration_id: inviteRegistrationId,
+      email: inviteEmail
     }));
-  }, [inviteRegistrationId]);
+  }, [inviteRegistrationId, inviteEmail]);
 
   const onPress = () => {
     if (!registration_id) {
