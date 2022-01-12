@@ -45,7 +45,7 @@ export const getBiometricData = async () => {
   return { ttl, credentials };
 };
 
-export const deleteBiometricData = async (email: string) => {
+export const deleteBiometricData = async () => {
   await deleteKeychainPassword();
   await deleteBiometricTtl();
 };

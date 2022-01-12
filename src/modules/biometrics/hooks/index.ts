@@ -1,3 +1,4 @@
+import { requestFaceIdPermission } from 'modules/permissions';
 import { getLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { useState, useEffect } from 'react';
@@ -40,7 +41,7 @@ export const useBiometrics = () => {
     shouldRequestBiometrics,
     authenticate,
     onBiometricAllow: () => {
-      storeBiometricsPermission(email, true);
+      requestFaceIdPermission().then((result) => result && storeBiometricsPermission(email, true));
     },
   };
 };

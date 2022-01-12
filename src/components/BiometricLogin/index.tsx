@@ -2,7 +2,6 @@ import { Link } from 'components';
 import ModalBiometricsFailed from 'components/ModalBiometricFailed';
 import ModalBiometricLogin from 'components/ModalBiometricLogin';
 import vocab from 'i18n';
-import { BiometricsTypes } from 'modules/biometrics/biometrics';
 import { useBiometrics } from 'modules/biometrics/hooks';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
