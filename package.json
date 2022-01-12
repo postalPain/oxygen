@@ -27,8 +27,10 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/slider": "^4.1.12",
-    "@react-native-firebase/app": "^12.9.0",
-    "@react-native-firebase/dynamic-links": "^12.9.0",
+    "@react-native-firebase/analytics": "^14.1.0",
+    "@react-native-firebase/app": "^14.1.0",
+    "@react-native-firebase/dynamic-links": "^14.1.0",
+    "@react-native-firebase/messaging": "^14.1.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",

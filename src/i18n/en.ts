@@ -88,7 +88,7 @@ export default {
   sumWasPayoutInfo: 'The sum which was payout.',
   salaryEarnedInfo: 'The salary which you have earned till this period of time.',
   personalInformation: 'Personal Information',
-  informationReceived: 'Here\'s the information we received from your employer.',
+  informationReceived: 'Here’s the information we received from your employer.',
   name: 'Name',
   iban: 'IBAN',
   ifNotAccurate: 'If this is not accurate, please ',
@@ -111,7 +111,7 @@ export default {
   pending: 'Pending',
   completed: 'Completed',
   noTransactionsYet: 'No transactions to report yet',
-  easyToRequestPayout: 'It\'s so easy to request a payout, try now. Don\'t worry, the first withdrawal is on us.',
+  easyToRequestPayout: 'It’s so easy to request a payout, try now. Don’t worry, the first withdrawal is on us.',
   transactionsInformation: 'Transactions Information',
   amount: 'amount',
   dateTime: 'date / time',
@@ -134,5 +134,5 @@ export default {
   biometricNotSuccessful: (biometricsType) => `${biometricsType} not successful`,
   tryAgain: 'Try again',
   dontAllow: 'Don’t Allow',
-  cantFindRegistrationId: 'Can\'t find your Registration ID?'
+  cantFindRegistrationId: 'Can’t find your Registration ID?'
 };

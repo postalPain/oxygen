@@ -26,7 +26,7 @@ export const useBiometrics = () => {
   const shouldRequestBiometrics = async () => {
     if (!biometricsPermitted && biometricsType) {
       const loginCount = await getLoginCount(email);
-      return [2, 5].includes(loginCount); // On 2nd and 5th login
+      return [2, 7].includes(loginCount); // On 2nd and 7th login
     }
   };
 
