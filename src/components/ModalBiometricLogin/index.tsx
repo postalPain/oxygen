@@ -22,7 +22,9 @@ const ModalBiometricLogin = (props: IModalBiometricLogin) => {
         <View style={styles.modalBiometricLogin}>
           <View style={styles.section}>
             <IconFaceId />
-            <Text style={styles.title}>{vocab.get().logWithBiometrics(props.biometricsType)}</Text>
+            <Text style={styles.title}>
+              {vocab.get().logWithBiometrics(props.biometricsType)}
+            </Text>
           </View>
 
           <View style={styles.section} >

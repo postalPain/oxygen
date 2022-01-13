@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: getHeight(2),
-    // paddingTop: getHeight(5),
     paddingHorizontal: getWidth(8),
     paddingBottom: getHeight(4),
     textAlign: 'center',
