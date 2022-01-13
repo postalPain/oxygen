@@ -3,13 +3,15 @@ import IconFaceId from 'components/IconFaceId';
 import Modal from 'components/Modal';
 import ModalWrapper from 'components/ModalWrapper';
 import vocab from 'i18n';
+import { BiometricsTypes } from 'modules/biometrics/biometrics';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
 
 interface IModalBiometricLogin {
-  onAllow?: () => void;
-  onDisallow?: () => void;
+  biometricsType: BiometricsTypes;
+  onConfirm?: () => void;
+  onCancel?: () => void;
   onAnyPress?: () => void;
 }
 
@@ -20,7 +22,7 @@ const ModalBiometricLogin = (props: IModalBiometricLogin) => {
         <View style={styles.modalBiometricLogin}>
           <View style={styles.section}>
             <IconFaceId />
-            <Text style={styles.title}>{vocab.get().logWithBiometrics}</Text>
+            <Text style={styles.title}>{vocab.get().logWithBiometrics(props.biometricsType)}</Text>
           </View>
 
           <View style={styles.section} >
@@ -28,13 +30,14 @@ const ModalBiometricLogin = (props: IModalBiometricLogin) => {
               width={getWidth(75)}
               styles={styles.button}
               onPress={() => {
-                props.onAllow?.();
+                props.onConfirm?.();
                 props.onAnyPress?.();
               } }
-            >{vocab.get().allowBiometrics}
+            >
+              {vocab.get().allowBiometrics(props.biometricsType)}
             </Button>
             <Link onPress={() => {
-              props.onDisallow?.();
+              props.onCancel?.();
               props.onAnyPress?.();
             }}
             >{vocab.get().useMyEmail}

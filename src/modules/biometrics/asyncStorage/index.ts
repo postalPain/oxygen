@@ -2,22 +2,22 @@ import { getItem, getItemAsObject, removeItem, setItem, setObjectAsItem } from '
 import { deleteKeychainPassword, getKeychainCredentials, setKeychainPassword, TKeychainCredentials } from '../keychain';
 
 export enum BiometricsStoredKeys {
-  use = 'use',
+  accepted = 'accepted',
   ttl = 'ttl'
 }
 
-export const getBiometricsPermission = async (email): Promise<boolean> => {
-  const biometricsAllowedObj = await getItemAsObject(BiometricsStoredKeys.use);
+export const getBiometricsAccepted = async (email): Promise<boolean> => {
+  const biometricsAcceptedObj = await getItemAsObject(BiometricsStoredKeys.accepted);
 
-  return biometricsAllowedObj[email];
+  return biometricsAcceptedObj[email];
 };
 
-export const storeBiometricsPermission = async (email: string, allowed: boolean) => {
-  const biometricsAllowedObj = await getItemAsObject(BiometricsStoredKeys.use);
+export const storeBiometricsAccepted = async (email: string, accepted: boolean) => {
+  const biometricsAcceptedObj = await getItemAsObject(BiometricsStoredKeys.accepted);
 
-  biometricsAllowedObj[email] = allowed;
+  biometricsAcceptedObj[email] = accepted;
 
-  await setObjectAsItem(BiometricsStoredKeys.use, biometricsAllowedObj);
+  await setObjectAsItem(BiometricsStoredKeys.accepted, biometricsAcceptedObj);
 };
 
 export const getBiometricTtl = async (): Promise<string> => {

@@ -7,14 +7,14 @@ import { selectUserEmail } from 'modules/user/selectors';
 import api, { IResponse } from 'services/api';
 import { isTtlActive } from 'utils/time';
 import { BiometricsActions, IBiometricLoginAction, setBiometricsReady } from '../actions';
-import { deleteBiometricData, getBiometricData, getBiometricsPermission } from '../asyncStorage';
+import { deleteBiometricData, getBiometricData, getBiometricsAccepted } from '../asyncStorage';
 import { biometricAuthenticate, getBiometricsSupported } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
 
 function* getBiometricsReadyWorker () {
   const email = yield selectUserEmail(getState());
   const biometricsSupported = yield getBiometricsSupported();
-  const biometricPermitted = yield getBiometricsPermission(email);
+  const biometricPermitted = yield getBiometricsAccepted(email);
 
   if (!email || !biometricsSupported || !biometricPermitted) {
     yield put(setBiometricsReady(false));

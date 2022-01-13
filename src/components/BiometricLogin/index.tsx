@@ -1,4 +1,5 @@
 import { Link } from 'components';
+import ModalBiometricAllSet from 'components/ModalBiometricAllSet';
 import ModalBiometricsFailed from 'components/ModalBiometricFailed';
 import ModalBiometricLogin from 'components/ModalBiometricLogin';
 import vocab from 'i18n';
@@ -22,6 +23,7 @@ const BiometricLogin = (props: IBiometricsLogin) => {
   } = useBiometrics();
 
   const [biometricsPrompt, setBiometricsPrompt] = useState<boolean>(false);
+  const [allSetModal, setAllSetModal] = useState<boolean>(null);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -46,27 +48,41 @@ const BiometricLogin = (props: IBiometricsLogin) => {
 
       {biometricsPrompt && (
         <ModalBiometricLogin
-          onAllow={onBiometricAllow}
+          biometricsType={biometricsType}
+          onConfirm={() => onBiometricAllow().then(permissionAccepted => {
+            permissionAccepted === 'granted' ? setAllSetModal(true) : props.onSignedIn();
+          })}
+          onCancel={() => {
+            props.onSignedIn();
+          }}
           onAnyPress={() => {
             setBiometricsPrompt(false);
+          }}
+        />
+      )}
+
+      {allSetModal && (
+        <ModalBiometricAllSet
+          biometricsType={biometricsType}
+          onConfirm={() => {
+            setAllSetModal(false);
             props.onSignedIn();
           }}
         />
       )}
-      {
-        error && (
-          <ModalBiometricsFailed
-            biometricsType={biometricsType}
-            onRetry={() => {
-              authenticate(props.onSignedIn, () => setError(true));
-              setError(false);
-            }}
-            onCancel={() => {
-              setError(false);
-            }}
-          />
-        )
-      }
+
+      { error && (
+        <ModalBiometricsFailed
+          biometricsType={biometricsType}
+          onRetry={() => {
+            authenticate(props.onSignedIn, () => setError(true));
+            setError(false);
+          }}
+          onCancel={() => {
+            setError(false);
+          }}
+        />
+      )}
     </>
   );
 };
