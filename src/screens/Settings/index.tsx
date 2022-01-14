@@ -2,23 +2,15 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
-import SettingsToggle from 'components/SettingsToggle';
 import DashedDivider from 'components/DashedDivider/indext';
-import { useBiometrics } from 'modules/biometrics/hooks';
-import vocab from 'i18n';
+import SettingsBiometrics from 'components/SettgingsBiometrics';
 
 
 const Settings = () => {
-  const { biometricsType, biometricsAccepted, setBiometricsAccepted } = useBiometrics();
 
   return (
     <View style={styles.settings}>
-      <SettingsToggle
-        title={biometricsType}
-        description={vocab.get().useBiometricsToLogIn(biometricsType)}
-        on={biometricsAccepted}
-        onChange={setBiometricsAccepted}
-      />
+      <SettingsBiometrics />
       <DashedDivider />
     </View>
   );
