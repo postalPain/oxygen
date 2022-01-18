@@ -1,6 +1,6 @@
 {
   "name": "Floos",
-  "version": "1.0.9",
+  "version": "1.0.14",
   "private": true,
   "scripts": {
     "android": "npm run buildenv:dev && react-native run-android",
