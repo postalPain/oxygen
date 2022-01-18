@@ -26,6 +26,7 @@ export const useBiometrics = () => {
 
   useEffect(() => {
     storeBiometricsAccepted(email, biometricsAccepted);
+    dispatch(getBiometricReady());
   }, [biometricsAccepted]);
 
   const shouldRequestBiometrics = async () => {
@@ -42,14 +43,13 @@ export const useBiometrics = () => {
   return {
     biometricsReady,
     biometricsType,
-    biometricsAccepted,
-    setBiometricsAccepted,
     shouldRequestBiometrics,
     authenticate,
-    onBiometricAllow: async () => {
+    setBiometricsAccepted,
+    requestBiometrics: async () => {
       const accepted = await requestFaceIdPermission();
-      accepted && storeBiometricsAccepted(email, true);
-      return accepted;
+      accepted === 'granted' && setBiometricsAccepted(true);
+      return accepted === 'granted';
     },
   };
 };

@@ -1,4 +1,5 @@
 import { Link } from 'components';
+import BiometricPrompt from 'components/BiometricPrompt';
 import ModalBiometricAllSet from 'components/ModalBiometricAllSet';
 import ModalBiometricsFailed from 'components/ModalBiometricFailed';
 import ModalBiometricLogin from 'components/ModalBiometricLogin';
@@ -17,7 +18,7 @@ const BiometricLogin = (props: IBiometricsLogin) => {
   const {
     biometricsReady,
     biometricsType,
-    onBiometricAllow,
+    requestBiometrics,
     shouldRequestBiometrics,
     authenticate,
   } = useBiometrics();
@@ -27,12 +28,12 @@ const BiometricLogin = (props: IBiometricsLogin) => {
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    biometricsReady && authenticate(props.onSignedIn, () => setError(true));
+    biometricsReady && !props.signedIn && authenticate(props.onSignedIn, () => setError(true));
   }, [biometricsReady]);
 
   useEffect(() => {
-    props.signedIn && shouldRequestBiometrics().then((requestBiometrics) =>
-      requestBiometrics ? setBiometricsPrompt(true) : props.onSignedIn()
+    props.signedIn && shouldRequestBiometrics().then((shouldRequest) =>
+      shouldRequest ? setBiometricsPrompt(true) : props.onSignedIn()
     );
   }, [props.signedIn]);
 
@@ -49,8 +50,8 @@ const BiometricLogin = (props: IBiometricsLogin) => {
       {biometricsPrompt && (
         <ModalBiometricLogin
           biometricsType={biometricsType}
-          onConfirm={() => onBiometricAllow().then(permissionAccepted => {
-            permissionAccepted === 'granted' ? setAllSetModal(true) : props.onSignedIn();
+          onConfirm={() => requestBiometrics().then(permissionAccepted => {
+            permissionAccepted ? setAllSetModal(true) : props.onSignedIn();
           })}
           onCancel={() => {
             props.onSignedIn();

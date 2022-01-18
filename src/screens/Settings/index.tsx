@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
 import DashedDivider from 'components/DashedDivider/indext';
-import SettingsBiometrics from 'components/SettgingsBiometrics';
+import SettingsBiometrics from 'components/SettingsBiometrics';
 
 
 const Settings = () => {

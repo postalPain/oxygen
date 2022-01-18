@@ -1,17 +1,22 @@
 import SettingsToggle from 'components/SettingsToggle';
 import vocab from 'i18n';
 import { useBiometrics } from 'modules/biometrics/hooks';
-import React from 'react';
+import React, { useState } from 'react';
 
 const SettingsBiometrics = () => {
-  const { biometricsType, biometricsAccepted, setBiometricsAccepted } = useBiometrics();
+  const {
+    biometricsType,
+    biometricsReady,
+    requestBiometrics,
+    setBiometricsAccepted,
+  } = useBiometrics();
 
   return (
     <SettingsToggle
       title={biometricsType}
       description={vocab.get().useBiometricsToLogIn(biometricsType)}
-      on={biometricsAccepted}
-      onChange={setBiometricsAccepted}
+      on={biometricsReady}
+      onChange={(on) => on ? requestBiometrics() : setBiometricsAccepted(false)}
     />
   );
 };
