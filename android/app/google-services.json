@@ -1,48 +1,86 @@
 {
   "project_info": {
-    "project_number": "539438624913",
-    "project_id": "oxygen-665",
-    "storage_bucket": "oxygen-665.appspot.com"
+    "project_number": "64707826271",
+    "project_id": "floos-e4dc6",
+    "storage_bucket": "floos-e4dc6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:539438624913:android:5975d190340fe98cb70f30",
+        "mobilesdk_app_id": "1:64707826271:android:bbb993c1f557770b3641ea",
         "android_client_info": {
-          "package_name": "com.qstudio.floos"
+          "package_name": "com.floos"
         }
       },
       "oauth_client": [
         {
-          "client_id": "539438624913-98iq4gjija647ij8utg2lvehvaae14ci.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.qstudio.floos",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "539438624913-eesnedka18jhtgkg3adhkpu90nrvihbm.apps.googleusercontent.com",
+          "client_id": "64707826271-b4gn0gct92mumfjs704qkh9s3ipki35d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCOYc4TzMq6IcCk8ALXzMq-3kWahqTPohY"
+          "current_key": "AIzaSyDkXiUSNA1n7sJgrB8KHxreMNw7YwbFK0g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "539438624913-eesnedka18jhtgkg3adhkpu90nrvihbm.apps.googleusercontent.com",
+              "client_id": "64707826271-b4gn0gct92mumfjs704qkh9s3ipki35d.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "539438624913-0f8rfbjjfu02l4fps1fm7u8t46heksri.apps.googleusercontent.com",
+              "client_id": "64707826271-hfn6cqcrs4h1hhr7hg86mo4u3iae9j2p.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.qstudio.floos"
+                "bundle_id": "com.qstudio.floos",
+                "app_store_id": "1595567831"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64707826271:android:7c289d82183ac2143641ea",
+        "android_client_info": {
+          "package_name": "com.qstudio.floos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64707826271-049e4snj0b9ql0vabekagf6su62347c9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qstudio.floos",
+            "certificate_hash": "8f1ae601b3c73940e8fd45b3afc9085509e34bd9"
+          }
+        },
+        {
+          "client_id": "64707826271-b4gn0gct92mumfjs704qkh9s3ipki35d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkXiUSNA1n7sJgrB8KHxreMNw7YwbFK0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64707826271-b4gn0gct92mumfjs704qkh9s3ipki35d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "64707826271-hfn6cqcrs4h1hhr7hg86mo4u3iae9j2p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.qstudio.floos",
+                "app_store_id": "1595567831"
               }
             }
           ]

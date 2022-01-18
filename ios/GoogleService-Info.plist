@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>539438624913-0qfjqbvanl26p6u3joiuhdru1ogi6hou.apps.googleusercontent.com</string>
+	<string>64707826271-hfn6cqcrs4h1hhr7hg86mo4u3iae9j2p.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.539438624913-0qfjqbvanl26p6u3joiuhdru1ogi6hou</string>
+	<string>com.googleusercontent.apps.64707826271-hfn6cqcrs4h1hhr7hg86mo4u3iae9j2p</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>64707826271-049e4snj0b9ql0vabekagf6su62347c9.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBLQNnq7z_uC0_offk8PRLTfgVLBPr5Z5w</string>
+	<string>AIzaSyAeKw9yu7JpmeEDpCvZkP2zD-Qfou9lLTQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>539438624913</string>
+	<string>64707826271</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.qstudio.floos</string>
 	<key>PROJECT_ID</key>
-	<string>oxygen-665</string>
+	<string>floos-e4dc6</string>
 	<key>STORAGE_BUCKET</key>
-	<string>oxygen-665.appspot.com</string>
+	<string>floos-e4dc6.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:539438624913:ios:e70fc7a7500a2225b70f30</string>
+	<string>1:64707826271:ios:705fdab595ab72ed3641ea</string>
 </dict>
 </plist>

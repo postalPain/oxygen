@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import vocab from 'i18n';
 import Button from 'components/Button';
@@ -113,6 +113,7 @@ const SignIn = (
         <Button
           onPress={() => {
             setButtonDisabled(true);
+            Keyboard.dismiss();
             dispatch(signIn(email || storedEmail, password, {
               onSuccess: () => {
                 setSignedIn(true);

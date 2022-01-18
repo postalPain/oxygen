@@ -23,7 +23,9 @@ const ButtonWithdraw = () => {
     let newWithdrawalDisabled = null;
     isUserBlocked && (newWithdrawalDisabled = vocab.get().withdrawalErrorBlocked);
     isWithdrawalPaused && (newWithdrawalDisabled = vocab.get().withdrawalErrorDays);
-    (balance.withdrawable_wages < minimumWithdrawable) && (newWithdrawalDisabled = vocab.get().withdrawalErrorMinimum);
+    if ((balance.withdrawable_wages !== null) && (minimumWithdrawable !== null)) {
+      (balance.withdrawable_wages < minimumWithdrawable) && (newWithdrawalDisabled = vocab.get().withdrawalErrorMinimum);
+    }
     setWithdrawalDisabled(newWithdrawalDisabled);
   }, [isUserBlocked, isWithdrawalPaused, minimumWithdrawable, balance]);
   useEffect(() => {
@@ -34,7 +36,7 @@ const ButtonWithdraw = () => {
   }, [showTooltip]);
   return (
     <View>
-      {showTooltip && <Tooltip text={withdrawalDisabled} />}
+      {showTooltip && <Tooltip text={withdrawalDisabled} onPress={() => setShowTooltip(false)} />}
       <Button
         Icon={<IconPlus size={22} />}
         disabled={!!withdrawalDisabled}

@@ -9,11 +9,33 @@ React Native Stryber Template app
 You need the following tools installed on your host machine:
 
 - npm / node
-- yarn
 - cocoapods (latest version)
 - Xcode (latest version)
 - Java (latest version)
 - Android SDK
+
+#### iOS ####
+
+Go to Xcode -> Preferences -> Locations -> Command Line Tools and select latest Xcode version.
+
+#### Android ####
+
+Add next value to user/.bash_profile file
+
+```shell script
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+Optional, if you want to overwrite JDK default location to Android JDK location
+(if you want to run build not from Android Studio, but from React Native Cli, like "react-native run-android")
+```shell script
+export JAVA_HOME=$HOME/Applications/Android\ Studio.app/Contents/jre/Contents/Home
+```
+
 
 ## Development ##
 

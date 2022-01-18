@@ -36,6 +36,7 @@ import { IUserInfo } from 'services/api/employees';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
 import { headerStyles, modalScreenStyles } from './styles';
+import SplashScreen from 'react-native-splash-screen';
 
 const AppStack = createNativeStackNavigator();
 
@@ -54,6 +55,7 @@ const getHeaderOptions = () => ({
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigationRef = React.useRef(null);
+
   const navigate = (name: any, params?: any) => {
     if (navigationRef && navigationRef.current) {
       navigationRef?.current?.navigate(name, params);
@@ -62,14 +64,15 @@ const Navigation = () => {
 
   useEffect(
     () => {
-      getItems([
-        AuthStoredKeys.access_token,
-        AuthStoredKeys.access_ttl,
-        AuthStoredKeys.refresh_token,
-        AuthStoredKeys.refresh_ttl,
-        AuthStoredKeys.email,
-        UserStoredKeys.first_name
-      ]).then((storedData: IAuthData & Partial<IUserInfo>) => {
+      (async () => {
+        const storedData: IAuthData & Partial<IUserInfo> = await getItems([
+          AuthStoredKeys.access_token,
+          AuthStoredKeys.access_ttl,
+          AuthStoredKeys.refresh_token,
+          AuthStoredKeys.refresh_ttl,
+          AuthStoredKeys.email,
+          UserStoredKeys.first_name
+        ]);
         dispatch(setAuthData(storedData));
         dispatch(userSetInfo({
           first_name: storedData.first_name,
@@ -88,7 +91,8 @@ const Navigation = () => {
             storedData.email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
           }
         }));
-      });
+        setTimeout(() => SplashScreen.hide(), 300);
+      })();
     },
     []
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { View } from 'react-native';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
@@ -15,6 +15,7 @@ import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
 import { openBrowser } from 'utils';
 import externalUrls from 'config/externalUrls';
+import useInviteUserDeepLink from 'modules/user/hooks/useInviteDeepLink';
 
 const vocab = vocabulary.get();
 
@@ -25,7 +26,7 @@ const EnterRegistrationId = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const { registration_id } = useSelector(selectSignUpData);
-  const [inputValue, setInputValue] = useState(registration_id);
+  const [inviteRegistrationId, inviteEmail] = useInviteUserDeepLink();
   const [inputError, setInputError] = useState('');
   const [cantFind, setCantFind] = useState<boolean>(null);
 
@@ -40,17 +41,23 @@ const EnterRegistrationId = (
     setTimeout(() => setCantFind(true), 10000);
   }, []);
 
+  useEffect(() => {
+    inviteRegistrationId && dispatch(setSignUpData({
+      registration_id: inviteRegistrationId,
+      email: inviteEmail
+    }));
+  }, [inviteRegistrationId, inviteEmail]);
+
   const onPress = () => {
-    if (!inputValue) {
+    if (!registration_id) {
       setInputError(vocab.errorEnterEmployeeId);
       return;
     }
-    dispatch(setSignUpData({ registration_id: inputValue }));
     navigation.navigate(AppScreenNames.EnterEmail);
   };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
-    setInputValue(value.toUpperCase());
+    dispatch(setSignUpData({ registration_id: value.toUpperCase() }));
   };
   return (
     <ScreenWithAnimatedHeader>
@@ -59,7 +66,7 @@ const EnterRegistrationId = (
           <Input
             placeholder={vocab.registrationId}
             label={vocab.registrationId}
-            value={inputValue}
+            value={registration_id}
             onChange={handleOnChange}
             error={inputError}
             returnKeyType='done'

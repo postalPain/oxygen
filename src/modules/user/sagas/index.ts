@@ -38,9 +38,7 @@ function* getUserInfoWorker() {
   yield put(actions.userSetInfo(mockedUserData));
 }
 
-const hideSplashScreen = () => setTimeout(() => {
-  SplashScreen.hide();
-}, 300);
+
 
 function* checkVerificationWorker (action: ICheckVerificationAction) {
   let response: IResponse<IVerificationResponse>;
@@ -49,13 +47,11 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
   } catch (error) {
     yield put(actions.setStatusError(true));
     yield action.meta?.onError?.();
-    yield hideSplashScreen();
     return error;
   }
   yield put(actions.setStatusError(false));
   yield put(setVerificationStatus(response.data.verification_status));
   yield action.meta?.onSuccess?.(response.data.verification_status);
-  yield hideSplashScreen();
 }
 
 function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
