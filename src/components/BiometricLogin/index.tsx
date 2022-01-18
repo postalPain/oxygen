@@ -1,10 +1,9 @@
 import { Link } from 'components';
-import BiometricPrompt from 'components/BiometricPrompt';
 import ModalBiometricAllSet from 'components/ModalBiometricAllSet';
 import ModalBiometricsFailed from 'components/ModalBiometricFailed';
 import ModalBiometricLogin from 'components/ModalBiometricLogin';
 import vocab from 'i18n';
-import { useBiometrics } from 'modules/biometrics/hooks';
+import { useBiometrics } from 'modules/biometrics/hooks/useBiometrics';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { getHeight } from 'utils/window';
@@ -17,8 +16,8 @@ interface IBiometricsLogin {
 const BiometricLogin = (props: IBiometricsLogin) => {
   const {
     biometricsReady,
-    biometricsType,
-    requestBiometrics,
+    biometryStatus,
+    turnOnBiometrics,
     shouldRequestBiometrics,
     authenticate,
   } = useBiometrics();
@@ -42,15 +41,15 @@ const BiometricLogin = (props: IBiometricsLogin) => {
       {biometricsReady && (
         <View style={styles.biometricLogin}>
           <Link onPress={(() => authenticate(props.onSignedIn, () => setError(true)))} >
-            {vocab.get().useYourBiometrics(biometricsType)}
+            {vocab.get().useYourBiometrics(biometryStatus.biometryType)}
           </Link>
         </View>
       )}
 
       {biometricsPrompt && (
         <ModalBiometricLogin
-          biometricsType={biometricsType}
-          onConfirm={() => requestBiometrics().then(permissionAccepted => {
+          biometricsType={biometryStatus.biometryType}
+          onConfirm={() => turnOnBiometrics().then(permissionAccepted => {
             permissionAccepted ? setAllSetModal(true) : props.onSignedIn();
           })}
           onCancel={() => {
@@ -64,7 +63,7 @@ const BiometricLogin = (props: IBiometricsLogin) => {
 
       {allSetModal && (
         <ModalBiometricAllSet
-          biometricsType={biometricsType}
+          biometricsType={biometryStatus.biometryType}
           onConfirm={() => {
             setAllSetModal(false);
             props.onSignedIn();
@@ -74,7 +73,7 @@ const BiometricLogin = (props: IBiometricsLogin) => {
 
       { error && (
         <ModalBiometricsFailed
-          biometricsType={biometricsType}
+          biometricsType={biometryStatus.biometryType}
           onRetry={() => {
             authenticate(props.onSignedIn, () => setError(true));
             setError(false);

@@ -3,13 +3,13 @@ import IconFaceId from 'components/IconFaceId';
 import Modal from 'components/Modal';
 import ModalWrapper from 'components/ModalWrapper';
 import vocab from 'i18n';
-import { BiometricsTypes } from 'modules/biometrics/biometrics';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { BiometryType } from 'react-native-biometrics';
 import { getHeight, getWidth } from 'utils/window';
 
 interface IModalBiometricLogin {
-  biometricsType: BiometricsTypes;
+  biometricsType: BiometryType;
   onConfirm?: () => void;
   onCancel?: () => void;
   onAnyPress?: () => void;

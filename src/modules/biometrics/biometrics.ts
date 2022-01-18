@@ -1,28 +1,49 @@
 import TouchID from 'react-native-touch-id';
-
-export enum BiometricsTypes {
-  TouchID = 'TouchID',
-  FaceID = 'FaceID',
-  Fingerprint = 'Fingerprint',
-}
-
-export const getBiometricsSupported = async (): Promise<BiometricsTypes> => {
-  const optionalConfigObject = {
-    unifiedErrors: false, // use unified error messages (default false)
-    passcodeFallback: false // if true is passed, it will allow isSupported to return an error if the device is not enrolled in touch id/face id etc. Otherwise, it will just tell you what method is supported, even if the user is not enrolled.  (default false)
-  };
-  let biometricsSupported: any = false;
-  try {
-    biometricsSupported = await TouchID.isSupported(optionalConfigObject);
-  } catch (error) {
-    console.log('TouchID.isSupported error', error);
-    return null;
-  }
-  return (biometricsSupported === true
-    ? BiometricsTypes.Fingerprint
-    : biometricsSupported
-  );
-};
+import ReactNativeBiometrics, { BiometryType } from 'react-native-biometrics';
+import env from 'env';
 
 export const biometricAuthenticate = () => TouchID.authenticate('Login');
 
+
+enum BiometricAndroidErrors {
+  BIOMETRIC_ERROR_NONE_ENROLLED = 'BIOMETRIC_ERROR_NONE_ENROLLED'
+}
+
+export enum BiometryErrors {
+  PERMISSION_DENIED = 'PERMISSION_DENIED',
+  NOT_ENROLLED = 'NOT_ENROLLED',
+  OTHER = 'OTHER'
+}
+
+export interface BiometryStatus {
+  available: boolean;
+  biometryType: BiometryType;
+  error: BiometryErrors;
+}
+
+export const getDeviceBiometryStatus = async () => {
+  const result = await ReactNativeBiometrics.isSensorAvailable();
+  let error: BiometryErrors;
+
+  if (env.ios && result?.error?.includes('No identities are enrolled')) {
+    error = BiometryErrors.NOT_ENROLLED;
+  }
+  if (env.android && result?.error === BiometricAndroidErrors.BIOMETRIC_ERROR_NONE_ENROLLED) {
+    error = BiometryErrors.NOT_ENROLLED;
+  }
+  if (env.ios && result?.error?.includes('User has denied the use of biometry for this app')) {
+    error = BiometryErrors.PERMISSION_DENIED;
+  }
+
+  if (!result.available && !error) {
+    error = BiometryErrors.OTHER;
+  }
+
+  const status: BiometryStatus = {
+    available: result.available,
+    biometryType: result.biometryType,
+    error,
+  };
+
+  return status;
+};

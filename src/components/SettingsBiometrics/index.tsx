@@ -1,22 +1,42 @@
 import SettingsToggle from 'components/SettingsToggle';
 import vocab from 'i18n';
-import { useBiometrics } from 'modules/biometrics/hooks';
-import React, { useState } from 'react';
+import { getBiometryStatus } from 'modules/biometrics/actions';
+import { BiometryErrors } from 'modules/biometrics/biometrics';
+import { useBiometrics } from 'modules/biometrics/hooks/useBiometrics';
+import React from 'react';
+import { Linking } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 const SettingsBiometrics = () => {
+  const dispatch = useDispatch();
   const {
-    biometricsType,
+    biometryStatus,
     biometricsReady,
-    requestBiometrics,
-    setBiometricsAccepted,
+    turnOnBiometrics,
+    turnOffBiometrics,
   } = useBiometrics();
 
   return (
     <SettingsToggle
-      title={biometricsType}
-      description={vocab.get().useBiometricsToLogIn(biometricsType)}
+      title={biometryStatus.biometryType}
+      description={vocab.get().useBiometricsToLogIn(biometryStatus.biometryType)}
       on={biometricsReady}
-      onChange={(on) => on ? requestBiometrics() : setBiometricsAccepted(false)}
+      onChange={async (on) => {
+        if (on) {
+          dispatch(getBiometryStatus({
+            onSuccess: async (status) => {
+              if (status.available) {
+                turnOnBiometrics();
+              }
+              if (status.error === BiometryErrors.PERMISSION_DENIED) {
+                Linking.openSettings();
+              }
+            }
+          }));
+        } else {
+          turnOffBiometrics();
+        }
+      }}
     />
   );
 };

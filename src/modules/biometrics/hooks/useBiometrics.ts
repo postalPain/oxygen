@@ -1,36 +1,30 @@
-import { requestFaceIdPermission } from 'modules/permissions';
+import { requestBiometricPermission } from 'modules/biometrics/permissions';
 import { getLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { biometricLogin, getBiometricReady } from '../actions';
+import { biometricLogin, getBiometryReady, getBiometryStatus } from '../actions';
 import { getBiometricsAccepted, storeBiometricsAccepted } from '../asyncStorage';
-import { BiometricsTypes, getBiometricsSupported } from '../biometrics';
-import { selectBiometricsReady } from '../selectors';
+import { selectBiometricsReady, selectBiometryStatus } from '../selectors';
 
 export const useBiometrics = () => {
   const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
   const biometricsReady = useSelector(selectBiometricsReady);
-  const [biometricsType, setBiometricsType] = useState<BiometricsTypes>(null);
+  const biometryStatus = useSelector(selectBiometryStatus);
   const [biometricsAccepted, setBiometricsAccepted] = useState<boolean>(null);
 
   useEffect(() => {
-    getBiometricsSupported().then(setBiometricsType);
+    dispatch(getBiometryStatus({ onSuccess: () => dispatch(getBiometryReady()) }));
   }, []);
 
   useEffect(() => {
     getBiometricsAccepted(email).then(setBiometricsAccepted);
-    dispatch(getBiometricReady());
+    dispatch(getBiometryReady());
   }, [email]);
 
-  useEffect(() => {
-    storeBiometricsAccepted(email, biometricsAccepted);
-    dispatch(getBiometricReady());
-  }, [biometricsAccepted]);
-
   const shouldRequestBiometrics = async () => {
-    if (!biometricsAccepted && biometricsType) {
+    if (!biometricsAccepted && biometryStatus.available) {
       const loginCount = await getLoginCount(email);
       return [2, 7].includes(loginCount); // On 2nd and 7th login
     }
@@ -42,14 +36,19 @@ export const useBiometrics = () => {
 
   return {
     biometricsReady,
-    biometricsType,
+    biometryStatus,
     shouldRequestBiometrics,
     authenticate,
     setBiometricsAccepted,
-    requestBiometrics: async () => {
-      const accepted = await requestFaceIdPermission();
-      accepted === 'granted' && setBiometricsAccepted(true);
-      return accepted === 'granted';
+    turnOnBiometrics: async () => {
+      const accepted = await requestBiometricPermission();
+      await storeBiometricsAccepted(email, accepted);
+      dispatch(getBiometryReady());
+      return accepted;
     },
+    turnOffBiometrics: async () => {
+      await storeBiometricsAccepted(email, false);
+      dispatch(getBiometryReady());
+    }
   };
 };
