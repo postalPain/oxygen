@@ -1,11 +1,10 @@
 import { Link } from 'components';
-import { storeBiometricsPermission } from 'modules/biometrics/asyncStorage';
-import { getLoginCount, setLoginCount } from 'modules/user/asyncStorage';
+import { storeBiometricsAccepted } from 'modules/biometrics/asyncStorage';
+import { setLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
-import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const DebugView = () => {
   const email = useSelector(selectUserEmail);
@@ -14,7 +13,7 @@ const DebugView = () => {
       <Link onPress={() => setLoginCount(email, 0)}>
         Clear loginCount
       </Link>
-      <Link onPress={() => storeBiometricsPermission(email, false)}>
+      <Link onPress={() => storeBiometricsAccepted(email, false)}>
         Reset Biometrics Permission
       </Link>
     </ScrollView>

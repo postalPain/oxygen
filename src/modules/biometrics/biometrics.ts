@@ -6,7 +6,7 @@ export enum BiometricsTypes {
   Fingerprint = 'Fingerprint',
 }
 
-export const getBiometricsSupported = async (): Promise<BiometricsTypes | boolean> => {
+export const getBiometricsSupported = async (): Promise<BiometricsTypes> => {
   const optionalConfigObject = {
     unifiedErrors: false, // use unified error messages (default false)
     passcodeFallback: false // if true is passed, it will allow isSupported to return an error if the device is not enrolled in touch id/face id etc. Otherwise, it will just tell you what method is supported, even if the user is not enrolled.  (default false)
@@ -16,7 +16,7 @@ export const getBiometricsSupported = async (): Promise<BiometricsTypes | boolea
     biometricsSupported = await TouchID.isSupported(optionalConfigObject);
   } catch (error) {
     console.log('TouchID.isSupported error', error);
-    return false;
+    return null;
   }
   return (biometricsSupported === true
     ? BiometricsTypes.Fingerprint

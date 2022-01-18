@@ -13,6 +13,7 @@ import {
   InputInfo,
 } from 'components';
 import useStyles from './styles';
+import useInviteUserDeepLink from 'modules/user/hooks/useInviteDeepLink';
 
 const vocab = vocabulary.get();
 const schema = yup.string().email().required();
@@ -22,7 +23,7 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
   const dispatch = useDispatch();
   const styles = useStyles();
   const { email } = useSelector(selectSignUpData);
-  const [inputValue, setInputValue] = useState(email);
+
   const [inputError, setInputError] = useState('');
   useEffect(
     () => {
@@ -30,18 +31,18 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
     },
     [params?.backendError]
   );
+
   const onPress = async () => {
-    const isValid = await schema.isValid(inputValue);
+    const isValid = await schema.isValid(email);
     if (!isValid) {
       setInputError(vocab.errorCheckEmail);
       return;
     }
-    dispatch(setSignUpData({ email: inputValue }));
     navigation.navigate(AppScreenNames.SetPasswordSignUp);
   };
   const handleOnChange = (value) => {
     if (inputError) setInputError('');
-    setInputValue(value.toLowerCase());
+    dispatch(setSignUpData({ email: value.toLowerCase() }));
   };
   return (
     <ScreenWithAnimatedHeader>
@@ -51,7 +52,7 @@ const EnterEmail = ({ route, navigation }: AppNavigationProps<AppScreenNames.Ent
             name="email"
             label={vocab.email}
             placeholder={vocab.emailAddress}
-            value={inputValue}
+            value={email}
             onChange={handleOnChange}
             error={inputError}
             autoComplete="email"

@@ -134,7 +134,6 @@ function* signOutWorker(action: ISignOutAction) {
   }
   yield call(removeHeader, 'Authorization');
   yield put(authActions.signedOut());
-  yield deleteBiometricData(email);
   yield action?.meta?.onSuccess?.();
 }
 
