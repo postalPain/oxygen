@@ -59,6 +59,8 @@ const SignIn = (
         isUserEmployerVerified(status)
           ? navigation.navigate(AppScreenNames.TabNavigation)
           : navigation.navigate(AppScreenNames.UserVerificationPending);
+        // Need to refactor. Biometric auth is not getting unmounted and calls authenticate inside the app if signedIn remains false
+        setSignedIn(true);
       },
       onError: () => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));

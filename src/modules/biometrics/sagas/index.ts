@@ -6,25 +6,32 @@ import { getState } from 'modules/store';
 import { selectUserEmail } from 'modules/user/selectors';
 import api, { IResponse } from 'services/api';
 import { isTtlActive } from 'utils/time';
-import { BiometricsActions, IBiometricLoginAction, setBiometricsReady } from '../actions';
+import { BiometryActions, IBiometricLoginAction, setBiometryReady, setBiometryStatus } from '../actions';
 import { deleteBiometricData, getBiometricData, getBiometricsAccepted } from '../asyncStorage';
-import { biometricAuthenticate, getBiometricsSupported } from '../biometrics';
+import { biometricAuthenticate, getDeviceBiometryStatus } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
+import { selectBiometryStatus } from '../selectors';
+
+function* getBiometricsAvailableWorker (action) {
+  const biometryStatus = yield getDeviceBiometryStatus();
+  yield put(setBiometryStatus(biometryStatus));
+  yield action.meta?.onSuccess(biometryStatus);
+}
 
 function* getBiometricsReadyWorker () {
   const email = yield selectUserEmail(getState());
-  const biometricsSupported = yield getBiometricsSupported();
-  const biometricPermitted = yield getBiometricsAccepted(email);
+  const biometryStatus = selectBiometryStatus(getState());
+  const biometricAccepted = yield getBiometricsAccepted(email);
 
-  if (!email || !biometricsSupported || !biometricPermitted) {
-    yield put(setBiometricsReady(false));
+  if (!email || !biometryStatus.available || !biometricAccepted) {
+    yield put(setBiometryReady(false));
     return;
   }
 
   const { ttl, credentials } = yield getBiometricData();
   const enabled = credentials && (credentials.username === email) && isTtlActive(ttl);
 
-  yield put(setBiometricsReady(enabled));
+  yield put(setBiometryReady(enabled));
 }
 
 function* biometricLoginWorker(action: IBiometricLoginAction) {
@@ -54,12 +61,13 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
 
 function* signOutWorker() {
   yield deleteBiometricData();
-  yield put(setBiometricsReady(false));
+  yield put(setBiometryReady(false));
 }
 
 
 export default function* biometricsWatcher(): SagaIterator {
-  yield takeLatest(BiometricsActions.GET_BIOMETRICS_READY, getBiometricsReadyWorker);
-  yield takeLatest(BiometricsActions.BIOMETRIC_LOGIN, biometricLoginWorker);
+  yield takeLatest(BiometryActions.GET_BIOMETRY_STATUS, getBiometricsAvailableWorker);
+  yield takeLatest(BiometryActions.GET_BIOMETRY_READY, getBiometricsReadyWorker);
+  yield takeLatest(BiometryActions.BIOMETRIC_LOGIN, biometricLoginWorker);
   yield takeLatest(AuthActions.SIGN_OUT, signOutWorker);
 }

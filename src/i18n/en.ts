@@ -132,6 +132,7 @@ export default {
   biometricIdAssigned: (biometricsType) => `The ${biometricsType} is assigned to this device. Please access the app.`,
   useMyEmail: 'Use my email and password',
   biometricNotSuccessful: (biometricsType) => `${biometricsType} not successful`,
+  useBiometricsToLogIn: (biometricsType) => `Use ${biometricsType || 'Biometric ID'} to log in`,
   tryAgain: 'Try again',
   dontAllow: 'Don’t Allow',
   cantFindRegistrationId: 'Can’t find your Registration ID?'

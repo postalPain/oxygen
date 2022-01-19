@@ -1,17 +1,25 @@
 import React from 'react';
-import { SafeAreaView, View, Text } from 'react-native';
-import vocabulary from 'i18n';
+import { View, StyleSheet } from 'react-native';
+import theme from 'config/theme';
+import { getHeight, getWidth } from 'utils/window';
+import SettingsBiometrics from 'components/SettingsBiometrics';
 
-const vocab = vocabulary.get()
 
 const Settings = () => {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>{vocab.accountDetails}</Text>
-      </View>
-    </SafeAreaView>
-  )
+    <View style={styles.settings}>
+      <SettingsBiometrics />
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  settings: {
+    backgroundColor: theme.colors.screenBackgroundColorLight,
+    flex: 1,
+    paddingHorizontal: getWidth(7),
+    paddingVertical: getHeight(7)
+  },
+});
 
 export default Settings;

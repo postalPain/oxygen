@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { SafeAreaView, View, Text, Pressable } from 'react-native';
-import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { openBrowser } from 'utils';
 import { signOut } from 'modules/auth/actions';
@@ -10,13 +9,13 @@ import {
   IconHelpCenter,
   IconLogout,
   IconPrivacyPolicy,
+  IconSettings,
   ScreenGradient
 } from 'components';
 import Arrow from './Arrow';
 import styles from './styles';
 import externalUrls from 'config/externalUrls';
-
-const vocab = vocabulary.get();
+import vocab from 'i18n';
 
 const Profile = (
   { navigation }: AppNavigationProps<AppScreenNames.Profile>
@@ -42,7 +41,15 @@ const Profile = (
           style={styles.menuItem}
         >
           <IconAccountDetails />
-          <Text style={styles.menuItemText}>{vocab.accountDetails}</Text>
+          <Text style={styles.menuItemText}>{vocab.get().accountDetails}</Text>
+          <Arrow style={styles.arrow} />
+        </Pressable>
+        <Pressable
+          onPress={() => goTo(AppScreenNames.Settings)}
+          style={styles.menuItem}
+        >
+          <IconSettings />
+          <Text style={styles.menuItemText}>{vocab.get().settings}</Text>
           <Arrow style={styles.arrow} />
         </Pressable>
         <Pressable
@@ -50,7 +57,7 @@ const Profile = (
           onPress={() => openLink(externalUrls.privacyPolicy)}
         >
           <IconPrivacyPolicy />
-          <Text style={styles.menuItemText}>{vocab.privacyPolicy}</Text>
+          <Text style={styles.menuItemText}>{vocab.get().privacyPolicy}</Text>
           <Arrow style={styles.arrow} />
         </Pressable>
         <Pressable
@@ -58,7 +65,7 @@ const Profile = (
           onPress={() => openLink(externalUrls.help)}
         >
           <IconHelpCenter />
-          <Text style={styles.menuItemText}>{vocab.helpCenter}</Text>
+          <Text style={styles.menuItemText}>{vocab.get().helpCenter}</Text>
           <Arrow style={styles.arrow} />
         </Pressable>
         <Pressable
@@ -66,7 +73,7 @@ const Profile = (
           style={[styles.menuItem, styles.menuItemNoBorder]}
         >
           <IconLogout />
-          <Text style={[styles.menuItemText, styles.menuItemTextHighlighted]}>{vocab.logout}</Text>
+          <Text style={[styles.menuItemText, styles.menuItemTextHighlighted]}>{vocab.get().logout}</Text>
         </Pressable>
       </View>
     </SafeAreaView>
