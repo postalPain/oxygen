@@ -17,27 +17,31 @@ const SettingsBiometrics = () => {
   } = useBiometrics();
 
   return (
-    <SettingsToggle
-      title={biometryStatus.biometryType}
-      description={vocab.get().useBiometricsToLogIn(biometryStatus.biometryType)}
-      on={biometricsReady}
-      onChange={async (on) => {
-        if (on) {
-          dispatch(getBiometryStatus({
-            onSuccess: async (status) => {
-              if (status.available) {
-                turnOnBiometrics();
-              }
-              if (status.error === BiometryErrors.PERMISSION_DENIED) {
-                Linking.openSettings();
-              }
+    biometryStatus.available || biometryStatus.error === BiometryErrors.PERMISSION_DENIED
+      ? (
+        <SettingsToggle
+          title={biometryStatus.biometryType}
+          description={vocab.get().useBiometricsToLogIn(biometryStatus.biometryType)}
+          on={biometricsReady}
+          onChange={async (on) => {
+            if (on) {
+              dispatch(getBiometryStatus({
+                onSuccess: async (status) => {
+                  if (status.available) {
+                    turnOnBiometrics();
+                  }
+                  if (status.error === BiometryErrors.PERMISSION_DENIED) {
+                    Linking.openSettings();
+                  }
+                }
+              }));
+            } else {
+              turnOffBiometrics();
             }
-          }));
-        } else {
-          turnOffBiometrics();
-        }
-      }}
-    />
+          }}
+        />
+      )
+      : null
   );
 };
 
