@@ -18,9 +18,12 @@ export const openBrowser = async (uri: string) => {
         enableUrlBarHiding: true,
         enableDefaultShare: true,
         forceCloseOnRedirection: false,
+        headers: {
+          // Fix for 301 redirect cached on some Android phones
+          ...(uri.includes('support.floos.ae') && { 'Cache-Control': 'no-cache' })
+        }
       });
-    }
-    else Linking.openURL(uri);
+    } else Linking.openURL(uri);
   } catch (error) {
     Alert.alert(error.message);
   }

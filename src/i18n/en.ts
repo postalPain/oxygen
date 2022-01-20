@@ -28,7 +28,7 @@ export default {
   shouldReceiveRegistrationId: 'You should have received your Registration ID in the welcome email. If you have lost it, or can’t remember it, contact us.',
   useWorkEmail: 'If available, please use your work email address, so that your Employer can verify you faster.',
   createSecurePassword: 'Please create a secure password including the following criteria above.',
-  savePassword: 'Save password',
+  savePassword: 'Save Password',
   errorPasswordNotMatch: 'Your password does not match the requirements.',
   dataPrivacy: 'Data Privacy',
   dataPolicy: 'Data Policy',
@@ -132,6 +132,7 @@ export default {
   biometricIdAssigned: (biometricsType) => `The ${biometricsType} is assigned to this device. Please access the app.`,
   useMyEmail: 'Use my email and password',
   biometricNotSuccessful: (biometricsType) => `${biometricsType} not successful`,
+  useBiometricsToLogIn: (biometricsType) => `Use ${biometricsType || 'Biometric ID'} to log in`,
   tryAgain: 'Try again',
   dontAllow: 'Don’t Allow',
   cantFindRegistrationId: 'Can’t find your Registration ID?'

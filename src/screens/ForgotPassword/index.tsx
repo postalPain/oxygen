@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
@@ -9,6 +9,7 @@ import { forgotPassword, setForgotPasswordEmail } from 'modules/auth/actions';
 import { selectForgotPasswordEmail } from 'modules/auth/selectors';
 import { Button, ScreenWithAnimatedHeader } from 'components';
 import styles from './styles';
+import { selectUserEmail } from 'modules/user/selectors';
 
 
 const ForgotPassword = (
@@ -16,7 +17,12 @@ const ForgotPassword = (
 ) => {
   const dispatch = useDispatch();
   const forgotPasswordEmail = useSelector(selectForgotPasswordEmail);
+  const storedEmail = useSelector(selectUserEmail);
   const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    storedEmail && setEmail(storedEmail);
+  }, [storedEmail]);
 
   return (
     <ScreenWithAnimatedHeader>
