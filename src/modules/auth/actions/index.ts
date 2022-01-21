@@ -15,10 +15,10 @@ import {
   ISetForgotPasswordCodeAction,
   IResetPasswordAction,
   ISetForgotPasswordEmailAction,
+  ISignInSuccessAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
 import { ISignUpPayload } from 'services/api/auth';
-import { IError } from 'services/api/errors';
 
 export const signUp = (payload: ISignUpPayload, meta?: IMeta): ISignUpAction => ({
   type: AuthActions.SIGN_UP,
@@ -56,6 +56,13 @@ export const signIn = (email: string, password: string, meta?: IMeta): ISignInAc
   meta,
 });
 
+export const signInSuccess = (email: string, authData: IAuthData, meta?: IMeta): ISignInSuccessAction => ({
+  type: AuthActions.SIGN_IN_SUCCESS,
+  email,
+  authData,
+  meta,
+});
+
 export const signOut = (meta?: IMeta): ISignOutAction => ({
   type: AuthActions.SIGN_OUT,
   meta,
@@ -71,9 +78,10 @@ export const forgotPassword = (email: string, meta?: IMeta): IForgotPasswordActi
   meta
 });
 
-export const setForgotPasswordEmail = (email: string): ISetForgotPasswordEmailAction => ({
+export const setForgotPasswordEmail = (email: string, meta?: IMeta): ISetForgotPasswordEmailAction => ({
   type: AuthActions.SET_FORGOT_PASSWORD_EMAIL,
-  email
+  email,
+  meta,
 });
 
 export const setForgotPasswordCode = (code: number): ISetForgotPasswordCodeAction => ({

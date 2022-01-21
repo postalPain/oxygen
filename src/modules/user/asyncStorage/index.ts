@@ -44,10 +44,10 @@ export const getLoginCount = async (email: string): Promise<number> => {
   return loginCounter[email];
 };
 
-export const resetLoginCount = async (email: string)=> {
+export const setLoginCount = async (email: string, count: number)=> {
   const loginCounter = await getItemAsObject(userStoredKeys.loginCounter);
 
-  loginCounter[email] = 0;
+  loginCounter[email] = count;
   await setObjectAsItem(userStoredKeys.loginCounter, loginCounter);
 };
 

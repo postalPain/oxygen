@@ -13,7 +13,7 @@ const VerificationCodeSignUp = (props: AppNavigationProps<any>) => {
         onSuccess: () => {
           navigation.navigate(AppScreenNames.UserVerificationPending);
         }
-      }))
+      }));
     }));
   };
   return (

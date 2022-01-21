@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import vocab from 'i18n';
 import Button from 'components/Button';
@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'modules/auth/actions';
 import { ERROR_CODES, IError } from 'services/api/errors';
 import { isUserEmployerVerified, selectUserEmail } from 'modules/user/selectors';
-import { existsInStoredLoginEmails } from 'modules/user/asyncStorage';
 import { checkVerification, userGetInfo } from 'modules/user/actions';
 import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
-import DebugView from 'components/DebugView';
+import BiometricLogin from 'components/BiometricLogin';
+import env from 'env';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -29,10 +29,12 @@ const SignIn = (
   const [emailError, setEmailError] = useState<string>();
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [signedIn, setSignedIn] = useState<boolean>(false);
 
   useEffect(() => {
     emailError && setEmailError(null);
     passwordError && setPasswordError(null);
+    password === '  dbg' && env.dev && navigation.navigate(AppScreenNames.Debug);
   }, [email, password]);
 
   useEffect(() => {
@@ -54,16 +56,11 @@ const SignIn = (
     dispatch(checkVerification({
       onSuccess: (status: VerificationStatuses) => {
         dispatch(userGetInfo());
-
-        if (!isUserEmployerVerified(status)) {
-          navigation.navigate(AppScreenNames.UserVerificationPending);
-        } else {
-          existsInStoredLoginEmails(storedEmail).then(exists => {
-            exists
-              ? navigation.navigate(AppScreenNames.UserInfoConfirmation)
-              : navigation.navigate(AppScreenNames.TabNavigation);
-          });
-        }
+        isUserEmployerVerified(status)
+          ? navigation.navigate(AppScreenNames.TabNavigation)
+          : navigation.navigate(AppScreenNames.UserVerificationPending);
+        // Need to refactor. Biometric auth is not getting unmounted and calls authenticate inside the app if signedIn remains false
+        setSignedIn(true);
       },
       onError: () => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));
@@ -101,26 +98,28 @@ const SignIn = (
             error={passwordError}
             returnKeyType='done'
           />
-          <Link
-            style={styles.forgotPassword}
-            onPress={() => {
-              navigation.navigate(AppScreenNames.ForgotPassword);
-              setError(null);
-            }}
-          >
-            {vocab.get().forgotPassword}
-          </Link>
+          <View style={styles.forgotPasswordContainer}>
+            <Link
+              style={styles.forgotPassword}
+              onPress={() => {
+                navigation.navigate(AppScreenNames.ForgotPassword);
+                setError(null);
+              }}
+            >
+              {vocab.get().forgotPassword}
+            </Link>
+          </View>
         </View>
       </View>
-      { password === 'debug debugovich' && (
-        <DebugView />
-      )}
-      <View style={styles.buttonSection}>
+      <View style={[styles.buttonSection, !!storedEmail && styles.buttonSectionExistingUser]}>
         <Button
           onPress={() => {
             setButtonDisabled(true);
+            Keyboard.dismiss();
             dispatch(signIn(email || storedEmail, password, {
-              onSuccess: onSignedIn,
+              onSuccess: () => {
+                setSignedIn(true);
+              },
               onError: (_error) => {
                 setError(_error);
                 setButtonDisabled(false);
@@ -132,6 +131,7 @@ const SignIn = (
         >
           {vocab.get().logIn}
         </Button>
+        <BiometricLogin onSignedIn={onSignedIn} signedIn={signedIn} />
       </View>
     </>
   );

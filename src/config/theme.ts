@@ -4,6 +4,7 @@ import { windowDimensions } from 'utils/window';
 const theme = {
   colors: {
     // Brand colors
+    primary: '#6F62AB',
     floos1: '#6F62AB',
     floos2: '#7E5BA6',
     floos3: '#CD5676',
@@ -16,6 +17,7 @@ const theme = {
     screenBackgroundColorLight: '#FFFFFF',
     // Text colors
     textDark: '#0F183F',
+    textLight: '#7B7B7B',
 
     shade1: '#C6C6C6',
     shade2: '#F7F7F7',
@@ -31,7 +33,7 @@ const theme = {
     passwordRequirementLabelTextMatched: '#F9F9F9',
 
     personalInfoBackground: '#F9F9F9',
-    
+
     textTransactionPending: '#BBBBBB',
     textTransactionError: '#720000',
   },

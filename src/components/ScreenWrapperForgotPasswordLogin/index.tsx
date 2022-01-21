@@ -13,7 +13,7 @@ const ScreenWrapperForgotPasswordLogin = (props: IScreenWrapperLoginForgot) => {
   return (
     <KeyboardAvoidingView
       behavior={'position'}
-      keyboardVerticalOffset={-getHeight(5)}
+      keyboardVerticalOffset={-getHeight(10)}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

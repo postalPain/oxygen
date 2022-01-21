@@ -35,7 +35,7 @@ export const verifyEmail = (code: string, onSuccess): IVerifySignUpCodeAction =>
   }
 });
 
-export const resendVerificationCode = (email: string, meta?): IResendVerificationCodeAction => ({
+export const resendVerificationCode = (email: string, meta?: IMeta): IResendVerificationCodeAction => ({
   type: UserActions.RESEND_VERIFICATION_CODE,
   payload: { email },
   meta,

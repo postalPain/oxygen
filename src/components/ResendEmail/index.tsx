@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import useInterval from 'utils/useInterval';
 import vocabulary from 'i18n';
-import { resendVerificationCode } from 'modules/user/actions';
-import Link from 'components/Link';
 import { addCodeSentAt, deleteCodeSentAt, getCodeSentAt } from 'modules/auth/asyncStorage';
+import { selectUserEmail } from 'modules/user/selectors';
+import { selectForgotPasswordEmail } from 'modules/auth/selectors';
+import { IMeta } from 'modules/store/types';
+import Link from 'components/Link';
 import useStyles from './styles';
 
 
 const RESEND_IN_SEC = 31;
 
 interface IResendEmailProps {
-  email?: string;
   style?: string;
+  onPress: (email: string, meta: IMeta) => {};
 }
 
-const ResendEmail = ({ email, style }: IResendEmailProps) => {
+const ResendEmail = ({ style, onPress }: IResendEmailProps) => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const email = useSelector(selectUserEmail);
+  const forgotPasswordEmail = useSelector(selectForgotPasswordEmail);
   const [seconds, setSeconds] = useState<number>(null);
   const resendEmail = () => {
-    dispatch(resendVerificationCode(email, {
+    dispatch(onPress(email || forgotPasswordEmail, {
       onSuccess: () => {
         addCodeSentAt();
         setSeconds(RESEND_IN_SEC);
@@ -33,7 +37,6 @@ const ResendEmail = ({ email, style }: IResendEmailProps) => {
     if (seconds && (seconds >= 0)) setSeconds(seconds - 1);
     if (seconds === 1) deleteCodeSentAt();
   }, seconds ? 1000 : null);
-  
   useEffect(
     () => {
       getCodeSentAt().then((ts) => {
@@ -58,10 +61,9 @@ const ResendEmail = ({ email, style }: IResendEmailProps) => {
               {vocabulary.get().resendCodeIn}
             </Text>
             <Text style={[styles.text, styles.time]}>
-              {seconds < 10 ? `0${seconds}`: seconds}
+              {seconds < 10 ? `0${seconds}` : seconds}
             </Text>
           </View>
-          
         )
         : (
           <Link

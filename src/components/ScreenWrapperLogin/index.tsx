@@ -24,7 +24,7 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
   return (
     <KeyboardAvoidingView
       behavior={'position'}
-      keyboardVerticalOffset={-getHeight(5)}
+      keyboardVerticalOffset={-getHeight(10)}
       style={{ flex: 1 }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -47,7 +47,7 @@ const ScreenWrapperLogin = (props: IScreenWrapperLogin) => {
               <IconFloosFull />
             </View>
             <View>
-              {!!first_name && <Text style={styles.hiMessage}>{vocab.get().hi} {first_name}!</Text>}
+              {!!first_name && <Text style={styles.hiMessage}>{vocab.get().hi}{first_name}!</Text>}
               {!!email && (
                 <EmailTag
                   onPress={() => {

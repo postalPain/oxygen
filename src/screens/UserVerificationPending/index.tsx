@@ -5,17 +5,17 @@ import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
 import { VerificationStatusesFe } from 'modules/user/types';
-import { checkVerification, userClearInfo } from 'modules/user/actions';
+import { checkVerification, userClearInfo, resendVerificationCode } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
-import { selectEmailVerifiedStatus, selectEmployerVerifiedStatus, selectUserStatusError, selectVerificationStatus } from 'modules/user/selectors';
+import { selectEmailVerifiedStatus, selectEmployerVerifiedStatus, } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
 import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
 import { getHeight } from 'utils/window';
 import { openBrowser } from 'utils';
-import { externalUrls } from '../../constants';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
+import externalUrls from 'config/externalUrls';
 
 
 const vocab = vocabulary.get();
@@ -40,7 +40,7 @@ const UserVerificationPending = (
     navigation.navigate(AppScreenNames.UserInfoConfirmation, { noBackButton: true });
   };
 
-  const [delay, setDelay] = useState(1000 * 60 * 5);
+  const [delay, setDelay] = useState(1000 * 60 * .5);
 
   useInterval(() => {
     employerPending ? dispatch(checkVerification()) : setDelay(null); // set delay to null in order to clear interval
@@ -139,7 +139,7 @@ const UserVerificationPending = (
         )}
         {emailPending && (
           <View style={styles.buttonsWrapper}>
-            <ResendEmail email={email} />
+            <ResendEmail onPress={resendVerificationCode} />
             <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>
               {vocab.enterVerificationCode}
             </Button>

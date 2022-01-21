@@ -1,8 +1,10 @@
-import { Image, SafeAreaView, Text, View } from 'react-native';
 import React from 'react';
+import { Image, SafeAreaView, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { Button, IconCheck } from 'components';
+import { selectForgotPassword } from 'modules/auth/selectors';
+import { Button, EmailTag, IconCheck } from 'components';
 import useStyles from './styles';
 
 
@@ -11,7 +13,7 @@ const vocab = vocabulary.get();
 const ForgotPasswordRequested = (props: AppNavigationProps<any>) => {
   const { navigation } = props;
   const styles = useStyles();
-
+  const forgotPassword = useSelector(selectForgotPassword);
   const onSubmit = () => {
     navigation.navigate(AppScreenNames.VerificationCodeForgot);
   };
@@ -23,15 +25,17 @@ const ForgotPasswordRequested = (props: AppNavigationProps<any>) => {
             <IconCheck size={24} />
           </View>
           <Text style={styles.headerText}>
-            {vocab.emailVerificationRequested}
+            {vocab.weSentVerificationCode}
           </Text>
         </View>
         <View style={styles.content}>
+          <EmailTag
+            email={forgotPassword?.credentials || 'test@stryber.com'}
+            onPress={() => navigation.navigate(AppScreenNames.ForgotPassword)}
+            style={styles.emailTag}
+          />
           <Text style={styles.contentText}>
-            {vocab.youReceivedEmail}
-          </Text>
-          <Text style={styles.contentText}>
-            {vocab.useCode}
+            {vocab.useTheCodeProvided}
           </Text>
           <View style={styles.imageWrapper}>
             <Image
