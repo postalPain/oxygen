@@ -10,6 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
 import messaging from '@react-native-firebase/messaging';
+import { requestNotificationPermissions } from 'modules/pushNotifications/permissions';
+import { getItem, setItem } from 'modules/asyncStorage';
 
 
 
@@ -23,16 +25,18 @@ const DebugView = () => {
   const [text, setText] = useState<string>('');
 
   useEffect(() => {
-    (async () => {
-      const perm = await messaging().requestPermission();
-      console.log('perm', perm);
+    // (async () => {
+    //   const perm = await messaging().requestPermission();
+    //   console.log('perm', perm);
 
-      setText(text => `${text}\nperm:${ perm}`);
+    //   setText(text => `${text}\nperm:${ perm}`);
 
-      console.log('messaging.AuthorizationStatus.AUTHORIZED', messaging.AuthorizationStatus.AUTHORIZED);
+    //   console.log('messaging.AuthorizationStatus.AUTHORIZED', messaging.AuthorizationStatus.AUTHORIZED);
 
-      console.log('messaging.AuthorizationStatus.PROVISIONAL', messaging.AuthorizationStatus.PROVISIONAL);
-    })();
+    //   console.log('messaging.AuthorizationStatus.PROVISIONAL', messaging.AuthorizationStatus.PROVISIONAL);
+    // })();
+
+    requestNotificationPermissions();
 
 
     // Note that an async function or a function that returns a Promise
@@ -43,13 +47,20 @@ const DebugView = () => {
       setText(text => `${text}\nmessage:${ message}`);
     }
 
-    messaging().onMessage(onMessageReceived);
-    messaging().setBackgroundMessageHandler(onMessageReceived);
-
     (async () => {
-      const fcmToken = await messaging().getToken();
-      console.log('token', fcmToken);
-      setText(text => `${text}\ntoken: ${fcmToken}`);
+      let token = await getItem('token');
+      if (!token) {
+        const fcmToken = await messaging().getToken();
+        console.log('token', fcmToken);
+        setItem('token', fcmToken);
+        setText(text => `${text}\nSetting token: ${token}`);
+
+        token = fcmToken;
+      }
+      setText(text => `${text}\ntoken: ${token}`);
+
+      messaging().onMessage(onMessageReceived);
+      messaging().setBackgroundMessageHandler(onMessageReceived);
 
     })();
 
@@ -63,7 +74,7 @@ const DebugView = () => {
       <Link onPress={() => storeBiometricsAccepted(email, false)}>
         Reset Biometrics Permission
       </Link>
-      <Text>
+      <Text selectable>
         {text}
       </Text>
     </ScrollView>
