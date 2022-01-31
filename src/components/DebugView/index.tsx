@@ -46,7 +46,7 @@ const DebugView = () => {
     async function onMessageReceived(message) {
       // Do something
       console.log('message', message);
-      setText(text => `${text}\nmessage:${ message}`);
+      setText(text => `${text}\nmessage:${ JSON.stringify(message, null, 4)}`);
     }
 
     (async () => {
@@ -55,11 +55,11 @@ const DebugView = () => {
         const fcmToken = await messaging().getToken();
         console.log('token', fcmToken);
         setItem('token', fcmToken);
-        Clipboard.setString(token);
         setText(text => `${text}\nSetting token: ${token}`);
 
         token = fcmToken;
       }
+      Clipboard.setString(token);
       setText(text => `${text}\ntoken: ${token}`);
 
       messaging().onMessage(onMessageReceived);
