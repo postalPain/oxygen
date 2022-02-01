@@ -135,5 +135,7 @@ export default {
   useBiometricsToLogIn: (biometricsType) => `Use ${biometricsType || 'Biometric ID'} to log in`,
   tryAgain: 'Try again',
   dontAllow: 'Don’t Allow',
-  cantFindRegistrationId: 'Can’t find your Registration ID?'
+  cantFindRegistrationId: 'Can’t find your Registration ID?',
+  notifications: 'Notifications',
+  turnOnNotifications: 'Turn on the notifications',
 };

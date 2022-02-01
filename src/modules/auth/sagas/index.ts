@@ -62,7 +62,6 @@ function* signUpWorker(action: ISignUpAction) {
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield storeAuthData(response.data);
-  yield put(clearSignUpData());
   yield addToStoredLoginEmails(action.payload.email);
   yield addCodeSentAt();
   yield action.meta?.onSuccess?.(response);

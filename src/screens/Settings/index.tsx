@@ -3,12 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
 import SettingsBiometrics from 'components/SettingsBiometrics';
-
+import SettingsPushNotifications from 'components/SettingsPushNotifications';
 
 const Settings = () => {
   return (
     <View style={styles.settings}>
       <SettingsBiometrics />
+      <SettingsPushNotifications />
     </View>
   );
 };

@@ -11,64 +11,49 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
-import messaging from '@react-native-firebase/messaging';
-import { requestNotificationPermissions } from 'modules/pushNotifications/permissions';
-import { getItem, setItem } from 'modules/asyncStorage';
-
-
-
-
-
+import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { uuid } from 'utils/uuid';
+import SettingsPushNotifications from 'components/SettingsPushNotifications';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DebugView = () => {
   const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
+  const {
+    requestPushes: requestNotifications,
+    fcmToken,
+    pushPermissions,
+    pushEnabled
+  } = usePushNotifications(onMessageReceived);
 
   const [text, setText] = useState<string>('');
 
+  async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) {
+    // Do something
+    console.log('message', message);
+    setText(text => `${text}\nmessage:${ JSON.stringify(message, null, 4)}`);
+  }
+
   useEffect(() => {
-    // (async () => {
-    //   const perm = await messaging().requestPermission();
-    //   console.log('perm', perm);
-
-    //   setText(text => `${text}\nperm:${ perm}`);
-
-    //   console.log('messaging.AuthorizationStatus.AUTHORIZED', messaging.AuthorizationStatus.AUTHORIZED);
-
-    //   console.log('messaging.AuthorizationStatus.PROVISIONAL', messaging.AuthorizationStatus.PROVISIONAL);
-    // })();
-
-    requestNotificationPermissions();
-
-
-    // Note that an async function or a function that returns a Promise
-    // is required for both subscribers.
-    async function onMessageReceived(message) {
-      // Do something
-      console.log('message', message);
-      setText(text => `${text}\nmessage:${ JSON.stringify(message, null, 4)}`);
-    }
-
-    (async () => {
-      let token = await getItem('token');
-      if (!token) {
-        const fcmToken = await messaging().getToken();
-        console.log('token', fcmToken);
-        setItem('token', fcmToken);
-        setText(text => `${text}\nSetting token: ${token}`);
-
-        token = fcmToken;
-      }
-      Clipboard.setString(token);
-      setText(text => `${text}\ntoken: ${token}`);
-
-      messaging().onMessage(onMessageReceived);
-      messaging().setBackgroundMessageHandler(onMessageReceived);
-
-    })();
-
-
+    AsyncStorage.getAllKeys((err, keys) => {
+      AsyncStorage.multiGet(keys, (error, stores) => {
+        stores.map((result, i, store) => {
+          console.log({ [store[i][0]]: store[i][1] });
+          return true;
+        });
+      });
+    });
   }, []);
+
+  useEffect(() => {
+    if (!fcmToken) {
+      return;
+    }
+    console.log('fcmToken', fcmToken);
+    setText(text => `${text}\nSetting token: ${fcmToken}`);
+  }, [fcmToken]);
+
   return (
     <ScrollView>
       <Link onPress={() => setLoginCount(email, 0)}>
@@ -77,9 +62,17 @@ const DebugView = () => {
       <Link onPress={() => storeBiometricsAccepted(email, false)}>
         Reset Biometrics Permission
       </Link>
+      <Link onPress={() => requestNotifications()}>
+        Request Notifications
+      </Link>
       <Text selectable>
         {text}
       </Text>
+      <Text selectable>
+        Granted: {pushPermissions}
+        Enabled: {`${pushEnabled}`}
+      </Text>
+      <SettingsPushNotifications />
     </ScrollView>
   );
 };
