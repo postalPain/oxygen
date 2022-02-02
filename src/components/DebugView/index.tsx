@@ -1,19 +1,15 @@
 import { Link } from 'components';
-import { log } from 'console';
 import { storeBiometricsAccepted } from 'modules/biometrics/asyncStorage';
-import { infoNotification } from 'modules/notifications/actions';
 import { setLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 
-import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+import { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
-import { uuid } from 'utils/uuid';
 import SettingsPushNotifications from 'components/SettingsPushNotifications';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -23,8 +19,6 @@ const DebugView = () => {
   const {
     requestPushes: requestNotifications,
     fcmToken,
-    pushPermissions,
-    pushEnabled
   } = usePushNotifications(onMessageReceived);
 
   const [text, setText] = useState<string>('');
@@ -67,10 +61,6 @@ const DebugView = () => {
       </Link>
       <Text selectable>
         {text}
-      </Text>
-      <Text selectable>
-        Granted: {pushPermissions}
-        Enabled: {`${pushEnabled}`}
       </Text>
       <SettingsPushNotifications />
     </ScrollView>
