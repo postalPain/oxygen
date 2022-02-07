@@ -1,6 +1,6 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getHeight, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   withdrawalTagSmall: {
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontSize: 0.1 * windowDimensions.width,
+    lineHeight: getHeight(5),
     fontWeight: '700',
   },
   textSecondary: {
