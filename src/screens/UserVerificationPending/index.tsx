@@ -6,7 +6,7 @@ import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { getItem } from 'modules/asyncStorage';
 import { VerificationStatusesFe } from 'modules/user/types';
 import { checkVerification, userClearInfo, resendVerificationCode } from 'modules/user/actions';
-import { clearAuthData } from 'modules/auth/actions';
+import { clearAuthData, clearSignUpData } from 'modules/auth/actions';
 import { selectEmailVerifiedStatus, selectEmployerVerifiedStatus, } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
 import { Button, EmailTag, ResendEmail } from 'components';
@@ -55,6 +55,7 @@ const UserVerificationPending = (
     batch(() => {
       dispatch(clearAuthData());
       dispatch(userClearInfo());
+      dispatch(clearSignUpData());
     });
   };
 

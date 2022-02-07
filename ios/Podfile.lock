@@ -182,6 +182,8 @@ PODS:
   - OpenSSL-Universal (1.1.180)
   - Permission-FaceID (3.2.0):
     - RNPermissions
+  - Permission-Notifications (3.2.0):
+    - RNPermissions
   - PromisesObjC (2.0.0)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -555,6 +557,7 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (= 0.99.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - Permission-FaceID (from `../node_modules/react-native-permissions/ios/FaceID`)
+  - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -647,6 +650,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   Permission-FaceID:
     :path: "../node_modules/react-native-permissions/ios/FaceID"
+  Permission-Notifications:
+    :path: "../node_modules/react-native-permissions/ios/Notifications"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -770,6 +775,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-FaceID: f83c3fcdd4712d98cec122c0eb086242ec269dc0
+  Permission-Notifications: 470e8ecd7347c7f7b86ce0bc0324b2fc4456767b
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
   RCTRequired: e4a18a90004e0ed97bba9081099104fd0f658dc9
@@ -818,6 +824,6 @@ SPEC CHECKSUMS:
   Yoga: c11abbf5809216c91fcd62f5571078b83d9b6720
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ec0e9f21bcd3594a4b283b23bbc6a0a58e693f42
+PODFILE CHECKSUM: 47d14533d81e81b3475a1e5a765bd01c30487278
 
 COCOAPODS: 1.11.2

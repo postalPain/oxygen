@@ -30,4 +30,5 @@ target 'Floos' do
   end
 
   pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 end

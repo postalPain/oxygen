@@ -3,10 +3,8 @@
   "version": "1.0.14",
   "private": true,
   "scripts": {
-    "android": "npm run buildenv:dev && react-native run-android",
-    "android:stage": "npx buildenv:stage && react-native run-android",
-    "ios": "npm run buildenv:dev && react-native run-ios",
-    "ios:stage": "npm run buildenv:stage && react-native run-ios",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "buildenv:dev": "node set-build-env.js DEV",
     "buildenv:stage": "node set-build-env.js STAGE",
     "buildenv:prod": "node set-build-env.js PROD",
