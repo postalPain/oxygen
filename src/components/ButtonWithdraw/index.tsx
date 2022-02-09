@@ -36,7 +36,7 @@ const ButtonWithdraw = () => {
   }, [showTooltip]);
   return (
     <Tooltip
-      show={withdrawalDisabled}
+      show={showTooltip}
       text={withdrawalDisabled}
       onPress={() => setShowTooltip(false)}
     >
