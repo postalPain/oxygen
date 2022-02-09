@@ -16,6 +16,7 @@ import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
 import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { testIds } from '../../config/testIds';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -89,6 +90,7 @@ const SignIn = (
               autoCorrect={false}
               returnKeyType='done'
               autoCapitalize="none"
+              testId={testIds.loginEmailInput}
             />
           )}
           <Input
@@ -101,6 +103,7 @@ const SignIn = (
             required
             error={passwordError}
             returnKeyType='done'
+            testId={testIds.loginPasswordInput}
           />
           <View style={styles.forgotPasswordContainer}>
             <Link

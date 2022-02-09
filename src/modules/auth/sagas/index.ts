@@ -1,6 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import api, { IResponse } from 'services/api';
+import api from 'services/api';
 import * as authActions from 'modules/auth/actions';
 import { clearSignUpData } from 'modules/auth/actions';
 import {
@@ -27,6 +27,7 @@ import { storeAuthData } from '../asyncStorage';
 import { addToStoredLoginEmails, incrementLoginCount } from 'modules/user/asyncStorage';
 import { deleteBiometricData, storeBiometricData } from 'modules/biometrics/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
+import { IResponse } from '../../../services/api/types';
 
 
 function* handleError (error: IError) {

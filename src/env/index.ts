@@ -5,6 +5,7 @@ export enum Envs {
   DEV = 'DEV',
   STAGE = 'STAGE',
   PROD = 'PROD',
+  E2E = 'E2E',
 }
 
 const baseUrls = {
@@ -13,12 +14,12 @@ const baseUrls = {
   [Envs.PROD]: 'https://api-prod.stryproject-o.ch',
 };
 
-const BASE_URL = baseUrls[BUILD_ENV || Envs.DEV];
+const BASE_URL = baseUrls[BUILD_ENV] || baseUrls[Envs.DEV];
 
 const env = {
   buildEnv: BUILD_ENV,
   dev: BUILD_ENV === Envs.DEV,
-  baseUrl: BASE_URL,
+  baseUrl: BASE_URL || baseUrls[Envs.DEV],
   apiUrl: `${BASE_URL}/api/v1`,
   websiteDomain: 'https://www.floos.ae',
   locale: 'en',

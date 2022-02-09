@@ -1,11 +1,17 @@
 import auth from './auth';
+import authMock from './auth/index.mock';
 import employees from './employees';
+import employeesMock from './employees/index.mock';
+import { IApi } from './types';
+import { BUILD_ENV } from '../../../build-env.js';
+import { Envs } from '../../env';
 
-export interface IResponse<T> {
-  data: T;
-}
+const mockApi = {
+  auth: authMock,
+  employees: employeesMock,
+};
 
-const api = {
+const api: IApi = BUILD_ENV === Envs.E2E ? mockApi : {
   auth,
   employees,
 };
