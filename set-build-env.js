@@ -1,4 +1,4 @@
-// node set-build-env.js [DEV|STAGE|PROD]
+// node set-build-env.js [DEV|STAGE|PROD|E2E]
 
 const fs = require('fs');
 

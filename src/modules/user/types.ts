@@ -1,5 +1,5 @@
 import { IMeta } from 'modules/store/types';
-import { IUserInfo } from 'services/api/employees';
+import { IUserInfo } from 'services/api/employees/types';
 
 export const enum UserActions {
   USER_GET_INFO = 'USER_GET_INFO',
