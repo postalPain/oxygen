@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-import styles from './styles';
+import styles, { tipHeight } from './styles';
 
 interface ITooltip {
+  show?: boolean;
   text?: string;
   onPress?: () => void;
+  children?;
 }
 
 const Tooltip = (props: ITooltip) => {
+  const [childrenHeight, setChildrenHeight] = useState<number>();
+
   return (
-    <TouchableWithoutFeedback onPress={props.onPress}>
-      <View style={styles.tooltip}>
-        <View style={[styles.main, styles.shadow]}>
-          <View style={[styles.main, styles.content]}>
-            <Text style={styles.text}>{props.text}</Text>
+    <>
+      {props.show && (
+        <TouchableWithoutFeedback onPress={props.onPress}>
+          <View style={[
+            styles.tooltip,
+            childrenHeight && { bottom: childrenHeight + tipHeight }
+          ]}
+          >
+            <View style={[styles.content]}>
+              <Text style={styles.text}>{props.text}</Text>
+            </View>
+            <View style={styles.tip} />
           </View>
-          <View style={styles.tip} />
-        </View>
+        </TouchableWithoutFeedback>
+      )}
+      <View onLayout={(event) => setChildrenHeight(event.nativeEvent.layout.height)}>
+        {props.children}
       </View>
-    </TouchableWithoutFeedback>
+    </>
   );
 };
 

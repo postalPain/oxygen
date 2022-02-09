@@ -2,38 +2,20 @@ import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { getHeight, getWidth, windowDimensions } from 'utils/window';
 
-const mainHeight = 0.1 * windowDimensions.height;
-const mainWidth = mainHeight * 2.5 ;
-const tipHeight = 0.01 * windowDimensions.height;
-
-const shadow = {
-  shadowColor: 'black',
-  shadowOffset: { width: 1, height: 1 },
-  shadowOpacity: 0.1,
-  elevation: 2,
-};
+const mainHeight = getHeight(8);
+const mainWidth = getWidth(75) ;
+export const tipHeight = getHeight(2);
 
 const styles = StyleSheet.create({
   tooltip: {
-    width: '100%',
+    width: mainWidth,
     position: 'absolute',
-    backgroundColor: 'transparent',
-    top: -mainHeight - tipHeight * 1.5,
+    alignSelf: 'center',
+    backgroundColor: theme.colors.shade2,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: getWidth(5),
     zIndex: 1,
-  },
-  main: {
-    position: 'absolute',
-    top: 0,
-    width: mainWidth,
-    height: mainHeight,
-    backgroundColor: theme.colors.screenBackgroundColorLight,
-    borderRadius: mainHeight / 10,
-    zIndex: 2
-  },
-  shadow: {
-    ...shadow,
   },
   tip: {
     position: 'absolute',
@@ -42,16 +24,15 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '45deg' }],
     bottom: -tipHeight / 2,
     left: mainWidth / 2,
-    backgroundColor: theme.colors.screenBackgroundColorLight,
-    ...shadow
+    backgroundColor: theme.colors.shade2,
   },
   content: {
     paddingHorizontal: getWidth(3),
     paddingVertical: getHeight(1.3),
   },
   text: {
-    color: theme.colors.textDark,
-    fontSize: getHeight(1.6)
+    color: theme.colors.textLight,
+    fontSize: getHeight(2),
   }
 });
 

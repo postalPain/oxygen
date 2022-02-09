@@ -35,8 +35,11 @@ const ButtonWithdraw = () => {
     showTooltip && setTimeout(() => setShowTooltip(false), 4000);
   }, [showTooltip]);
   return (
-    <View>
-      {showTooltip && <Tooltip text={withdrawalDisabled} onPress={() => setShowTooltip(false)} />}
+    <Tooltip
+      show={withdrawalDisabled}
+      text={withdrawalDisabled}
+      onPress={() => setShowTooltip(false)}
+    >
       <Button
         Icon={<IconPlus size={22} />}
         disabled={!!withdrawalDisabled}
@@ -45,8 +48,7 @@ const ButtonWithdraw = () => {
       >
         {vocab.get().withdraw}
       </Button>
-    </View>
-
+    </Tooltip>
   );
 };
 
