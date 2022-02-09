@@ -1,5 +1,5 @@
-import { IResetPasswordBody, ISignUpPayload, } from 'services/api/auth';
 import { IMeta } from '../store/types';
+import { IResetPasswordBody, ISignUpPayload } from '../../services/api/auth/types';
 
 export interface IAuthState {
   authData: IAuthData;
