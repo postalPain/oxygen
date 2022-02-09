@@ -4,7 +4,7 @@ import styles, { tipHeight } from './styles';
 
 interface ITooltip {
   show?: boolean;
-  text?: string;
+  content?;
   onPress?: () => void;
   children?;
 }
@@ -22,7 +22,7 @@ const Tooltip = (props: ITooltip) => {
           ]}
           >
             <View style={[styles.content]}>
-              <Text style={styles.text}>{props.text}</Text>
+              {typeof props.content === 'string' ? <Text style={styles.text}>{props.content}</Text> : props.content}
             </View>
             <View style={styles.tip} />
           </View>

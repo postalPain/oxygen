@@ -1,20 +1,18 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { getHeight, getWidth, windowDimensions } from 'utils/window';
+import { getHeight, getWidth } from 'utils/window';
 
-const mainHeight = getHeight(8);
-const mainWidth = getWidth(75) ;
 export const tipHeight = getHeight(2);
 
 const styles = StyleSheet.create({
   tooltip: {
-    width: mainWidth,
+    maxWidth: '95%',
     position: 'absolute',
     alignSelf: 'center',
     backgroundColor: theme.colors.shade2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: getWidth(5),
+    borderRadius: getWidth(6),
     zIndex: 1,
   },
   tip: {
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
     height: tipHeight,
     transform: [{ rotate: '45deg' }],
     bottom: -tipHeight / 2,
-    left: mainWidth / 2,
+    alignSelf: 'center',
     backgroundColor: theme.colors.shade2,
   },
   content: {
@@ -33,6 +31,23 @@ const styles = StyleSheet.create({
   text: {
     color: theme.colors.textLight,
     fontSize: getHeight(2),
+  }
+});
+
+export const actionableTooltipStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: getWidth(2),
+  },
+  text: {
+    fontSize: getHeight(2),
+    marginLeft: getWidth(2),
+    marginRight: getWidth(4)
+  },
+  textBold: {
+    fontWeight: '600'
   }
 });
 

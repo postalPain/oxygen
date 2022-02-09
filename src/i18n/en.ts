@@ -50,7 +50,6 @@ export default {
   emailVerification: '1. Email verification',
   employeeVerification: '2. Employee verification',
   waitingTime: 'Waiting time: up to ',
-  days: ' days',
   congratulationsVerification: 'Congratulations, your verification is complete!',
   forgotPassword: 'Forgot Password?',
   newPasswordCreated: 'A new password was created!Please log in into your account.',
@@ -138,4 +137,6 @@ export default {
   cantFindRegistrationId: 'Can’t find your Registration ID?',
   notifications: 'Notifications',
   turnOnNotifications: 'Turn on the notifications',
+  days: (number) => `${number} ${number === 1 ? 'day' : 'days'}`,
+  untilEndOfPayPeriod: 'until end of pay period',
 };
