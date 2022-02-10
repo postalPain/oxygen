@@ -101,7 +101,7 @@ const UserVerificationPending = (
                 <>
                   <View style={styles.textHighlightedWrapper}>
                     <Text style={styles.textHighlighted}>
-                      {vocab.waitingTime}{2}{vocab.days}
+                      {vocab.waitingTime}{vocab.days(2)}
                     </Text>
                   </View>
                   <Text style={styles.stepText}>

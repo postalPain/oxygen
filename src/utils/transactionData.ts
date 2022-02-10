@@ -29,7 +29,7 @@ export const getTransactionStatus = (beStatus: TTransactionStatusBE): TTransacti
 };
 
 export const getTransactionDate = (dateBE: string) => {
-  return moment.parseZone(dateBE).add(getUTCOffset(), 'm').format('DD.MM.YYYY.')
+  return moment.parseZone(dateBE).add(getUTCOffset(), 'm').format('DD.MM.YYYY');
 };
 
 export const getTransactionDetailsDate = (dateBE: string) => {

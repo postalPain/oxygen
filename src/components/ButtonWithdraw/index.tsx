@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
@@ -10,6 +9,7 @@ import { selectBalance, selectIsWithdrawalPaused, selectMinimumWithdrawable, sel
 import Button from 'components/Button';
 import IconPlus from 'components/IconPlus';
 import Tooltip from '../Tooltip';
+import PayPeriodTooltip from './PayPeriodTooltip';
 
 const ButtonWithdraw = () => {
   const navigation: StackNavigationProp<any> = useNavigation();
@@ -19,6 +19,7 @@ const ButtonWithdraw = () => {
   const minimumWithdrawable = useSelector(selectMinimumWithdrawable);
   const [showTooltip, setShowTooltip] = useState(false);
   const [withdrawalDisabled, setWithdrawalDisabled] = useState(null);
+
   useEffect(() => {
     let newWithdrawalDisabled = null;
     isUserBlocked && (newWithdrawalDisabled = vocab.get().withdrawalErrorBlocked);
@@ -28,24 +29,45 @@ const ButtonWithdraw = () => {
     }
     setWithdrawalDisabled(newWithdrawalDisabled);
   }, [isUserBlocked, isWithdrawalPaused, minimumWithdrawable, balance]);
+
   useEffect(() => {
     !!withdrawalDisabled && setShowTooltip(true);
   }, [withdrawalDisabled]);
+
   useEffect(() => {
     showTooltip && setTimeout(() => setShowTooltip(false), 4000);
   }, [showTooltip]);
+
+  const getButton = () => (
+    <Button
+      Icon={<IconPlus size={22} />}
+      disabled={!!withdrawalDisabled}
+      onPressDisabled={() => setShowTooltip(true)}
+      onPress={() => navigation.navigate(AppScreenNames.WithdrawalSelect)}
+    >
+      {vocab.get().withdraw}
+    </Button>
+  );
+
   return (
-    <View>
-      {showTooltip && <Tooltip text={withdrawalDisabled} onPress={() => setShowTooltip(false)} />}
-      <Button
-        Icon={<IconPlus size={22} />}
-        disabled={!!withdrawalDisabled}
-        onPressDisabled={() => setShowTooltip(true)}
-        onPress={() => navigation.navigate(AppScreenNames.WithdrawalSelect)}
-      >
-        {vocab.get().withdraw}
-      </Button>
-    </View>
+    withdrawalDisabled
+      ? (
+        <Tooltip
+          show={showTooltip}
+          content={withdrawalDisabled}
+          onPress={() => setShowTooltip(false)}
+        >
+          {getButton()}
+        </Tooltip>
+      )
+      : (
+        <Tooltip
+          show={false} // Will be enabled in future stories
+          content={<PayPeriodTooltip />}
+        >
+          {getButton()}
+        </Tooltip>
+      )
 
   );
 };
