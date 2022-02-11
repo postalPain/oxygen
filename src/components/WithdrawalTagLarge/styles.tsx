@@ -1,13 +1,13 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { windowDimensions } from 'utils/window';
+import { getWidth, windowDimensions } from 'utils/window';
 
 const styles = StyleSheet.create({
   withdrawalTagLarge: {
     height: 0.16 * windowDimensions.height,
     alignSelf: 'stretch',
     backgroundColor: theme.colors.shade2,
-    borderRadius: 0.05 * windowDimensions.width,
+    borderRadius: getWidth(6),
     justifyContent: 'center',
     alignItems: 'center',
   },

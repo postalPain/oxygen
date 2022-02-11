@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.screenBackgroundColorLight,
     borderRadius: getWidth(7),
     width: getWidth(90),
-    paddingHorizontal: getWidth(9),
-    paddingVertical: getHeight(5),
+    paddingHorizontal: getWidth(6),
+    paddingVertical: getHeight(4),
   },
   closeContainer: {
     position: 'absolute',

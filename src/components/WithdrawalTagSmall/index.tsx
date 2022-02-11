@@ -1,6 +1,7 @@
 import vocab from 'i18n';
 import React, { useState } from 'react';
 import { Text, View, ViewStyle } from 'react-native';
+import { getWidth } from 'utils/window';
 import styles from './styles';
 
 interface IWithdrawalTagSmall {
@@ -11,29 +12,20 @@ interface IWithdrawalTagSmall {
 }
 
 const WithdrawalTagSmall = ({ amount, withdrawn, earned, style }: IWithdrawalTagSmall) => {
-  const [width, setWidth] = useState<number>();
-
   return (
-    <View
-      style={[styles.withdrawalTagSmall, style]}
-      onLayout={(event) => {
-        setWidth(event.nativeEvent.layout.width);
-      }}
-    >
+    <View style={[styles.withdrawalTagSmall, style]} >
       <View>
         <Text style={styles.textContainer}>
           <Text style={[
             styles.amount,
-            amount?.toString().length > 4 && width && { fontSize: (width ** 1.48) / (12 * amount.toString().length) }
+            amount?.toString().length > 4 && { fontSize: getWidth(35) / amount.toString().length }
           ]}
           >{amount}
           </Text>
           <Text>{vocab.get().aed}</Text>
         </Text>
-        <Text style={styles.textContainer}>
-          {withdrawn && vocab.get().withdrawn}
-          {earned && vocab.get().earnedUntilToday}
-        </Text>
+        {withdrawn && <Text style={styles.textContainer}>{vocab.get().withdrawn}</Text>}
+        {earned && <Text style={styles.textContainer}>{vocab.get().earnedUntilToday}</Text>}
       </View>
     </View>
   );
