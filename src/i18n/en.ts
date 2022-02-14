@@ -149,4 +149,5 @@ export default {
   eltizamLimit: 'Eltizam Limit',
   maximumWithdrawablePerMonth: 'Maximum withdrawable amount per month',
   aCycleIsTheRegularPeriod: 'A cycle is the regular period in between paycheques. For Eltizam, the current pay cycle ends on Feb 17.',
+  today: 'today'
 };

@@ -1,15 +1,13 @@
-import { useSelector } from 'react-redux';
 import React from 'react';
 import { View, Text } from 'react-native';
-import { selectBalance } from 'modules/withdrawal/selectors';
 import IconInfoDark from 'components/IconInfoDark';
 import ModalWrapper from 'components/ModalWrapper';
 import styles from './styles';
-import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
 import { getWidth } from 'utils/window';
 import vocab from 'i18n';
 import { IBalance } from 'services/api/employees/types';
 import WithdrawInfoItem from './WithdrawInfoItem';
+import WithdrawInfoBar from './WithdrawInfoBar';
 
 interface IModalGoodToKnow {
   onClose?: () => void;
@@ -76,6 +74,12 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
       <Text style={styles.itemText}>
         {vocab.get().aCycleIsTheRegularPeriod}
       </Text>
+      <WithdrawInfoBar
+        startDate='2021-02-01'
+        endDate='2021-02-22'
+        daysTotal={30}
+        daysLeft={0}
+      />
     </ModalWrapper>
   );
 };
