@@ -1,4 +1,4 @@
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, call } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import { IPaycycleInfo, IWithdrawalAction, withdrawalActions } from '../types';
 import api from 'services/api';
@@ -98,9 +98,10 @@ function* getPaycycleInfoWorker () {
   let response: IResponse<IPaycycleInfo>;
 
   try {
-    response = yield api.employees.getPaycycleInfo();
+    response = yield call(api.employees.getPaycycleInfo);
   } catch (e) {
     yield put(errorNotification({ text: e.message }));
+    return;
   }
 
   yield put(setPaycycleInfo(response.data));
