@@ -90,7 +90,7 @@ const SignIn = (
               autoCorrect={false}
               returnKeyType='done'
               autoCapitalize="none"
-              testId={testIds.loginEmailInput}
+              testID={testIds.loginEmailInput}
             />
           )}
           <Input
@@ -103,7 +103,7 @@ const SignIn = (
             required
             error={passwordError}
             returnKeyType='done'
-            testId={testIds.loginPasswordInput}
+            testID={testIds.loginPasswordInput}
           />
           <View style={styles.forgotPasswordContainer}>
             <Link

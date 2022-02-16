@@ -49,7 +49,7 @@ export interface IEmployeesApi {
   checkVerification: () => Promise<IResponse<IVerificationResponse>>;
   resendVerificationCode: (email: string) => Promise<void | AxiosResponse>;
   getBalance: () => Promise<IResponse<IBalance>>;
-  getTransactions: () => Promise<void | AxiosResponse>;
+  getTransactions: () => Promise<IResponse<ITransaction[]>>;
   getSuggestedValues: () => Promise<IResponse<TSuggestedValues>>;
   getFee: (amount: any) => Promise<IResponse<TFee>>;
   withdrawal: (amount: number) => Promise<IResponse<ITransaction>>;

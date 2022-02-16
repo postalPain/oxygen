@@ -117,7 +117,8 @@ a gradle default configuration, then you will be able to run the project from th
 open -a /Applications/Android\ Studio.app
 ```
 
-#### Xcode build ####
+#### Xcode command line build ####
+- To make an iOS build: xcodebuild -workspace ios/Floos.xcworkspace -configuration release -scheme Floos -sdk iphonesimulator -derivedDataPath ios/build
 - To get list of simulators: xcrun simctl list
 - To enable simulator: /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator -CurrentDeviceUDID <DEVICE-ID or Booted>
 - To install a build from build folder: xcrun simctl install <DEVICE-ID or Booter> <ios/build/Build/Products/Release-iphonesimulator/Floos.app>

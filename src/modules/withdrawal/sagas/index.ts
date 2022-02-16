@@ -2,6 +2,8 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import { IPaycycleInfo, IWithdrawalAction, withdrawalActions } from '../types';
 import api from 'services/api';
+import { IResponse } from 'services/api/types';
+import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees/types';
 import { errorNotification } from 'modules/notifications/actions';
 import {
   getBalance,
@@ -17,8 +19,6 @@ import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectBalance } from '../selectors';
 import { getState } from 'modules/store';
-import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees/types';
-import { IResponse } from 'services/api/types';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
