@@ -1,8 +1,9 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import { IWithdrawalAction, withdrawalActions } from '../types';
-import api, { IResponse } from 'services/api';
-import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees';
+import api from 'services/api';
+import { IResponse } from 'services/api/types';
+import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees/types';
 import { errorNotification } from 'modules/notifications/actions';
 import {
   getBalance,

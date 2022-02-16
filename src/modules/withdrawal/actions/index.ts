@@ -1,6 +1,6 @@
 import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees';
+import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees/types';
 import {
   IGetBalanceAction,
   IGetWithdrawableDefaultsAction,

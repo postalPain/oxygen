@@ -32,7 +32,7 @@ import WithdrawalSelect from 'screens/WithdrawalSelect';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 import { isUserEmployerVerified } from 'modules/user/selectors';
-import { IUserInfo } from 'services/api/employees';
+import { IUserInfo } from 'services/api/employees/types';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
 import { headerStyles, modalScreenStyles } from './styles';

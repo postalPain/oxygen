@@ -95,5 +95,11 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
       await setItemForUser(email, pushesStoredKeys.pushEnabled, false);
       setEnabled(false);
     },
+    ...(env.e2e && {
+      pushEnabled: false,
+      requestPushes: (mail?: string) => {
+        return null;
+      },
+    })
   };
 };

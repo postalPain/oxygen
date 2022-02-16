@@ -2,6 +2,7 @@ import vocab from 'i18n';
 import React, { useState } from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import styles from './styles';
+import { E2ETextWrapper } from '../E2EText';
 
 interface IWithdrawalTagSmall {
   amount: number;
@@ -22,12 +23,14 @@ const WithdrawalTagSmall = ({ amount, withdrawn, earned, style }: IWithdrawalTag
     >
       <View>
         <Text style={styles.textContainer}>
-          <Text style={[
-            styles.amount,
-            amount?.toString().length > 4 && width && { fontSize: (width ** 1.48) / (12 * amount.toString().length) }
-          ]}
-          >{amount}
-          </Text>
+          <E2ETextWrapper>
+            <Text style={[
+              styles.amount,
+              amount?.toString().length > 4 && width && { fontSize: (width ** 1.48) / (12 * amount.toString().length) }
+            ]}
+            >{amount}
+            </Text>
+          </E2ETextWrapper>
           <Text>{vocab.get().aed}</Text>
         </Text>
         <Text style={styles.textContainer}>

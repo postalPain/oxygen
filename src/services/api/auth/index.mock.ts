@@ -1,4 +1,5 @@
 import { IAuthApi } from './types';
+import { globalMock } from '../index.mock';
 
 const authResp = {
   data: {
@@ -12,7 +13,14 @@ const authResp = {
 const authMock: IAuthApi = {
   signUp: () => Promise.resolve(authResp),
   signOut: () => Promise.resolve(),
-  signIn: () => Promise.resolve(authResp),
+  signIn: (body) => {
+    if (body) {
+      globalMock.auth = authResp;
+      return Promise.resolve(authResp);
+    } else {
+      throw Error;
+    }
+  },
   refreshToken: () => Promise.resolve(authResp),
   forgotPassword: () => Promise.resolve({ data: {} }),
   resetPassword: () => Promise.resolve({ data: {} }),

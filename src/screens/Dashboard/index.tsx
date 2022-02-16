@@ -14,6 +14,7 @@ import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
 import { getBalance, getWithdrawableDefaults, getSuggestedValues } from 'modules/withdrawal/actions';
 import { selectBalance } from 'modules/withdrawal/selectors';
+import { E2ETextWrapper } from '../../components/E2EText';
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,9 @@ const Dashboard: React.FC<any> = () => {
       <View style={styles.greetingContainer}>
         <Text style={[styles.greeting]}>
           <Text>{vocab.get().hi}</Text>
-          <Text style={styles.greetingName}>{userInfo.first_name}</Text>
+          <E2ETextWrapper>
+            <Text style={styles.greetingName}>{userInfo.first_name}</Text>
+          </E2ETextWrapper>
         </Text>
         <Text style={[styles.greeting, styles.greetingDate]}>
           {moment().format('ddd D MMM[,] YYYY')}

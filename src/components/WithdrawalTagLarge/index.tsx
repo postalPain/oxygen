@@ -4,6 +4,7 @@ import React from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import { windowDimensions } from 'utils/window';
 import styles from './styles';
+import { E2ETextWrapper } from '../E2EText';
 
 interface IWithdrawalTagLarge {
   amount?: number;
@@ -19,7 +20,9 @@ const WithdrawalTagLarge = ({ amount, style }: IWithdrawalTagLarge) => {
             <IconWallet size={0.12 * windowDimensions.width} />
           </View>
           <Text>
-            <Text style={styles.amount}>{amount}</Text>
+            <E2ETextWrapper>
+              <Text style={styles.amount}>{amount}</Text>
+            </E2ETextWrapper>
             <Text style={styles.currency}>{vocab.get().aed}</Text>
           </Text>
         </View>

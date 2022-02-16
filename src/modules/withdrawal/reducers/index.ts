@@ -1,5 +1,5 @@
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
+import { IBalance, TFee, TSuggestedValues } from 'services/api/employees/types';
 import { withdrawalActions, TWithdrawalAction } from '../types';
 
 export interface IPaymentState {

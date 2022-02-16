@@ -4,6 +4,7 @@ import { windowDimensions } from 'utils/window';
 import LinearGradient from 'react-native-linear-gradient';
 import theme from 'config/theme';
 import vocab from 'i18n';
+import { E2ETextWrapper } from '../E2EText';
 
 
 interface IWithdrawalAmountTag {
@@ -31,15 +32,16 @@ const WithdrawalAmountTag = ({
         locations={[0, 1]}
         useAngle
       >
+        <E2ETextWrapper>
+          <Text
+            style={[styles.text, {
+              color: active ? theme.colors.screenBackgroundColorLight : theme.colors.textDark
+            }]}
+          >
+            {!!total ? vocab.get().totalAvailableAmount(amount) : `${amount} ${vocab.get().aed}` }
 
-        <Text
-          style={[styles.text, {
-            color: active ? theme.colors.screenBackgroundColorLight : theme.colors.textDark
-          }]}
-        >
-          {!!total ? vocab.get().totalAvailableAmount(amount) : `${amount} ${vocab.get().aed}` }
-
-        </Text>
+          </Text>
+        </E2ETextWrapper>
         <View style={[styles.border, {
           borderWidth: active ? 0 : 1
         }]}

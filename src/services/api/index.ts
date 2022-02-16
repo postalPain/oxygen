@@ -3,15 +3,14 @@ import authMock from './auth/index.mock';
 import employees from './employees';
 import employeesMock from './employees/index.mock';
 import { IApi } from './types';
-import { BUILD_ENV } from '../../../build-env.js';
-import { Envs } from '../../env';
+import env from '../../env';
 
 const mockApi = {
   auth: authMock,
   employees: employeesMock,
 };
 
-const api: IApi = BUILD_ENV === Envs.E2E ? mockApi : {
+const api: IApi = env.e2e ? mockApi : {
   auth,
   employees,
 };
