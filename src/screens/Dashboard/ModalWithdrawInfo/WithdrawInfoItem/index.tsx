@@ -1,11 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
-import theme from 'config/theme';
-import { getHeight, getWidth } from 'utils/window';
+import { Text, View, ViewStyle } from 'react-native';
+import { getWidth } from 'utils/window';
 import vocab from 'i18n';
-import { IconCheck, IconInfo } from 'components';
-import IconCheckRound from 'components/IconCheckRound';
 import IconCheckSquare from 'components/IconCheckSquare';
+import styles from './styles';
 
 interface IWithdrawInfoItem {
   header: string;
@@ -42,45 +40,5 @@ const WithdrawInfoItem = (props: IWithdrawInfoItem) => {
   );
 };
 
-const styles = StyleSheet.create({
-  withdrawItemInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  checkContainer: {
-    alignSelf: 'flex-start',
-    paddingRight: getWidth(3),
-    paddingTop: getWidth(.7)
-  },
-  description: {
-    flexShrink: 1,
-  },
-  header: {
-    fontWeight: '600',
-    fontSize: getWidth(4),
-    paddingBottom: getHeight(.5)
-  },
-  text: {
-    fontSize: getWidth(4)
-  },
-  amountContainer: {
-    minWidth: getWidth(25),
-    flexShrink: 0,
-    alignItems: 'flex-end'
-  },
-  amount: {
-    color: theme.colors.floos1,
-    opacity: .7,
-  },
-  number: {
-    fontSize: getWidth(6),
-    fontWeight: '600',
-  },
-  currency: {
-    fontSize: getWidth(3)
-  }
-
-});
 
 export default WithdrawInfoItem;

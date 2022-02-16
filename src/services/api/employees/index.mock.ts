@@ -28,7 +28,10 @@ const employeesMock: IEmployeesApi = {
       earned_wages: 2428.54,
       is_withdraw_paused: false,
       total_withdrawn_amount: 0,
-      withdrawable_wages: 1214.27
+      withdrawable_wages: 1214.27,
+      cap: 50,
+      daily_withdrawal_limit: null,
+      monthly_limit: null,
     }
   }),
   getTransactions: () => Promise.resolve(),
@@ -69,6 +72,14 @@ const employeesMock: IEmployeesApi = {
       maximum: 1214,
     }
   }),
+  getPaycycleInfo: () => Promise.resolve({
+    data: {
+      end: '2022-02-19',
+      left_days: 2,
+      start: '2022-01-20',
+      total_days: 30,
+    }
+  })
 };
 
 export default employeesMock;

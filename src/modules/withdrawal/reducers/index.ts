@@ -1,6 +1,6 @@
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TFee, TSuggestedValues } from 'services/api/employees';
-import { withdrawalActions, TWithdrawalAction } from '../types';
+import { IBalance, TFee, TSuggestedValues } from 'services/api/employees/types';
+import { withdrawalActions, TWithdrawalAction, IPaycycleInfo } from '../types';
 
 export interface IPaymentState {
   balance: IBalance;
@@ -10,6 +10,7 @@ export interface IPaymentState {
   transaction: ITransaction;
   minimumWithdrawable: number;
   maximumWithdrawable: number;
+  paycycleInfo: IPaycycleInfo;
 }
 
 export const withdrawalDefaultState: IPaymentState = {
@@ -25,6 +26,12 @@ export const withdrawalDefaultState: IPaymentState = {
   transaction: null,
   minimumWithdrawable: null,
   maximumWithdrawable: null,
+  paycycleInfo: {
+    start: null,
+    end: null,
+    left_days: null,
+    total_days: null,
+  }
 };
 
 const withdrawalReducer = (
@@ -62,6 +69,11 @@ const withdrawalReducer = (
         ...state,
         minimumWithdrawable: Math.floor(action.payload.minimal), // TODO: Remove rounding when BE adds it
         maximumWithdrawable: Math.floor(action.payload.maximum), // TODO: Remove rounding when BE adds it
+      };
+    case withdrawalActions.SET_PAYCYCLE_INFO:
+      return {
+        ...state,
+        paycycleInfo: action.paycycleInfo
       };
     default:
       return state;

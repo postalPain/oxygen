@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     fontSize: getWidth(5),
     fontWeight: '500',
     lineHeight: getHeight(4),
-    letterSpacing: .7,
     flexShrink: 1,
   },
   amountTag: {
@@ -52,12 +51,18 @@ const styles = StyleSheet.create({
   itemText: {
     paddingRight: getWidth(4),
     fontSize: getWidth(4),
-    letterSpacing: 1,
-    lineHeight: getHeight(3),
+    lineHeight: getHeight(2.5),
   },
   listHeader: {
     fontSize: getWidth(4),
     fontWeight: '600',
+    paddingVertical: getHeight(1)
+  },
+  bar: {
+    marginTop: getHeight(2)
+  },
+  listItem: {
+    padding: getWidth(2)
   }
 });
 

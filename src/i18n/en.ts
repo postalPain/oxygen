@@ -142,12 +142,12 @@ export default {
   theAmountYouAreAbleToWithdraw: 'The amount you’re able to withdraw depends on the following:',
   earnedSalary: 'Earned Salary',
   theAmountYouEarnedUntilToday: 'The amount you’ve earned until today',
-  eltizamRule: 'Eltizam Rule',
+  companyRule: (company) => `${company} Rule`,
   withdrawalIsSetToPercentage:  (percents) => `Withdrawal is set to ${percents}% of earned wages`,
   payoutsRequested: 'Payouts (Requested)',
   totalAmountWithdrawn: 'Total amount withdrawn in the current cycle',
   eltizamLimit: 'Eltizam Limit',
   maximumWithdrawablePerMonth: 'Maximum withdrawable amount per month',
-  aCycleIsTheRegularPeriod: 'A cycle is the regular period in between paycheques. For Eltizam, the current pay cycle ends on Feb 17.',
+  aCycleIsTheRegularPeriod: (MMMdd) => `A cycle is the regular period in between paycheques. For Eltizam, the current pay cycle ends on ${MMMdd}.`,
   today: 'today'
 };

@@ -5,9 +5,11 @@ import ModalWrapper from 'components/ModalWrapper';
 import styles from './styles';
 import { getWidth } from 'utils/window';
 import vocab from 'i18n';
-import { IBalance } from 'services/api/employees/types';
 import WithdrawInfoItem from './WithdrawInfoItem';
-import WithdrawInfoBar from './WithdrawInfoBar';
+import PaycycleBar from './PaycycleBar';
+import { useSelector } from 'react-redux';
+import { getWithdrawalRule, selectBalance, selectPaycycleInfo } from 'modules/withdrawal/selectors';
+import moment from 'moment';
 
 interface IModalGoodToKnow {
   onClose?: () => void;
@@ -15,12 +17,9 @@ interface IModalGoodToKnow {
 
 
 const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
-  // const balance = useSelector(selectBalance);
+  const balance = useSelector(selectBalance);
+  const paycycleInfo = useSelector(selectPaycycleInfo);
 
-  const balance: Partial<IBalance> = {
-    withdrawable_wages: 123,
-  };
-  // balance.withdrawable_wages = 20;
   return (
     <ModalWrapper onClose={onClose}>
       <View style={styles.headerContainer}>
@@ -51,34 +50,43 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
       <WithdrawInfoItem
         header={vocab.get().earnedSalary}
         text={vocab.get().theAmountYouEarnedUntilToday}
-        amount={100500}
-        styles={{ padding: 8 }}
+        amount={balance.earned_wages}
+        styles={styles.listItem}
       />
       <WithdrawInfoItem
-        header={vocab.get().eltizamRule}
-        text={vocab.get().withdrawalIsSetToPercentage(50)}
-        amount={12}
-        styles={{ padding: 8 }}
+        header={vocab.get().companyRule('Eltizam')}
+        text={vocab.get().withdrawalIsSetToPercentage(balance.cap)}
+        amount={getWithdrawalRule(balance)}
+        styles={styles.listItem}
       />
       <WithdrawInfoItem
         header={vocab.get().payoutsRequested}
         text={vocab.get().totalAmountWithdrawn}
-        amount={12}
-        styles={{ padding: 8 }}
+        amount={balance.total_withdrawn_amount}
+        styles={styles.listItem}
       />
+      {balance.monthly_limit && (
+        <WithdrawInfoItem
+          header={vocab.get().eltizamLimit}
+          text={vocab.get().maximumWithdrawablePerMonth}
+          amount={balance.monthly_limit}
+          styles={styles.listItem}
+        />
+      )}
       <View style={styles.itemHeader}>
         <Text style={styles.itemHeaderText}>
           {vocab.get().payCycle}
         </Text>
       </View>
       <Text style={styles.itemText}>
-        {vocab.get().aCycleIsTheRegularPeriod}
+        {vocab.get().aCycleIsTheRegularPeriod(moment(paycycleInfo.end).format('MMM DD'))}
       </Text>
-      <WithdrawInfoBar
-        startDate='2021-02-01'
-        endDate='2021-02-22'
-        daysTotal={30}
-        daysLeft={0}
+      <PaycycleBar
+        startDate={paycycleInfo.start}
+        endDate={paycycleInfo.end}
+        daysTotal={paycycleInfo.total_days}
+        daysLeft={paycycleInfo.left_days}
+        styles={styles.bar}
       />
     </ModalWrapper>
   );

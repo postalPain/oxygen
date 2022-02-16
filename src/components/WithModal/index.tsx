@@ -9,10 +9,9 @@ interface IModal {
 
 const WithModal = (props: IModal) => {
   const [Component, setComponent] = useState(null);
-  const [opened, setOpened] = useState(null);
 
   return (
-    <ModalContext.Provider value={{ setOpened, setComponent }}>
+    <ModalContext.Provider value={{ setComponent }}>
       {props.children}
 
       {Component && (

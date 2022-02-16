@@ -1,5 +1,6 @@
 import apiUrls from 'config/apiUrls';
 import { ITransaction } from 'modules/transactions/types';
+import { IPaycycleInfo } from 'modules/withdrawal/types';
 import request from '../request';
 import { IResponse } from '../types';
 import {
@@ -31,6 +32,8 @@ const withdrawal = (amount: number): Promise<IResponse<ITransaction>> => request
 
 const getWithdrawableDefaults = (): Promise<IResponse<IWithdrawableDefault>> => request.get('employees/withdraw/defaults');
 
+const getPaycycleInfo = (): Promise<IResponse<IPaycycleInfo>> => request.get('employees/pay-cycle-period');
+
 const employees: IEmployeesApi = {
   verifyEmail,
   checkVerification,
@@ -42,6 +45,7 @@ const employees: IEmployeesApi = {
   getFee,
   withdrawal,
   getWithdrawableDefaults,
+  getPaycycleInfo,
 };
 
 export default employees;
