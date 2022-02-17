@@ -1,6 +1,9 @@
 import { RootState } from 'modules/store/rootReducer';
+import { IBalance } from 'services/api/employees/types';
 
 export const selectBalance = (state: RootState) => state.withdrawal.balance;
+
+export const getWithdrawalRule = (balance: IBalance) => balance.earned_wages * balance.cap / 100;
 
 export const selectAmount = (state: RootState) => state.withdrawal.amount;
 
@@ -15,3 +18,5 @@ export const selectWithdrawalTransaction = (state: RootState) => state.withdrawa
 export const selectMinimumWithdrawable = (state: RootState) => state.withdrawal.minimumWithdrawable;
 
 export const selectMaximumWithdrawable = (state: RootState) => state.withdrawal.maximumWithdrawable;
+
+export const selectPaycycleInfo = (state: RootState) => state.withdrawal.paycycleInfo;

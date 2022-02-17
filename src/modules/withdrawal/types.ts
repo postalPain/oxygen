@@ -14,6 +14,15 @@ export enum withdrawalActions {
   SET_WITHDRAWAL_TRANSACTION = 'SET_WITHDRAWAL_TRANSACTION',
   GET_WITHDRAWABLE_DEFAULTS = 'GET_WITHDRAWABLE_DEFAULTS',
   SET_WITHDRAWABLE_DEFAULTS = 'SET_WITHDRAWABLE_DEFAULTS',
+  GET_PAYCYCLE_INFO = 'GET_PAYCYCLE_INFO',
+  SET_PAYCYCLE_INFO = 'SET_PAYCYCLE_INFO',
+}
+
+export interface IPaycycleInfo {
+  start: string; // yyyy-mm-dd
+  end: string; // yyyy-mm-dd
+  total_days: number;
+  left_days: number;
 }
 
 export interface IGetBalanceAction {
@@ -60,6 +69,11 @@ export interface ISetWithdrawableDefaultsAction {
   payload: IWithdrawableDefault;
 }
 
+export interface ISetPaycycleInfoAction {
+  type: withdrawalActions.SET_PAYCYCLE_INFO;
+  paycycleInfo: IPaycycleInfo;
+}
+
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction
 | ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction
-| IGetWithdrawableDefaultsAction | ISetWithdrawableDefaultsAction;
+| IGetWithdrawableDefaultsAction | ISetWithdrawableDefaultsAction | ISetPaycycleInfoAction;

@@ -1,6 +1,6 @@
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, call } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { IWithdrawalAction, withdrawalActions } from '../types';
+import { IPaycycleInfo, IWithdrawalAction, withdrawalActions } from '../types';
 import api from 'services/api';
 import { IResponse } from 'services/api/types';
 import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees/types';
@@ -13,6 +13,7 @@ import {
   setSuggestedValues,
   setWithdrawalTransaction,
   getWithdrawableDefaults,
+  setPaycycleInfo,
 } from '../actions';
 import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
@@ -93,10 +94,24 @@ function* getWithdrawableDefaultsWorker(action: IWithdrawalAction) {
   yield action?.meta?.onSuccess?.();
 }
 
+function* getPaycycleInfoWorker () {
+  let response: IResponse<IPaycycleInfo>;
+
+  try {
+    response = yield call(api.employees.getPaycycleInfo);
+  } catch (e) {
+    yield put(errorNotification({ text: e.message }));
+    return;
+  }
+
+  yield put(setPaycycleInfo(response.data));
+}
+
 export default function* withdrawalSagas(): SagaIterator {
   yield takeLatest(withdrawalActions.GET_BALANCE, getBalanceWorker);
   yield takeLatest(withdrawalActions.GET_SUGGESTED_VALUES, getSuggestedValuesWorker);
   yield takeLatest(withdrawalActions.GET_FEE, getFeeWorker);
   yield takeLatest(withdrawalActions.GET_WITHDRAWABLE_DEFAULTS, getWithdrawableDefaultsWorker);
   yield takeEvery(withdrawalActions.WITHDRAWAL, withdrawalWorker);
+  yield takeLatest(withdrawalActions.GET_PAYCYCLE_INFO, getPaycycleInfoWorker);
 }

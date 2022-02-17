@@ -1,4 +1,4 @@
-import { Dimensions, Platform, Appearance } from 'react-native';
+import { Dimensions, Platform, Appearance, NativeModules } from 'react-native';
 import { BUILD_ENV } from '../../build-env.js';
 
 export enum Envs {
@@ -23,7 +23,10 @@ const env = {
   baseUrl: BASE_URL || baseUrls[Envs.DEV],
   apiUrl: `${BASE_URL}/api/v1`,
   websiteDomain: 'https://www.floos.ae',
-  locale: 'en',
+  locale: Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+    NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+    : NativeModules.I18nManager.localeIdentifier,
   os: Platform.OS,
   ios: Platform.OS === 'ios',
   android: Platform.OS === 'android',

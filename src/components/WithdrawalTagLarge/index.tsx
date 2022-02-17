@@ -26,7 +26,7 @@ const WithdrawalTagLarge = ({ amount, style }: IWithdrawalTagLarge) => {
             <Text style={styles.currency}>{vocab.get().aed}</Text>
           </Text>
         </View>
-        <Text style={styles.currency}>{vocab.get().availableToWithdraw}</Text>
+        <Text style={styles.currency}>{vocab.get().availableToWithdraw.toLowerCase()}</Text>
       </View>
     </View>
   );

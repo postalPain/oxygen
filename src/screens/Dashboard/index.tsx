@@ -10,20 +10,23 @@ import WithdrawalTagSmall from 'components/WithdrawalTagSmall';
 import ButtonWithdraw from 'components/ButtonWithdraw';
 import WithdrawInfo from './WithdrawInfo';
 import { selectUserInfo } from 'modules/user/selectors';
-import ModalGoodToKnow from './ModalGoodToKnow';
 import Modal from 'components/Modal';
-import { getBalance, getWithdrawableDefaults, getSuggestedValues } from 'modules/withdrawal/actions';
+import { getBalance, getWithdrawableDefaults, getSuggestedValues, getPaycycleInfo } from 'modules/withdrawal/actions';
 import { selectBalance } from 'modules/withdrawal/selectors';
+import ModalWithdrawInfo from './ModalWithdrawInfo';
 import { E2ETextWrapper } from '../../components/E2EText';
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
+
   const [infoModal, setInfoModal] = useState(false);
+
   useEffect(() => {
     dispatch(getBalance());
     dispatch(getWithdrawableDefaults());
+    dispatch(getPaycycleInfo());
   }, []);
 
   useEffect(() => {
@@ -34,7 +37,7 @@ const Dashboard: React.FC<any> = () => {
     <ScreenWrapperMain>
       {infoModal && (
         <Modal>
-          <ModalGoodToKnow onClose={() => setInfoModal(false)} />
+          <ModalWithdrawInfo onClose={() => setInfoModal(false)} />
         </Modal>
       )}
       <View style={styles.greetingContainer}>
@@ -58,7 +61,7 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 6 }} />
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonWithdraw />
+        <ButtonWithdraw setInfoModal={setInfoModal} />
       </View>
     </ScreenWrapperMain>
   );
