@@ -5,20 +5,34 @@ import { AppScreenNames } from 'navigation/types';
 import vocab from 'i18n';
 import React, { useEffect, useState } from 'react';
 import { selectIsUserBlocked } from 'modules/user/selectors';
-import { selectBalance, selectIsWithdrawalPaused, selectMinimumWithdrawable, selectSuggestedValues } from 'modules/withdrawal/selectors';
+import { selectBalance, selectIsWithdrawalPaused, selectMinimumWithdrawable, selectPaycycleInfo, selectSuggestedValues } from 'modules/withdrawal/selectors';
 import Button from 'components/Button';
 import IconPlus from 'components/IconPlus';
 import Tooltip from '../Tooltip';
 import PayPeriodTooltip from './PayPeriodTooltip';
+import { getStoredPaycycleViewed, storePaycycleViewed } from 'modules/withdrawal/asyncStorage';
 
-const ButtonWithdraw = () => {
+interface IButtonWithdraw {
+  setInfoModal: (on: boolean) => void;
+}
+
+const ButtonWithdraw = (props: IButtonWithdraw) => {
   const navigation: StackNavigationProp<any> = useNavigation();
   const balance = useSelector(selectBalance);
+  const paycycleInfo = useSelector(selectPaycycleInfo);
   const isUserBlocked = useSelector(selectIsUserBlocked);
   const isWithdrawalPaused = useSelector(selectIsWithdrawalPaused);
   const minimumWithdrawable = useSelector(selectMinimumWithdrawable);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showPaycycleTooltip, setShowPaycycleTooltip] = useState<boolean>(false);
   const [withdrawalDisabled, setWithdrawalDisabled] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const paycycleViewed = await getStoredPaycycleViewed();
+      setShowPaycycleTooltip(paycycleInfo.end && paycycleViewed !== paycycleInfo.end);
+    })();
+  }, [paycycleInfo]);
 
   useEffect(() => {
     let newWithdrawalDisabled = null;
@@ -62,8 +76,13 @@ const ButtonWithdraw = () => {
       )
       : (
         <Tooltip
-          show={false} // Will be enabled in future stories
+          show={showPaycycleTooltip}
           content={<PayPeriodTooltip />}
+          onPress={() => {
+            props.setInfoModal(true);
+            storePaycycleViewed(paycycleInfo.end);
+            setShowPaycycleTooltip(false);
+          }}
         >
           {getButton()}
         </Tooltip>

@@ -61,7 +61,7 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 6 }} />
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonWithdraw />
+        <ButtonWithdraw setInfoModal={setInfoModal} />
       </View>
     </ScreenWrapperMain>
   );

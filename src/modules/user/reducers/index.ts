@@ -1,4 +1,4 @@
-import { IUserInfo } from 'services/api/employees';
+import { IUserInfo } from 'services/api/employees/types';
 import { TUserAction, UserActions } from '../types';
 
 export const userDefaultState: IUserInfo = {
