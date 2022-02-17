@@ -146,8 +146,8 @@ export default {
   withdrawalIsSetToPercentage:  (percents) => `Withdrawal is set to ${percents}% of earned wages`,
   payoutsRequested: 'Payouts (Requested)',
   totalAmountWithdrawn: 'Total amount withdrawn in the current cycle',
-  eltizamLimit: 'Eltizam Limit',
+  companyLimit: (company) => `${company} Limit`,
   maximumWithdrawablePerMonth: 'Maximum withdrawable amount per month',
-  aCycleIsTheRegularPeriod: (MMMdd) => `A cycle is the regular period in between paycheques. For Eltizam, the current pay cycle ends on ${MMMdd}.`,
+  aCycleIsTheRegularPeriod: (company, MMMdd) => `A cycle is the regular period in between paycheques. For ${company}, the current pay cycle ends on ${MMMdd}.`,
   today: 'today'
 };

@@ -8,6 +8,7 @@ export interface IUserInfo {
   email: string;
   first_name: string;
   last_name: string;
+  company_name: string;
   iban: string;
   id: number;
   registration_id: string;

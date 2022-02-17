@@ -6,6 +6,7 @@ export const userDefaultState: IUserInfo = {
   email: '',
   first_name: '',
   last_name: '',
+  company_name: '',
   iban: '',
   registration_id: '',
   employee_number: '',

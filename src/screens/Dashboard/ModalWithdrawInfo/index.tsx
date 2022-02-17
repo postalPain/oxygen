@@ -10,6 +10,7 @@ import PaycycleBar from './PaycycleBar';
 import { useSelector } from 'react-redux';
 import { getWithdrawalRule, selectBalance, selectPaycycleInfo } from 'modules/withdrawal/selectors';
 import moment from 'moment';
+import { selectUserInfo } from 'modules/user/selectors';
 
 interface IModalGoodToKnow {
   onClose?: () => void;
@@ -19,6 +20,7 @@ interface IModalGoodToKnow {
 const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
   const balance = useSelector(selectBalance);
   const paycycleInfo = useSelector(selectPaycycleInfo);
+  const userInfo = useSelector(selectUserInfo);
 
   return (
     <ModalWrapper onClose={onClose}>
@@ -54,7 +56,7 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
         styles={styles.listItem}
       />
       <WithdrawInfoItem
-        header={vocab.get().companyRule('Eltizam')}
+        header={vocab.get().companyRule(userInfo.company_name)}
         text={vocab.get().withdrawalIsSetToPercentage(balance.cap)}
         amount={getWithdrawalRule(balance)}
         styles={styles.listItem}
@@ -67,7 +69,7 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
       />
       {balance.monthly_limit && (
         <WithdrawInfoItem
-          header={vocab.get().eltizamLimit}
+          header={vocab.get().companyLimit(userInfo.company_name)}
           text={vocab.get().maximumWithdrawablePerMonth}
           amount={balance.monthly_limit}
           styles={styles.listItem}
@@ -79,7 +81,7 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
         </Text>
       </View>
       <Text style={styles.itemText}>
-        {vocab.get().aCycleIsTheRegularPeriod(moment(paycycleInfo.end).format('MMM DD'))}
+        {vocab.get().aCycleIsTheRegularPeriod(userInfo.company_name, moment(paycycleInfo.end).format('MMM DD'))}
       </Text>
       <PaycycleBar
         startDate={paycycleInfo.start}
