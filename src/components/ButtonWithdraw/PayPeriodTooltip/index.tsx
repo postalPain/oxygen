@@ -7,15 +7,22 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-// TODO: Use in future stories
 const PayPeriodTooltip = () => {
   const paycycleInfo = useSelector(selectPaycycleInfo);
 
   return (
     <View style={actionableTooltipStyles.container}>
       <Text style={[actionableTooltipStyles.text]}>
-        <Text style={actionableTooltipStyles.textBold}>{vocab.get().days(paycycleInfo.left_days)} </Text>
-        <Text>{vocab.get().untilEndOfPayPeriod}</Text>
+        { paycycleInfo.left_days === 0
+          ? <Text>{vocab.get().lastDayOfPayCycle}</Text>
+          : (
+            <>
+              <Text style={actionableTooltipStyles.textBold}>
+                {vocab.get().days(paycycleInfo.left_days)}
+              </Text>
+              <Text>{vocab.get().untilEndOfPayPeriod}</Text>
+            </>
+          )}
       </Text>
       <IconInfoOpacity />
     </View>

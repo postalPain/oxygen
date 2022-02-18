@@ -149,5 +149,6 @@ export default {
   companyLimit: (company) => `${company} Limit`,
   maximumWithdrawablePerMonth: 'Maximum withdrawable amount per month',
   aCycleIsTheRegularPeriod: (company, MMMdd) => `A cycle is the regular period in between paycheques. For ${company}, the current pay cycle ends on ${MMMdd}.`,
-  today: 'today'
+  today: 'today',
+  lastDayOfPayCycle: 'Last day of pay cycle',
 };
