@@ -40,6 +40,8 @@ import SplashScreen from 'react-native-splash-screen';
 
 const AppStack = createNativeStackNavigator();
 
+export let navigate;
+
 const getHeaderOptions = () => ({
   ...headerStyles,
   headerShown: true,
@@ -56,7 +58,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const navigationRef = React.useRef(null);
 
-  const navigate = (name: any, params?: any) => {
+  navigate = (name: any, params?: any) => {
     if (navigationRef && navigationRef.current) {
       navigationRef?.current?.navigate(name, params);
     }
