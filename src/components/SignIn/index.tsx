@@ -126,6 +126,7 @@ const SignIn = (
             dispatch(signIn(email || storedEmail, password, {
               onSuccess: () => {
                 setSignedIn(true);
+                setButtonDisabled(false);
               },
               onError: (_error) => {
                 setError(_error);
