@@ -16,6 +16,7 @@ import useStyles from './styles';
 import { openBrowser } from 'utils';
 import externalUrls from 'config/externalUrls';
 import useInviteUserDeepLink from 'modules/user/hooks/useInviteDeepLink';
+import { testIds } from 'config/testIds';
 
 const vocab = vocabulary.get();
 
@@ -72,6 +73,7 @@ const EnterRegistrationId = (
             returnKeyType='done'
             autoCorrect={false}
             autoCapitalize="characters"
+            testID={testIds.registrationIdInput}
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>

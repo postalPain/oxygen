@@ -7,43 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:64707826271:android:bbb993c1f557770b3641ea",
-        "android_client_info": {
-          "package_name": "com.floos"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "64707826271-b4gn0gct92mumfjs704qkh9s3ipki35d.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDkXiUSNA1n7sJgrB8KHxreMNw7YwbFK0g"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "64707826271-b4gn0gct92mumfjs704qkh9s3ipki35d.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "64707826271-hfn6cqcrs4h1hhr7hg86mo4u3iae9j2p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.qstudio.floos",
-                "app_store_id": "1595567831"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:64707826271:android:7c289d82183ac2143641ea",
         "android_client_info": {
           "package_name": "com.qstudio.floos"

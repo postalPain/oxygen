@@ -15,6 +15,8 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
+import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { testIds } from '../../config/testIds';
 
 const SignIn = (
   { navigation }: AppNavigationProps<AppScreenNames.SignIn>
@@ -22,6 +24,8 @@ const SignIn = (
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
+
+  const { pushNotRequested, requestPushes } = usePushNotifications();
 
   const [error, setError] = useState<IError>(null);
   const [email, setEmail] = useState<string>();
@@ -54,8 +58,9 @@ const SignIn = (
 
   const onSignedIn = () => {
     dispatch(checkVerification({
-      onSuccess: (status: VerificationStatuses) => {
+      onSuccess: async (status: VerificationStatuses) => {
         dispatch(userGetInfo());
+        pushNotRequested && await requestPushes(email);
         isUserEmployerVerified(status)
           ? navigation.navigate(AppScreenNames.TabNavigation)
           : navigation.navigate(AppScreenNames.UserVerificationPending);
@@ -85,6 +90,7 @@ const SignIn = (
               autoCorrect={false}
               returnKeyType='done'
               autoCapitalize="none"
+              testID={testIds.loginEmailInput}
             />
           )}
           <Input
@@ -97,6 +103,7 @@ const SignIn = (
             required
             error={passwordError}
             returnKeyType='done'
+            testID={testIds.loginPasswordInput}
           />
           <View style={styles.forgotPasswordContainer}>
             <Link
@@ -119,6 +126,7 @@ const SignIn = (
             dispatch(signIn(email || storedEmail, password, {
               onSuccess: () => {
                 setSignedIn(true);
+                setButtonDisabled(false);
               },
               onError: (_error) => {
                 setError(_error);

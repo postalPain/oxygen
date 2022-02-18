@@ -18,7 +18,7 @@ import {
   ISignInSuccessAction,
 } from 'modules/auth/types';
 import { IMeta } from 'modules/store/types';
-import { ISignUpPayload } from 'services/api/auth';
+import { ISignUpPayload } from 'services/api/auth/types';
 
 export const signUp = (payload: ISignUpPayload, meta?: IMeta): ISignUpAction => ({
   type: AuthActions.SIGN_UP,

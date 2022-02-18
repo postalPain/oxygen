@@ -22,8 +22,8 @@ export interface ITransactionBankDetails {
   created_at: string;
   updated_at: string;
   bank_branch_name: string;
-  counterparty_id: number;
-  account_number: number;
+  counterparty_id: string;
+  account_number: string;
   account_name: string;
   branch_address: string;
   country: string;

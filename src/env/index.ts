@@ -1,10 +1,11 @@
-import { Dimensions, Platform, Appearance } from 'react-native';
+import { Dimensions, Platform, Appearance, NativeModules } from 'react-native';
 import { BUILD_ENV } from '../../build-env.js';
 
 export enum Envs {
   DEV = 'DEV',
   STAGE = 'STAGE',
   PROD = 'PROD',
+  E2E = 'E2E',
 }
 
 const baseUrls = {
@@ -13,15 +14,19 @@ const baseUrls = {
   [Envs.PROD]: 'https://api-prod.stryproject-o.ch',
 };
 
-const BASE_URL = baseUrls[BUILD_ENV || Envs.DEV];
+const BASE_URL = baseUrls[BUILD_ENV] || baseUrls[Envs.DEV];
 
 const env = {
   buildEnv: BUILD_ENV,
   dev: BUILD_ENV === Envs.DEV,
-  baseUrl: BASE_URL,
+  e2e: BUILD_ENV === Envs.E2E,
+  baseUrl: BASE_URL || baseUrls[Envs.DEV],
   apiUrl: `${BASE_URL}/api/v1`,
   websiteDomain: 'https://www.floos.ae',
-  locale: 'en',
+  locale: Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+    NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
+    : NativeModules.I18nManager.localeIdentifier,
   os: Platform.OS,
   ios: Platform.OS === 'ios',
   android: Platform.OS === 'android',

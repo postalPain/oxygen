@@ -1,5 +1,7 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from 'axios';
 import vocab from 'i18n';
+import { navigate } from 'navigation';
+import { AppScreenNames } from 'navigation/types';
 
 
 export interface IBeError1 {
@@ -58,6 +60,7 @@ export const handleBackendError = (error: IAxiosError): IError => {
     };
   }
   if (error?.response?.status === 401) {
+    navigate(AppScreenNames.SignIn); // TODO: If http is refactored this should be moved to Auth saga
     return {
       code: ERROR_CODES.unauthorized,
       message: vocab.get().unauthorized,

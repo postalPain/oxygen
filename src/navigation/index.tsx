@@ -32,13 +32,15 @@ import WithdrawalSelect from 'screens/WithdrawalSelect';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 import { isUserEmployerVerified } from 'modules/user/selectors';
-import { IUserInfo } from 'services/api/employees';
+import { IUserInfo } from 'services/api/employees/types';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
 import { headerStyles, modalScreenStyles } from './styles';
 import SplashScreen from 'react-native-splash-screen';
 
 const AppStack = createNativeStackNavigator();
+
+export let navigate;
 
 const getHeaderOptions = () => ({
   ...headerStyles,
@@ -56,7 +58,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const navigationRef = React.useRef(null);
 
-  const navigate = (name: any, params?: any) => {
+  navigate = (name: any, params?: any) => {
     if (navigationRef && navigationRef.current) {
       navigationRef?.current?.navigate(name, params);
     }

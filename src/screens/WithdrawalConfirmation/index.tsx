@@ -11,6 +11,7 @@ import IconCheckRound from 'components/IconCheckRound';
 import { useSelector } from 'react-redux';
 import { selectWithdrawalTransaction } from 'modules/withdrawal/selectors';
 import moment from 'moment';
+import { E2ETextWrapper } from '../../components/E2EText';
 
 const WithdrawalConfirmation = (props: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => {
   const navigation: StackNavigationProp<any> = useNavigation();
@@ -20,7 +21,9 @@ const WithdrawalConfirmation = (props: AppNavigationProps<AppScreenNames.Withdra
     <ScreenWrapperWithdrawal>
       <View style={styles.content}>
         <IconCheckRound />
-        <Text style={styles.header}>{vocab.get().yourRequestConfirmed}</Text>
+        <E2ETextWrapper>
+          <Text style={styles.header}>{vocab.get().yourRequestConfirmed}</Text>
+        </E2ETextWrapper>
         <Text style={styles.description}>{vocab.get().itShouldntTakeTooLong}</Text>
         <View style={styles.transactionContainer}>
           <Text style={styles.transactionHeader}>{vocab.get().requestId}</Text>

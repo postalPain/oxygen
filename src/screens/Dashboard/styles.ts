@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   greeting: {
     color: theme.colors.floos1,
-    fontSize: getWidth(6),
+    fontSize: getWidth(7),
     letterSpacing: 0.4,
     paddingBottom: getHeight(1)
   },
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   greetingDate: {
-    fontSize: getWidth(3),
+    fontSize: getWidth(4),
     fontWeight: 'bold'
   },
   largeTagContainer: {

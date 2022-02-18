@@ -11,10 +11,11 @@ import {
   UserActions,
   UserStoredKeys,
 } from 'modules/user/types';
-import api, { IResponse } from 'services/api';
+import api from 'services/api';
+import { IResponse } from 'services/api/types';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
-import { IUserInfo, IVerificationResponse } from 'services/api/employees';
+import { IUserInfo, IVerificationResponse } from 'services/api/employees/types';
 import SplashScreen from 'react-native-splash-screen';
 import { removeItems, setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
@@ -56,7 +57,7 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
 
 function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
   try {
-    yield api.employees.verifyEmail(action.code);
+    yield call(api.employees.verifyEmail, action.code);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
@@ -66,7 +67,7 @@ function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
 
 function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
   try {
-    yield api.employees.resendVerificationCode(action.payload.email);
+    yield call(api.employees.resendVerificationCode, action.payload.email);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
