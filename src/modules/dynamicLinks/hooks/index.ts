@@ -4,6 +4,7 @@ import { getQueryStringParams } from 'utils/url';
 
 export interface DeepLink {
   url: string;
+  path: string;
   topic: string;
 }
 
@@ -13,10 +14,12 @@ export const parseDeepLink = (fbLink: FirebaseDynamicLinksTypes.DynamicLink) => 
   }
 
   const [url, paramsString] = fbLink.url.split('?');
+  const path = url.replace(/^https?:\/\//, '').replace(/\/+$/, '').split('/')[1];
   const params = getQueryStringParams(paramsString);
 
   return {
     url,
+    path,
     ...params,
   };
 };
