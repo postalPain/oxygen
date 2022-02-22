@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import {
@@ -12,6 +12,8 @@ import vocabulary from 'i18n';
 import theme from 'config/theme';
 import TransactionsStack from './TransactionsStack';
 import ProfileStack from './ProfileStack';
+import { navigate } from 'navigation';
+import useNavigationDeepLinks from 'navigation/useNavigationDeepLinks';
 
 
 const vocab = vocabulary.get();
@@ -19,6 +21,14 @@ const vocab = vocabulary.get();
 const Tab = createBottomTabNavigator();
 
 const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> = () => {
+
+  const [deepLinkScreenName] = useNavigationDeepLinks();
+
+  useEffect(() => {
+    deepLinkScreenName && navigate(deepLinkScreenName);
+  }, [deepLinkScreenName]);
+
+
   return (
     <Tab.Navigator
       tabBar={(props) => <TabBar {...props} />}
