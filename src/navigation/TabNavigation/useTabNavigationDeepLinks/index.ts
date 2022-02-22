@@ -9,7 +9,7 @@ const path2screenName = {
   withdraw: AppScreenNames.WithdrawalSelect,
 };
 
-const useNavigationDeepLinks = () => {
+const useTabNavigationDeepLinks = () => {
   const [deepLink] = useDynamicLinks();
 
   const [screenName, setScreenName] = useState<AppScreenNames>(null);
@@ -21,4 +21,4 @@ const useNavigationDeepLinks = () => {
   return [screenName];
 };
 
-export default useNavigationDeepLinks;
+export default useTabNavigationDeepLinks;
