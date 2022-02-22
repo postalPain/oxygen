@@ -77,7 +77,7 @@ const EnterRegistrationId = (
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>
-        <View>
+        <View style={styles.buttonContainer}>
           { cantFind && (
             <Link
               onPress={() => openBrowser(externalUrls.findMyEmployer)}

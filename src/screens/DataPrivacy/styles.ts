@@ -8,6 +8,7 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     marginTop: getHeight(4),
+    alignItems: 'center',
   },
   textContainer: {
     alignItems: 'center',
