@@ -13,10 +13,7 @@ export const selectUserStatusError = (state: RootState) => state.user.statusErro
 
 export const selectIsUserBlocked = (state: RootState) => state.user.verification_status === VerificationStatuses.blocked;
 
-export const selectEmailVerifiedStatus = (state: RootState) =>
-  VerificationStatuses.new === state.user.verification_status
-    ? VerificationStatusesFe.pending
-    : VerificationStatusesFe.verified;
+export const selectEmailVerified = (state: RootState) => VerificationStatuses.new !== state.user.verification_status;
 
 export const isUserEmployerVerified = (status: VerificationStatuses) => [
   VerificationStatuses.employer_verified,

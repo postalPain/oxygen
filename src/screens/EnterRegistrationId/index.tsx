@@ -15,7 +15,7 @@ import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
 import { openBrowser } from 'utils';
 import externalUrls from 'config/externalUrls';
-import useInviteUserDeepLink from 'modules/user/hooks/useInviteDeepLink';
+import useInviteUserDeepLink from 'modules/user/deepLinks/useInviteDeepLink';
 import { testIds } from 'config/testIds';
 
 const vocab = vocabulary.get();

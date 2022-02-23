@@ -1,6 +1,6 @@
-import { useDynamicLinks } from 'modules/dynamicLinks/hooks';
+import { useDeepLink } from 'modules/deepLinks';
 import { useEffect, useState } from 'react';
-import { DeepLink } from 'modules/dynamicLinks/hooks';
+import { DeepLink } from 'modules/deepLinks';
 
 enum UserDeepLinks {
   invite_employee = 'invite_employee',
@@ -13,19 +13,13 @@ interface LinkUserInvite extends DeepLink {
 }
 
 const useInviteUserDeepLink = () => {
-  const [deepLink] = useDynamicLinks() as LinkUserInvite[];
+  const [deepLink] = useDeepLink<LinkUserInvite>(UserDeepLinks.invite_employee);
 
   const [inviteRegistrationId, setInviteRegistrationId] = useState<string>(null);
   const [inviteEmail, setInviteEmail] = useState<string>(null);
 
   useEffect(() => {
-    if (!deepLink) {
-      return;
-    }
-    if (deepLink.topic === UserDeepLinks.invite_employee) {
-      setInviteRegistrationId(deepLink.registration_id);
-      setInviteEmail(deepLink.email);
-    }
+    deepLink && (setInviteRegistrationId(deepLink.registration_id), setInviteEmail(deepLink.email));
   }, [deepLink]);
 
   return [inviteRegistrationId, inviteEmail];

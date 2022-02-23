@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -31,12 +31,13 @@ import theme from 'config/theme';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
-import { isUserEmployerVerified } from 'modules/user/selectors';
+import { isUserEmployerVerified, selectEmailVerified } from 'modules/user/selectors';
 import { IUserInfo } from 'services/api/employees/types';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
 import { headerStyles, modalScreenStyles } from './styles';
 import SplashScreen from 'react-native-splash-screen';
+import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLink';
 
 const AppStack = createNativeStackNavigator();
 
@@ -58,7 +59,11 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const navigationRef = React.useRef(null);
 
-  navigate = (name: any, params?: any) => {
+  const emailVerified = useSelector(selectEmailVerified);
+
+  const [codeDeepLink] = useSignUpCodeDeepLink();
+
+  navigate = (name: AppScreenNames, params?: any) => {
     if (navigationRef && navigationRef.current) {
       navigationRef?.current?.navigate(name, params);
     }
@@ -98,6 +103,10 @@ const Navigation = () => {
     },
     []
   );
+
+  useEffect(() => {
+    codeDeepLink && !emailVerified && navigate(AppScreenNames.UserVerificationPending);
+  }, [codeDeepLink]);
 
   return (
     <NavigationContainer ref={navigationRef}>

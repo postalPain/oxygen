@@ -1,6 +1,5 @@
 import {
   UserActions,
-  IUserState,
   IUserGetInfoAction,
   IUserSetInfoAction,
   IVerifySignUpCodeAction,
@@ -10,6 +9,7 @@ import {
   IResendVerificationCodeAction,
   ISetUserStatusError,
   VerificationStatuses,
+  ICheckVerificationMeta,
 } from 'modules/user/types';
 import { IMeta } from 'modules/store/types';
 import { IUserInfo } from 'services/api/employees/types';
@@ -41,7 +41,7 @@ export const resendVerificationCode = (email: string, meta?: IMeta): IResendVeri
   meta,
 });
 
-export const checkVerification = (meta?: IMeta): ICheckVerificationAction => ({
+export const checkVerification = (meta?: ICheckVerificationMeta): ICheckVerificationAction => ({
   type: UserActions.CHECK_VERIFICATION,
   meta,
 });
