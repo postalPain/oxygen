@@ -8,6 +8,8 @@ export const selectRefreshToken = (state: RootState) => state.auth.authData.refr
 
 export const selectSignUpData = (state: RootState) => state.auth.signUpData;
 
+export const selectSignUpCode = (state: RootState) => state.auth.signUpCode;
+
 export const selectSignUpErrors = (state: RootState) => state.auth.signUpErrors;
 
 export const selectAuthData = (state: RootState) => state.auth.authData;

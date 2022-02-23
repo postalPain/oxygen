@@ -51,6 +51,11 @@ export interface IResendVerificationCodeAction {
   meta?: IMeta;
 }
 
+export interface ICheckVerificationMeta {
+  onSuccess: (status: VerificationStatuses) => void;
+  onError: () => void;
+}
+
 export interface ICheckVerificationAction {
   type: UserActions.CHECK_VERIFICATION;
   meta: IMeta;
