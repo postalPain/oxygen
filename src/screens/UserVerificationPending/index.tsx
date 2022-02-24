@@ -7,7 +7,7 @@ import { getItem } from 'modules/asyncStorage';
 import { VerificationStatusesFe } from 'modules/user/types';
 import { checkVerification, userClearInfo, resendVerificationCode } from 'modules/user/actions';
 import { clearAuthData, clearSignUpData } from 'modules/auth/actions';
-import { selectEmailVerifiedStatus, selectEmployerVerifiedStatus, } from 'modules/user/selectors';
+import { selectEmailVerified, selectEmployerVerifiedStatus, } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
 import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
@@ -16,6 +16,7 @@ import { getHeight } from 'utils/window';
 import { openBrowser } from 'utils';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import externalUrls from 'config/externalUrls';
+import useSignUpCodeDeepLink from 'modules/auth/deepLinks/useSignUpCodeDeepLink';
 
 
 const vocab = vocabulary.get();
@@ -26,12 +27,12 @@ const UserVerificationPending = (
   const styles = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
+  const [codeDeepLink] = useSignUpCodeDeepLink();
 
-  const emailVerificationState = useSelector(selectEmailVerifiedStatus);
+
+  const emailVerified = useSelector(selectEmailVerified);
   const employerVerificationState = useSelector(selectEmployerVerifiedStatus);
 
-  const emailVerified = emailVerificationState === VerificationStatusesFe.verified;
-  const emailPending = emailVerificationState === VerificationStatusesFe.pending;
   const employerVerified = employerVerificationState === VerificationStatusesFe.verified;
   const employerPending = employerVerificationState === VerificationStatusesFe.pending;
   const employerRejected = employerVerificationState === VerificationStatusesFe.rejected;
@@ -49,6 +50,10 @@ const UserVerificationPending = (
   useEffect(() => {
     getItem(AuthStoredKeys.email).then(setEmail);
   }, []);
+
+  useEffect(() => {
+    codeDeepLink && !emailVerified && navigation.navigate(AppScreenNames.VerificationCodeSignUp);
+  }, [codeDeepLink]);
 
   const clearAuthAndUserData = () => {
     navigation.navigate(AppScreenNames.Onboarding);
@@ -70,14 +75,14 @@ const UserVerificationPending = (
                 emailVerified && styles.progressBarVerified,
               ]}
             >
-              <StatusIcon status={emailVerificationState} />
+              <StatusIcon status={emailVerified ? VerificationStatusesFe.verified : VerificationStatusesFe.pending} />
               <View style={[styles.line]} />
             </View>
             <Text style={[styles.stepTitle]}>
               {vocab.emailVerification}
             </Text>
             <EmailTag onPress={clearAuthAndUserData} email={email} />
-            {emailPending && (
+            {!emailVerified && (
               <Text style={styles.stepText}>
                 {vocab.weSentEmail}
               </Text>
@@ -138,7 +143,7 @@ const UserVerificationPending = (
             {vocab.getStarted}
           </Button>
         )}
-        {emailPending && (
+        {!emailVerified && (
           <View style={styles.buttonsWrapper}>
             <ResendEmail onPress={resendVerificationCode} />
             <Button onPress={() => navigation.navigate(AppScreenNames.VerificationCodeSignUp)}>

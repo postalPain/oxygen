@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: getHeight(6),
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   buttonSectionExistingUser: {
     justifyContent: 'flex-start',

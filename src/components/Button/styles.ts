@@ -1,14 +1,17 @@
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { getWidth, windowDimensions } from 'utils/window';
+import { getWidth } from 'utils/window';
+
+const width = getWidth(84);
 
 const styles = StyleSheet.create({
   button: {
     borderRadius: getWidth(14),
     overflow: 'hidden',
+    width,
   },
   innerSecondary: {
-    width: getWidth(84) - 2,
+    width: width - 2,
     height: getWidth(14) - 2,
     borderRadius: getWidth(14),
     backgroundColor: theme.colors.screenBackgroundColorLight,
@@ -16,7 +19,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   linearGradient: {
-    width: getWidth(84),
     height: getWidth(14),
     justifyContent: 'center',
     alignItems: 'center',

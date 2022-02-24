@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { errorNotification } from 'modules/notifications/actions';
 import { IMeta } from 'modules/store/types';
 import { Button, ScreenWithAnimatedHeader, InfoText, ResendEmail } from 'components';
 import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import styles from './styles';
+import { selectSignUpCode } from 'modules/auth/selectors';
+import { setSignUpCode } from 'modules/auth/actions';
 
 
 const vocab = vocabulary.get();
@@ -19,17 +21,21 @@ interface IVerificationCode {
 
 const VerificationCode = ({ onSubmit, backendError, resend }: IVerificationCode) => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
+
+  const code = useSelector(selectSignUpCode);
+
   useEffect(() => {
     backendError && dispatch(errorNotification({ text: backendError }));
   }, [backendError]);
+
   return (
     <ScreenWithAnimatedHeader>
       <View style={styles.verificationCode}>
         <View>
           <CodeInput
             style={styles.codeInput}
-            onChange={setValue}
+            value={code}
+            onChange={(val) => dispatch(setSignUpCode(val))}
           />
           <InfoText style={styles.infoBlock}>
             <Text style={styles.infoText}>{vocab.pleaseEnterCode}</Text>
@@ -38,8 +44,8 @@ const VerificationCode = ({ onSubmit, backendError, resend }: IVerificationCode)
         <View style={styles.buttonsContainer}>
           {!!resend && <ResendEmail onPress={resend} />}
           <Button
-            disabled={value.length !== CODE_LENGTH}
-            onPress={() => onSubmit(value) }
+            disabled={code?.length !== CODE_LENGTH}
+            onPress={() => onSubmit(code) }
           >
             {vocab.confirm}
           </Button>

@@ -16,27 +16,23 @@ interface ICodeInput {
   style?: any;
   onChange?: (value: string) => void;
   onEndEditing?: (value?: string) => void;
+  value?: string;
 }
 
 const CodeInput = (props: ICodeInput) => {
-  const [value, setValue] = useState('');
-  const ref = useBlurOnFulfill({ value, cellCount: CODE_LENGTH });
+  const ref = useBlurOnFulfill({ value: props.value, cellCount: CODE_LENGTH });
   const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
+    value: props.value,
+    setValue: props.onChange,
   });
-
-  useEffect(() => {
-    props.onChange && props.onChange(value);
-  }, [value]);
 
   return (
     <CodeField
       autoFocus
       ref={ref}
       {...codeFieldProps}  // eslint-disable-line
-      value={value}
-      onChangeText={setValue}
+      value={props.value}
+      onChangeText={props.onChange}
       caretHidden={false}
       onEndEditing={(e) => props.onEndEditing && props.onEndEditing(e.nativeEvent.text)}
       cellCount={CODE_LENGTH}
