@@ -14,15 +14,17 @@ import { setSignUpCode } from 'modules/auth/actions';
 const vocab = vocabulary.get();
 
 interface IVerificationCode {
-  onSubmit: (code: string) => void;
-  backendError: string;
+  code?: string;
+  onChange?: (value: string) => void;
+  onSubmit?: (code: string) => void;
+  backendError?: string;
   resend?: (email: string, meta: IMeta) => {};
 }
 
-const VerificationCode = ({ onSubmit, backendError, resend }: IVerificationCode) => {
+const VerificationCode = (props: IVerificationCode) => {
+  const { backendError, resend } = props;
   const dispatch = useDispatch();
 
-  const code = useSelector(selectSignUpCode);
 
   useEffect(() => {
     backendError && dispatch(errorNotification({ text: backendError }));
@@ -34,8 +36,8 @@ const VerificationCode = ({ onSubmit, backendError, resend }: IVerificationCode)
         <View>
           <CodeInput
             style={styles.codeInput}
-            value={code}
-            onChange={(val) => dispatch(setSignUpCode(val))}
+            value={props.code}
+            onChange={props.onChange}
           />
           <InfoText style={styles.infoBlock}>
             <Text style={styles.infoText}>{vocab.pleaseEnterCode}</Text>
@@ -44,8 +46,8 @@ const VerificationCode = ({ onSubmit, backendError, resend }: IVerificationCode)
         <View style={styles.buttonsContainer}>
           {!!resend && <ResendEmail onPress={resend} />}
           <Button
-            disabled={code?.length !== CODE_LENGTH}
-            onPress={() => onSubmit(code) }
+            disabled={props.code?.length !== CODE_LENGTH}
+            onPress={() => props.onSubmit(props.code) }
           >
             {vocab.confirm}
           </Button>

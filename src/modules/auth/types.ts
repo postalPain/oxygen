@@ -118,7 +118,7 @@ export interface ISetForgotPasswordEmailAction {
 
 export interface ISetForgotPasswordCodeAction {
   type: AuthActions.SET_FORGOT_PASSWORD_CODE;
-  code: number;
+  code: string;
 }
 
 export interface IResetPasswordAction {
