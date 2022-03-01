@@ -90,7 +90,7 @@ export const setForgotPasswordEmail = (email: string, meta?: IMeta): ISetForgotP
   meta,
 });
 
-export const setForgotPasswordCode = (code: number): ISetForgotPasswordCodeAction => ({
+export const setForgotPasswordCode = (code: string): ISetForgotPasswordCodeAction => ({
   type: AuthActions.SET_FORGOT_PASSWORD_CODE,
   code
 });

@@ -5,7 +5,7 @@ import { SignIn } from 'components';
 const ForgotPasswordSignIn = (props) => {
   return (
     <ScreenWrapperForgotPasswordLogin>
-      <SignIn {...props} />
+      <SignIn forgotPasswordMode {...props} />
     </ScreenWrapperForgotPasswordLogin>
   );
 };

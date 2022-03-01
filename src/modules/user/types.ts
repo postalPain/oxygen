@@ -52,8 +52,8 @@ export interface IResendVerificationCodeAction {
 }
 
 export interface ICheckVerificationMeta {
-  onSuccess: (status: VerificationStatuses) => void;
-  onError: () => void;
+  onSuccess?: (status: VerificationStatuses) => void;
+  onError?: () => void;
 }
 
 export interface ICheckVerificationAction {

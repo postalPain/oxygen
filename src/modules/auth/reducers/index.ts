@@ -13,6 +13,7 @@ export const defaultAuthData = {
   refresh_token: '',
   refresh_ttl: '',
 };
+
 export const defaultSignUpData = {
   registration_id: '',
   email: '',

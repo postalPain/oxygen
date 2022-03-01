@@ -23,6 +23,7 @@ const ScreenWrapperForgotPasswordLogin = (props: IScreenWrapperLoginForgot) => {
               <IconCheck size={24} />
             </View>
             <Text style={styles.text}>{vocab.get().newPasswordCreated}</Text>
+            <Text style={styles.text}>{vocab.get().pleaseLogInIntoAccount}</Text>
           </View>
 
           <View style={styles.childrenContainer}>
