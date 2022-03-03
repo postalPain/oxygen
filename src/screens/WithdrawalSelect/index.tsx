@@ -35,13 +35,13 @@ const WithdrawalSelect = () => {
   const [inputValue, setInputValue] = useState('');
   useEffect(() => {
     if (amount > maximumWithdrawable) {
-      setDescription(vocab.get().maximumWithdrawable(maximumWithdrawable));
+      setDescription(vocab.t(vocab.get().maximumWithdrawable, maximumWithdrawable));
       setDisabled(true);
     } else if (amount < minimumWithdrawable) {
-      setDescription(vocab.get().minimumWithdrawable(minimumWithdrawable));
+      setDescription(vocab.t(vocab.get().minimumWithdrawable, minimumWithdrawable));
       setDisabled(true);
     } else {
-      setDescription(vocab.get().plusServiceCharge(fee));
+      setDescription(vocab.t(vocab.get().plusServiceCharge, fee));
       setDisabled(false);
     }
   }, [amount, suggestedValues]);

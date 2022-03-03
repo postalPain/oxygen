@@ -56,8 +56,8 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
         styles={styles.listItem}
       />
       <WithdrawInfoItem
-        header={vocab.get().companyRule(userInfo.company_name)}
-        text={vocab.get().withdrawalIsSetToPercentage(balance.cap)}
+        header={vocab.t(vocab.get().companyRule, userInfo.company_name)}
+        text={vocab.t(vocab.get().withdrawalIsSetToPercentage, balance.cap)}
         amount={getWithdrawalRule(balance)}
         styles={styles.listItem}
       />
@@ -69,7 +69,7 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
       />
       {balance.monthly_limit && (
         <WithdrawInfoItem
-          header={vocab.get().companyLimit(userInfo.company_name)}
+          header={vocab.t(vocab.get().companyLimit, userInfo.company_name)}
           text={vocab.get().maximumWithdrawablePerMonth}
           amount={balance.monthly_limit}
           styles={styles.listItem}
@@ -81,7 +81,7 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
         </Text>
       </View>
       <Text style={styles.itemText}>
-        {vocab.get().aCycleIsTheRegularPeriod(userInfo.company_name, moment(paycycleInfo.end).format('MMM DD'))}
+        {vocab.t(vocab.get().aCycleIsTheRegularPeriod, userInfo.company_name, moment(paycycleInfo.end).format('MMM DD'))}
       </Text>
       <PaycycleBar
         startDate={paycycleInfo.start}
