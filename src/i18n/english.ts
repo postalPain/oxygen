@@ -1,4 +1,4 @@
-const en = {
+const english = {
   help: 'Help',
   back: 'Back',
   continue: 'Continue',
@@ -153,4 +153,4 @@ const en = {
   lastDayOfPayCycle: 'Last day of pay cycle',
 };
 
-export default en;
+export default english;
