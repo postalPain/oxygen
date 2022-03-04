@@ -32,7 +32,7 @@ export const useDeepLink = <T extends DeepLink>(topic?: string): T[] => {
       const deepLink = parseDeepLink<T>(fbLink);
       console.log('topic', topic);
 
-      (!topic || topic === deepLink.topic) && setLink(deepLink);
+      deepLink && (!topic || topic === deepLink.topic) && setLink(deepLink);
     };
 
     const unsubscribe = dynamicLinks().onLink(onLink);

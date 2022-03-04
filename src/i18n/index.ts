@@ -3,14 +3,14 @@ import filipino from './filipino';
 import french from './french';
 import hindi from './hindi';
 import malayalam from './malayalam';
-import { getLanguage, } from './utils';
+import { getLanguage, Languages, } from './utils';
 
 const vocabularies = {
-  english,
-  filipino,
-  french,
-  hindi,
-  malayalam,
+  [Languages.en]: english,
+  [Languages.fi]: filipino,
+  [Languages.fr]: french,
+  [Languages.hi]: hindi,
+  [Languages.ml]: malayalam,
 };
 
 const vocab = {
