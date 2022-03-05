@@ -23,7 +23,7 @@ const ModalBiometricLogin = (props: IModalBiometricLogin) => {
           <View style={styles.section}>
             <IconFaceId />
             <Text style={styles.title}>
-              {vocab.get().logWithBiometrics(props.biometricsType)}
+              {vocab.t(vocab.get().logWithBiometrics, props.biometricsType)}
             </Text>
           </View>
 
@@ -36,7 +36,7 @@ const ModalBiometricLogin = (props: IModalBiometricLogin) => {
                 props.onAnyPress?.();
               } }
             >
-              {vocab.get().allowBiometrics(props.biometricsType)}
+              {vocab.t(vocab.get().allowBiometrics, props.biometricsType)}
             </Button>
             <Link onPress={() => {
               props.onCancel?.();

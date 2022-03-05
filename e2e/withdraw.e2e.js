@@ -1,4 +1,4 @@
-import en from '../src/i18n/en';
+import en from '../src/i18n/english';
 
 describe('Withdraw and transaction', () => {
   beforeAll(async () => {

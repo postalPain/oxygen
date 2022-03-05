@@ -38,7 +38,7 @@ const WithdrawalAmountTag = ({
               color: active ? theme.colors.screenBackgroundColorLight : theme.colors.textDark
             }]}
           >
-            {!!total ? vocab.get().totalAvailableAmount(amount) : `${amount} ${vocab.get().aed}` }
+            {!!total ? vocab.t(vocab.get().totalAvailableAmount, amount) : `${amount} ${vocab.get().aed}` }
 
           </Text>
         </E2ETextWrapper>

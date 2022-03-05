@@ -18,7 +18,7 @@ const PayPeriodTooltip = () => {
           : (
             <>
               <Text style={actionableTooltipStyles.textBold}>
-                {`${vocab.get().days(paycycleInfo.left_days)} `}
+                {`${paycycleInfo.left_days} ${paycycleInfo.left_days === 1 ? vocab.get().day : vocab.get().days} `}
               </Text>
               <Text>{vocab.get().untilEndOfPayPeriod}</Text>
             </>
