@@ -51,7 +51,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
         <UserInformation />
         <View style={styles.footer}>
           <View style={styles.contactUs}>
-            <Text style={styles.contactUsText}>{vocab.ifNotAccurate}</Text>
+            <Text style={styles.contactUsText}>{vocab.ifNotAccurate} </Text>
             <Link
               onPress={() => openBrowser(externalUrls.help)}
               style={styles.contactUsLink}
