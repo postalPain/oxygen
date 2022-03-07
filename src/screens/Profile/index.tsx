@@ -16,6 +16,7 @@ import Arrow from './Arrow';
 import styles from './styles';
 import externalUrls from 'config/externalUrls';
 import vocab from 'i18n';
+import { analyticEvents } from '../../services/analytics';
 
 const Profile = (
   { navigation }: AppNavigationProps<AppScreenNames.Profile>
@@ -23,9 +24,6 @@ const Profile = (
   const dispatch = useDispatch();
   const goTo = (screenName) => {
     navigation.navigate(screenName);
-  };
-  const openLink = (link: string) => {
-    openBrowser(link);
   };
   const logout = () => {
     dispatch(signOut({
@@ -54,7 +52,7 @@ const Profile = (
         </Pressable>
         <Pressable
           style={styles.menuItem}
-          onPress={() => openLink(externalUrls.privacyPolicy)}
+          onPress={() => openBrowser(externalUrls.privacyPolicy)}
         >
           <IconPrivacyPolicy />
           <Text style={styles.menuItemText}>{vocab.get().privacyPolicy}</Text>
@@ -62,7 +60,7 @@ const Profile = (
         </Pressable>
         <Pressable
           style={styles.menuItem}
-          onPress={() => openLink(externalUrls.help)}
+          onPress={() => openBrowser(externalUrls.help, { name: analyticEvents.helpViewed, sourceScreen: 'Profile' })}
         >
           <IconHelpCenter />
           <Text style={styles.menuItemText}>{vocab.get().helpCenter}</Text>

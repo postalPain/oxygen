@@ -17,6 +17,7 @@ import { openBrowser } from 'utils';
 import externalUrls from 'config/externalUrls';
 import { deleteFromStoredLoginEmails } from 'modules/user/asyncStorage';
 import { clearSignUpData } from 'modules/auth/actions';
+import { analyticEvents } from '../../services/analytics';
 
 
 const vocab = vocabulary.get();
@@ -53,7 +54,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
           <View style={styles.contactUs}>
             <Text style={styles.contactUsText}>{vocab.ifNotAccurate}</Text>
             <Link
-              onPress={() => openBrowser(externalUrls.help)}
+              onPress={() => openBrowser(externalUrls.help, { name: analyticEvents.helpViewed, sourceScreen: 'UserInfoConfirmation' })}
               style={styles.contactUsLink}
             >
               {vocab.contactUsImmediately}

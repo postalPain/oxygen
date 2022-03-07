@@ -2,7 +2,6 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import api from 'services/api';
 import * as authActions from 'modules/auth/actions';
-import { clearSignUpData } from 'modules/auth/actions';
 import {
   AuthActions,
   IAuthData,
@@ -25,9 +24,10 @@ import { ERROR_CODES, IError } from 'services/api/errors';
 import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
 import { addToStoredLoginEmails, incrementLoginCount } from 'modules/user/asyncStorage';
-import { deleteBiometricData, storeBiometricData } from 'modules/biometrics/asyncStorage';
+import { storeBiometricData } from 'modules/biometrics/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { IResponse } from '../../../services/api/types';
+import { analyticEvents, analytics } from '../../../services/analytics';
 
 
 function* handleError (error: IError) {
@@ -60,6 +60,10 @@ function* signUpWorker(action: ISignUpAction) {
     yield put(authActions.setSignUpError(errors));
     return;
   }
+  analytics.logEvent(analyticEvents.signUpCompleted, {
+    email: action.payload.email,
+    registration_id: action.payload.registration_id,
+  });
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield storeAuthData(response.data);

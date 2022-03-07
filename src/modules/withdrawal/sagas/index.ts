@@ -19,6 +19,7 @@ import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectBalance } from '../selectors';
 import { getState } from 'modules/store';
+import { analyticEvents, analytics } from '../../../services/analytics';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -75,6 +76,10 @@ function* withdrawalWorker(action: IWithdrawalAction) {
     yield put(errorNotification({ text: error.message }));
     return;
   }
+
+  analytics.logEvent(analyticEvents.madeWithdrawal, {
+    withdrawalAmount: action.amount,
+  });
 
   yield put(setWithdrawalTransaction(response.data));
   yield action.meta.onSuccess?.();

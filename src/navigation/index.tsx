@@ -38,6 +38,7 @@ import DebugView from 'components/DebugView';
 import { headerStyles, modalScreenStyles } from './styles';
 import SplashScreen from 'react-native-splash-screen';
 import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLink';
+import { analytics } from '../services/analytics';
 
 const AppStack = createNativeStackNavigator();
 
@@ -58,6 +59,7 @@ const getHeaderOptions = () => ({
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigationRef = React.useRef(null);
+  const routeNameRef = React.useRef();
 
   const emailVerified = useSelector(selectEmailVerified);
 
@@ -108,8 +110,26 @@ const Navigation = () => {
     codeDeepLink && !emailVerified && navigate(AppScreenNames.UserVerificationPending);
   }, [codeDeepLink]);
 
+  const onNavigationReady = () => {
+    routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+  };
+
+  const onNavigationStateChange = async () => {
+    const previousRouteName = routeNameRef.current;
+    const currentRouteName = navigationRef.current.getCurrentRoute().name;
+
+    if (previousRouteName !== currentRouteName) {
+      await analytics.logScreen(currentRouteName);
+    }
+    routeNameRef.current = currentRouteName;
+  };
+
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={onNavigationReady}
+      onStateChange={onNavigationStateChange}
+    >
       <AppStack.Navigator screenOptions={{
         headerShadowVisible: false
       }}

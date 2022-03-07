@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, } from 'react-native';
-
 import vocab from 'i18n';
 import Button from 'components/Button';
 import { Carousel } from 'components/Carousel';
 import ScreenWrapperOnboarding from 'components/ScreenWrapperOnboarding';
 import { OnboardingContext } from 'components/ScreenWrapperOnboarding/context';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import { analyticEvents, analytics } from '../../services/analytics';
 
 const carouselSlides = [{
   image: require('../../../assets/onboarding_01.png'),
@@ -25,6 +25,7 @@ const Onboarding = (
 
   const goToSignUp = () => {
     navigation.navigate(AppScreenNames.EnterRegistrationId);
+    analytics.logEvent(analyticEvents.signUpStarted);
   };
   const goToLogIn = () => {
     navigation.navigate(AppScreenNames.SignIn);

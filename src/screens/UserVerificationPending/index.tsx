@@ -16,6 +16,7 @@ import { getHeight } from 'utils/window';
 import { openBrowser } from 'utils';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import externalUrls from 'config/externalUrls';
+import { analyticEvents } from '../../services/analytics';
 import useSignUpCodeDeepLink from 'modules/auth/deepLinks/useSignUpCodeDeepLink';
 
 
@@ -123,7 +124,7 @@ const UserVerificationPending = (
                   {vocab.verificationUnsuccessful}
                 </Text>
                 <Pressable
-                  onPress={() => openBrowser(externalUrls.help)}
+                  onPress={() => openBrowser(externalUrls.help, { name: analyticEvents.helpViewed, sourceScreen: 'UserVerificationPending' })}
                 >
                   <Text style={[styles.infoText, styles.link]}>
                     {vocab.contactUs}
