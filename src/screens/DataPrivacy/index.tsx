@@ -87,7 +87,7 @@ const DataPrivacy = (
           </View>
           <View style={styles.checkboxLabelWrapper}>
             <Text style={styles.checkboxLabel}>
-              {vocab.iHaveRead}
+              {`${vocab.iHaveRead} `}
             </Text>
             <Link
               onPress={() => openBrowser(`${env.websiteDomain}/privacy-policy`)}
