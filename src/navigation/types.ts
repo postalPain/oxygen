@@ -53,8 +53,8 @@ export type AppStackParameters = {
   TabNavigation: undefined;
   Dashboard: undefined;
   TransactionsStack: undefined;
-  Transactions: undefined;
-  TransactionsDetails: { transaction: ITransaction };
+  Transactions: { id: number };
+  TransactionsDetails: { id: number };
   ProfileStack: undefined;
   Profile: undefined;
   AccountDetails: undefined;

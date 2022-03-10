@@ -8,7 +8,7 @@ export interface ITransactionsState {
 
 export const transactionsDefaultState: ITransactionsState = {
   transactions: [],
-  transactionsLoading: false
+  transactionsLoading: true
 };
 
 const transactionsReducer = (

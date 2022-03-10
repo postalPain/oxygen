@@ -8,17 +8,27 @@ import NoTransactions from './NoTransactions';
 import TransactionsList from './TransactionsList';
 import useStyles from './styles';
 import useInterval from 'utils/useInterval';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import { useNavigation } from '@react-navigation/native';
 
 const REQUEST_DELAY = 1000 * 15;
 
-const Transactions = () => {
+const Transactions = (
+  { route: { params } }: AppNavigationProps<AppScreenNames.Transactions>
+) => {
   const dispatch = useDispatch();
   const styles = useStyles();
+
+  const navigation = useNavigation<any>();
   const [delay, setDelay] = useState(REQUEST_DELAY);
 
   const transactions = useSelector(selectTransactions);
   const transactionsLoading = useSelector(selectTransactionsLoading);
   const noPendingTransactions = useSelector(selectNoPendingTransaction);
+
+  // useEffect(() => {
+  //   params.id && navigation.navigate(AppScreenNames.TransactionsDetails, { id: params.id });
+  // }, [params]);
 
   useInterval(() => {
     dispatch(getTransactions());
@@ -36,7 +46,7 @@ const Transactions = () => {
     <ScreenWrapperMain>
       <View style={styles.container}>
         {!transactionsLoading && !transactions.length && <NoTransactions />}
-        {!transactionsLoading && transactions.length && <TransactionsList />}
+        {!!transactions.length && <TransactionsList />}
       </View>
     </ScreenWrapperMain>
   );

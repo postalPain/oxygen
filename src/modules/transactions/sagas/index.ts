@@ -11,6 +11,8 @@ import { errorNotification } from 'modules/notifications/actions';
 
 function* getTransactionsWorker (action: IGetTransactionsAction) {
   let response;
+  yield put(transactionsActions.setTransactionsLoading(true));
+
   try {
     response = yield api.employees.getTransactions();
   } catch (error) {
