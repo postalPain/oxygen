@@ -2,15 +2,13 @@ import vocabulary from 'i18n';
 import {
   TransactionStatusesBE,
   TransactionStatusesFE,
-  TTransactionStatusBE,
-  TTransactionStatusFE,
 } from 'modules/transactions/types';
 import moment from 'moment';
 import { getUTCOffset } from 'utils/time';
 
 const vocab = vocabulary.get();
 
-export const getTransactionStatus = (beStatus: TTransactionStatusBE): TTransactionStatusFE => {
+export const getTransactionStatus = (beStatus: TransactionStatusesBE): TransactionStatusesFE => {
   let status;
   switch (beStatus) {
     case TransactionStatusesBE.pending:

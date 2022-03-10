@@ -269,15 +269,6 @@ const Navigation = () => {
         />
         <AppStack.Group screenOptions={{ presentation: 'modal' }}>
           <AppStack.Screen
-            name={AppScreenNames.TransactionsDetails}
-            component={TransactionDetails}
-            options={({ navigation }: AppNavigationProps<AppScreenNames.TransactionsDetails>) => ({
-              title: '',
-              headerTransparent: true,
-              headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
-            })}
-          />
-          <AppStack.Screen
             name={AppScreenNames.AccountDetails}
             component={AccountDetails}
             options={{

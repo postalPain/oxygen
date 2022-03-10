@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AppScreenNames } from 'navigation/types';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Transactions, TransactionDetails } from 'screens';
 import { BackButton } from 'components';
 
@@ -21,6 +21,16 @@ const TransactionsStack = () => {
         options={{
           headerShown: false,
         }}
+      />
+      <Stack.Screen
+        name={AppScreenNames.TransactionsDetails}
+        component={TransactionDetails}
+        options={({ navigation }: AppNavigationProps<AppScreenNames.TransactionsDetails>) => ({
+          presentation: 'modal',
+          title: '',
+          headerTransparent: true,
+          headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
+        })}
       />
     </Stack.Navigator>
   );
