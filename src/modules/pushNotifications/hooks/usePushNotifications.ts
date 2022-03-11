@@ -1,26 +1,29 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import env from 'env';
 import { getItem, getItemForUser, setItem, setItemForUser } from 'modules/asyncStorage';
+import { logMessage } from 'modules/logger/actions';
 import { selectUserEmail } from 'modules/user/selectors';
 import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export enum pushesStoredKeys {
   fcmToken = 'fcmToken',
   pushEnabled = 'pushEnabled',
 }
 
-type OnMessage = (message: FirebaseMessagingTypes.RemoteMessage) => Promise<any>;
+// interface OnMessage<T> {
+//   (arg: FirebaseMessagingTypes.RemoteMessage & {data: T}): any;
+// }
 
-export const usePushNotifications = (onMessage?: OnMessage) => {
+export const usePushNotifications = <T>(topic?: string) => {
+  const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
   const [fcmToken, setFcmToken] = useState<string>();
-
-  const pushNotRequested = permissions === 'denied';
+  const [message, setMessage] = useState<FirebaseMessagingTypes.RemoteMessage & {data: T}>(null);
 
   useEffect(() => {
     (async () => {
@@ -33,6 +36,7 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
   }, []);
 
   useEffect(() => {
+
     if (!enabled) {
       return;
     }
@@ -43,10 +47,15 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
         setItem(pushesStoredKeys.fcmToken, _fcmToken);
       }
       setFcmToken(_fcmToken);
+      dispatch(logMessage('_fcmToken', _fcmToken));
     })();
 
-    onMessage && messaging().onMessage(onMessage);
-    onMessage && messaging().setBackgroundMessageHandler(onMessage);
+    const onMessage = (_message: FirebaseMessagingTypes.RemoteMessage & {data: T}): any => {
+      !topic || (topic === _message.data.topic) && setMessage(_message);
+    };
+
+    messaging().onMessage(onMessage);
+    messaging().setBackgroundMessageHandler(onMessage);
   }, [enabled]);
 
   const requestPermissions = async (): Promise<PermissionStatus> => {
@@ -76,8 +85,9 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
   return {
     pushEnabled: enabled,
     pushPermissions: permissions,
-    pushNotRequested,
+    pushNotRequested: permissions === 'denied',
     fcmToken,
+    message,
     requestPushes,
     turnOnPushes: async () => {
       const { status } = await checkNotifications();

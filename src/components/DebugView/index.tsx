@@ -12,22 +12,26 @@ import { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
 import SettingsPushNotifications from 'components/SettingsPushNotifications';
 import AsyncStorage from '@react-native-community/async-storage';
+import { selectLoggerMessages } from 'modules/logger/selectors';
+import { getWidth } from 'utils/window';
+import { logMessage } from 'modules/logger/actions';
 
 const DebugView = () => {
   const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
+  const loggerMessages = useSelector(selectLoggerMessages);
+
   const {
-    requestPushes: requestNotifications,
     fcmToken,
-  } = usePushNotifications(onMessageReceived);
+  } = usePushNotifications();
 
   const [text, setText] = useState<string>('');
 
-  async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) {
-    // Do something
-    console.log('message', message);
-    setText(text => `${text}\nmessage:${ JSON.stringify(message, null, 4)}`);
-  }
+  // async function onMessageReceived(message: FirebaseMessagingTypes.RemoteMessage) {
+  //   // Do something
+  //   console.log('message', message);
+  //   setText(text => `${text}\nmessage:${ JSON.stringify(message, null, 4)}`);
+  // }
 
   useEffect(() => {
     AsyncStorage.getAllKeys((err, keys) => {
@@ -38,6 +42,8 @@ const DebugView = () => {
         });
       });
     });
+
+    dispatch(logMessage('asd'));
   }, []);
 
   useEffect(() => {
@@ -53,16 +59,17 @@ const DebugView = () => {
       <Link onPress={() => setLoginCount(email, 0)}>
         Clear loginCount
       </Link>
-      <Link onPress={() => storeBiometricsAccepted(email, false)}>
-        Reset Biometrics Permission
-      </Link>
-      <Link onPress={() => requestNotifications()}>
-        Request Notifications
-      </Link>
-      <Text selectable>
-        {text}
-      </Text>
       <SettingsPushNotifications />
+
+      {
+        loggerMessages.reverse().map(message => (
+          <Text selectable style={{ fontSize: getWidth(3) }} >
+            <Text>{message.time} </Text>
+            <Text> {message.message}</Text>
+          </Text>
+        ))
+      }
+
     </ScrollView>
   );
 };
