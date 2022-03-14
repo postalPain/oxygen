@@ -9,11 +9,9 @@ interface ITransactionDetailsPushData {
 }
 
 const usePushTransactionDetails = () => {
-  const [message, setMessage] = useState<ITransactionDetailsPushData>(null);
+  const transactionDetailsPush = usePushNotifications<ITransactionDetailsPushData>(TRANSACTION_DETAILS_TOPIC);
 
-  const {} = usePushNotifications<ITransactionDetailsPushData>();
-
-  return message;
+  return transactionDetailsPush;
 };
 
 export default usePushTransactionDetails;
