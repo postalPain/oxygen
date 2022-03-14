@@ -16,9 +16,9 @@ import { IResponse } from 'services/api/types';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
 import { IUserInfo, IVerificationResponse } from 'services/api/employees/types';
-import SplashScreen from 'react-native-splash-screen';
 import { removeItems, setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
+import { setSignUpCodeLoading } from 'modules/auth/actions';
 
 
 function* getUserInfoWorker() {
@@ -56,13 +56,16 @@ function* checkVerificationWorker (action: ICheckVerificationAction) {
 }
 
 function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
+  yield put(setSignUpCodeLoading(true));
   try {
     yield call(api.employees.verifyEmail, action.code);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
+    yield put(setSignUpCodeLoading(false));
     return;
   }
   yield action.meta.onSuccess();
+  yield put(setSignUpCodeLoading(false));
 }
 
 function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
