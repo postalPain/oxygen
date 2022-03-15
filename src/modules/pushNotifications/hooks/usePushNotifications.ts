@@ -27,6 +27,15 @@ export const usePushNotifications = <T>(topic?: string) => {
 
   useEffect(() => {
     (async () => {
+      (async () => {
+        let _fcmToken = await getItem(pushesStoredKeys.fcmToken);
+        if (!_fcmToken) {
+          _fcmToken = await messaging().getToken();
+          setItem(pushesStoredKeys.fcmToken, _fcmToken);
+        }
+        setFcmToken(_fcmToken);
+      })();
+
       const _permissions = await checkNotifications();
       setPermissions(_permissions.status);
 
@@ -36,20 +45,13 @@ export const usePushNotifications = <T>(topic?: string) => {
   }, []);
 
   useEffect(() => {
+    dispatch(logMessage('fcmToken', fcmToken));
+  }, [fcmToken]);
 
+  useEffect(() => {
     if (!enabled) {
       return;
     }
-    (async () => {
-      let _fcmToken = await getItem(pushesStoredKeys.fcmToken);
-      if (!_fcmToken) {
-        _fcmToken = await messaging().getToken();
-        setItem(pushesStoredKeys.fcmToken, _fcmToken);
-      }
-      setFcmToken(_fcmToken);
-      dispatch(logMessage('_fcmToken', _fcmToken));
-    })();
-
     const onMessage = (_message: FirebaseMessagingTypes.RemoteMessage & {data: T}): any => {
       !topic || (topic === _message.data.topic) && setMessage(_message);
       dispatch(logMessage('message', _message));
