@@ -52,6 +52,7 @@ export const usePushNotifications = <T>(topic?: string) => {
 
     const onMessage = (_message: FirebaseMessagingTypes.RemoteMessage & {data: T}): any => {
       !topic || (topic === _message.data.topic) && setMessage(_message);
+      dispatch(logMessage('message', _message));
     };
 
     messaging().onMessage(onMessage);

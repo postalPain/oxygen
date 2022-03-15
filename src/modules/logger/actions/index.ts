@@ -4,5 +4,5 @@ export enum LoggerActions {
 
 export const logMessage = (...messages) => ({
   type: LoggerActions.LOG,
-  message: messages.map(x => `${x}`).join(' ')
+  message: messages.map(x => typeof x === 'object' ? JSON.stringify(x) : `${x}`).join(' ')
 });
