@@ -12,18 +12,18 @@ export const useBiometrics = () => {
   const email = useSelector(selectUserEmail);
   const biometricsReady = useSelector(selectBiometricsReady);
   const biometryStatus = useSelector(selectBiometryStatus);
-  const [biometricsAccepted, setBiometricsAccepted] = useState<boolean>(null);
 
   useEffect(() => {
     dispatch(getBiometryStatus({ onSuccess: () => dispatch(getBiometryReady()) }));
   }, []);
 
   useEffect(() => {
-    getBiometricsAccepted(email).then(setBiometricsAccepted);
     dispatch(getBiometryReady());
   }, [email]);
 
   const shouldRequestBiometrics = async () => {
+    const biometricsAccepted = await getBiometricsAccepted(email);
+
     if (!biometricsAccepted && biometryStatus.available) {
       const loginCount = await getLoginCount(email);
       return [2, 7].includes(loginCount); // On 2nd and 7th login
@@ -39,7 +39,6 @@ export const useBiometrics = () => {
     biometryStatus,
     shouldRequestBiometrics,
     authenticate,
-    setBiometricsAccepted,
     turnOnBiometrics: async () => {
       const accepted = await requestBiometricPermission();
       await storeBiometricsAccepted(email, accepted);
