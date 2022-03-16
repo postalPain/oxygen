@@ -7,8 +7,9 @@ import { Text } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+
 import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
 import SettingsPushNotifications from 'components/SettingsPushNotifications';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,6 +17,7 @@ import { selectLoggerMessages } from 'modules/logger/selectors';
 import { getWidth } from 'utils/window';
 import { logMessage } from 'modules/logger/actions';
 import usePushTransactionDetails from 'modules/transactions/pushNotifications/usePushTransactionDetails';
+import SettingsBiometrics from 'components/SettingsBiometrics';
 
 const DebugView = () => {
   const dispatch = useDispatch();
@@ -47,7 +49,16 @@ const DebugView = () => {
       >
         Show AsyncStorage
       </Link>
+      <Link onPress={async () => {
+        const _fcmToken = await messaging().getToken();
+
+        dispatch(logMessage('newToken', _fcmToken));
+      }}
+      >
+        New token
+      </Link>
       <SettingsPushNotifications />
+      <SettingsBiometrics />
       { loggerMessages.reverse().map(message => (
         <Text selectable style={{ fontSize: getWidth(3) }} >
           <Text>{message.time} </Text>
