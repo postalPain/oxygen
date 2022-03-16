@@ -1,4 +1,4 @@
-import { getItem, getItemAsObject, removeItem, setItem, setObjectAsItem } from 'modules/asyncStorage';
+import { getItem, getItemAsObject, getItemForUser, removeItem, setItem, setItemForUser, setObjectAsItem } from 'modules/asyncStorage';
 import { deleteKeychainPassword, getKeychainCredentials, setKeychainPassword, TKeychainCredentials } from '../keychain';
 
 export enum BiometricsStoredKeys {
@@ -6,18 +6,13 @@ export enum BiometricsStoredKeys {
   ttl = 'ttl'
 }
 
-export const getBiometricsAccepted = async (email): Promise<boolean> => {
-  const biometricsAcceptedObj = await getItemAsObject(BiometricsStoredKeys.accepted);
-
-  return biometricsAcceptedObj[email];
+export const storeBiometrics = async (email: string, accepted: boolean) => {
+  await setItemForUser(email, BiometricsStoredKeys.accepted, accepted);
 };
 
-export const storeBiometricsAccepted = async (email: string, accepted: boolean) => {
-  const biometricsAcceptedObj = await getItemAsObject(BiometricsStoredKeys.accepted);
-
-  biometricsAcceptedObj[email] = accepted;
-
-  await setObjectAsItem(BiometricsStoredKeys.accepted, biometricsAcceptedObj);
+export const getBiometrics = async (email) => {
+  const accepted = await getItemForUser(email, BiometricsStoredKeys.accepted);
+  return accepted;
 };
 
 export const getBiometricTtl = async (): Promise<string> => {

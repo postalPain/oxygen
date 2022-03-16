@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import {
@@ -12,10 +12,6 @@ import vocabulary from 'i18n';
 import theme from 'config/theme';
 import TransactionsStack from './TransactionsStack';
 import ProfileStack from './ProfileStack';
-import { navigate } from 'navigation';
-import useTabNavigationDeepLinks from 'navigation/deepLinks/useTabNavigationDeepLink';
-import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
-import usePushTransactionDetails from 'modules/transactions/pushNotifications/usePushTransactionDetails';
 
 
 const vocab = vocabulary.get();
@@ -24,7 +20,7 @@ const Tab = createBottomTabNavigator();
 
 
 const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> = () => {
-  useTabNavigationDeepLinks(navigate);
+
   // const transactionPush = usePushTransactionDetails();
 
   // useEffect(() => {

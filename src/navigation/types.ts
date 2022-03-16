@@ -18,6 +18,7 @@ export enum AppScreenNames {
   UserVerificationPending = 'UserVerificationPending',
   ForgotPassword = 'ForgotPassword',
   UserInfoConfirmation = 'UserInfoConfirmation',
+  AuthorizedStack = 'AuthorizedStack',
   TabNavigation = 'TabNavigation',
   Dashboard = 'Dashboard',
   TransactionsStack = 'TransactionsStack',
@@ -50,6 +51,7 @@ export type AppStackParameters = {
   UserVerificationPending: undefined;
   PasswordReset: undefined;
   ForgotPassword: undefined;
+  AuthorizedStack: undefined;
   TabNavigation: undefined;
   Dashboard: undefined;
   TransactionsStack: undefined;

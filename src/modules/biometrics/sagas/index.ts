@@ -4,10 +4,11 @@ import { signInSuccess } from 'modules/auth/actions';
 import { AuthActions, IAuthData } from 'modules/auth/types';
 import { getState } from 'modules/store';
 import { selectUserEmail } from 'modules/user/selectors';
-import api, { IResponse } from 'services/api';
+import api from 'services/api';
+import { IResponse } from 'services/api/types';
 import { isTtlActive } from 'utils/time';
 import { BiometryActions, IBiometricLoginAction, setBiometryReady, setBiometryStatus } from '../actions';
-import { deleteBiometricData, getBiometricData, getBiometricsAccepted } from '../asyncStorage';
+import { deleteBiometricData, getBiometricData, getBiometrics } from '../asyncStorage';
 import { biometricAuthenticate, getDeviceBiometryStatus } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
 import { selectBiometryStatus } from '../selectors';
@@ -21,7 +22,7 @@ function* getBiometricsAvailableWorker (action) {
 function* getBiometricsReadyWorker () {
   const email = yield selectUserEmail(getState());
   const biometryStatus = selectBiometryStatus(getState());
-  const biometricAccepted = yield getBiometricsAccepted(email);
+  const biometricAccepted = yield getBiometrics(email);
 
   if (!email || !biometryStatus.available || !biometricAccepted) {
     yield put(setBiometryReady(false));

@@ -1,10 +1,10 @@
 import { requestBiometricPermission } from 'modules/biometrics/permissions';
 import { getLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { biometricLogin, getBiometryReady, getBiometryStatus } from '../actions';
-import { getBiometricsAccepted, storeBiometricsAccepted } from '../asyncStorage';
+import { getBiometrics, storeBiometrics } from '../asyncStorage';
 import { selectBiometricsReady, selectBiometryStatus } from '../selectors';
 
 export const useBiometrics = () => {
@@ -22,7 +22,7 @@ export const useBiometrics = () => {
   }, [email]);
 
   const shouldRequestBiometrics = async () => {
-    const biometricsAccepted = await getBiometricsAccepted(email);
+    const biometricsAccepted = await getBiometrics(email);
 
     if (!biometricsAccepted && biometryStatus.available) {
       const loginCount = await getLoginCount(email);
@@ -41,12 +41,12 @@ export const useBiometrics = () => {
     authenticate,
     turnOnBiometrics: async () => {
       const accepted = await requestBiometricPermission();
-      await storeBiometricsAccepted(email, accepted);
+      await storeBiometrics(email, accepted);
       dispatch(getBiometryReady());
       return accepted;
     },
     turnOffBiometrics: async () => {
-      await storeBiometricsAccepted(email, false);
+      await storeBiometrics(email, false);
       dispatch(getBiometryReady());
     }
   };

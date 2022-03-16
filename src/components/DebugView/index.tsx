@@ -1,5 +1,4 @@
 import { Link } from 'components';
-import { storeBiometricsAccepted } from 'modules/biometrics/asyncStorage';
 import { setLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import React, { useEffect, useState } from 'react';

@@ -65,7 +65,7 @@ const SignIn = (props: ISignIn) => {
         dispatch(userGetInfo());
         pushNotRequested && await requestPushes(email);
         isUserEmployerVerified(status)
-          ? navigation.navigate(AppScreenNames.TabNavigation)
+          ? navigation.navigate(AppScreenNames.AuthorizedStack)
           : navigation.navigate(AppScreenNames.UserVerificationPending);
         // Need to refactor. Biometric auth is not getting unmounted and calls authenticate inside the app if signedIn remains false
         setSignedIn(true);

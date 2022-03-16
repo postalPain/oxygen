@@ -16,29 +16,25 @@ import {
   ForgotPasswordRequested,
   ForgotPasswordSignIn,
   ForgotPassword,
-  UserInfoConfirmation, TransactionDetails, AccountDetails, Settings,
+  UserInfoConfirmation,
 } from 'screens';
-import vocab from 'i18n';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { IAuthData } from 'modules/auth/types';
 import { getItems } from 'modules/asyncStorage';
 import { clearAuthData, setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
-import TabNavigation from 'navigation/TabNavigation';
 import { BackButton, NavigationHeader, } from 'components';
 import theme from 'config/theme';
-import WithdrawalSelect from 'screens/WithdrawalSelect';
-import WithdrawalOverview from 'screens/WithdrawalOverview';
-import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 import { isUserEmployerVerified, selectEmailVerified } from 'modules/user/selectors';
 import { IUserInfo } from 'services/api/employees/types';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
-import { headerStyles, modalScreenStyles } from './styles';
+import { headerStyles } from './styles';
 import SplashScreen from 'react-native-splash-screen';
 import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLink';
 import { analytics } from '../services/analytics';
+import AuthorizedStack from './AuthorizedStack';
 
 const AppStack = createNativeStackNavigator();
 
@@ -237,68 +233,13 @@ const Navigation = () => {
           }}
         />
         <AppStack.Screen
-          name={AppScreenNames.TabNavigation}
-          component={TabNavigation}
+          name={AppScreenNames.AuthorizedStack}
+          component={AuthorizedStack}
           options={{
             gestureEnabled: false,
             headerShown: false,
           }}
         />
-        <AppStack.Screen
-          name={AppScreenNames.WithdrawalSelect}
-          component={WithdrawalSelect}
-          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => ({
-            title: '',
-            headerTransparent: true,
-            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
-          })}
-        />
-        <AppStack.Screen
-          name={AppScreenNames.WithdrawalOverview}
-          component={WithdrawalOverview}
-          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => ({
-            title: '',
-            headerTransparent: true,
-            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
-          })}
-        />
-        <AppStack.Screen
-          name={AppScreenNames.WithdrawalConfirmation}
-          component={WithdrawalConfirmation}
-          options={{ headerShown: false }}
-        />
-        <AppStack.Group screenOptions={{ presentation: 'modal' }}>
-          <AppStack.Screen
-            name={AppScreenNames.AccountDetails}
-            component={AccountDetails}
-            options={{
-              headerShown: true,
-              header: (headerProps) => (
-                <NavigationHeader
-                  {...headerProps}
-                  headerStyle={modalScreenStyles.header}
-                  title={vocab.get().accountDetails}
-                  headerRight={null}
-                />
-              )
-            }}
-          />
-          <AppStack.Screen
-            name={AppScreenNames.Settings}
-            component={Settings}
-            options={{
-              headerShown: true,
-              header: (headerProps) => (
-                <NavigationHeader
-                  {...headerProps}
-                  headerStyle={modalScreenStyles.header}
-                  title={vocab.get().settings}
-                  headerRight={null}
-                />
-              )
-            }}
-          />
-        </AppStack.Group>
         <AppStack.Screen
           name={AppScreenNames.Debug}
           component={DebugView}
