@@ -4,7 +4,6 @@ import vocabulary from 'i18n';
 import ButtonWithdraw from 'components/ButtonWithdraw';
 import useStyles from './styles';
 
-
 const vocab = vocabulary.get();
 
 interface INoTransactionsProps {
@@ -30,7 +29,7 @@ const NoTransactions: React.FC<INoTransactionsProps> = () => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonWithdraw />
+        <ButtonWithdraw source="via-empty-transaction" />
       </View>
     </View>
   );

@@ -19,7 +19,7 @@ import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectBalance } from '../selectors';
 import { getState } from 'modules/store';
-import { analyticEvents, analytics } from '../../../services/analytics';
+import { analyticEvents, analytics } from 'services/analytics';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -71,7 +71,7 @@ function* withdrawalWorker(action: IWithdrawalAction) {
   let response: IResponse<ITransaction>;
 
   try {
-    response = yield api.employees.withdrawal(action.amount);
+    response = yield api.employees.withdrawal(action.payload.amount);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
@@ -82,6 +82,8 @@ function* withdrawalWorker(action: IWithdrawalAction) {
     withdrawalAmount: amount,
     serviceCharge: fee,
     totalDeduction: amount + fee,
+    valueEntry: action.payload.inputSource,
+    source: action.payload.screenSource,
   });
 
   yield put(setWithdrawalTransaction(response.data));

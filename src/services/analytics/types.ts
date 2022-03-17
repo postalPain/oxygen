@@ -15,3 +15,7 @@ export interface IUserProps {
   pushNotificationsEnabled: boolean;
   biometricLoginEnabled: boolean;
 }
+
+export type WithdrawalOptions = 'default-value' | 'via-slider' | 'via-quick-tags' | 'via-keyboard-entry';
+
+export type WithdrawalSource = 'via-dashboard' | 'via-empty-transaction';

@@ -62,7 +62,7 @@ function* signUpWorker(action: ISignUpAction) {
   }
   analytics.logEvent(analyticEvents.signUpCompleted, {
     companyCode: action.payload.registration_id.split('-')?.[1],
-    time: new Date().toISOString(),
+    timestamp: new Date().toISOString(),
   });
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));

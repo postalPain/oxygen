@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import WithdrawalOverviewItem from './WithdrawalOverviewItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAmount, selectFee } from 'modules/withdrawal/selectors';
+import { selectAmount, selectFee, selectInputSource, selectScreenSource } from 'modules/withdrawal/selectors';
 import { withdrawal } from 'modules/withdrawal/actions';
 
 const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => {
@@ -20,6 +20,8 @@ const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalO
 
   const amount = useSelector(selectAmount);
   const fee = useSelector(selectFee);
+  const inputSource = useSelector(selectInputSource);
+  const screenSource = useSelector(selectScreenSource);
 
   return (
     <ScreenWrapperWithdrawal>
@@ -40,7 +42,11 @@ const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalO
         <Button
           onPress={() => {
             setDisabled(true);
-            dispatch(withdrawal(amount, {
+            dispatch(withdrawal({
+              amount,
+              inputSource,
+              screenSource,
+            }, {
               onSuccess: () => navigation.navigate(AppScreenNames.WithdrawalConfirmation)
             }));
           }}

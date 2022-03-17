@@ -8,13 +8,14 @@ import {
   ISetAmountAction,
   ISetBalanceAction,
   ISetFeeAction,
-  ISetPaycycleInfoAction,
+  ISetPaycycleInfoAction, ISetSourceAction,
   ISetSuggestedValuesAction,
   ISetWithdrawableDefaultsAction,
   ISetWithdrawalTransactionAction,
-  IWithdrawalAction,
+  IWithdrawalAction, IWithdrawalPayload,
   withdrawalActions
 } from '../types';
+import { WithdrawalOptions, WithdrawalSource } from '../../../services/analytics/types';
 
 export const getBalance = (): IGetBalanceAction => ({
   type: withdrawalActions.GET_BALANCE
@@ -25,9 +26,17 @@ export const setBalance = (balance: IBalance): ISetBalanceAction => ({
   balance
 });
 
-export const setAmount = (amount: number): ISetAmountAction => ({
+export const setAmount = (amount: number, inputSource: WithdrawalOptions): ISetAmountAction => ({
   type: withdrawalActions.SET_AMOUNT,
-  amount,
+  payload: {
+    amount,
+    inputSource,
+  },
+});
+
+export const setSource = (payload: WithdrawalSource): ISetSourceAction => ({
+  type: withdrawalActions.SET_SOURCE,
+  payload,
 });
 
 export const getSuggestedValues = () => ({
@@ -48,9 +57,9 @@ export const setFee = (fee: TFee): ISetFeeAction => ({
   fee
 });
 
-export const withdrawal = (amount: number, meta?: IMeta): IWithdrawalAction => ({
+export const withdrawal = (payload: IWithdrawalPayload, meta?: IMeta): IWithdrawalAction => ({
   type: withdrawalActions.WITHDRAWAL,
-  amount,
+  payload,
   meta,
 });
 

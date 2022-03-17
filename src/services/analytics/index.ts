@@ -14,15 +14,17 @@ export enum analyticEvents {
 }
 
 export const analytics = (() => {
+  const analyticsDisabled = env.dev || env.e2e;
+
   const logEvent = async (name: analyticEvents, params?: Record<string, any>) => {
-    if (env.dev || env.e2e) {
+    if (analyticsDisabled) {
       return Promise.resolve();
     }
     return await firebaseAnalytics().logEvent(name, params);
   };
 
   const logScreen = async (name: string) => {
-    if (env.dev || env.e2e) {
+    if (analyticsDisabled) {
       return Promise.resolve();
     }
     return await firebaseAnalytics().logScreenView({
@@ -32,7 +34,7 @@ export const analytics = (() => {
   };
 
   const setUserProperties = async (props: Partial<IUserProps>) => {
-    if (env.dev || env.e2e) {
+    if (analyticsDisabled) {
       return Promise.resolve();
     }
     return await firebaseAnalytics().setUserProperties(mapUserProps(props));
