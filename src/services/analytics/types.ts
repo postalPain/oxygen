@@ -1,13 +1,17 @@
-// export interface IAnalyticsProps {
-//   distinct_id: string;
-//   company_id: string;
-//   company_code: string;
-//   user_status: string;
-// }
+export interface IAnalyticsUserProps {
+  app_version: string;
+  device_default_language: string;
+  distinct_id: string;
+  company_code: string;
+  push_notifications: string;
+  biometric_login: string;
+}
 
-// export interface IUserProps {
-//   companyId: string;
-//   userId: string;
-//   companyCode: string;
-//   status: string;
-// }
+export interface IUserProps {
+  appVersion: string;
+  language: string;
+  distinctId: number;
+  companyCode: string;
+  pushNotificationsEnabled: boolean;
+  biometricLoginEnabled: boolean;
+}

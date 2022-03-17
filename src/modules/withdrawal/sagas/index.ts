@@ -77,8 +77,11 @@ function* withdrawalWorker(action: IWithdrawalAction) {
     return;
   }
 
+  const { amount, fee } = response.data;
   analytics.logEvent(analyticEvents.madeWithdrawal, {
-    withdrawalAmount: action.amount,
+    withdrawalAmount: amount,
+    serviceCharge: fee,
+    totalDeduction: amount + fee,
   });
 
   yield put(setWithdrawalTransaction(response.data));
