@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { logMessage } from '../actions';
+import { clearLogMessages, logMessage } from '../actions';
 import { selectLoggerMessages } from '../selectors';
 
 const useLogger = () => {
@@ -8,6 +8,7 @@ const useLogger = () => {
 
   return {
     log: (...messages) => dispatch(logMessage(...messages)),
+    clearLog: () => dispatch(clearLogMessages()),
     loggerMessages,
   };
 };

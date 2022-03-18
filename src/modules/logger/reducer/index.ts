@@ -17,15 +17,19 @@ const defaultState: ILoggerState = {
 // This logger created for debugging on real device
 export default function loggerReducer(state = defaultState, action): ILoggerState {
   switch (action.type) {
-    case LoggerActions.LOG: {
-      const time = state.messages;
+    case LoggerActions.LOG_MESSAGE: {
       return {
+        ...state,
         messages: [
-          ...state.messages, {
-            time: moment().format('HH:mm:ss'),
-            message: action.message,
-          }
+          { time: moment().format('HH:mm:ss'), message: action.message, },
+          ...state.messages
         ]
+      };
+    }
+    case LoggerActions.CLEAR_LOG_MESSAGES: {
+      return {
+        ...state,
+        messages: []
       };
     }
     default:

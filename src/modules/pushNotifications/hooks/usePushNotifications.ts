@@ -18,12 +18,13 @@ export enum pushesStoredKeys {
 // }
 
 export const usePushNotifications = <T>(topic?: string) => {
+  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: T};
   const dispatch = useDispatch();
   const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
   const [fcmToken, setFcmToken] = useState<string>();
-  const [message, setMessage] = useState<FirebaseMessagingTypes.RemoteMessage & {data: T}>(null);
+  const [message, setMessage] = useState<TMessage>(null);
 
   useEffect(() => {
     (async () => {
@@ -48,14 +49,15 @@ export const usePushNotifications = <T>(topic?: string) => {
     dispatch(logMessage('fcmToken', fcmToken));
   }, [fcmToken]);
 
+  const onMessage = (_message: TMessage): any => {
+    !topic || (topic === _message.data.topic) && setMessage(_message);
+    dispatch(logMessage('message', _message));
+  };
+
   useEffect(() => {
     if (!enabled) {
       return;
     }
-    const onMessage = (_message: FirebaseMessagingTypes.RemoteMessage & {data: T}): any => {
-      !topic || (topic === _message.data.topic) && setMessage(_message);
-      dispatch(logMessage('message', _message));
-    };
 
     messaging().onMessage(onMessage);
     messaging().setBackgroundMessageHandler(onMessage);
@@ -107,6 +109,9 @@ export const usePushNotifications = <T>(topic?: string) => {
     turnOffPushes: async () => {
       await setItemForUser(email, pushesStoredKeys.pushEnabled, false);
       setEnabled(false);
+    },
+    simulateMessage: (_message: TMessage) => {
+      onMessage(_message);
     },
     ...(env.e2e && {
       pushEnabled: false,

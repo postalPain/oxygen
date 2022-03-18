@@ -4,12 +4,12 @@ import { Text } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getWidth } from 'utils/window';
+import { getHeight, getWidth } from 'utils/window';
 import DebugPush from './DebugPush';
 import useLogger from 'modules/logger/hooks/useLogger';
 
 const DebugView = () => {
-  const { log, loggerMessages } = useLogger();
+  const { log, loggerMessages, clearLog } = useLogger();
   return (
     <ScrollView>
       <Link onPress={() => AsyncStorage.getAllKeys((err, keys) => {
@@ -24,8 +24,11 @@ const DebugView = () => {
         Show AsyncStorage
       </Link>
       <DebugPush />
-      { loggerMessages.reverse().map(message => (
-        <Text selectable style={{ fontSize: getWidth(3) }} >
+      <Link onPress={clearLog}>
+        Clear
+      </Link>
+      { loggerMessages.map(message => (
+        <Text selectable style={{ fontSize: getWidth(3), paddingVertical: getHeight(.5) }} >
           <Text>{message.time} </Text>
           <Text> {message.message}</Text>
         </Text>

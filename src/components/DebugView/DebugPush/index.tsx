@@ -7,9 +7,10 @@ import { pushesStoredKeys } from 'modules/pushNotifications/hooks/usePushNotific
 import usePushTransactionDetails from 'modules/transactions/pushNotifications/usePushTransactionDetails';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
+import { uuid } from 'utils/uuid';
 
 const DebugPush = () => {
-  const { fcmToken, message } = usePushTransactionDetails();
+  const { fcmToken, message, simulateMessage } = usePushTransactionDetails();
   const { log } = useLogger();
 
   useEffect(() => {
@@ -36,9 +37,24 @@ const DebugPush = () => {
       </Link>
       <Link onPress={async () => {
         await messaging().deleteToken();
+        log('Token deleted');
       }}
       >
         Delete token
+      </Link>
+      <Link onPress={async () => {
+        simulateMessage({
+          messageId: '123',
+          notification:
+          { body: 'SimBody1', title: 'SimTitled' },
+          data: {
+            transaction_id: uuid(),
+            topic: 'transaction_details'
+          }
+        });
+      }}
+      >
+        Simulate Transaction Details Message
       </Link>
       <SettingsPushNotifications />
 
