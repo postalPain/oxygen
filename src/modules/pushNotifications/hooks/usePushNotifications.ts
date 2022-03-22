@@ -52,6 +52,7 @@ export const usePushNotifications = <T>(topic?: string) => {
   }, [fcmToken]);
 
   const onMessage = (_message: TMessage): any => {
+    logger.log('message', _message);
     logger.log('topic', topic);
     logger.log('_message.data.topic', _message.data.topic);
     if (!topic || (topic === _message.data.topic)) {
@@ -59,7 +60,6 @@ export const usePushNotifications = <T>(topic?: string) => {
       logger.log('setting message', message);
       setMessage(_message);
     }
-    logger.log('message', _message);
   };
 
   useEffect(() => {
@@ -67,8 +67,10 @@ export const usePushNotifications = <T>(topic?: string) => {
       return;
     }
 
-    messaging().onMessage(onMessage);
-    messaging().setBackgroundMessageHandler(onMessage);
+    pushOutOfApp.subscribe(onMessage);
+    // messaging().onMessage(onMessage);
+
+    // messaging().setBackgroundMessageHandler(onMessage);
   }, [enabled]);
 
   const requestPermissions = async (): Promise<PermissionStatus> => {
@@ -119,7 +121,8 @@ export const usePushNotifications = <T>(topic?: string) => {
       setEnabled(false);
     },
     simulateMessage: (_message: TMessage) => {
-      onMessage(_message);
+      // onMessage(_message);
+      _messaging.dispatch(_message);
     },
     ...(env.e2e && {
       pushEnabled: false,
@@ -129,3 +132,51 @@ export const usePushNotifications = <T>(topic?: string) => {
     })
   };
 };
+
+// import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+const _messaging = {
+  handlers: [],
+  onMessage(handler) {
+    this.handlers.push(handler);
+  },
+  setBackgroundMessageHandler(handler) {
+    this.onMessage(handler);
+  },
+  dispatch(message) {
+    console.log('dispatch message', message);
+    console.log('this.handlers.length', this.handlers.length);
+
+    this.handlers.forEach(handler => {
+      handler(message);
+    });
+  }
+};
+
+export const pushOutOfApp = {
+  messages: [],
+  handlers: [],
+  messaging: () => _messaging,
+  init () {
+    console.log('init');
+
+    const onMessage = async (message) => {
+      this.messages.push(message);
+      this.handlers.forEach(handler => {
+        handler(message);
+      });
+    };
+    this.messaging().onMessage(onMessage);
+    this.messaging().setBackgroundMessageHandler(onMessage);
+  },
+  subscribe (handler) {
+    this.messages.forEach((message) => {
+      handler(message);
+    });
+    this.handlers.push(handler);
+  },
+  unsubscribe (_handler) {
+    this.handlers = this.handlers.filter(handler => handler !== _handler);
+  },
+};
+
+

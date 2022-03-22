@@ -19,7 +19,7 @@ import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNot
 import { testIds } from '../../config/testIds';
 
 interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
-  forgotPasswordMode: boolean;
+  forgotPasswordMode?: boolean;
 }
 
 const SignIn = (props: ISignIn) => {
