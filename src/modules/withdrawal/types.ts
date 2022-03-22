@@ -1,7 +1,7 @@
 import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
 import { IBalance, TSuggestedValues, IWithdrawableDefault } from 'services/api/employees/types';
-import { WithdrawalOptions, WithdrawalSource } from 'services/analytics/types.ts';
+import { WithdrawalOptions, WithdrawalSource } from 'services/analytics/types';
 
 export enum withdrawalActions {
   GET_BALANCE = 'GET_BALANCE',
