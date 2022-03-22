@@ -45,7 +45,7 @@ const WithdrawalSelect = () => {
       setDescription(vocab.t(vocab.get().plusServiceCharge, fee));
       setDisabled(false);
     }
-  }, [amount, suggestedValues]);
+  }, [amount, suggestedValues, fee]);
 
   useEffect(() => {
     !amount && minimumWithdrawable && dispatch(setAmount(minimumWithdrawable, 'default-value'));
