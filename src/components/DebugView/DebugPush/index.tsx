@@ -6,7 +6,7 @@ import useLogger from 'modules/logger/hooks/useLogger';
 import { pushesStoredKeys } from 'modules/pushNotifications/hooks/usePushNotifications';
 import usePushTransactionDetails from 'modules/transactions/pushNotifications/usePushTransactionDetails';
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { uuid } from 'utils/uuid';
 
 const DebugPush = () => {
@@ -57,6 +57,9 @@ const DebugPush = () => {
         Simulate Transaction Details Message
       </Link>
       <SettingsPushNotifications />
+      <Text>
+        transactionDetailsPush Message: {message}
+      </Text>
 
     </View>
   );
