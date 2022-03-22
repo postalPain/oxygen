@@ -1,6 +1,6 @@
 import useLogger from 'modules/logger/hooks/useLogger';
 import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const TRANSACTION_DETAILS_TOPIC = 'transaction_details';
 
@@ -11,10 +11,15 @@ interface ITransactionDetailsPushData {
 
 const usePushTransactionDetails = () => {
   const { log } = useLogger();
+  const [push, setPush] = useState({});
   const transactionDetailsPush = usePushNotifications<ITransactionDetailsPushData>(TRANSACTION_DETAILS_TOPIC);
 
-  log('usePushTransactionDetails.transactionDetailsPush', transactionDetailsPush);
-  return transactionDetailsPush;
+  useEffect(() => {
+    setPush(transactionDetailsPush);
+  }, [transactionDetailsPush]);
+
+  // log('usePushTransactionDetails.transactionDetailsPush', transactionDetailsPush);
+  return push;
 };
 
 export default usePushTransactionDetails;
