@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
 import { useDispatch, useSelector } from 'react-redux';
+import { uuid } from 'utils/uuid';
 
 export enum pushesStoredKeys {
   fcmToken = 'fcmToken',
@@ -18,15 +19,13 @@ export enum pushesStoredKeys {
 //   (arg: FirebaseMessagingTypes.RemoteMessage & {data: T}): any;
 // }
 
-export const usePushNotifications = <T>(topic?: string) => {
-  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: T};
+export const usePushNotifications = () => {
   const dispatch = useDispatch();
   const logger = useLogger();
   const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
   const [fcmToken, setFcmToken] = useState<string>();
-  const [message, setMessage] = useState<TMessage>(null);
 
   useEffect(() => {
     (async () => {
@@ -50,28 +49,6 @@ export const usePushNotifications = <T>(topic?: string) => {
   useEffect(() => {
     dispatch(logMessage('fcmToken', fcmToken));
   }, [fcmToken]);
-
-  const onMessage = (_message: TMessage): any => {
-    logger.log('message', _message);
-    logger.log('topic', topic);
-    logger.log('_message.data.topic', _message.data.topic);
-    if (!topic || (topic === _message.data.topic)) {
-      logger.log('!topic || (topic === _message.data.topic)');
-      logger.log('setting message', message);
-      setMessage(_message);
-    }
-  };
-
-  useEffect(() => {
-    if (!enabled) {
-      return;
-    }
-
-    pushOutOfApp.subscribe(onMessage);
-    // messaging().onMessage(onMessage);
-
-    // messaging().setBackgroundMessageHandler(onMessage);
-  }, [enabled]);
 
   const requestPermissions = async (): Promise<PermissionStatus> => {
     let permissionStatus: PermissionStatus;
@@ -102,7 +79,6 @@ export const usePushNotifications = <T>(topic?: string) => {
     pushPermissions: permissions,
     pushNotRequested: permissions === 'denied',
     fcmToken,
-    message,
     requestPushes,
     turnOnPushes: async () => {
       const { status } = await checkNotifications();
@@ -120,16 +96,49 @@ export const usePushNotifications = <T>(topic?: string) => {
       await setItemForUser(email, pushesStoredKeys.pushEnabled, false);
       setEnabled(false);
     },
-    simulateMessage: (_message: TMessage) => {
-      // onMessage(_message);
-      _messaging.dispatch(_message);
-    },
+
     ...(env.e2e && {
       pushEnabled: false,
       requestPushes: (mail?: string) => {
         return null;
       },
     })
+  };
+};
+
+export const usePushMessages = <T>(topic?: string) => {
+  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: T};
+  const [message, setMessage] = useState<TMessage>(null);
+
+  const logger = useLogger();
+  useEffect(() => {
+    const onMessage = (_message: TMessage): any => {
+      logger.log('topic', uuid(), topic);
+      logger.log('_message', _message);
+      if (!topic || (topic === _message.data.topic)) {
+        logger.log('setting message');
+        setMessage(_message);
+      }
+    };
+
+    pushOutOfApp.subscribe(onMessage);
+
+    return () => pushOutOfApp.unsubscribe(onMessage);
+    // messaging().onMessage(onMessage);
+    // messaging().setBackgroundMessageHandler(onMessage);
+  }, []);
+
+  useEffect(() => {
+    console.log('message change', message);
+
+  }, [message]);
+
+  return {
+    simulateMessage: (_message: TMessage) => {
+      // onMessage(_message);
+      _messaging.dispatch(_message);
+    },
+    message,
   };
 };
 
@@ -165,16 +174,22 @@ export const pushOutOfApp = {
         handler(message);
       });
     };
-    this.messaging().onMessage(onMessage);
     this.messaging().setBackgroundMessageHandler(onMessage);
+    // this.messaging().onMessage(onMessage);
   },
   subscribe (handler) {
     this.messages.forEach((message) => {
       handler(message);
     });
+    console.log('pushing handler');
+
     this.handlers.push(handler);
+    console.log('handlers count:', this.handlers.length);
+
   },
   unsubscribe (_handler) {
+    console.log('unsubscribing');
+
     this.handlers = this.handlers.filter(handler => handler !== _handler);
   },
 };

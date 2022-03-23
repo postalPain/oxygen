@@ -1,7 +1,7 @@
 import { AppRegistry } from 'react-native';
 import App from './src/App';
 import { name as appName } from './app.json';
-import { pushOutOfApp } from './src/modules/pushNotifications/hooks';
+import { pushOutOfApp } from './src/modules/pushNotifications/hooks/usePushNotifications';
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 
 if (__DEV__) {
