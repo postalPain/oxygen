@@ -13,6 +13,7 @@ import {
 } from 'modules/user/types';
 import api from 'services/api';
 import { IResponse } from 'services/api/types';
+import { analytics } from 'services/analytics';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
 import { IUserInfo, IVerificationResponse } from 'services/api/employees/types';
@@ -29,7 +30,10 @@ function* getUserInfoWorker() {
     yield put(errorNotification({ text: error.message }));
     return;
   }
-
+  analytics.setUserProperties({
+    distinctId: response.data.id,
+    companyCode: response.data.registration_id.split('-')?.[1],
+  });
   const mockedUserData: IUserInfo = {
     ...response.data,
     // TODO: Remove after BE returns actual fields

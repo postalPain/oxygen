@@ -25,7 +25,9 @@ const Onboarding = (
 
   const goToSignUp = () => {
     navigation.navigate(AppScreenNames.EnterRegistrationId);
-    analytics.logEvent(analyticEvents.signUpStarted);
+    analytics.logEvent(analyticEvents.signUpStarted, {
+      timestamp: new Date().toISOString(),
+    });
   };
   const goToLogIn = () => {
     navigation.navigate(AppScreenNames.SignIn);

@@ -9,6 +9,7 @@ import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
 import { useDispatch, useSelector } from 'react-redux';
 import { uuid } from 'utils/uuid';
+import { analytics } from 'services/analytics';
 
 export enum pushesStoredKeys {
   fcmToken = 'fcmToken',
@@ -47,8 +48,19 @@ export const usePushSettings = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(logMessage('fcmToken', fcmToken));
-  }, [fcmToken]);
+    analytics.setUserProperties({ pushNotificationsEnabled: !!enabled });
+    if (!enabled) {
+      return;
+    }
+    (async () => {
+      let _fcmToken = await getItem(pushesStoredKeys.fcmToken);
+      if (!_fcmToken) {
+        _fcmToken = await messaging().getToken();
+        setItem(pushesStoredKeys.fcmToken, _fcmToken);
+      }
+      setFcmToken(_fcmToken);
+    })();
+  }, [enabled]);
 
   const requestPermissions = async (): Promise<PermissionStatus> => {
     let permissionStatus: PermissionStatus;

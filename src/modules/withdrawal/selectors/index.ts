@@ -7,6 +7,10 @@ export const getWithdrawalRule = (balance: IBalance) => balance.earned_wages * b
 
 export const selectAmount = (state: RootState) => state.withdrawal.amount;
 
+export const selectInputSource = (state: RootState) => state.withdrawal.inputSource;
+
+export const selectScreenSource = (state: RootState) => state.withdrawal.screenSource;
+
 export const selectSuggestedValues = (state: RootState) => state.withdrawal.suggestedValues;
 
 export const selectIsWithdrawalPaused = (state: RootState) => state.withdrawal.balance.is_withdraw_paused;

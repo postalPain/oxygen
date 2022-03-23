@@ -19,7 +19,7 @@ import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import WithdrawalAmountTag from 'components/WithdrawalAmountTag';
 import { Button, Link } from 'components';
 import styles from './styles';
-
+import { WithdrawalOptions } from 'services/analytics/types';
 
 const WithdrawalSelect = () => {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ const WithdrawalSelect = () => {
   const [description, setDescription] = useState<string>(null);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState('');
+
   useEffect(() => {
     if (amount > maximumWithdrawable) {
       setDescription(vocab.t(vocab.get().maximumWithdrawable, maximumWithdrawable));
@@ -44,14 +45,14 @@ const WithdrawalSelect = () => {
       setDescription(vocab.t(vocab.get().plusServiceCharge, fee));
       setDisabled(false);
     }
-  }, [amount, suggestedValues]);
+  }, [amount, suggestedValues, fee]);
 
   useEffect(() => {
-    !amount && minimumWithdrawable && dispatch(setAmount(minimumWithdrawable));
+    !amount && minimumWithdrawable && dispatch(setAmount(minimumWithdrawable, 'default-value'));
   }, [minimumWithdrawable]);
 
-  const onValueChange = (value) => {
-    dispatch(setAmount(+value));
+  const onValueChange = (value: string | number, inputSource: WithdrawalOptions) => {
+    dispatch(setAmount(+value, inputSource));
   };
 
   return (
@@ -79,7 +80,7 @@ const WithdrawalSelect = () => {
         thumbTintColor={theme.colors.floos3}
         onValueChange={(value) => {
           setInputValue('');
-          onValueChange(value);
+          onValueChange(value, 'via-slider');
         }}
         step={10}
       />
@@ -94,7 +95,7 @@ const WithdrawalSelect = () => {
                   active={amount === value}
                   onPress={(_amount) => {
                     setInputValue('');
-                    onValueChange(_amount);
+                    onValueChange(_amount, 'via-quick-tags');
                   }}
                   amount={value}
                 />
@@ -111,7 +112,7 @@ const WithdrawalSelect = () => {
             total
             onPress={(value) => {
               setInputValue('');
-              onValueChange(value);
+              onValueChange(value, 'via-quick-tags');
             }}
             amount={suggestedValues[suggestedValues.length - 1]}
           />
@@ -131,7 +132,7 @@ const WithdrawalSelect = () => {
         style={{ opacity: 0 }}
         onChangeText={(value) => {
           setInputValue(value);
-          onValueChange(value);
+          onValueChange(value, 'via-keyboard-entry');
         }}
       />
       <View style={styles.buttonContainer}>

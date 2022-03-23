@@ -31,7 +31,9 @@ export interface IBalance {
   monthly_limit: number;
 }
 
-export type TFee = number;
+export type IFeeResponse = {
+  fee_value: number;
+};
 
 export type TSuggestedValues = number[];
 
@@ -52,7 +54,7 @@ export interface IEmployeesApi {
   getBalance: () => Promise<IResponse<IBalance>>;
   getTransactions: () => Promise<IResponse<ITransaction[]>>;
   getSuggestedValues: () => Promise<IResponse<TSuggestedValues>>;
-  getFee: (amount: any) => Promise<IResponse<TFee>>;
+  getFee: (amount: any) => Promise<IResponse<IFeeResponse>>;
   withdrawal: (amount: number) => Promise<IResponse<ITransaction>>;
   getWithdrawableDefaults: () => Promise<IResponse<IWithdrawableDefault>>;
   getPaycycleInfo: () => Promise<IResponse<IPaycycleInfo>>;

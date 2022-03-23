@@ -1,6 +1,8 @@
 import firebaseAnalytics from '@react-native-firebase/analytics';
-// import { IUserProps } from './types';
-import env from '../../env';
+import { IUserProps } from './types';
+import env from 'env';
+import { mapUserProps } from './utils';
+import vocab from 'i18n';
 
 export enum analyticEvents {
   signUpStarted = 'signup_started',
@@ -12,32 +14,41 @@ export enum analyticEvents {
 }
 
 export const analytics = (() => {
-  // let userProperties: Record<string, string> = {};
+  const analyticsDisabled = env.dev || env.e2e;
 
   const logEvent = async (name: analyticEvents, params?: Record<string, any>) => {
-    if (env.dev || env.e2e) {
+    if (analyticsDisabled) {
       return Promise.resolve();
     }
     return await firebaseAnalytics().logEvent(name, params);
   };
 
   const logScreen = async (name: string) => {
+    if (analyticsDisabled) {
+      return Promise.resolve();
+    }
     return await firebaseAnalytics().logScreenView({
       screen_name: name,
       screen_class: name,
     });
   };
 
-  // const setUser = (data: IUserProps) => {
-  //   userProperties = {
-  //     ...userProperties,
-  //     ...data,
-  //   };
-  // };
+  const setUserProperties = async (props: Partial<IUserProps>) => {
+    if (analyticsDisabled) {
+      return Promise.resolve();
+    }
+    return await firebaseAnalytics().setUserProperties(mapUserProps(props));
+  };
+
+  setUserProperties({
+    appVersion: env.version,
+    language: vocab.language,
+  });
 
   return {
     logEvent,
     logScreen,
+    setUserProperties,
   };
 })();
 

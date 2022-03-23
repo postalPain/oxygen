@@ -1,9 +1,9 @@
-import { put, takeLatest, takeEvery, call } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, call, debounce } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
-import { IPaycycleInfo, IWithdrawalAction, withdrawalActions } from '../types';
+import { IPaycycleInfo, ISetAmountAction, IWithdrawalAction, withdrawalActions } from '../types';
 import api from 'services/api';
 import { IResponse } from 'services/api/types';
-import { IBalance, IWithdrawableDefault, TFee, TSuggestedValues } from 'services/api/employees/types';
+import { IBalance, IWithdrawableDefault, IFeeResponse, TSuggestedValues } from 'services/api/employees/types';
 import { errorNotification } from 'modules/notifications/actions';
 import {
   getBalance,
@@ -14,12 +14,11 @@ import {
   setWithdrawalTransaction,
   getWithdrawableDefaults,
   setPaycycleInfo,
+  getFee,
 } from '../actions';
 import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
-import { selectBalance } from '../selectors';
-import { getState } from 'modules/store';
-import { analyticEvents, analytics } from '../../../services/analytics';
+import { analyticEvents, analytics } from 'services/analytics';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -52,33 +51,35 @@ function* getSuggestedValuesWorker() {
   yield put(setSuggestedValues(response.data.filter(x => x))); // TODO: Remove once BE applies fix
 }
 
-function* getFeeWorker() {
-  const balance = selectBalance(getState());
-  let response: IResponse<TFee>;
-  try { // TODO: Uncomment when fee API works
-    // response = yield api.employees.getFee(100);
-
-    // response = { data: balance.total_withdrawn_amount ? 25 : 0 }; // TODO: Remove once BE is ready
+function* getFeeWorker(action) {
+  let response: IResponse<IFeeResponse>;
+  try {
+    response = yield api.employees.getFee(action.amount);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
   }
 
-  yield put(setFee(response.data));
+  yield put(setFee(response.data.fee_value));
 }
 
 function* withdrawalWorker(action: IWithdrawalAction) {
   let response: IResponse<ITransaction>;
 
   try {
-    response = yield api.employees.withdrawal(action.amount);
+    response = yield api.employees.withdrawal(action.payload.amount);
   } catch (error) {
     yield put(errorNotification({ text: error.message }));
     return;
   }
 
+  const { amount, fee } = response.data;
   analytics.logEvent(analyticEvents.madeWithdrawal, {
-    withdrawalAmount: action.amount,
+    withdrawalAmount: amount,
+    serviceCharge: fee,
+    totalDeduction: amount + fee,
+    valueEntry: action.payload.inputSource,
+    source: action.payload.screenSource,
   });
 
   yield put(setWithdrawalTransaction(response.data));
@@ -96,6 +97,7 @@ function* getWithdrawableDefaultsWorker(action: IWithdrawalAction) {
     return;
   }
   yield put(setWithdrawableDefaults(response.data));
+  yield put(getFee(response.data.minimal));
   yield action?.meta?.onSuccess?.();
 }
 
@@ -112,6 +114,10 @@ function* getPaycycleInfoWorker () {
   yield put(setPaycycleInfo(response.data));
 }
 
+function* setAmountWorker(action: ISetAmountAction) {
+  yield put(getFee(action.payload.amount));
+}
+
 export default function* withdrawalSagas(): SagaIterator {
   yield takeLatest(withdrawalActions.GET_BALANCE, getBalanceWorker);
   yield takeLatest(withdrawalActions.GET_SUGGESTED_VALUES, getSuggestedValuesWorker);
@@ -119,4 +125,5 @@ export default function* withdrawalSagas(): SagaIterator {
   yield takeLatest(withdrawalActions.GET_WITHDRAWABLE_DEFAULTS, getWithdrawableDefaultsWorker);
   yield takeEvery(withdrawalActions.WITHDRAWAL, withdrawalWorker);
   yield takeLatest(withdrawalActions.GET_PAYCYCLE_INFO, getPaycycleInfoWorker);
+  yield debounce(500, withdrawalActions.SET_AMOUNT, setAmountWorker);
 }

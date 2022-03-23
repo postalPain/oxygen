@@ -6,6 +6,7 @@ import BackButton from 'components/BackButton';
 import Link from 'components/Link';
 import useStyles from './styles';
 import externalUrls from 'config/externalUrls';
+import { analyticEvents } from '../../services/analytics';
 
 interface INavigationHeaderProps {
   options: any; // TODO add types
@@ -36,7 +37,7 @@ const NavigationHeader: React.FC<INavigationHeaderProps> = ({
   const right = (headerRight !== undefined) ? headerRight : (
     <Link
       style={styles.headerLink}
-      onPress={() => openBrowser(externalUrls.help)}
+      onPress={() => openBrowser(externalUrls.help, { name: analyticEvents.helpViewed, sourceScreen: 'NavigationHeader' })}
     >
       {vocab.get().help}
     </Link>
