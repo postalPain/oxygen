@@ -1,8 +1,10 @@
 import firebaseAnalytics from '@react-native-firebase/analytics';
+import { Mixpanel } from 'mixpanel-react-native';
 import { IUserProps } from './types';
 import env from 'env';
 import { mapUserProps } from './utils';
 import vocab from 'i18n';
+import { MIXPANEL_TOKEN } from '@env';
 
 export enum analyticEvents {
   signUpStarted = 'signup_started',
@@ -14,12 +16,24 @@ export enum analyticEvents {
 }
 
 export const analytics = (() => {
-  const analyticsDisabled = env.dev || env.e2e;
+  const analyticsDisabled = !env.prod;
+  const mixpanel = new Mixpanel(MIXPANEL_TOKEN);
+
+  const initialise = async () => {
+    await mixpanel.init();
+    const distinctId = await mixpanel.getDistinctId();
+    mixpanel.identify(distinctId);
+    await setUserProperties({
+      appVersion: env.version,
+      language: vocab.language,
+    });
+  };
 
   const logEvent = async (name: analyticEvents, params?: Record<string, any>) => {
     if (analyticsDisabled) {
       return Promise.resolve();
     }
+    mixpanel.track(name, params);
     return await firebaseAnalytics().logEvent(name, params);
   };
 
@@ -37,13 +51,12 @@ export const analytics = (() => {
     if (analyticsDisabled) {
       return Promise.resolve();
     }
-    return await firebaseAnalytics().setUserProperties(mapUserProps(props));
+    const userProps = mapUserProps(props);
+    mixpanel.getPeople().set(userProps);
+    return await firebaseAnalytics().setUserProperties(userProps);
   };
 
-  setUserProperties({
-    appVersion: env.version,
-    language: vocab.language,
-  });
+  !analyticsDisabled && initialise();
 
   return {
     logEvent,
