@@ -1,6 +1,6 @@
 import SettingsToggle from 'components/SettingsToggle';
 import vocab from 'i18n';
-import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
 import React from 'react';
 
 const SettingsPushNotifications = () => {
@@ -8,7 +8,7 @@ const SettingsPushNotifications = () => {
     pushEnabled,
     turnOnPushes,
     turnOffPushes,
-  } = usePushNotifications();
+  } = usePushSettings();
 
   return (
     <SettingsToggle

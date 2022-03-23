@@ -15,7 +15,7 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
-import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
 import { testIds } from '../../config/testIds';
 
 interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
@@ -28,7 +28,7 @@ const SignIn = (props: ISignIn) => {
 
   const storedEmail = useSelector(selectUserEmail);
 
-  const { pushNotRequested, requestPushes } = usePushNotifications();
+  const { pushNotRequested, requestPushes } = usePushSettings();
 
   const [error, setError] = useState<IError>(null);
   const [email, setEmail] = useState<string>();

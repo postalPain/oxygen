@@ -19,7 +19,7 @@ export enum pushesStoredKeys {
 //   (arg: FirebaseMessagingTypes.RemoteMessage & {data: T}): any;
 // }
 
-export const usePushNotifications = () => {
+export const usePushSettings = () => {
   const dispatch = useDispatch();
   const logger = useLogger();
   const email = useSelector(selectUserEmail);
@@ -153,7 +153,6 @@ const _messaging = {
   },
   dispatch(message) {
     console.log('dispatch message', message);
-    console.log('this.handlers.length', this.handlers.length);
 
     this.handlers.forEach(handler => {
       handler(message);
@@ -162,30 +161,29 @@ const _messaging = {
 };
 
 export const pushOutOfApp = {
-  messages: [],
+  // messages: [],
+  message: null, // To save a message with setBackgroundMessageHandler
   handlers: [],
-  messaging: () => _messaging,
+  messaging,
   init () {
     console.log('init');
 
-    const onMessage = async (message) => {
-      this.messages.push(message);
+    // The handler must return a promise once your logic has completed to free up device resources
+    this.messaging().setBackgroundMessageHandler(async (message) => {
+      this.message = message;
+    });
+    this.messaging().onMessage((message) => {
       this.handlers.forEach(handler => {
         handler(message);
       });
-    };
-    this.messaging().setBackgroundMessageHandler(onMessage);
-    // this.messaging().onMessage(onMessage);
+    });
   },
   subscribe (handler) {
-    this.messages.forEach((message) => {
-      handler(message);
-    });
+    this.message && handler(this.message);
     console.log('pushing handler');
 
     this.handlers.push(handler);
     console.log('handlers count:', this.handlers.length);
-
   },
   unsubscribe (_handler) {
     console.log('unsubscribing');

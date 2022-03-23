@@ -3,14 +3,13 @@ import Link from 'components/Link';
 import SettingsPushNotifications from 'components/SettingsPushNotifications';
 import { setItem } from 'modules/asyncStorage';
 import useLogger from 'modules/logger/hooks/useLogger';
-import { pushesStoredKeys, usePushMessages, usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
-import usePushTransactionDetails from 'modules/transactions/pushNotifications/usePushTransactionDetails';
+import { pushesStoredKeys, usePushMessages, usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
 import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { uuid } from 'utils/uuid';
 
 const DebugPush = () => {
-  const { fcmToken } = usePushNotifications();
+  const { fcmToken } = usePushSettings();
 
   const { message, simulateMessage } = usePushMessages('transaction_details');
   const { log } = useLogger();
