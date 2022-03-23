@@ -13,7 +13,6 @@ import {
   InputInfo,
 } from 'components';
 import useStyles from './styles';
-import useInviteUserDeepLink from 'modules/user/hooks/useInviteDeepLink';
 
 const vocab = vocabulary.get();
 const schema = yup.string().email().required();

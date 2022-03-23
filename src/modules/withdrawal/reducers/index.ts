@@ -1,16 +1,19 @@
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TFee, TSuggestedValues } from 'services/api/employees/types';
-import { withdrawalActions, TWithdrawalAction, IPaycycleInfo } from '../types';
+import { IBalance, TSuggestedValues } from 'services/api/employees/types';
+import { IPaycycleInfo, TWithdrawalAction, withdrawalActions } from '../types';
+import { WithdrawalOptions, WithdrawalSource } from '../../../services/analytics/types';
 
 export interface IPaymentState {
   balance: IBalance;
   amount: number;
   suggestedValues: TSuggestedValues;
-  fee: TFee;
+  fee: number;
   transaction: ITransaction;
   minimumWithdrawable: number;
   maximumWithdrawable: number;
   paycycleInfo: IPaycycleInfo;
+  inputSource: WithdrawalOptions;
+  screenSource: WithdrawalSource;
 }
 
 export const withdrawalDefaultState: IPaymentState = {
@@ -21,6 +24,8 @@ export const withdrawalDefaultState: IPaymentState = {
     withdrawable_wages: null,
   } as IBalance,
   amount: 0,
+  inputSource: 'default-value',
+  screenSource: null,
   suggestedValues: null,
   fee: null, // TODO: Switch to BE in sagas when it's ready
   transaction: null,
@@ -47,7 +52,7 @@ const withdrawalReducer = (
     case withdrawalActions.SET_AMOUNT:
       return {
         ...state,
-        amount: action.amount,
+        ...action.payload,
       };
     case withdrawalActions.SET_SUGGESTED_VALUES:
       return {
@@ -74,6 +79,11 @@ const withdrawalReducer = (
       return {
         ...state,
         paycycleInfo: action.paycycleInfo
+      };
+    case withdrawalActions.SET_SOURCE:
+      return {
+        ...state,
+        screenSource: action.payload,
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
 import { AppScreenNames } from 'navigation/types';
@@ -11,12 +11,16 @@ import IconPlus from 'components/IconPlus';
 import Tooltip from '../Tooltip';
 import PayPeriodTooltip from './PayPeriodTooltip';
 import { getStoredPaycycleViewed, storePaycycleViewed } from 'modules/withdrawal/asyncStorage';
+import { WithdrawalSource } from 'services/analytics/types';
+import { setSource } from '../../modules/withdrawal/actions';
 
 interface IButtonWithdraw {
-  setInfoModal: (on: boolean) => void;
+  setInfoModal?: (on: boolean) => void;
+  source: WithdrawalSource;
 }
 
 const ButtonWithdraw = (props: IButtonWithdraw) => {
+  const { setInfoModal, source } = props;
   const navigation: StackNavigationProp<any> = useNavigation();
   const balance = useSelector(selectBalance);
   const paycycleInfo = useSelector(selectPaycycleInfo);
@@ -26,6 +30,7 @@ const ButtonWithdraw = (props: IButtonWithdraw) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showPaycycleTooltip, setShowPaycycleTooltip] = useState<boolean>(false);
   const [withdrawalDisabled, setWithdrawalDisabled] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -52,12 +57,17 @@ const ButtonWithdraw = (props: IButtonWithdraw) => {
     showTooltip && setTimeout(() => setShowTooltip(false), 4000);
   }, [showTooltip]);
 
+  const onButtonPress = () => {
+    dispatch(setSource(source));
+    navigation.navigate(AppScreenNames.WithdrawalSelect);
+  };
+
   const getButton = () => (
     <Button
       Icon={<IconPlus size={22} />}
       disabled={!!withdrawalDisabled}
       onPressDisabled={() => setShowTooltip(true)}
-      onPress={() => navigation.navigate(AppScreenNames.WithdrawalSelect)}
+      onPress={onButtonPress}
     >
       {vocab.get().withdraw}
     </Button>
@@ -79,7 +89,7 @@ const ButtonWithdraw = (props: IButtonWithdraw) => {
           show={showPaycycleTooltip}
           content={<PayPeriodTooltip />}
           onPress={() => {
-            props.setInfoModal(true);
+            setInfoModal && setInfoModal(true);
             storePaycycleViewed(paycycleInfo.end);
             setShowPaycycleTooltip(false);
           }}

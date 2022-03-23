@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
 import { useSelector } from 'react-redux';
+import { analytics } from 'services/analytics';
 
 export enum pushesStoredKeys {
   fcmToken = 'fcmToken',
@@ -33,6 +34,7 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
   }, []);
 
   useEffect(() => {
+    analytics.setUserProperties({ pushNotificationsEnabled: !!enabled });
     if (!enabled) {
       return;
     }

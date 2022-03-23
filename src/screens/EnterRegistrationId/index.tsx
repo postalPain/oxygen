@@ -15,8 +15,9 @@ import { setSignUpData } from 'modules/auth/actions';
 import useStyles from './styles';
 import { openBrowser } from 'utils';
 import externalUrls from 'config/externalUrls';
-import useInviteUserDeepLink from 'modules/user/hooks/useInviteDeepLink';
+import useInviteUserDeepLink from 'modules/user/deepLinks/useInviteDeepLink';
 import { testIds } from 'config/testIds';
+import { analyticEvents, analytics } from '../../services/analytics';
 
 const vocab = vocabulary.get();
 
@@ -60,6 +61,13 @@ const EnterRegistrationId = (
     if (inputError) setInputError('');
     dispatch(setSignUpData({ registration_id: value.toUpperCase() }));
   };
+  const linkOnPress = () => {
+    analytics.logEvent(analyticEvents.cantFindRegistrationId, {
+      source: inputError ? 'after-error' : 'after-delay',
+      inputValue: registration_id,
+    });
+    openBrowser(externalUrls.findMyEmployer);
+  };
   return (
     <ScreenWithAnimatedHeader>
       <View style={styles.formContainer}>
@@ -77,10 +85,10 @@ const EnterRegistrationId = (
           />
           <InputInfo text={vocab.shouldReceiveRegistrationId} />
         </View>
-        <View>
+        <View style={styles.buttonContainer}>
           { cantFind && (
             <Link
-              onPress={() => openBrowser(externalUrls.findMyEmployer)}
+              onPress={linkOnPress}
               style={styles.link}
             >
               {vocab.cantFindRegistrationId}

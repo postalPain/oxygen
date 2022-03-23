@@ -18,9 +18,12 @@ import env from 'env';
 import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
 import { testIds } from '../../config/testIds';
 
-const SignIn = (
-  { navigation }: AppNavigationProps<AppScreenNames.SignIn>
-) => {
+interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
+  forgotPasswordMode: boolean;
+}
+
+const SignIn = (props: ISignIn) => {
+  const { navigation, forgotPasswordMode } = props;
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
@@ -106,15 +109,17 @@ const SignIn = (
             testID={testIds.loginPasswordInput}
           />
           <View style={styles.forgotPasswordContainer}>
-            <Link
-              style={styles.forgotPassword}
-              onPress={() => {
-                navigation.navigate(AppScreenNames.ForgotPassword);
-                setError(null);
-              }}
-            >
-              {vocab.get().forgotPassword}
-            </Link>
+            {!forgotPasswordMode && (
+              <Link
+                style={styles.forgotPassword}
+                onPress={() => {
+                  navigation.navigate(AppScreenNames.ForgotPassword);
+                  setError(null);
+                }}
+              >
+                {vocab.get().forgotPassword}
+              </Link>
+            )}
           </View>
         </View>
       </View>

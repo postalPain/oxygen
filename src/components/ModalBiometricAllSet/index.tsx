@@ -3,14 +3,14 @@ import IconCheckRound from 'components/IconCheckRound';
 import Modal from 'components/Modal';
 import ModalWrapper from 'components/ModalWrapper';
 import vocab from 'i18n';
-import { BiometricsTypes } from 'modules/biometrics/biometrics';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { BiometryType } from 'react-native-biometrics';
 import { getHeight, getWidth } from 'utils/window';
 
 interface IModalBiometricsSet {
   onConfirm?: () => void;
-  biometricsType: BiometricsTypes | boolean;
+  biometricsType: BiometryType | boolean;
 }
 
 const ModalBiometricAllSet = (props: IModalBiometricsSet) => {
@@ -21,7 +21,7 @@ const ModalBiometricAllSet = (props: IModalBiometricsSet) => {
           <View style={styles.section}>
             <IconCheckRound />
             <Text style={styles.title}>{vocab.get().yourAllSet}</Text>
-            <Text style={styles.text}>{vocab.get().biometricIdAssigned(props.biometricsType)}</Text>
+            <Text style={styles.text}>{vocab.t(vocab.get().biometricIdAssigned, props.biometricsType)}</Text>
           </View>
 
           <View style={styles.section} >

@@ -8,7 +8,7 @@ import {
   IEmployeesApi,
   IUserInfo,
   IVerificationResponse,
-  IWithdrawableDefault, TFee,
+  IWithdrawableDefault, IFeeResponse,
   TSuggestedValues
 } from './types';
 
@@ -26,7 +26,7 @@ const getTransactions = () => request.get(apiUrls.getTransactions);
 
 const getSuggestedValues = (): Promise<IResponse<TSuggestedValues>> => request.get('employees/withdraw/suggested-values');
 
-const getFee = (amount): Promise<IResponse<TFee>> => request.get(`employees/transactions/fee?amount=${amount}`);
+const getFee = (amount): Promise<IResponse<IFeeResponse>> => request.get(`employees/transactions/fee?amount=${amount}`);
 
 const withdrawal = (amount: number): Promise<IResponse<ITransaction>> => request.post('employees/transactions', { amount });
 

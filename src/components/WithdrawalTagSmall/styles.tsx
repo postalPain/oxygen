@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     color: theme.colors.floos2,
   },
   amount: {
-    fontSize: 0.1 * windowDimensions.width,
+    fontSize: getWidth(7),
     lineHeight: getHeight(5),
     fontWeight: '700',
   },

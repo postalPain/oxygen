@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { biometricLogin, getBiometryReady, getBiometryStatus } from '../actions';
 import { getBiometricsAccepted, storeBiometricsAccepted } from '../asyncStorage';
 import { selectBiometricsReady, selectBiometryStatus } from '../selectors';
+import { analytics } from 'services/analytics';
 
 export const useBiometrics = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,10 @@ export const useBiometrics = () => {
   useEffect(() => {
     dispatch(getBiometryStatus({ onSuccess: () => dispatch(getBiometryReady()) }));
   }, []);
+
+  useEffect(() => {
+    analytics.setUserProperties({ biometricLoginEnabled: !!biometricsReady });
+  }, [biometricsReady]);
 
   useEffect(() => {
     getBiometricsAccepted(email).then(setBiometricsAccepted);

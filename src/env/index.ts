@@ -1,5 +1,6 @@
 import { Dimensions, Platform, Appearance, NativeModules } from 'react-native';
 import { BUILD_ENV } from '../../build-env.js';
+import packageJson from '../../package.json';
 
 export enum Envs {
   DEV = 'DEV',
@@ -22,7 +23,7 @@ const env = {
   e2e: BUILD_ENV === Envs.E2E,
   baseUrl: BASE_URL || baseUrls[Envs.DEV],
   apiUrl: `${BASE_URL}/api/v1`,
-  websiteDomain: 'https://www.floos.ae',
+  websiteDomain: 'https://floos.ae',
   locale: Platform.OS === 'ios'
     ? NativeModules.SettingsManager.settings.AppleLocale ||
     NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
@@ -39,6 +40,7 @@ const env = {
     fontScale: Dimensions.get('window').fontScale,
   },
   appearance: Appearance.getColorScheme(),
+  version: packageJson.version,
 };
 
 export default env;

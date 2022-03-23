@@ -1,25 +1,22 @@
+import env from 'env';
 import { NativeModules, Platform, } from 'react-native';
 
+export enum Languages {
+  en = 'english',
+  fi = 'filipino',
+  fr = 'french',
+  hi = 'hindi',
+  ml = 'malayalam',
+}
 
 export const getLanguage = (): string => {
-  const defaultLanguage = 'en';
-  const supportedLanguages = ['en',];
-  let systemLanguage;
-  if (Platform.OS === 'android') {
-    systemLanguage = NativeModules.I18nManager.localeIdentifier;
-  } else {
-    systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
-    if (systemLanguage === undefined) {
-      // iOS 13 workaround, take first of AppleLanguages array  ["en", "en-NZ"]
-      [systemLanguage] = NativeModules.SettingsManager.settings.AppleLanguages;
-    }
-  }
+  const defaultLanguage = Languages.en;
+  const supportedLanguages = [Languages.en, ];
 
-  if (!systemLanguage) {
-    systemLanguage = defaultLanguage;
-  }
-  return supportedLanguages.includes(systemLanguage.substring(0, 2))
-    ? systemLanguage.substring(0, 2)
+  const systemLanguage = Languages[env.locale.substring(0, 2)];
+
+  return supportedLanguages.includes(systemLanguage)
+    ? systemLanguage
     : defaultLanguage;
 };
 

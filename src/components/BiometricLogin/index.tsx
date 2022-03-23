@@ -41,7 +41,7 @@ const BiometricLogin = (props: IBiometricsLogin) => {
       {biometricsReady && (
         <View style={styles.biometricLogin}>
           <Link onPress={(() => authenticate(props.onSignedIn, () => setError(true)))} >
-            {vocab.get().useYourBiometrics(biometryStatus.biometryType)}
+            {vocab.t(vocab.get().useYourBiometrics, biometryStatus.biometryType)}
           </Link>
         </View>
       )}

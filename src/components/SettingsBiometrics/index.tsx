@@ -23,7 +23,7 @@ const SettingsBiometrics = () => {
         <>
           <SettingsToggle
             title={biometryStatus.biometryType}
-            description={vocab.get().useBiometricsToLogIn(biometryStatus.biometryType)}
+            description={vocab.t(vocab.get().useBiometricsToLogIn, biometryStatus.biometryType || 'Biometric ID')}
             on={biometricsReady}
             onChange={async (on) => {
               if (on) {

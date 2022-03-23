@@ -1,6 +1,7 @@
 import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TSuggestedValues, TFee, IWithdrawableDefault } from 'services/api/employees/types';
+import { IBalance, TSuggestedValues, IWithdrawableDefault } from 'services/api/employees/types';
+import { WithdrawalOptions, WithdrawalSource } from 'services/analytics/types';
 
 export enum withdrawalActions {
   GET_BALANCE = 'GET_BALANCE',
@@ -16,6 +17,7 @@ export enum withdrawalActions {
   SET_WITHDRAWABLE_DEFAULTS = 'SET_WITHDRAWABLE_DEFAULTS',
   GET_PAYCYCLE_INFO = 'GET_PAYCYCLE_INFO',
   SET_PAYCYCLE_INFO = 'SET_PAYCYCLE_INFO',
+  SET_SOURCE = 'SET_SOURCE',
 }
 
 export interface IPaycycleInfo {
@@ -23,6 +25,15 @@ export interface IPaycycleInfo {
   end: string; // yyyy-mm-dd
   total_days: number;
   left_days: number;
+}
+
+interface ISetAmountPayload {
+  amount: number;
+  inputSource: WithdrawalOptions;
+}
+
+export interface IWithdrawalPayload extends ISetAmountPayload {
+  screenSource: WithdrawalSource;
 }
 
 export interface IGetBalanceAction {
@@ -36,7 +47,12 @@ export interface ISetBalanceAction {
 
 export interface ISetAmountAction {
   type: withdrawalActions.SET_AMOUNT;
-  amount: number;
+  payload: ISetAmountPayload;
+}
+
+export interface ISetSourceAction {
+  type: withdrawalActions.SET_SOURCE;
+  payload: WithdrawalSource;
 }
 
 export interface ISetSuggestedValuesAction {
@@ -46,12 +62,12 @@ export interface ISetSuggestedValuesAction {
 
 export interface ISetFeeAction {
   type: withdrawalActions.SET_FEE;
-  fee: TFee;
+  fee: number;
 }
 
 export interface IWithdrawalAction {
   type: withdrawalActions.WITHDRAWAL;
-  amount: number;
+  payload: IWithdrawalPayload;
   meta?: IMeta;
 }
 
@@ -76,4 +92,4 @@ export interface ISetPaycycleInfoAction {
 
 export type TWithdrawalAction = IGetBalanceAction | ISetBalanceAction | ISetAmountAction
 | ISetSuggestedValuesAction | ISetWithdrawalTransactionAction | ISetFeeAction
-| IGetWithdrawableDefaultsAction | ISetWithdrawableDefaultsAction | ISetPaycycleInfoAction;
+| IGetWithdrawableDefaultsAction | ISetWithdrawableDefaultsAction | ISetPaycycleInfoAction | ISetSourceAction;

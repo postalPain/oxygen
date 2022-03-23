@@ -1,3 +1,4 @@
+import { string } from 'yup/lib/locale';
 import { IAuthState, TAuthAction, AuthActions } from '../types';
 
 export const defaultSignUpErrors = {
@@ -12,6 +13,7 @@ export const defaultAuthData = {
   refresh_token: '',
   refresh_ttl: '',
 };
+
 export const defaultSignUpData = {
   registration_id: '',
   email: '',
@@ -22,6 +24,7 @@ export const authDefaultState: IAuthState = {
   authData: defaultAuthData,
   signUpErrors: defaultSignUpErrors,
   signUpData: defaultSignUpData,
+  signUpCode: null,
   forgotPassword: null,
   signedIn: false,
 };
@@ -62,6 +65,12 @@ const authReducer = (
       return {
         ...state,
         signUpErrors: action.payload,
+      };
+    }
+    case AuthActions.SET_SIGN_UP_CODE: {
+      return {
+        ...state,
+        signUpCode: action.code
       };
     }
     case AuthActions.SET_FORGOT_PASSWORD_EMAIL: {

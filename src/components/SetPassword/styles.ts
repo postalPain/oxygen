@@ -6,6 +6,7 @@ const useStyles = () => StyleSheet.create({
   formContainer: {
     flex: 1,
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   inputLabelError: {
     color: theme.colors.error,

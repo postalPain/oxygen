@@ -1,7 +1,12 @@
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { Linking, Alert } from 'react-native';
+import { analyticEvents, analytics } from '../services/analytics';
 
-export const openBrowser = async (uri: string) => {
+export const openBrowser = async (uri: string, analyticsEvent?: {name: analyticEvents; sourceScreen: string}) => {
+  if (analyticsEvent) {
+    const { name, sourceScreen } = analyticsEvent;
+    analytics.logEvent(name, { sourceScreen });
+  }
   try {
     if (await InAppBrowser.isAvailable()) {
       await InAppBrowser.open(uri, {

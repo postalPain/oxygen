@@ -15,6 +15,7 @@ import { getBalance, getWithdrawableDefaults, getSuggestedValues, getPaycycleInf
 import { selectBalance } from 'modules/withdrawal/selectors';
 import ModalWithdrawInfo from './ModalWithdrawInfo';
 import { E2ETextWrapper } from '../../components/E2EText';
+import { analyticEvents, analytics } from '../../services/analytics';
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,13 @@ const Dashboard: React.FC<any> = () => {
   useEffect(() => {
     balance && dispatch(getSuggestedValues()); // BE produces an error when requesting values before the balance
   }, [balance]);
+
+  const onInfoIconPress = () => {
+    setInfoModal(true);
+    analytics.logEvent(analyticEvents.dashboardOpenInfo, {
+      source: 'via-info-icon',
+    });
+  };
 
   return (
     <ScreenWrapperMain>
@@ -53,7 +61,7 @@ const Dashboard: React.FC<any> = () => {
       </View>
       <View style={{ alignSelf: 'stretch' }}>
         <WithdrawalTagLarge amount={balance.withdrawable_wages} style={styles.largeTagContainer} />
-        <WithdrawInfo style={styles.info} onPress={() => setInfoModal(true)} />
+        <WithdrawInfo style={styles.info} onPress={onInfoIconPress} />
       </View>
       <View style={styles.smallTagsContainer}>
         <WithdrawalTagSmall amount={balance.total_withdrawn_amount} withdrawn style={{ flex: 5 }} />
@@ -61,7 +69,7 @@ const Dashboard: React.FC<any> = () => {
         <WithdrawalTagSmall amount={balance.earned_wages} earned style={{ flex: 6 }} />
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonWithdraw setInfoModal={setInfoModal} />
+        <ButtonWithdraw setInfoModal={setInfoModal} source="via-dashboard" />
       </View>
     </ScreenWrapperMain>
   );

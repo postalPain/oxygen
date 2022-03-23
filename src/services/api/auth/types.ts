@@ -22,7 +22,7 @@ export interface IForgotPasswordBody {
 }
 
 export interface IResetPasswordBody {
-  code?: number;
+  code?: string;
   credentials?: string; // email
   password?: string;
 }
