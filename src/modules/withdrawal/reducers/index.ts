@@ -1,5 +1,5 @@
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TFee, TSuggestedValues } from 'services/api/employees/types';
+import { IBalance, TSuggestedValues } from 'services/api/employees/types';
 import { IPaycycleInfo, TWithdrawalAction, withdrawalActions } from '../types';
 import { WithdrawalOptions, WithdrawalSource } from '../../../services/analytics/types';
 
@@ -7,7 +7,7 @@ export interface IPaymentState {
   balance: IBalance;
   amount: number;
   suggestedValues: TSuggestedValues;
-  fee: TFee;
+  fee: number;
   transaction: ITransaction;
   minimumWithdrawable: number;
   maximumWithdrawable: number;

@@ -1,6 +1,6 @@
 import { IMeta } from 'modules/store/types';
 import { ITransaction } from 'modules/transactions/types';
-import { IBalance, TSuggestedValues, TFee, IWithdrawableDefault } from 'services/api/employees/types';
+import { IBalance, TSuggestedValues, IWithdrawableDefault } from 'services/api/employees/types';
 import { WithdrawalOptions, WithdrawalSource } from 'services/analytics/types';
 
 export enum withdrawalActions {
@@ -62,7 +62,7 @@ export interface ISetSuggestedValuesAction {
 
 export interface ISetFeeAction {
   type: withdrawalActions.SET_FEE;
-  fee: TFee;
+  fee: number;
 }
 
 export interface IWithdrawalAction {
