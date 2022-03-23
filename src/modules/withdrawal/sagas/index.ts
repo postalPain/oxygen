@@ -97,6 +97,7 @@ function* getWithdrawableDefaultsWorker(action: IWithdrawalAction) {
     return;
   }
   yield put(setWithdrawableDefaults(response.data));
+  yield put(getFee(response.data.minimal));
   yield action?.meta?.onSuccess?.();
 }
 
