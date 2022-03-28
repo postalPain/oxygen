@@ -26,10 +26,6 @@ const Transactions = (
   const transactionsLoading = useSelector(selectTransactionsLoading);
   const noPendingTransactions = useSelector(selectNoPendingTransaction);
 
-  // useEffect(() => {
-  //   params.id && navigation.navigate(AppScreenNames.TransactionsDetails, { id: params.id });
-  // }, [params]);
-
   useInterval(() => {
     dispatch(getTransactions());
   }, delay);

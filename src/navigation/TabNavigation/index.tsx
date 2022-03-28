@@ -20,18 +20,6 @@ const Tab = createBottomTabNavigator();
 
 
 const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> = () => {
-
-  // const transactionPush = usePushTransactionDetails();
-
-  // useEffect(() => {
-  //   transactionPush && navigate(AppScreenNames.TransactionsStack, {
-  //     screen: AppScreenNames.Transactions,
-  //     params: {
-  //       id: transactionPush.transaction_id
-  //     }
-  //   });
-  // }, [transactionPush]);
-
   return (
     <Tab.Navigator
       tabBar={(props) => <TabBar {...props} />}
