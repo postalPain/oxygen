@@ -1,13 +1,12 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import env from 'env';
 import { getItem, getItemForUser, setItem, setItemForUser } from 'modules/asyncStorage';
-import { logMessage } from 'modules/logger/actions';
 import useLogger from 'modules/logger/hooks/useLogger';
 import { selectUserEmail } from 'modules/user/selectors';
 import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { uuid } from 'utils/uuid';
 import { analytics } from 'services/analytics';
 
@@ -16,13 +15,7 @@ export enum pushesStoredKeys {
   pushEnabled = 'pushEnabled',
 }
 
-// interface OnMessage<T> {
-//   (arg: FirebaseMessagingTypes.RemoteMessage & {data: T}): any;
-// }
-
 export const usePushSettings = () => {
-  const dispatch = useDispatch();
-  const logger = useLogger();
   const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
@@ -133,75 +126,67 @@ export const usePushMessages = <T>(topic?: string) => {
       }
     };
 
-    pushOutOfApp.subscribe(onMessage);
-
-    return () => pushOutOfApp.unsubscribe(onMessage);
-    // messaging().onMessage(onMessage);
-    // messaging().setBackgroundMessageHandler(onMessage);
+    messaging().onMessage(onMessage);
+    messaging().setBackgroundMessageHandler(onMessage);
   }, []);
-
-  useEffect(() => {
-    console.log('message change', message);
-
-  }, [message]);
 
   return {
     simulateMessage: (_message: TMessage) => {
       // onMessage(_message);
-      _messaging.dispatch(_message);
+      // _messaging.dispatch(_message);
     },
     message,
   };
 };
 
 // import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
-const _messaging = {
-  handlers: [],
-  onMessage(handler) {
-    this.handlers.push(handler);
-  },
-  setBackgroundMessageHandler(handler) {
-    this.onMessage(handler);
-  },
-  dispatch(message) {
-    console.log('dispatch message', message);
+// const _messaging = {
+//   handlers: [],
+//   onMessage(handler) {
+//     this.handlers.push(handler);
+//   },
+//   setBackgroundMessageHandler(handler) {
+//     this.onMessage(handler);
+//   },
+//   dispatch(message) {
+//     console.log('dispatch message', message);
 
-    this.handlers.forEach(handler => {
-      handler(message);
-    });
-  }
-};
+//     this.handlers.forEach(handler => {
+//       handler(message);
+//     });
+//   }
+// };
 
-export const pushOutOfApp = {
-  // messages: [],
-  message: null, // To save a message with setBackgroundMessageHandler
-  handlers: [],
-  messaging,
-  init () {
-    console.log('init');
+// export const pushOutOfApp = {
+//   // messages: [],
+//   message: null, // To save a message with setBackgroundMessageHandler
+//   handlers: [],
+//   messaging,
+//   init () {
+//     console.log('init');
 
-    // The handler must return a promise once your logic has completed to free up device resources
-    this.messaging().setBackgroundMessageHandler(async (message) => {
-      this.message = message;
-    });
-    this.messaging().onMessage((message) => {
-      this.handlers.forEach(handler => {
-        handler(message);
-      });
-    });
-  },
-  subscribe (handler) {
-    this.message && handler(this.message);
-    console.log('pushing handler');
+//     // The handler must return a promise once your logic has completed to free up device resources
+//     this.messaging().setBackgroundMessageHandler(async (message) => {
+//       this.message = message;
+//     });
+//     this.messaging().onMessage((message) => {
+//       this.handlers.forEach(handler => {
+//         handler(message);
+//       });
+//     });
+//   },
+//   subscribe (handler) {
+//     this.message && handler(this.message);
+//     console.log('pushing handler');
 
-    this.handlers.push(handler);
-    console.log('handlers count:', this.handlers.length);
-  },
-  unsubscribe (_handler) {
-    console.log('unsubscribing');
+//     this.handlers.push(handler);
+//     console.log('handlers count:', this.handlers.length);
+//   },
+//   unsubscribe (_handler) {
+//     console.log('unsubscribing');
 
-    this.handlers = this.handlers.filter(handler => handler !== _handler);
-  },
-};
+//     this.handlers = this.handlers.filter(handler => handler !== _handler);
+//   },
+// };
 
 
