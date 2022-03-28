@@ -10,6 +10,7 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "typeRoots": ["./src/types"],
     "lib": [
       "es6"
     ],
