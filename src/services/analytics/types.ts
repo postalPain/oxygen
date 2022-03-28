@@ -1,7 +1,7 @@
 export interface IAnalyticsUserProps {
   app_version: string;
   device_default_language: string;
-  distinct_id: string;
+  internal_uid: string;
   company_code: string;
   push_notifications: string;
   biometric_login: string;

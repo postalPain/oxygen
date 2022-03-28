@@ -3,7 +3,7 @@ import { IAnalyticsUserProps, IUserProps } from './types';
 export const userPropsMap: Record<keyof IUserProps, keyof IAnalyticsUserProps> = {
   appVersion: 'app_version',
   language: 'device_default_language',
-  distinctId: 'distinct_id',
+  distinctId: 'internal_uid',
   companyCode: 'company_code',
   pushNotificationsEnabled: 'push_notifications',
   biometricLoginEnabled: 'biometric_login',
