@@ -133,60 +133,9 @@ export const usePushMessages = <T>(topic?: string) => {
   return {
     simulateMessage: (_message: TMessage) => {
       // onMessage(_message);
-      // _messaging.dispatch(_message);
     },
     message,
   };
 };
-
-// import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
-// const _messaging = {
-//   handlers: [],
-//   onMessage(handler) {
-//     this.handlers.push(handler);
-//   },
-//   setBackgroundMessageHandler(handler) {
-//     this.onMessage(handler);
-//   },
-//   dispatch(message) {
-//     console.log('dispatch message', message);
-
-//     this.handlers.forEach(handler => {
-//       handler(message);
-//     });
-//   }
-// };
-
-// export const pushOutOfApp = {
-//   // messages: [],
-//   message: null, // To save a message with setBackgroundMessageHandler
-//   handlers: [],
-//   messaging,
-//   init () {
-//     console.log('init');
-
-//     // The handler must return a promise once your logic has completed to free up device resources
-//     this.messaging().setBackgroundMessageHandler(async (message) => {
-//       this.message = message;
-//     });
-//     this.messaging().onMessage((message) => {
-//       this.handlers.forEach(handler => {
-//         handler(message);
-//       });
-//     });
-//   },
-//   subscribe (handler) {
-//     this.message && handler(this.message);
-//     console.log('pushing handler');
-
-//     this.handlers.push(handler);
-//     console.log('handlers count:', this.handlers.length);
-//   },
-//   unsubscribe (_handler) {
-//     console.log('unsubscribing');
-
-//     this.handlers = this.handlers.filter(handler => handler !== _handler);
-//   },
-// };
 
 
