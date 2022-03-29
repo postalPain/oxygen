@@ -14,14 +14,9 @@ interface IScreenWrapperMain {
 const ScreenWrapperMain = (props: IScreenWrapperMain) => {
   return (
     <View style={[styles.screenWrapperMain, props.style]}>
-      { isRamadan22()
-        ? (
-          <View style={styles.screenGradient}>
-            <ScreenGradientRamadan />
-          </View>
-        )
-        : <ScreenGradient />}
-
+      <View style={styles.screenGradient}>
+        {isRamadan22() ? <ScreenGradientRamadan /> : <ScreenGradient />}
+      </View>
       {props.children}
     </View>
   );
