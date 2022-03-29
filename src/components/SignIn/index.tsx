@@ -15,11 +15,11 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
-import { usePushNotifications } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
 import { testIds } from '../../config/testIds';
 
 interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
-  forgotPasswordMode: boolean;
+  forgotPasswordMode?: boolean;
 }
 
 const SignIn = (props: ISignIn) => {
@@ -28,7 +28,7 @@ const SignIn = (props: ISignIn) => {
 
   const storedEmail = useSelector(selectUserEmail);
 
-  const { pushNotRequested, requestPushes } = usePushNotifications();
+  const { pushNotRequested, requestPushes } = usePushSettings();
 
   const [error, setError] = useState<IError>(null);
   const [email, setEmail] = useState<string>();
@@ -65,7 +65,7 @@ const SignIn = (props: ISignIn) => {
         dispatch(userGetInfo());
         pushNotRequested && await requestPushes(email);
         isUserEmployerVerified(status)
-          ? navigation.navigate(AppScreenNames.TabNavigation)
+          ? navigation.navigate(AppScreenNames.AuthorizedStack)
           : navigation.navigate(AppScreenNames.UserVerificationPending);
         // Need to refactor. Biometric auth is not getting unmounted and calls authenticate inside the app if signedIn remains false
         setSignedIn(true);

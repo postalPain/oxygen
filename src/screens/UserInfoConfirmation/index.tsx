@@ -32,7 +32,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
   const onPress = async () => {
     await deleteFromStoredLoginEmails(userEmail);
     dispatch(clearSignUpData());
-    navigation.navigate(AppScreenNames.TabNavigation);
+    navigation.navigate(AppScreenNames.AuthorizedStack);
   };
   return (
     <SafeAreaView style={styles.screen}>

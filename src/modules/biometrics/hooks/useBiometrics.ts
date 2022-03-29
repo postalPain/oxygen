@@ -1,10 +1,10 @@
 import { requestBiometricPermission } from 'modules/biometrics/permissions';
 import { getLoginCount } from 'modules/user/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { biometricLogin, getBiometryReady, getBiometryStatus } from '../actions';
-import { getBiometricsAccepted, storeBiometricsAccepted } from '../asyncStorage';
+import { getBiometrics, storeBiometrics } from '../asyncStorage';
 import { selectBiometricsReady, selectBiometryStatus } from '../selectors';
 import { analytics } from 'services/analytics';
 
@@ -13,7 +13,6 @@ export const useBiometrics = () => {
   const email = useSelector(selectUserEmail);
   const biometricsReady = useSelector(selectBiometricsReady);
   const biometryStatus = useSelector(selectBiometryStatus);
-  const [biometricsAccepted, setBiometricsAccepted] = useState<boolean>(null);
 
   useEffect(() => {
     dispatch(getBiometryStatus({ onSuccess: () => dispatch(getBiometryReady()) }));
@@ -24,11 +23,12 @@ export const useBiometrics = () => {
   }, [biometricsReady]);
 
   useEffect(() => {
-    getBiometricsAccepted(email).then(setBiometricsAccepted);
     dispatch(getBiometryReady());
   }, [email]);
 
   const shouldRequestBiometrics = async () => {
+    const biometricsAccepted = await getBiometrics(email);
+
     if (!biometricsAccepted && biometryStatus.available) {
       const loginCount = await getLoginCount(email);
       return [2, 7].includes(loginCount); // On 2nd and 7th login
@@ -44,15 +44,14 @@ export const useBiometrics = () => {
     biometryStatus,
     shouldRequestBiometrics,
     authenticate,
-    setBiometricsAccepted,
     turnOnBiometrics: async () => {
       const accepted = await requestBiometricPermission();
-      await storeBiometricsAccepted(email, accepted);
+      await storeBiometrics(email, accepted);
       dispatch(getBiometryReady());
       return accepted;
     },
     turnOffBiometrics: async () => {
-      await storeBiometricsAccepted(email, false);
+      await storeBiometrics(email, false);
       dispatch(getBiometryReady());
     }
   };

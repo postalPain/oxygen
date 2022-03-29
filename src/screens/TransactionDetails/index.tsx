@@ -45,10 +45,10 @@ const TransactionDetails = (
 ) => {
   const styles = useStyles();
   const transactions: ITransaction[] = useSelector(selectTransactions);
-  const [currentTransaction, setCurrentTransaction] = useState<ITransaction>(params.transaction);
+  const [currentTransaction, setCurrentTransaction] = useState<ITransaction>(null);
   useEffect(
     () => {
-      setCurrentTransaction(transactions.find((t) => t.id === params.transaction.id));
+      setCurrentTransaction(transactions.find((t) => t.id === params.id));
     },
     [transactions]
   );

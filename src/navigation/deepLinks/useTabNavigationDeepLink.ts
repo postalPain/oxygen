@@ -1,6 +1,6 @@
 import { DeepLink, useDeepLink } from 'modules/deepLinks';
 import { AppScreenNames } from 'navigation/types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const topic2screenName = {
   dashboard: AppScreenNames.Dashboard,
@@ -9,12 +9,15 @@ const topic2screenName = {
   withdraw: AppScreenNames.WithdrawalSelect,
 };
 
-const useTabNavigationDeepLinks = (navigate) => {
+const useTabNavigationDeepLinks = (navigate?) => {
   const [deepLink] = useDeepLink<DeepLink>();
+  const [screenName, setScreenName] = useState<AppScreenNames>();
 
   useEffect(() => {
-    deepLink && topic2screenName[deepLink.topic] && navigate(topic2screenName[deepLink.topic]);
+    deepLink && topic2screenName[deepLink.topic] && setScreenName(topic2screenName[deepLink.topic]);
   }, [deepLink]);
+
+  return screenName;
 };
 
 export default useTabNavigationDeepLinks;

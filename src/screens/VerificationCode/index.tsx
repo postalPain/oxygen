@@ -19,12 +19,12 @@ interface IVerificationCode {
   onSubmit?: (code: string) => void;
   backendError?: string;
   resend?: (email: string, meta: IMeta) => {};
+  loading?: boolean;
 }
 
 const VerificationCode = (props: IVerificationCode) => {
   const { backendError, resend } = props;
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     backendError && dispatch(errorNotification({ text: backendError }));
@@ -46,7 +46,7 @@ const VerificationCode = (props: IVerificationCode) => {
         <View style={styles.buttonsContainer}>
           {!!resend && <ResendEmail onPress={resend} />}
           <Button
-            disabled={props.code?.length !== CODE_LENGTH}
+            disabled={(props.code?.length !== CODE_LENGTH) || props.loading}
             onPress={() => props.onSubmit(props.code) }
           >
             {vocab.confirm}
