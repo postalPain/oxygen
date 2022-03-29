@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { getHeight, getWidth, windowDimensions } from 'utils/window';
 import { ScreenGradient } from 'components';
+import ScreenGradientRamadan from 'components/CampaignRamadan/ScreenGradientRamadan';
+import { isRamadan22 } from 'utils/time';
 
 interface IScreenWrapperMain {
   children?;
@@ -12,7 +14,14 @@ interface IScreenWrapperMain {
 const ScreenWrapperMain = (props: IScreenWrapperMain) => {
   return (
     <View style={[styles.screenWrapperMain, props.style]}>
-      <ScreenGradient />
+      { isRamadan22()
+        ? (
+          <View style={styles.screenGradient}>
+            <ScreenGradientRamadan />
+          </View>
+        )
+        : <ScreenGradient />}
+
       {props.children}
     </View>
   );
@@ -27,10 +36,15 @@ const styles = StyleSheet.create({
     flex: 1,
     width: windowDimensions.width,
     paddingHorizontal: MAIN_WRAPPER_PADDING_HORIZONTAL,
-    paddingTop: getHeight(15),
+    paddingTop: getHeight(20),
     paddingBottom: MAIN_WRAPPER_PADDING_BOTTOM,
     backgroundColor: theme.colors.screenBackgroundColorLight,
     alignItems: 'center',
+  },
+  screenGradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0
   },
 });
 

@@ -18,7 +18,7 @@ const ScreenGradientRamadan = ({
 }: IScreenGradientRamadanProps) => {
   const styles = useStyles();
   return (
-    <View style={[styles.gradientRamadan, style]} >
+    <View style={style} >
       <LinearGradient
         style={styles.gradient}
         colors={[color1, color2]}

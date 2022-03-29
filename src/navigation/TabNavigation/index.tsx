@@ -12,6 +12,8 @@ import vocabulary from 'i18n';
 import theme from 'config/theme';
 import TransactionsStack from './TransactionsStack';
 import ProfileStack from './ProfileStack';
+import IconDashboardRamadan from 'components/CampaignRamadan/IconDashboardRamadan';
+import { isRamadan22 } from 'utils/time';
 
 
 const vocab = vocabulary.get();
@@ -34,7 +36,7 @@ const TabNavigation: React.FC<AppNavigationProps<AppScreenNames.TabNavigation>> 
         component={Dashboard}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <IconDashboard color={color} />,
+          tabBarIcon: ({ color }) => isRamadan22() ? <IconDashboardRamadan color={color} /> : <IconDashboard color={color} />,
           tabBarLabel: vocab.dashboard,
         }}
       />

@@ -4,6 +4,9 @@ import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
 
 const styles = StyleSheet.create({
+  screenWrapper: {
+    paddingTop: getHeight(26),
+  },
   safeArea: {
     flex: 1,
     backgroundColor: theme.colors.screenBackgroundColorLight,
