@@ -1,6 +1,6 @@
 import {
   IGetTransactionsAction,
-  ISetTransactionsAction, ITransaction,
+  ISetTransactionsAction, ISetTransactionsLoadingAction, ITransaction,
   TransactionsActions,
 } from 'modules/transactions/types';
 import { IMeta } from 'modules/store/types';
@@ -14,4 +14,9 @@ export const getTransactions = (meta?: IMeta): IGetTransactionsAction => ({
 export const setTransactions = (payload: ITransaction[]): ISetTransactionsAction => ({
   type: TransactionsActions.SET_TRANSACTIONS,
   payload,
+});
+
+export const setTransactionsLoading = (transactionsLoading: boolean): ISetTransactionsLoadingAction => ({
+  type: TransactionsActions.SET_TRANSACTIONS_LOADING,
+  transactionsLoading,
 });

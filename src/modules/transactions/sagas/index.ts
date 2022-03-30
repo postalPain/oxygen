@@ -11,15 +11,17 @@ import { errorNotification } from 'modules/notifications/actions';
 
 function* getTransactionsWorker (action: IGetTransactionsAction) {
   let response;
+  yield put(transactionsActions.setTransactionsLoading(true));
+
   try {
     response = yield api.employees.getTransactions();
   } catch (error) {
-    yield action?.meta?.onError?.();
+    yield put(transactionsActions.setTransactionsLoading(false));
     yield put(errorNotification());
     return;
   }
-  yield action?.meta?.onSuccess?.(response.data);
   yield put(transactionsActions.setTransactions(response.data));
+  yield put(transactionsActions.setTransactionsLoading(false));
 }
 
 export default function* transactionsWatcher(): SagaIterator {

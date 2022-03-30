@@ -134,8 +134,8 @@ android {
         applicationId "com.qstudio.floos"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 81
-        versionName "1.1.1"
+        versionCode 82
+        versionName "1.1.2"
     }
     splits {
         abi {

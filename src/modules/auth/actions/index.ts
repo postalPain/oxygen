@@ -55,6 +55,11 @@ export const setSignUpCode = (code: string): ISetSignUpCodeAction => ({
   code,
 });
 
+export const setSignUpCodeLoading = (signUpCodeLoading: boolean) => ({
+  type: AuthActions.SET_SIGN_UP_CODE_LOADING,
+  signUpCodeLoading,
+});
+
 export const signIn = (email: string, password: string, meta?: IMeta): ISignInAction => ({
   type: AuthActions.SIGN_IN,
   email,

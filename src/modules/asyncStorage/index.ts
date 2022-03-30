@@ -63,10 +63,10 @@ export const getAllKeys = async () => {
 };
 
 export const getItemForUser = async (email, key) => {
-  const item = await getItem(`${email }.${ key}`);
+  const item = await getItem(`${email },${ key}`);
   return JSON.parse(item);
 };
 
 export const setItemForUser = async (email, key, value) => {
-  await setItem(`${email }.${key}`, JSON.stringify(value));
+  await setItem(`${email },${key}`, JSON.stringify(value));
 };
