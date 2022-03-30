@@ -14,7 +14,7 @@ export const isTtlActive = (ttl: string) => {
 
 export const isRamadan22 = () => {
   const now = new Date();
-  const start = new Date('2022-04-02');
+  const start = new Date('2022-03-29');
   const end = new Date('2022-05-03');
 
   return now.getTime() >= start.getTime() && now.getTime() <= end.getTime();
