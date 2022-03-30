@@ -7,6 +7,7 @@ import ScreenWrapperOnboarding from 'components/ScreenWrapperOnboarding';
 import { OnboardingContext } from 'components/ScreenWrapperOnboarding/context';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { analyticEvents, analytics } from '../../services/analytics';
+import moment from 'moment';
 
 const carouselSlides = [{
   image: require('../../../assets/onboarding_01.png'),
@@ -26,7 +27,7 @@ const Onboarding = (
   const goToSignUp = () => {
     navigation.navigate(AppScreenNames.EnterRegistrationId);
     analytics.logEvent(analyticEvents.signUpStarted, {
-      timestamp: new Date().toISOString(),
+      timestamp: moment().utc().toISOString(),
     });
   };
   const goToLogIn = () => {

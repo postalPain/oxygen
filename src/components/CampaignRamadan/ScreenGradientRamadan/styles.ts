@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
-import env from 'env';
-import theme from 'config/theme';
 import { getHeight } from 'utils/window';
 
 const useStyles = () => StyleSheet.create({
   gradient: {
     height: getHeight(18),
-    width: env.dimensions.width,
     opacity: .8
   },
+  ornament:{
+    position: 'absolute',
+    top: -getHeight(12),
+  }
 });
 
 export default useStyles;

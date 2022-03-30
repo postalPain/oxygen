@@ -1,11 +1,13 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import env from 'env';
 import { getItem, getItemForUser, setItem, setItemForUser } from 'modules/asyncStorage';
+import useLogger from 'modules/logger/hooks/useLogger';
 import { selectUserEmail } from 'modules/user/selectors';
 import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
 import { useSelector } from 'react-redux';
+import { uuid } from 'utils/uuid';
 import { analytics } from 'services/analytics';
 
 export enum pushesStoredKeys {
@@ -13,18 +15,23 @@ export enum pushesStoredKeys {
   pushEnabled = 'pushEnabled',
 }
 
-type OnMessage = (message: FirebaseMessagingTypes.RemoteMessage) => Promise<any>;
-
-export const usePushNotifications = (onMessage?: OnMessage) => {
+export const usePushSettings = () => {
   const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
   const [fcmToken, setFcmToken] = useState<string>();
 
-  const pushNotRequested = permissions === 'denied';
-
   useEffect(() => {
     (async () => {
+      (async () => {
+        let _fcmToken = await getItem(pushesStoredKeys.fcmToken);
+        if (!_fcmToken) {
+          _fcmToken = await messaging().getToken();
+          setItem(pushesStoredKeys.fcmToken, _fcmToken);
+        }
+        setFcmToken(_fcmToken);
+      })();
+
       const _permissions = await checkNotifications();
       setPermissions(_permissions.status);
 
@@ -46,9 +53,6 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
       }
       setFcmToken(_fcmToken);
     })();
-
-    onMessage && messaging().onMessage(onMessage);
-    onMessage && messaging().setBackgroundMessageHandler(onMessage);
   }, [enabled]);
 
   const requestPermissions = async (): Promise<PermissionStatus> => {
@@ -78,7 +82,7 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
   return {
     pushEnabled: enabled,
     pushPermissions: permissions,
-    pushNotRequested,
+    pushNotRequested: permissions === 'denied',
     fcmToken,
     requestPushes,
     turnOnPushes: async () => {
@@ -97,6 +101,7 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
       await setItemForUser(email, pushesStoredKeys.pushEnabled, false);
       setEnabled(false);
     },
+
     ...(env.e2e && {
       pushEnabled: false,
       requestPushes: (mail?: string) => {
@@ -105,3 +110,32 @@ export const usePushNotifications = (onMessage?: OnMessage) => {
     })
   };
 };
+
+export const usePushMessages = <T>(topic?: string) => {
+  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: T};
+  const [message, setMessage] = useState<TMessage>(null);
+
+  const logger = useLogger();
+  useEffect(() => {
+    const onMessage = (_message: TMessage): any => {
+      logger.log('topic', uuid(), topic);
+      logger.log('_message', _message);
+      if (!topic || (topic === _message.data.topic)) {
+        logger.log('setting message');
+        setMessage(_message);
+      }
+    };
+
+    messaging().onMessage(onMessage);
+    messaging().setBackgroundMessageHandler(onMessage);
+  }, []);
+
+  return {
+    simulateMessage: (_message: TMessage) => {
+      // onMessage(_message);
+    },
+    message,
+  };
+};
+
+

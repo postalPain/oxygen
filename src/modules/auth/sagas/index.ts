@@ -28,6 +28,7 @@ import { storeBiometricData } from 'modules/biometrics/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { IResponse } from '../../../services/api/types';
 import { analyticEvents, analytics } from '../../../services/analytics';
+import moment from 'moment';
 
 
 function* handleError (error: IError) {
@@ -62,7 +63,7 @@ function* signUpWorker(action: ISignUpAction) {
   }
   analytics.logEvent(analyticEvents.signUpCompleted, {
     companyCode: action.payload.registration_id.split('-')?.[1],
-    timestamp: new Date().toISOString(),
+    timestamp: moment().utc().toISOString(),
   });
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   greetingContainer: {
     alignSelf: 'stretch',
     alignItems: 'center',
-    paddingBottom: getHeight(10),
+    paddingBottom: getHeight(7),
   },
   greeting: {
     color: theme.colors.floos1,
