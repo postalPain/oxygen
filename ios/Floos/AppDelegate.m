@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <React/RCTI18nUtil.h>
 #import <RNSplashScreen.h>
 
 @import UIKit;
@@ -51,7 +52,13 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-
+  
+  NSString *language = [[[NSLocale preferredLanguages] firstObject] substringToIndex:2];
+  // NSArray *supportedLanguages = @[@"ar"];
+  NSArray *supportedLanguages = @[];
+  BOOL isAllowRTL = [supportedLanguages containsObject: language];
+  [[RCTI18nUtil sharedInstance] allowRTL: isAllowRTL];
+  [[RCTI18nUtil sharedInstance] forceRTL: isAllowRTL];
   [FIRApp configure];
 
   [RNSplashScreen show];
