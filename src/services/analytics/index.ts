@@ -13,6 +13,7 @@ export enum analyticEvents {
   madeWithdrawal = 'made_withdrawal',
   dashboardOpenInfo = 'dashboard_info_modal_viewed',
   helpViewed = 'help_viewed',
+  login = 'app_login',
 }
 
 export const analytics = (() => {

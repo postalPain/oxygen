@@ -99,6 +99,7 @@ export interface ISignInSuccessAction {
   type: AuthActions.SIGN_IN_SUCCESS;
   email: string;
   authData: IAuthData;
+  method: 'credentials' | 'biometric';
   meta?: IMeta;
 }
 
