@@ -4,13 +4,12 @@ import SettingsPushNotifications from 'components/SettingsPushNotifications';
 import { setItem } from 'modules/asyncStorage';
 import useLogger from 'modules/logger/hooks/useLogger';
 import { pushesStoredKeys, usePushMessages, usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { uuid } from 'utils/uuid';
 
 const DebugPush = () => {
-  const { fcmToken } = usePushSettings();
-
+  const { getToken } = usePushSettings();
   const { message, simulateMessage } = usePushMessages('transaction_details');
   const { log } = useLogger();
 
@@ -18,12 +17,6 @@ const DebugPush = () => {
     log('transactionDetailsPush', message);
   }, [message]);
 
-  useEffect(() => {
-    if (!fcmToken) {
-      return;
-    }
-    log('fcmToken', fcmToken);
-  }, [fcmToken]);
 
   return (
     <View>
