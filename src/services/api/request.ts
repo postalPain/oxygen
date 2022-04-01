@@ -9,6 +9,7 @@ import { isTtlActive } from 'utils/time';
 import api from '.';
 import { handleBackendError } from './errors';
 import env from 'env';
+import { getLogger } from 'modules/logger';
 
 
 const request = axios.create({
@@ -36,14 +37,11 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
   if (callback) callback();
 };
 
-export const setAuthHeader = (access_token) => addHeader({
-  name: 'Authorization',
-  value: `Bearer ${access_token}`,
-});
-
 request.interceptors.request.use(
   async (config) => {
     const authData = selectAuthData(getState());
+    config.headers.Authorization = `Bearer ${authData.access_token}`;
+
     if ((config.url !== apiUrls.refreshToken) && authData.access_token && !isTtlActive(authData.access_ttl)) {
       if (isTtlActive(authData.refresh_ttl)) {
         const response = await api.auth.refreshToken({
