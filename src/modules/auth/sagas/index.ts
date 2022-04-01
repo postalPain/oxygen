@@ -92,15 +92,21 @@ function* signInWorker(action: ISignInAction) {
     return;
   }
   getLogger().log('signedIn fcmToken', fcmToken);
-  yield put(authActions.signInSuccess(action.email, response.data, { onSuccess: action.meta?.onSuccess }));
+  yield put(authActions.signInSuccess(action.email, response.data, 'credentials', { onSuccess: action.meta?.onSuccess }));
 }
 
 function* signInSuccessWorker(action: ISignInSuccessAction) {
-  yield storeUserData({ email: action.email });
-  yield incrementLoginCount(action.email);
-  yield storeBiometricData(action.email, action.authData.refresh_token, action.authData.refresh_ttl);
-  yield put(authActions.setAuthData(action.authData));
-  yield action.meta?.onSuccess?.();
+  const { email, authData, meta, method } = action;
+
+  yield storeUserData({ email });
+  yield incrementLoginCount(email);
+  yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
+  yield put(authActions.setAuthData(authData));
+  analytics.logEvent(analyticEvents.login, {
+    method: `via-${method}`,
+    timestamp: moment().utc().toISOString(),
+  });
+  yield meta?.onSuccess?.();
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {

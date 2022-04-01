@@ -67,10 +67,11 @@ export const signIn = (email: string, password: string, meta?: IMeta): ISignInAc
   meta,
 });
 
-export const signInSuccess = (email: string, authData: IAuthData, meta?: IMeta): ISignInSuccessAction => ({
+export const signInSuccess = (email: string, authData: IAuthData, method, meta?: IMeta): ISignInSuccessAction => ({
   type: AuthActions.SIGN_IN_SUCCESS,
   email,
   authData,
+  method,
   meta,
 });
 
