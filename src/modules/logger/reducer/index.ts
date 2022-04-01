@@ -1,9 +1,12 @@
 import moment from 'moment';
 import { LoggerActions } from '../actions';
 
+type TLogMessageType = 'error' | 'text';
+
 interface ILogMessage {
   time: string;
   message: string;
+  type?: TLogMessageType;
 }
 
 interface ILoggerState {
@@ -21,7 +24,24 @@ export default function loggerReducer(state = defaultState, action): ILoggerStat
       return {
         ...state,
         messages: [
-          { time: moment().format('HH:mm:ss'), message: action.message, },
+          {
+            time: moment().format('HH:mm:ss'),
+            message: action.message,
+            type: 'text',
+          },
+          ...state.messages
+        ]
+      };
+    }
+    case LoggerActions.LOG_ERROR: {
+      return {
+        ...state,
+        messages: [
+          {
+            time: moment().format('HH:mm:ss'),
+            message: action.message,
+            type: 'error',
+          },
           ...state.messages
         ]
       };

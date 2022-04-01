@@ -55,14 +55,14 @@ const Dashboard: React.FC<any> = () => {
         <Text style={[styles.greeting]}>
           <Text>{vocab.get().hi}</Text>
           <E2ETextWrapper>
-            <Text
-              style={styles.greetingName}
-              onPress={() => env.dev && navigate(AppScreenNames.Debug)}
-            >{userInfo.first_name}
+            <Text style={styles.greetingName} >{userInfo.first_name}
             </Text>
           </E2ETextWrapper>
         </Text>
-        <Text style={[styles.greeting, styles.greetingDate]}>
+        <Text
+          style={[styles.greeting, styles.greetingDate]}
+          onPress={() => env.dev && navigate(AppScreenNames.Debug)}
+        >
           {moment().format('ddd D MMM[,] YYYY')}
         </Text>
       </View>

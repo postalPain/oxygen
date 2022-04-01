@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import vocab from 'i18n';
+import { getLogger } from 'modules/logger';
 import { navigate } from 'navigation';
 import { AppScreenNames } from 'navigation/types';
 
@@ -53,6 +54,7 @@ export interface IAxiosError {
 }
 
 export const handleBackendError = (error: IAxiosError): IError => {
+  getLogger().error('BE Error', error);
   if (error?.response?.status === 500) {
     return {
       code: ERROR_CODES.internalServerError,

@@ -1,5 +1,5 @@
 import store from 'modules/store';
-import { clearLogMessages, logMessage } from './actions';
+import { clearLogMessages, logError, logMessage } from './actions';
 import { selectLoggerMessages } from './selectors';
 
 export const getLogger = () => {
@@ -8,6 +8,7 @@ export const getLogger = () => {
 
   return {
     log: (...messages) => dispatch(logMessage(...messages)),
+    error: (...messages) => dispatch(logError(...messages)),
     clearLog: () => dispatch(clearLogMessages()),
     loggerMessages,
   };

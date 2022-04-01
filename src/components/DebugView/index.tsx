@@ -28,7 +28,14 @@ const DebugView = () => {
         Clear
       </Link>
       { loggerMessages.map(message => (
-        <Text selectable style={{ fontSize: getWidth(3), paddingVertical: getHeight(.5) }} >
+        <Text
+          selectable
+          style={{
+            fontSize: getWidth(3),
+            paddingVertical: getHeight(.5),
+            ...(message.type === 'error' && { color: 'red' })
+          }}
+        >
           <Text>{message.time} </Text>
           <Text> {message.message}</Text>
         </Text>
