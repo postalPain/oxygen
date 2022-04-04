@@ -51,7 +51,7 @@ const PaycycleBar = (props: IWithdrawInfoBar) => {
           <Text style={[styles.startDate, styles.day]}>
             {moment().format('D')}
           </Text>
-          <View style={styles.today}>
+          <View style={styles.todayContainer}>
             <Text style={styles.today}>
               {vocab.get().today}
             </Text>
