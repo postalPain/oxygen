@@ -4,6 +4,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import { windowDimensions } from 'utils/window';
 import CarouselCircle from './CarouselCircle';
 import CarouselSlide from './CarouselSlide';
+import { isRTL } from '../../config/rtl';
+import env from '../../env';
 
 interface ICarouselSlide {
   image: string;
@@ -16,14 +18,21 @@ interface ICarousel {
 }
 
 let timeout;
+const reverseCarousel = isRTL && env.ios;
+
 export const Carousel = (props: ICarousel) => {
   const { slides, onSlideChange } = props;
   const flatListRef = useRef(null);
   const [index, setIndex] = useState(0);
+  const sliderMounted = useRef(false);
 
   useEffect(() => {
     onSlideChange && onSlideChange(index);
-    flatListRef.current.scrollToIndex({ index });
+    const flatListIndex = reverseCarousel ? 2 - index : index;
+    if (sliderMounted.current) {
+      flatListRef.current.scrollToIndex({ index: flatListIndex });
+    }
+    sliderMounted.current = true;
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       setIndex(idx => (idx === slides.length - 1) ? 0 : (idx + 1));
