@@ -46,6 +46,7 @@ const useStyles = () => StyleSheet.create({
     fontWeight: '600',
     letterSpacing: .5,
     lineHeight: getHeight(4),
+    textAlign: 'left',
   },
   textHighlightedWrapper: {
     alignSelf: 'flex-start',
@@ -67,6 +68,7 @@ const useStyles = () => StyleSheet.create({
     fontSize: getWidth(4),
     letterSpacing: .5,
     lineHeight: getHeight(3.5),
+    textAlign: 'left',
   },
   infoContainer: {},
   infoText: {

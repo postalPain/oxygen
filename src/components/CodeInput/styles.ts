@@ -2,11 +2,13 @@ import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { getFontSize } from 'utils/screen';
 import { windowDimensions } from 'utils/window';
+import { isRTL } from '../../config/rtl';
 
 export default StyleSheet.create({
   root: { padding: 20, minHeight: 300 },
   title: { textAlign: 'center', fontSize: 30 },
   codeFiledRoot: {
+    flexDirection: isRTL ? 'row-reverse' : 'row',
     marginTop: 20,
     width: '100%',
     marginLeft: 'auto',

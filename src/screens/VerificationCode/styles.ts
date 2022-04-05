@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     letterSpacing: .5,
     lineHeight: 24,
+    textAlign: 'left',
   },
   buttonsContainer: {
     alignItems: 'center',
