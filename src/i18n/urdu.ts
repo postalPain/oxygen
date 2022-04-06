@@ -4,7 +4,6 @@ const urdu: IVocab = {
   help: 'Help',
   back: 'Back',
   continue: 'Continue',
-  create: 'Create',
   ok: 'OK',
   signUp: 'Sign Up',
   logIn: 'Log In',
@@ -59,7 +58,6 @@ const urdu: IVocab = {
   enterEmailForgotPassword: 'Enter your email address associated with your account. We will email you a link to create a new password.',
   send: 'Send',
   verificationUnsuccessful: 'Verification was unsuccessful.',
-  please: 'Please ',
   withdraw: 'Withdraw',
   availableToWithdraw: 'Available to withdraw',
   payCycle: 'Pay cycle (or cycle)',
@@ -153,6 +151,9 @@ const urdu: IVocab = {
   aCycleIsTheRegularPeriod: 'A cycle is the regular period in between paycheques. For {{company}}, the current pay cycle ends on {{MMMdd}}.',
   today: 'today',
   lastDayOfPayCycle: 'Last day of pay cycle',
+  newVersionAvailable: 'New Version Available',
+  thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
+  update: 'Update',
 };
 
 export default urdu;

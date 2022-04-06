@@ -149,6 +149,9 @@ const english = {
   aCycleIsTheRegularPeriod: 'A cycle is the regular period in between paycheques. For {{company}}, the current pay cycle ends on {{MMMdd}}.',
   today: 'today',
   lastDayOfPayCycle: 'Last day of pay cycle',
+  newVersionAvailable: 'New Version Available',
+  thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
+  update: 'Update',
 };
 
 export default english;
