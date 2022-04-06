@@ -1,8 +1,10 @@
-import { circleCoordinates } from 'components/ScreenWrapperOnboarding';
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { getFontSize } from 'utils/screen';
 import { windowDimensions } from 'utils/window';
+import { getCircleCoordinates } from 'constants/coordinates';
+
+const circleCoordinates = getCircleCoordinates(false);
 
 const styles = StyleSheet.create({
   screenWrapperLogin: {
