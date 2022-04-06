@@ -38,19 +38,10 @@ export const removeHeader = (headerName: string, callback?: () => void) => {
 };
 
 request.interceptors.request.use(
-  async (config) => {
-    const authData = selectAuthData(getState());
+  (config) => {
+    const authData = selectAuthData(store.getState());
     config.headers.Authorization = `Bearer ${authData.access_token}`;
 
-    if ((config.url !== apiUrls.refreshToken) && authData.access_token && !isTtlActive(authData.access_ttl)) {
-      if (isTtlActive(authData.refresh_ttl)) {
-        const response = await api.auth.refreshToken({
-          refresh_token: authData.refresh_token
-        });
-        config.headers.Authorization = `Bearer ${response.data.access_token}`; // For current request, next request will use new header
-        store.dispatch(setAuthData(response.data));
-      }
-    }
     return config;
   },
   (error) => {

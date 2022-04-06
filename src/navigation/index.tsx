@@ -70,19 +70,19 @@ const Navigation = () => {
   useEffect(
     () => {
       (async () => {
-        const storedData: IAuthData & Partial<IUserInfo> = await getItems([
+        const storedAuthData: IAuthData = await getItems([
           AuthStoredKeys.access_token,
           AuthStoredKeys.access_ttl,
           AuthStoredKeys.refresh_token,
-          AuthStoredKeys.refresh_ttl,
+          AuthStoredKeys.refresh_ttl
+        ]);
+        const storedUserData: Partial<IUserInfo> = await getItems([
           AuthStoredKeys.email,
           UserStoredKeys.first_name
         ]);
-        dispatch(setAuthData(storedData));
-        dispatch(userSetInfo({
-          first_name: storedData.first_name,
-          email: storedData.email,
-        }));
+        dispatch(setAuthData(storedAuthData));
+        dispatch(userSetInfo(storedUserData));
+
         dispatch(checkVerification({
           onSuccess: (status) => {
             if (!isUserEmployerVerified(status)) {
@@ -93,7 +93,7 @@ const Navigation = () => {
             }
           },
           onError: () => {
-            storedData.email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
+            storedUserData.email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
           }
         }));
         setTimeout(() => SplashScreen.hide(), 300);
