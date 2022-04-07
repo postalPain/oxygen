@@ -17,11 +17,13 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   header: {
+    textAlign: 'left',
     fontWeight: '600',
     fontSize: getWidth(4),
     paddingBottom: getHeight(.5)
   },
   text: {
+    textAlign: 'left',
     fontSize: getWidth(4)
   },
   amountContainer: {
