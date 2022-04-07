@@ -19,19 +19,9 @@ export const usePushSettings = () => {
   const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
-  const [fcmToken, setFcmToken] = useState<string>();
 
   useEffect(() => {
     (async () => {
-      (async () => {
-        let _fcmToken = await getItem(pushesStoredKeys.fcmToken);
-        if (!_fcmToken) {
-          _fcmToken = await messaging().getToken();
-          setItem(pushesStoredKeys.fcmToken, _fcmToken);
-        }
-        setFcmToken(_fcmToken);
-      })();
-
       const _permissions = await checkNotifications();
       setPermissions(_permissions.status);
 
@@ -42,17 +32,6 @@ export const usePushSettings = () => {
 
   useEffect(() => {
     analytics.setUserProperties({ pushNotificationsEnabled: !!enabled });
-    if (!enabled) {
-      return;
-    }
-    (async () => {
-      let _fcmToken = await getItem(pushesStoredKeys.fcmToken);
-      if (!_fcmToken) {
-        _fcmToken = await messaging().getToken();
-        setItem(pushesStoredKeys.fcmToken, _fcmToken);
-      }
-      setFcmToken(_fcmToken);
-    })();
   }, [enabled]);
 
   const requestPermissions = async (): Promise<PermissionStatus> => {
@@ -83,7 +62,10 @@ export const usePushSettings = () => {
     pushEnabled: enabled,
     pushPermissions: permissions,
     pushNotRequested: permissions === 'denied',
-    fcmToken,
+    getToken: async () => {
+      const token = await messaging().getToken();
+      return token;
+    },
     requestPushes,
     turnOnPushes: async () => {
       const { status } = await checkNotifications();
@@ -99,6 +81,7 @@ export const usePushSettings = () => {
     },
     turnOffPushes: async () => {
       await setItemForUser(email, pushesStoredKeys.pushEnabled, false);
+      await messaging().deleteToken();
       setEnabled(false);
     },
 

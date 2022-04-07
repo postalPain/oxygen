@@ -16,6 +16,9 @@ import { selectBalance } from 'modules/withdrawal/selectors';
 import ModalWithdrawInfo from './ModalWithdrawInfo';
 import { E2ETextWrapper } from '../../components/E2EText';
 import { analyticEvents, analytics } from '../../services/analytics';
+import env from 'env';
+import { navigate } from 'navigation';
+import { AppScreenNames } from 'navigation/types';
 
 const Dashboard: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -52,10 +55,14 @@ const Dashboard: React.FC<any> = () => {
         <Text style={[styles.greeting]}>
           <Text>{vocab.get().hi}</Text>
           <E2ETextWrapper>
-            <Text style={styles.greetingName}>{userInfo.first_name}</Text>
+            <Text style={styles.greetingName} >{userInfo.first_name}
+            </Text>
           </E2ETextWrapper>
         </Text>
-        <Text style={[styles.greeting, styles.greetingDate]}>
+        <Text
+          style={[styles.greeting, styles.greetingDate]}
+          onPress={() => env.dev && navigate(AppScreenNames.Debug)}
+        >
           {moment().format('ddd D MMM[,] YYYY')}
         </Text>
       </View>

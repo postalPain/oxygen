@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
 
+import { isRTL } from 'config/rtl';
+
 
 const xml = (color: string) => `
   <svg
@@ -26,7 +28,8 @@ export default ({
   size = 40,
   color = '#CCCCCC',
 }) => {
+  const rotationAngle = isRTL ? '180deg' : '0deg';
   return (
-    <SvgXml xml={xml(color)} width={size} height={size} />
+    <SvgXml xml={xml(color)} width={size} height={size} style={{ transform: [{ rotateY: rotationAngle }] }} />
   );
 }

@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import { getLogger } from 'modules/logger';
 
 export const setItem = async (key: string, value: string) => {
   value ?? removeItem(key);
@@ -69,4 +70,12 @@ export const getItemForUser = async (email, key) => {
 
 export const setItemForUser = async (email, key, value) => {
   await setItem(`${email },${key}`, JSON.stringify(value));
+};
+
+export const clearAsyncStorage = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (e) {
+    getLogger().error('clearAsyncStorage', e);
+  }
 };

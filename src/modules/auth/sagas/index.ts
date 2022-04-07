@@ -21,7 +21,6 @@ import { selectForgotPassword } from 'modules/auth/selectors';
 import { removeItems, setItems } from 'modules/asyncStorage';
 import { addCodeSentAt, AuthStoredKeys } from 'modules/auth/asyncStorage';
 import { ERROR_CODES, IError } from 'services/api/errors';
-import { setAuthHeader, removeHeader } from 'services/api/request';
 import { storeAuthData } from '../asyncStorage';
 import { addToStoredLoginEmails, incrementLoginCount } from 'modules/user/asyncStorage';
 import { storeBiometricData } from 'modules/biometrics/asyncStorage';
@@ -29,6 +28,8 @@ import { selectUserEmail } from 'modules/user/selectors';
 import { IResponse } from '../../../services/api/types';
 import { analyticEvents, analytics } from '../../../services/analytics';
 import moment from 'moment';
+import { getFcmToken } from 'modules/pushNotifications';
+import { getLogger } from 'modules/logger';
 
 
 function* handleError (error: IError) {
@@ -53,8 +54,10 @@ export function* storeUserData({ email }: { email: string }) {
 
 function* signUpWorker(action: ISignUpAction) {
   let response: IResponse<IAuthData>;
+  const fcmToken = yield call(getFcmToken);
+
   try {
-    response = yield call(api.auth.signUp, action.payload);
+    response = yield call(api.auth.signUp, { ...action.payload, device_token: fcmToken });
   } catch (error) {
     const errors = transformSignUpError(error);
     yield action.meta?.onError?.(errors);
@@ -65,6 +68,8 @@ function* signUpWorker(action: ISignUpAction) {
     companyCode: action.payload.registration_id.split('-')?.[1],
     timestamp: moment().utc().toISOString(),
   });
+  getLogger().log('signUp fcmToken', fcmToken);
+
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield storeAuthData(response.data);
@@ -75,21 +80,33 @@ function* signUpWorker(action: ISignUpAction) {
 
 function* signInWorker(action: ISignInAction) {
   let response: IResponse<IAuthData>;
+  const fcmToken = yield call(getFcmToken);
   try {
-    response = yield api.auth.signIn({ email: action.email, password: action.password });
+    response = yield api.auth.signIn({
+      email: action.email,
+      password: action.password,
+      device_token: fcmToken,
+    });
   } catch (error) {
     yield action.meta?.onError?.(error);
     return;
   }
-  yield put(authActions.signInSuccess(action.email, response.data, { onSuccess: action.meta?.onSuccess }));
+  getLogger().log('signedIn fcmToken', fcmToken);
+  yield put(authActions.signInSuccess(action.email, response.data, 'credentials', { onSuccess: action.meta?.onSuccess }));
 }
 
 function* signInSuccessWorker(action: ISignInSuccessAction) {
-  yield storeUserData({ email: action.email });
-  yield incrementLoginCount(action.email);
-  yield storeBiometricData(action.email, action.authData.refresh_token, action.authData.refresh_ttl);
-  yield put(authActions.setAuthData(action.authData));
-  yield action.meta?.onSuccess?.();
+  const { email, authData, meta, method } = action;
+
+  yield storeUserData({ email });
+  yield incrementLoginCount(email);
+  yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
+  yield put(authActions.setAuthData(authData));
+  analytics.logEvent(analyticEvents.login, {
+    method: `via-${method}`,
+    timestamp: moment().utc().toISOString(),
+  });
+  yield meta?.onSuccess?.();
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
@@ -99,7 +116,6 @@ export function* clearAuthDataWorker(action: IClearAuthDataAction) {
     AuthStoredKeys.refresh_token,
     AuthStoredKeys.refresh_ttl,
   ]);
-  removeHeader('Authorization');
   yield action?.meta?.onSuccess();
 }
 
@@ -137,13 +153,9 @@ function* signOutWorker(action: ISignOutAction) {
   } catch (error) {
     yield action?.meta?.onError?.();
   }
-  yield call(removeHeader, 'Authorization');
+  yield put(authActions.clearAuthData());
   yield put(authActions.signedOut());
   yield action?.meta?.onSuccess?.();
-}
-
-function* setAuthDataWorker(action: ISetAuthDataAction) {
-  yield setAuthHeader(action.payload.access_token);
 }
 
 export default function* authWatcher(): SagaIterator {
@@ -154,5 +166,4 @@ export default function* authWatcher(): SagaIterator {
   yield takeEvery(AuthActions.CLEAR_AUTH_DATA, clearAuthDataWorker);
   yield takeLatest(AuthActions.FORGOT_PASSWORD, forgotPasswordWorker);
   yield takeLatest(AuthActions.RESET_PASSWORD, resetPasswordWorker);
-  yield takeLatest(AuthActions.SET_AUTH_DATA, setAuthDataWorker);
 }

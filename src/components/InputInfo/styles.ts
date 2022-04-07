@@ -22,6 +22,7 @@ const useStyles = () => StyleSheet.create({
     fontSize: getWidth(4),
     letterSpacing: .5,
     lineHeight: getHeight(3),
+    textAlign: 'left',
   },
 });
 

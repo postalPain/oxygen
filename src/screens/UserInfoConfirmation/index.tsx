@@ -7,7 +7,6 @@ import { selectUserEmail } from 'modules/user/selectors';
 import {
   Button,
   IconBadge,
-  Link,
   ScreenGradient,
   UserInformation,
 } from 'components';
@@ -36,7 +35,7 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
   };
   return (
     <SafeAreaView style={styles.screen}>
-      <ScreenGradient />
+      <ScreenGradient style={styles.screenGradient} />
       <View style={styles.container}>
         <View style={styles.header}>
           <View style={styles.title}>
@@ -52,13 +51,15 @@ const UserInfoConfirmation = ({ navigation }: AppNavigationProps<AppScreenNames.
         <UserInformation />
         <View style={styles.footer}>
           <View style={styles.contactUs}>
-            <Text style={styles.contactUsText}>{vocab.ifNotAccurate} </Text>
-            <Link
-              onPress={() => openBrowser(externalUrls.help, { name: analyticEvents.helpViewed, sourceScreen: 'UserInfoConfirmation' })}
-              style={styles.contactUsLink}
-            >
-              {vocab.contactUsImmediately}
-            </Link>
+            <Text style={styles.contactUsText}>
+              <Text>{vocab.ifNotAccurate} </Text>
+              <Text
+                onPress={() => openBrowser(externalUrls.help, { name: analyticEvents.helpViewed, sourceScreen: 'UserInfoConfirmation' })}
+                style={styles.contactUsLink}
+              >
+                {vocab.contactUsImmediately}
+              </Text>
+            </Text>
           </View>
           <Button onPress={onPress}>
             {vocab.continue}

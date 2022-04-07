@@ -7,9 +7,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { getHeight, getWidth } from 'utils/window';
 import DebugPush from './DebugPush';
 import useLogger from 'modules/logger/hooks/useLogger';
+import { clearAsyncStorage } from 'modules/asyncStorage';
 
 const DebugView = () => {
   const { log, loggerMessages, clearLog } = useLogger();
+
   return (
     <ScrollView>
       <Link onPress={() => AsyncStorage.getAllKeys((err, keys) => {
@@ -23,12 +25,26 @@ const DebugView = () => {
       >
         Show AsyncStorage
       </Link>
+      <Link onPress={async () => {
+        await clearAsyncStorage();
+        log('AsyncStorage Cleared');
+      }}
+      >
+        Clear AsyncStorage
+      </Link>
       <DebugPush />
       <Link onPress={clearLog}>
         Clear
       </Link>
       { loggerMessages.map(message => (
-        <Text selectable style={{ fontSize: getWidth(3), paddingVertical: getHeight(.5) }} >
+        <Text
+          selectable
+          style={{
+            fontSize: getWidth(3),
+            paddingVertical: getHeight(.5),
+            ...(message.type === 'error' && { color: 'red' })
+          }}
+        >
           <Text>{message.time} </Text>
           <Text> {message.message}</Text>
         </Text>

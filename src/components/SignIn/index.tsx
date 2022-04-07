@@ -17,6 +17,7 @@ import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
 import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
 import { testIds } from '../../config/testIds';
+import { selectAuthData } from 'modules/auth/selectors';
 
 interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
   forgotPasswordMode?: boolean;
@@ -27,6 +28,7 @@ const SignIn = (props: ISignIn) => {
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
+  const authData = useSelector(selectAuthData);
 
   const { pushNotRequested, requestPushes } = usePushSettings();
 
@@ -37,6 +39,7 @@ const SignIn = (props: ISignIn) => {
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [signedIn, setSignedIn] = useState<boolean>(false);
+
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -59,22 +62,22 @@ const SignIn = (props: ISignIn) => {
     }
   }, [error]);
 
-  const onSignedIn = () => {
-    dispatch(checkVerification({
+  useEffect(() => {
+    signedIn
+    && authData.access_token
+    && dispatch(checkVerification({
       onSuccess: async (status: VerificationStatuses) => {
         dispatch(userGetInfo());
         pushNotRequested && await requestPushes(email);
         isUserEmployerVerified(status)
           ? navigation.navigate(AppScreenNames.AuthorizedStack)
           : navigation.navigate(AppScreenNames.UserVerificationPending);
-        // Need to refactor. Biometric auth is not getting unmounted and calls authenticate inside the app if signedIn remains false
-        setSignedIn(true);
       },
       onError: () => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));
       }
     }));
-  };
+  }, [signedIn, authData.access_token]);
 
   return (
     <>
@@ -144,7 +147,7 @@ const SignIn = (props: ISignIn) => {
         >
           {vocab.get().logIn}
         </Button>
-        <BiometricLogin onSignedIn={onSignedIn} signedIn={signedIn} />
+        <BiometricLogin onSignedIn={() => setSignedIn(true)} signedIn={signedIn} />
       </View>
     </>
   );

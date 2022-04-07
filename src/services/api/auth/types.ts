@@ -28,8 +28,8 @@ export interface IResetPasswordBody {
 }
 
 export interface IAuthApi {
-  signUp: (data: ISignUpPayload) => Promise<IResponse<IAuthData>>;
-  signIn: (body: ISignInBody) => Promise<IResponse<IAuthData>>;
+  signUp: (data: ISignUpPayload | {device_token: string}) => Promise<IResponse<IAuthData>>;
+  signIn: (body: ISignInBody | {device_token: string}) => Promise<IResponse<IAuthData>>;
   signOut: () => Promise<void | AxiosResponse>;
   refreshToken: (body: IRefreshTokenBody) => Promise<IResponse<IAuthData>>;
   forgotPassword: (body: IForgotPasswordBody) => Promise<IResponse<any>>;

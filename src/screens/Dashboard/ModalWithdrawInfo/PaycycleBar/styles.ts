@@ -2,14 +2,14 @@ import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
 
-export const paycycleBarHeight = getHeight(5);
+export const paycycleBarHeight = getHeight(5.5);
 
 export const styles = StyleSheet.create({
   withdrawInfoBar: {
     backgroundColor: theme.colors.shade2,
   },
   bar: {
-    borderRadius: getWidth(10),
+    borderRadius: getHeight(5),
     height: paycycleBarHeight,
     flexDirection: 'row',
     alignItems: 'center',
@@ -22,26 +22,33 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   dateContainer: {
-    padding: getWidth(3),
+    paddingHorizontal: getHeight(1.5),
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   month: {
     textTransform: 'uppercase',
-    fontSize: getWidth(3),
+    fontSize: getHeight(1.5),
   },
   day: {
-    fontSize: getWidth(4),
+    fontSize: getHeight(1.7),
     fontWeight: '800',
     alignSelf: 'center',
   },
   startDate: {
     color: theme.colors.screenBackgroundColorLight,
   },
+  todayContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: - paycycleBarHeight / 4,
+  },
   today: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: - paycycleBarHeight / 6,
     color: theme.colors.floos1,
-    fontWeight: '600'
+    fontWeight: '600',
+    fontSize: getHeight(1.7),
   },
   endDateContainer: {
     flexGrow: 0,

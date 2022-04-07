@@ -13,7 +13,14 @@ const useStyles = () => StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.screenBackgroundColorLight,
   },
+  screenGradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
   container: {
+    zIndex: 2,
     flex: 1,
     paddingHorizontal: SCREEN_HORIZONTAL_PADDING,
     paddingTop: NAVIGATION_HEADER_HEIGHT,
@@ -37,6 +44,7 @@ const useStyles = () => StyleSheet.create({
     marginTop: getHeight(2.5),
     paddingLeft: getWidth(11.8),
     paddingRight: getWidth(8),
+    textAlign: 'left',
     color: theme.colors.textDark,
     fontSize: getWidth(4.5),
     letterSpacing: .5,
@@ -50,13 +58,14 @@ const useStyles = () => StyleSheet.create({
   },
   contactUs: {
     marginBottom: getHeight(4),
-    paddingHorizontal: getHeight(5),
+    paddingHorizontal: getWidth(7),
   },
   contactUsText: {
     color: theme.colors.textDark,
     fontSize: getWidth(4.5),
     letterSpacing: .5,
     lineHeight: getHeight(3),
+    textAlign: 'left',
   },
   contactUsLink: {
     color: theme.colors.floos2,

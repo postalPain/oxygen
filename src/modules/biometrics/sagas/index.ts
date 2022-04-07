@@ -57,7 +57,7 @@ function* biometricLoginWorker(action: IBiometricLoginAction) {
     console.log('ERROR: api.auth.refreshToken({ refresh_token: credentials.password });');
     return;
   }
-  yield put(signInSuccess(action.email, response.data, { onSuccess: action.meta?.onSuccess }));
+  yield put(signInSuccess(action.email, response.data, 'biometric', { onSuccess: action.meta?.onSuccess }));
 }
 
 function* signOutWorker() {
