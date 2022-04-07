@@ -151,6 +151,9 @@ const hindi: IVocab = {
   aCycleIsTheRegularPeriod: 'एक चक्र वेतन के बीच में एक नियमित अवधि होती है। {{company}} के लिए, वर्तमान वेतन चक्र {{MMMdd}} को समाप्त होगा',
   today: 'आज',
   lastDayOfPayCycle: 'Last day of pay cycle',
+  newVersionAvailable: 'New Version Available',
+  thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
+  update: 'Update',
 };
 
 export default hindi;

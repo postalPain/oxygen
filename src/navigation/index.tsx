@@ -35,6 +35,7 @@ import SplashScreen from 'react-native-splash-screen';
 import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLink';
 import { analytics } from '../services/analytics';
 import AuthorizedStack from './AuthorizedStack';
+import Update from 'screens/Update';
 
 const AppStack = createNativeStackNavigator();
 
@@ -243,6 +244,13 @@ const Navigation = () => {
         <AppStack.Screen
           name={AppScreenNames.Debug}
           component={DebugView}
+        />
+        <AppStack.Screen
+          name={AppScreenNames.Update}
+          component={Update}
+          options={{
+            headerShown: false,
+          }}
         />
       </AppStack.Navigator>
     </NavigationContainer>
