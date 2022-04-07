@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text, Pressable } from 'react-native';
+import VersionNumber from 'react-native-version-number';
+import { View, Text, Pressable } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { openBrowser } from 'utils';
 import { signOut } from 'modules/auth/actions';
@@ -71,6 +72,11 @@ const Profile = (
         <IconLogout />
         <Text style={[styles.menuItemText, styles.menuItemTextHighlighted]}>{vocab.get().logout}</Text>
       </Pressable>
+      <View style={styles.versionContainer}>
+        <Text style={styles.version}>
+          {vocab.get().version} {VersionNumber.appVersion}
+        </Text>
+      </View>
     </ScreenWrapperMain>
   );
 };
