@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import VersionNumber from 'react-native-version-number';
 import { View, Text, Pressable } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { openBrowser } from 'utils';
@@ -18,6 +17,7 @@ import styles from './styles';
 import externalUrls from 'config/externalUrls';
 import vocab from 'i18n';
 import { analyticEvents } from '../../services/analytics';
+import env from 'env';
 
 const Profile = (
   { navigation }: AppNavigationProps<AppScreenNames.Profile>
@@ -74,7 +74,7 @@ const Profile = (
       </Pressable>
       <View style={styles.versionContainer}>
         <Text style={styles.version}>
-          {vocab.get().version} {VersionNumber.appVersion}
+          {vocab.get().version} {env.version}
         </Text>
       </View>
     </ScreenWrapperMain>
