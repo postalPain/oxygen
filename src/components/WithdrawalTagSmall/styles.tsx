@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     paddingVertical: getHeight(3.3),
   },
   textContainer: {
+    textAlign: 'left',
     alignItems: 'flex-start',
     color: theme.colors.floos2,
   },
