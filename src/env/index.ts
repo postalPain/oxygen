@@ -1,6 +1,7 @@
 import { Dimensions, Platform, Appearance, NativeModules } from 'react-native';
 import { BUILD_ENV } from '../../build-env.js';
-import packageJson from '../../package.json';
+import VersionNumber from 'react-native-version-number';
+
 
 export enum Envs {
   DEV = 'DEV',
@@ -41,7 +42,7 @@ const env = {
     fontScale: Dimensions.get('window').fontScale,
   },
   appearance: Appearance.getColorScheme(),
-  version: packageJson.version,
+  version: VersionNumber.appVersion,
 };
 
 export default env;

@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
     top: '100%',
     right: getWidth(2),
   },
+  versionContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  version: {
+    color: theme.colors.shade1,
+    fontSize: getWidth(5)
+  }
 });
 
 export default styles;

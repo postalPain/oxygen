@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { SafeAreaView, View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { openBrowser } from 'utils';
 import { signOut } from 'modules/auth/actions';
@@ -17,6 +17,7 @@ import styles from './styles';
 import externalUrls from 'config/externalUrls';
 import vocab from 'i18n';
 import { analyticEvents } from '../../services/analytics';
+import env from 'env';
 
 const Profile = (
   { navigation }: AppNavigationProps<AppScreenNames.Profile>
@@ -71,6 +72,11 @@ const Profile = (
         <IconLogout />
         <Text style={[styles.menuItemText, styles.menuItemTextHighlighted]}>{vocab.get().logout}</Text>
       </Pressable>
+      <View style={styles.versionContainer}>
+        <Text style={styles.version}>
+          {vocab.get().version} {env.version}
+        </Text>
+      </View>
     </ScreenWrapperMain>
   );
 };

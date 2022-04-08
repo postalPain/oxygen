@@ -152,6 +152,7 @@ const english = {
   newVersionAvailable: 'New Version Available',
   thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
   update: 'Update',
+  version: 'Floos Version',
 };
 
 export default english;
