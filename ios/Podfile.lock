@@ -19,6 +19,9 @@ PODS:
     - FirebaseAnalytics (~> 8.10.0)
   - Firebase/CoreOnly (8.10.0):
     - FirebaseCore (= 8.10.0)
+  - Firebase/Database (8.10.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 8.10.0)
   - Firebase/DynamicLinks (8.10.0):
     - Firebase/CoreOnly
     - FirebaseDynamicLinks (~> 8.10.0)
@@ -52,6 +55,9 @@ PODS:
     - GoogleUtilities/Environment (~> 7.6)
     - GoogleUtilities/Logger (~> 7.6)
     - nanopb (~> 2.30908.0)
+  - FirebaseDatabase (8.10.0):
+    - FirebaseCore (~> 8.0)
+    - leveldb-library (~> 1.22)
   - FirebaseDynamicLinks (8.10.0):
     - FirebaseCore (~> 8.0)
   - FirebaseInstallations (8.10.0):
@@ -173,6 +179,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.6.0):
     - GoogleUtilities/Logger
+  - leveldb-library (1.22.1)
   - libevent (2.1.12)
   - Mixpanel-swift (3.1.5):
     - Mixpanel-swift/Complete (= 3.1.5)
@@ -479,6 +486,10 @@ PODS:
   - RNFBApp (14.1.0):
     - Firebase/CoreOnly (= 8.10.0)
     - React-Core
+  - RNFBDatabase (14.1.0):
+    - Firebase/Database (= 8.10.0)
+    - React-Core
+    - RNFBApp
   - RNFBDynamicLinks (14.1.0):
     - Firebase/DynamicLinks (= 8.10.0)
     - GoogleUtilities/AppDelegateSwizzler
@@ -604,6 +615,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBDatabase (from `../node_modules/@react-native-firebase/database`)"
   - "RNFBDynamicLinks (from `../node_modules/@react-native-firebase/dynamic-links`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -623,6 +635,7 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreDiagnostics
+    - FirebaseDatabase
     - FirebaseDynamicLinks
     - FirebaseInstallations
     - FirebaseMessaging
@@ -639,6 +652,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - leveldb-library
     - libevent
     - Mixpanel-swift
     - nanopb
@@ -735,6 +749,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBDatabase:
+    :path: "../node_modules/@react-native-firebase/database"
   RNFBDynamicLinks:
     :path: "../node_modules/@react-native-firebase/dynamic-links"
   RNFBMessaging:
@@ -769,6 +785,7 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 319c9b3b1bdd400d60e2f415dff0c5f6959e6760
   FirebaseCore: 04186597c095da37d90ff9fd3e53bc61a1ff2440
   FirebaseCoreDiagnostics: 56fb7216d87e0e6ec2feddefa9d8a392fe8b2c18
+  FirebaseDatabase: 5f3e83b0a0d8759378fbd5d05661244d14dfbbb0
   FirebaseDynamicLinks: bb6ac718f763ec43560f0e2bb6b655a798b277af
   FirebaseInstallations: 830327b45345ffc859eaa9c17bcd5ae893fd5425
   FirebaseMessaging: b0aeba17332ee1ee610662b4d1e02a86db82f08f
@@ -786,6 +803,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: a3311dbcf3ea651e5a070fe8559b57c174ada081
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
+  leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   Mixpanel-swift: 280dbe36928ce333a3cd10bb17118565c63e30bd
   MixpanelReactNative: 852765cd9088600c0451bb5aadd785f1b7d4e845
@@ -829,6 +847,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNFBAnalytics: 0555b9d857644540ad36872fed900b2a08080530
   RNFBApp: e884e9a2dcc5edfa73e2651ef6638df5e0672f89
+  RNFBDatabase: 082aa205ef866f30bc9e7a4f76330087270459d4
   RNFBDynamicLinks: 5306a3654921afe00f7fcdeb2e06a02e8d108926
   RNFBMessaging: 8b7c281136bf8fbd78b332b5b9db7e604853174f
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
