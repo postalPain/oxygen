@@ -43,6 +43,7 @@ const env = {
   },
   appearance: Appearance.getColorScheme(),
   version: VersionNumber.appVersion,
+  buildVersion: VersionNumber.buildVersion,
 };
 
 export default env;
