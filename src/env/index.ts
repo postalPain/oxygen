@@ -19,6 +19,7 @@ const baseUrls = {
 const BASE_URL = baseUrls[BUILD_ENV] || baseUrls[Envs.DEV];
 
 const env = {
+  appId: 'com.qstudio.floos',
   buildEnv: BUILD_ENV,
   dev: BUILD_ENV === Envs.DEV,
   e2e: BUILD_ENV === Envs.E2E,
