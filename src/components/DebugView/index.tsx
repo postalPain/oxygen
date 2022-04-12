@@ -1,41 +1,23 @@
 import { Link } from 'components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
 import { getHeight, getWidth } from 'utils/window';
-import DebugPush from './DebugPush';
 import useLogger from 'modules/logger/hooks/useLogger';
-import { clearAsyncStorage } from 'modules/asyncStorage';
+import { DbKeys, useDatabase } from 'modules/fbDatabase/useDatabase';
+import DebugAsyncStorage from './DebugAsyncStorage';
 
 const DebugView = () => {
   const { log, loggerMessages, clearLog } = useLogger();
 
   return (
     <ScrollView>
-      <Link onPress={() => AsyncStorage.getAllKeys((err, keys) => {
-        AsyncStorage.multiGet(keys, (error, stores) => {
-          stores.map((result, i, store) => {
-            log({ [store[i][0]]: store[i][1] });
-            return true;
-          });
-        });
-      })}
-      >
-        Show AsyncStorage
-      </Link>
-      <Link onPress={async () => {
-        await clearAsyncStorage();
-        log('AsyncStorage Cleared');
-      }}
-      >
-        Clear AsyncStorage
-      </Link>
-      <DebugPush />
+      <DebugAsyncStorage />
       <Link onPress={clearLog}>
         Clear
       </Link>
+
       { loggerMessages.map(message => (
         <Text
           selectable
