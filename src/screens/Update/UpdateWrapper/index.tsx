@@ -4,7 +4,7 @@ import { getHeight } from 'utils/window';
 import UpdateScreenBackground from './UpdateBackground';
 import UpdateIllustration from './UpdateIllustration';
 
-const UpdateScreenWrapper = (props) => {
+const UpdateWrapper = (props) => {
   return (
     <View >
       <View style={styles.updateScreenWrapper}>
@@ -22,7 +22,7 @@ const UpdateScreenWrapper = (props) => {
 const styles = StyleSheet.create({
   updateScreenWrapper: {
     position: 'absolute',
-    top: 0,
+    top: -getHeight(3), // TODO: Remove after SVG fix
   },
   updateIllustration: {
     marginTop: getHeight(10),
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UpdateScreenWrapper;
+export default UpdateWrapper;

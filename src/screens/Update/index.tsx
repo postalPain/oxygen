@@ -5,17 +5,17 @@ import vocab from 'i18n';
 import React from 'react';
 import { Linking, StyleSheet, Text, View } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
-import UpdateScreenWrapper from './UpdateWrapper';
+import UpdateWrapper from './UpdateWrapper';
 
 const Update = () => {
   const navigateToAppMarket = () => {
-    // Linking.openURL(`market://details?id=${env.appId}`);
-    Linking.openURL(`itms-apps://itunes.apple.com/us/app/apple-store/${env.appId}?mt=8`);
-
+    Linking.openURL(env.ios
+      ? `itms-apps://itunes.apple.com/us/app/id${env.appleId}?mt=8`
+      : `market://details?id=${env.bundleId}`);
   };
 
   return (
-    <UpdateScreenWrapper>
+    <UpdateWrapper>
       <View style={styles.update}>
         <Text style={styles.header}>{vocab.get().newVersionAvailable}</Text>
         <Text style={styles.text}>{vocab.get().thereIsANewerVersion}</Text>
@@ -23,7 +23,7 @@ const Update = () => {
           {vocab.get().update}
         </Button>
       </View>
-    </UpdateScreenWrapper>
+    </UpdateWrapper>
   );
 };
 
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: getWidth(5),
     fontWeight: '600',
-    marginTop: getHeight(2),
+    marginTop: getHeight(3),
     marginBottom: getHeight(5)
   },
   text: {
