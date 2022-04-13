@@ -9,9 +9,7 @@ import UpdateWrapper from './UpdateWrapper';
 
 const Update = () => {
   const navigateToAppMarket = () => {
-    Linking.openURL(env.ios
-      ? `itms-apps://itunes.apple.com/us/app/id${env.appleId}?mt=8`
-      : `market://details?id=${env.bundleId}`);
+    Linking.openURL(env.marketLink);
   };
 
   return (
