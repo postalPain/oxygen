@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { getWidth } from 'utils/window';
+import { isRTL} from 'config/rtl';
 
 const styles = StyleSheet.create({
   arrow: {
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
     borderRightWidth: getWidth(.7),
     borderTopColor: '#7B7B7B',
     borderRightColor: '#7B7B7B',
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: isRTL ? '-45deg' : '45deg' }],
   },
 });
 

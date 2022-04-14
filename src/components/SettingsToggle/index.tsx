@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   text: {
+    textAlign: 'left',
     fontSize: getWidth(5),
     paddingVertical: getHeight(.5),
   },
