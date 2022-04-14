@@ -62,7 +62,6 @@ const Navigation = () => {
   const routeNameRef = React.useRef();
 
   const emailVerified = useSelector(selectEmailVerified);
-  const email = useSelector(selectUserEmail);
 
   const [codeDeepLink] = useSignUpCodeDeepLink();
   const {
@@ -85,8 +84,8 @@ const Navigation = () => {
     }
   }, [minimumSupportedBuild]);
 
-  const doNavigation = async (_email, status?) => {
-    setTimeout(() => SplashScreen.hide(), 300);
+  const doNavigation = async (email, status?) => {
+    setTimeout(() => SplashScreen.hide(), 400);
 
     if (status) {
       if (!isUserEmployerVerified(status)) {
@@ -96,7 +95,7 @@ const Navigation = () => {
         navigate(AppScreenNames.SignIn);
       }
     } else {
-      _email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
+      email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
     }
   };
 
