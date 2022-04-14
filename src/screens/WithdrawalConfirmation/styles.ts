@@ -31,12 +31,14 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   transactionHeader: {
+    textAlign: 'left',
     color: theme.colors.shade1,
     fontSize: getWidth(4),
     textTransform: 'uppercase',
     paddingTop: getHeight(2),
   },
   transactionValue: {
+    textAlign: 'left',
     color: theme.colors.textDark,
     paddingTop: getHeight(1),
     fontSize: getWidth(4),

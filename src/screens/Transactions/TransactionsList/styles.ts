@@ -40,6 +40,9 @@ const useStyles = () => StyleSheet.create({
   details: {
     alignItems: 'flex-end',
   },
+  detailsContainer: {
+    alignItems: 'flex-start',
+  },
   amount: {
     fontSize: getHeight(2.5),
     fontWeight: '600',

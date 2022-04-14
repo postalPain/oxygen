@@ -54,14 +54,16 @@ const TransactionsList = () => {
             >
               <Text style={styles.date}>{getTransactionDate(transaction.created_at)}</Text>
               <View style={styles.details}>
-                <Text style={[styles.amount, styles[transactionStatus.toLowerCase()]]} >
-                  {transaction.amount}{vocab.aed}
-                </Text>
-                {transactionStatus.toLowerCase() !== TransactionStatusesFE.completed && (
-                  <Text style={[styles.status, styles[transactionStatus.toLowerCase()]]}>
-                    {transactionStatus}
+                <View style={styles.detailsContainer}>
+                  <Text style={[styles.amount, styles[transactionStatus.toLowerCase()]]} >
+                    {transaction.amount}{vocab.aed}
                   </Text>
-                )}
+                  {transactionStatus.toLowerCase() !== TransactionStatusesFE.completed && (
+                    <Text style={[styles.status, styles[transactionStatus.toLowerCase()]]}>
+                      {transactionStatus}
+                    </Text>
+                  )}
+                </View>
               </View>
             </Pressable>
           );

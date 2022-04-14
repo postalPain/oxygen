@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
 import { windowDimensions } from 'utils/window';
+import { isRTL } from 'config/rtl';
 
 const xml = () => `
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +14,8 @@ const xml = () => `
 export default ({
   size = 0.11 * windowDimensions.width,
 }) => {
+  const rotationAngle = isRTL ? '180deg' : '0deg';
   return (
-    <SvgXml xml={xml()} width={size} height={size} />
+    <SvgXml xml={xml()} width={size} height={size} style={{ transform: [{ rotateY: rotationAngle }] }} />
   );
 };

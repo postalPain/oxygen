@@ -17,12 +17,14 @@ const styles = StyleSheet.create({
     marginBottom: getHeight(4),
   },
   label: {
+    textAlign: 'left',
     color: '#B3B3B3',
     fontSize: getWidth(4),
     letterSpacing: .5,
     textTransform: 'uppercase',
   },
   text: {
+    textAlign: 'left',
     paddingTop: getHeight(1),
     color: theme.colors.textDark,
     fontSize: getWidth(4),
