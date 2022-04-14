@@ -22,10 +22,11 @@ const UpdateWrapper = (props) => {
 const styles = StyleSheet.create({
   updateScreenWrapper: {
     position: 'absolute',
-    top: -getHeight(3), // TODO: Remove after SVG fix
+    top: 0
   },
   updateIllustration: {
-    marginTop: getHeight(10),
+    marginTop: getHeight(7),
+    marginBottom: getHeight(2),
     alignItems: 'center',
   }
 });

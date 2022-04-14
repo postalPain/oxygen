@@ -21,11 +21,9 @@ const xml = () => `
 
 `;
 
-export default ({
-  width = getWidth(100),
-}) => {
+export default () => {
   return (
-    <SvgXml xml={xml()} width={width} />
+    <SvgXml xml={xml()} />
   );
 };
 
