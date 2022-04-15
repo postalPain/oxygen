@@ -26,7 +26,7 @@ import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
 import { BackButton, NavigationHeader, } from 'components';
 import theme from 'config/theme';
-import { isUserEmployerVerified, selectEmailVerified } from 'modules/user/selectors';
+import { isUserEmployerVerified, selectEmailVerified, selectUserEmail } from 'modules/user/selectors';
 import { IUserInfo } from 'services/api/employees/types';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import DebugView from 'components/DebugView';
@@ -36,6 +36,9 @@ import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLi
 import { analytics } from '../services/analytics';
 import AuthorizedStack from './AuthorizedStack';
 import Update from 'screens/Update';
+import { DbKeys, useDatabase } from 'modules/fbDatabase/useDatabase';
+import env from 'env';
+import { isTtlActive } from 'utils/time';
 
 const AppStack = createNativeStackNavigator();
 
@@ -61,10 +64,38 @@ const Navigation = () => {
   const emailVerified = useSelector(selectEmailVerified);
 
   const [codeDeepLink] = useSignUpCodeDeepLink();
+  const {
+    dbValue: minimumSupportedBuild,
+  } = useDatabase<Number>(DbKeys.minSupportedBuild);
 
   navigate = (name: AppScreenNames, params?: any) => {
     if (navigationRef && navigationRef.current) {
       navigationRef?.current?.navigate(name, params);
+    }
+  };
+
+  useEffect(() => {
+    codeDeepLink && !emailVerified && navigate(AppScreenNames.UserVerificationPending);
+  }, [codeDeepLink]);
+
+  useEffect(() => {
+    if (minimumSupportedBuild && Number(env.buildVersion) < minimumSupportedBuild) {
+      navigate(AppScreenNames.Update);
+    }
+  }, [minimumSupportedBuild]);
+
+  const doNavigation = async (email, status?) => {
+    setTimeout(() => SplashScreen.hide(), 400);
+
+    if (status) {
+      if (!isUserEmployerVerified(status)) {
+        navigate(AppScreenNames.UserVerificationPending);
+      } else {
+        dispatch(clearAuthData());
+        navigate(AppScreenNames.SignIn);
+      }
+    } else {
+      email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
     }
   };
 
@@ -84,28 +115,20 @@ const Navigation = () => {
         dispatch(setAuthData(storedAuthData));
         dispatch(userSetInfo(storedUserData));
 
-        dispatch(checkVerification({
-          onSuccess: (status) => {
-            if (!isUserEmployerVerified(status)) {
-              navigate(AppScreenNames.UserVerificationPending);
-            } else {
-              dispatch(clearAuthData());
-              navigate(AppScreenNames.SignIn);
-            }
-          },
-          onError: () => {
-            storedUserData.email ? navigate(AppScreenNames.SignIn) : navigate(AppScreenNames.Onboarding);
-          }
-        }));
-        setTimeout(() => SplashScreen.hide(), 300);
+        if (storedAuthData.access_token && isTtlActive(storedAuthData.access_ttl)) {
+          dispatch(checkVerification({
+            onSuccess: (status) => doNavigation(storedUserData.email, status),
+            onError: () => doNavigation(storedUserData.email)
+          }));
+        } else {
+          doNavigation(storedUserData.email);
+        }
       })();
     },
     []
   );
 
-  useEffect(() => {
-    codeDeepLink && !emailVerified && navigate(AppScreenNames.UserVerificationPending);
-  }, [codeDeepLink]);
+
 
   const onNavigationReady = () => {
     routeNameRef.current = navigationRef.current.getCurrentRoute().name;

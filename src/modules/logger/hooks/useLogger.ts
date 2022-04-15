@@ -1,11 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { getLogger } from '..';
-import { clearLogMessages, logMessage } from '../actions';
+import { useSelector } from 'react-redux';
+import { getLogger } from 'modules/logger';
 import { selectLoggerMessages } from '../selectors';
 
 const useLogger = () => {
   const logger = getLogger();
-  return logger;
+  const loggerMessages = useSelector(selectLoggerMessages);
+
+  return {
+    ...logger,
+    loggerMessages,
+  };
 };
 
 export default useLogger;

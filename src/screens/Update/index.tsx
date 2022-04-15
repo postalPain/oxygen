@@ -1,22 +1,27 @@
 import { Button } from 'components';
 import IconUpdate from 'components/IconUpdate';
+import env from 'env';
 import vocab from 'i18n';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Linking, StyleSheet, Text, View } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
-import UpdateScreenWrapper from './UpdateWrapper';
+import UpdateWrapper from './UpdateWrapper';
 
 const Update = () => {
+  const navigateToAppMarket = () => {
+    Linking.openURL(env.marketLink);
+  };
+
   return (
-    <UpdateScreenWrapper>
+    <UpdateWrapper>
       <View style={styles.update}>
         <Text style={styles.header}>{vocab.get().newVersionAvailable}</Text>
         <Text style={styles.text}>{vocab.get().thereIsANewerVersion}</Text>
-        <Button Icon={<IconUpdate />}>
+        <Button Icon={<IconUpdate />} onPress={navigateToAppMarket}>
           {vocab.get().update}
         </Button>
       </View>
-    </UpdateScreenWrapper>
+    </UpdateWrapper>
   );
 };
 
@@ -28,7 +33,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: getWidth(5),
     fontWeight: '600',
-    marginTop: getHeight(2),
+    marginTop: getHeight(3),
     marginBottom: getHeight(5)
   },
   text: {
