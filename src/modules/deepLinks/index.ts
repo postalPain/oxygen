@@ -30,7 +30,7 @@ export const useDeepLink = <T extends DeepLink>(topic?: string): T[] => {
   const [link, setLink] = useState<T>(null);
 
   useEffect(() => {
-    const onLink = (fbLink: FirebaseDynamicLinksTypes.DynamicLink, who?) => {
+    const onLink = (fbLink: FirebaseDynamicLinksTypes.DynamicLink) => {
       const deepLink = parseDeepLink<T>(fbLink);
       deepLink && (!topic || (topic === deepLink.topic)) && setLink(deepLink);
     };
