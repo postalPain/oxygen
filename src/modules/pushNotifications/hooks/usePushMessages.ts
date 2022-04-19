@@ -17,6 +17,7 @@ export const usePushMessages = <T>(topic?: string) => {
     }
   };
   useEffect(() => {
+    messaging().getInitialNotification().then(onMessage);
     const unsubscribeMessage = messaging().onMessage(onMessage);
     const unsubscribeNotificationOpenedApp = messaging().onNotificationOpenedApp(onMessage);
     return () => {
