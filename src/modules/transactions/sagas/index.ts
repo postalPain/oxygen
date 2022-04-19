@@ -1,9 +1,8 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import {
   IGetTransactionsAction,
   TransactionsActions,
-  // TransactionStatusesBE,
 } from 'modules/transactions/types';
 import * as transactionsActions from 'modules/transactions/actions';
 import api from 'services/api';
@@ -25,5 +24,5 @@ function* getTransactionsWorker (action: IGetTransactionsAction) {
 }
 
 export default function* transactionsWatcher(): SagaIterator {
-  yield takeEvery(TransactionsActions.GET_TRANSACTIONS, getTransactionsWorker);
+  yield takeLatest(TransactionsActions.GET_TRANSACTIONS, getTransactionsWorker);
 }

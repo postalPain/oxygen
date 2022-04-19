@@ -11,13 +11,30 @@ import { modalScreenStyles } from 'navigation/styles';
 import vocab from 'i18n';
 import { navigate } from 'navigation';
 import useTabNavigationDeepLinks from 'navigation/deepLinks/useTabNavigationDeepLink';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTransactions } from 'modules/transactions/actions';
+import { selectBalance } from 'modules/withdrawal/selectors';
+import { getBalance, getPaycycleInfo, getSuggestedValues, getWithdrawableDefaults } from 'modules/withdrawal/actions';
 
 
 const Stack = createNativeStackNavigator();
 
 const AuthorizedStack = () => {
+  const dispatch = useDispatch();
+  const balance = useSelector(selectBalance);
 
   const deepLinkScreenName = useTabNavigationDeepLinks();
+
+  useEffect(() => {
+    dispatch(getBalance());
+    dispatch(getWithdrawableDefaults());
+    dispatch(getPaycycleInfo());
+    setTimeout(() => dispatch(getTransactions()), 500); // Preload for Transactions screen
+  }, []);
+
+  useEffect(() => {
+    balance && dispatch(getSuggestedValues()); // BE produces an error when requesting values before the balance
+  }, [balance]);
 
   useEffect(() => {
     deepLinkScreenName && navigate(deepLinkScreenName);
