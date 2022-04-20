@@ -32,8 +32,8 @@ const Transactions = (
   }, delay);
 
   useEffect(() => {
-    params.id && navigation.navigate(AppScreenNames.TransactionsDetails, { id: params.id });
-  }, [params.id]);
+    params?.id && navigation.navigate(AppScreenNames.TransactionsDetails, { id: params?.id });
+  }, [params?.id]);
 
   useEffect(() => {
     setDelay(noPendingTransactions ? null : REQUEST_DELAY);
