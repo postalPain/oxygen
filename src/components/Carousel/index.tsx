@@ -18,7 +18,6 @@ interface ICarousel {
 }
 
 let timeout;
-const reverseCarousel = isRTL && env.ios;
 
 export const Carousel = (props: ICarousel) => {
   const { slides, onSlideChange } = props;
@@ -28,7 +27,7 @@ export const Carousel = (props: ICarousel) => {
 
   useEffect(() => {
     onSlideChange && onSlideChange(index);
-    const flatListIndex = reverseCarousel ? 2 - index : index;
+    const flatListIndex = isRTL && env.ios ? slides.length - 1 - index : index;
     if (sliderMounted.current) {
       flatListRef.current.scrollToIndex({ index: flatListIndex });
     }
@@ -43,9 +42,9 @@ export const Carousel = (props: ICarousel) => {
   const onScrollEnd = (e) => {
     const contentOffset = e.nativeEvent.contentOffset;
     const viewSize = e.nativeEvent.layoutMeasurement;
-
     // Divide the horizontal offset by the width of the view to see which page is visible
-    const pageNum = Math.floor(contentOffset.x / viewSize.width);
+    const offset = Math.floor(contentOffset.x / viewSize.width);
+    const pageNum = isRTL && env.android ? slides.length - 1 - offset : offset;
     setIndex(pageNum);
   };
 
