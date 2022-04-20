@@ -2,8 +2,8 @@ import env from 'env';
 
 
 export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml';
-type TLangValues = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam';
-export const Languages: Record<TLang, TLangValues> = {
+type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam';
+export const Languages: Record<TLang, TLangNames> = {
   en: 'english',
   fi: 'filipino',
   fr: 'french',
@@ -13,20 +13,20 @@ export const Languages: Record<TLang, TLangValues> = {
 export const supportedLanguages: Partial<typeof Languages> = {
   en: 'english'
 };
-const defaultLangKey: TLang = 'en';
+const defaultLang: TLang = 'en';
 
-export const getLanguageKey = (): TLang => {
-  const systemLangKey = env.locale.substring(0, 2);
-  return supportedLanguages[systemLangKey]
-    ? systemLangKey
-    : defaultLangKey;
+export const getLanguage = (): TLang => {
+  const systemLang = env.locale.split('_')[0];
+  return supportedLanguages[systemLang]
+    ? systemLang
+    : defaultLang;
 };
 
-export const getLanguage = (): string => {
-  return Languages[getLanguageKey()];
+export const getLanguageName = (): TLangNames => {
+  return Languages[getLanguage()];
 };
 
 export const getHeaderLanguage = () => {
-  const localLanguage = getLanguageKey();
+  const localLanguage = getLanguage();
   return localLanguage === 'en' ? 'en_US' : 'de_CH';
 };
