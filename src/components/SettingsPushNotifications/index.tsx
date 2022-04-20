@@ -1,6 +1,6 @@
 import SettingsToggle from 'components/SettingsToggle';
 import vocab from 'i18n';
-import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
 import React from 'react';
 
 const SettingsPushNotifications = () => {

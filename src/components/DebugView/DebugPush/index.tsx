@@ -3,9 +3,10 @@ import Link from 'components/Link';
 import SettingsPushNotifications from 'components/SettingsPushNotifications';
 import { setItem } from 'modules/asyncStorage';
 import useLogger from 'modules/logger/hooks/useLogger';
-import { pushesStoredKeys, usePushMessages, usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
-import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { usePushMessages } from 'modules/pushNotifications/hooks/usePushMessages';
+import { pushesStoredKeys, usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
 import { uuid } from 'utils/uuid';
 
 const DebugPush = () => {

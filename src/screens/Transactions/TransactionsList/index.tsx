@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View, Pressable, ScrollView, RefreshControl } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { getTransactionDate, getTransactionStatus } from 'utils/transactionData';
-import useInterval from 'utils/useInterval';
-import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { ITransaction, TransactionStatusesBE, TransactionStatusesFE } from 'modules/transactions/types';
+import { AppScreenNames } from 'navigation/types';
+import { ITransaction, TransactionStatusesFE } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectTransactions, selectTransactionsLoading } from 'modules/transactions/selectors';
-import { IMeta } from 'modules/store/types';
 import { IconTransactionHistory } from 'components';
 import useStyles from './styles';
 import { useNavigation } from '@react-navigation/native';
