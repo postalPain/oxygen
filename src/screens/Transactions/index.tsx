@@ -10,6 +10,7 @@ import useStyles from './styles';
 import useInterval from 'utils/useInterval';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const REQUEST_DELAY = 1000 * 15;
 
@@ -19,7 +20,7 @@ const Transactions = (
   const dispatch = useDispatch();
   const styles = useStyles();
 
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<StackNavigationProp<any>>();
   const [delay, setDelay] = useState(REQUEST_DELAY);
 
   const transactions = useSelector(selectTransactions);
@@ -29,6 +30,10 @@ const Transactions = (
   useInterval(() => {
     dispatch(getTransactions());
   }, delay);
+
+  useEffect(() => {
+    params.id && navigation.navigate(AppScreenNames.TransactionsDetails, { id: params.id });
+  }, [params.id]);
 
   useEffect(() => {
     setDelay(noPendingTransactions ? null : REQUEST_DELAY);
