@@ -10,9 +10,9 @@ import {
   IconLogout,
   IconPrivacyPolicy,
   IconSettings,
+  IconArrowRight,
   ScreenWrapperMain
 } from 'components';
-import Arrow from './Arrow';
 import styles from './styles';
 import externalUrls from 'config/externalUrls';
 import vocab from 'i18n';
@@ -39,7 +39,7 @@ const Profile = (
       >
         <IconAccountDetails />
         <Text style={styles.menuItemText}>{vocab.get().accountDetails}</Text>
-        <Arrow style={styles.arrow} />
+        <View style={styles.arrow}><IconArrowRight /></View>
       </Pressable>
       <Pressable
         onPress={() => goTo(AppScreenNames.Settings)}
@@ -47,7 +47,7 @@ const Profile = (
       >
         <IconSettings />
         <Text style={styles.menuItemText}>{vocab.get().settings}</Text>
-        <Arrow style={styles.arrow} />
+        <View style={styles.arrow}><IconArrowRight /></View>
       </Pressable>
       <Pressable
         style={styles.menuItem}
@@ -55,7 +55,7 @@ const Profile = (
       >
         <IconPrivacyPolicy />
         <Text style={styles.menuItemText}>{vocab.get().privacyPolicy}</Text>
-        <Arrow style={styles.arrow} />
+        <View style={styles.arrow}><IconArrowRight /></View>
       </Pressable>
       <Pressable
         style={styles.menuItem}
@@ -63,7 +63,7 @@ const Profile = (
       >
         <IconHelpCenter />
         <Text style={styles.menuItemText}>{vocab.get().helpCenter}</Text>
-        <Arrow style={styles.arrow} />
+        <View style={styles.arrow}><IconArrowRight /></View>
       </Pressable>
       <Pressable
         onPress={logout}

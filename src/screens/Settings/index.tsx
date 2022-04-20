@@ -2,12 +2,22 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
-import SettingsBiometrics from 'components/SettingsBiometrics';
-import SettingsPushNotifications from 'components/SettingsPushNotifications';
+import vocab from 'i18n';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import { SettingsItem, SettingsBiometrics, SettingsPushNotifications } from 'components';
+import DashedDivider from 'components/DashedDivider/indext';
 
-const Settings = () => {
+const Settings = (
+  { navigation }: AppNavigationProps<AppScreenNames.Settings>
+) => {
   return (
     <View style={styles.settings}>
+      <SettingsItem
+        title={vocab.get().language}
+        description={vocab.get().switchLanguage}
+        onPress={() => navigation.navigate(AppScreenNames.SettingsLanguage)}
+      />
+      <DashedDivider />
       <SettingsBiometrics />
       <SettingsPushNotifications />
     </View>

@@ -3,21 +3,22 @@ import filipino from './filipino';
 import french from './french';
 import hindi from './hindi';
 import malayalam from './malayalam';
-import { getLanguage, Languages, } from './utils';
+import { getLanguage, getLanguageKey, TLang } from './utils';
 
-const vocabularies = {
-  [Languages.en]: english,
-  [Languages.fi]: filipino,
-  [Languages.fr]: french,
-  [Languages.hi]: hindi,
-  [Languages.ml]: malayalam,
+const vocabularies: Record<TLang, any> = {
+  en: english,
+  fi: filipino,
+  fr: french,
+  hi: hindi,
+  ml: malayalam,
 };
 
 const vocab = {
   language: getLanguage(),
+  languageKey: getLanguageKey(),
   vocabularies,
   get (): typeof english {
-    return this.vocabularies[this.language];
+    return this.vocabularies[this.languageKey];
   },
   t (str, ...args) {
     return str.replace(/{{.*?}}/g, () => args.shift());

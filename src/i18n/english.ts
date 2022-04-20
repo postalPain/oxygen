@@ -153,6 +153,20 @@ const english = {
   thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
   update: 'Update',
   version: 'Floos Version',
+  language: 'Language',
+  switchLanguage: 'Switch language',
+  settingsLanguage: 'Language',
+  enLabel: 'English',
+  enDescription: 'English',
+  fiLabel: 'Filipino',
+  fiDescription: 'Filipino',
+  frLabel: 'French',
+  frDescription: 'French',
+  hiLabel: 'Hindi',
+  hiDescription: 'Hindi',
+  mlLabel: 'Malayalam',
+  mlDescription: 'Malayalam',
+  comingSoon: 'Coming soon',
 };
 
 export default english;
