@@ -38,7 +38,7 @@ export const useDeepLink = <T extends DeepLink>(topic?: string): T[] => {
 
     // On my Android emulator getInitialLink() returns value only when called for the first time
     // The hook that first calls it gets value, all the subsequent hooks don't, so using local var
-    dynamicLinks().getInitialLink().then(_link => initialLink ||= _link);
+    dynamicLinks().getInitialLink().then(_link => initialLink = initialLink || _link);
     initialLink && onLink(initialLink);
     return () => unsubscribe();
   }, []);
