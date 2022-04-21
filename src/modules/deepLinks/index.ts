@@ -24,19 +24,22 @@ export const parseDeepLink = <T extends DeepLink>(fbLink: FirebaseDynamicLinksTy
   };
 };
 
+let initialLink = null;
+
 export const useDeepLink = <T extends DeepLink>(topic?: string): T[] => {
   const [link, setLink] = useState<T>(null);
 
   useEffect(() => {
     const onLink = (fbLink: FirebaseDynamicLinksTypes.DynamicLink) => {
       const deepLink = parseDeepLink<T>(fbLink);
-      deepLink && (!topic || topic === deepLink.topic) && setLink(deepLink);
+      deepLink && (!topic || (topic === deepLink.topic)) && setLink(deepLink);
     };
-
     const unsubscribe = dynamicLinks().onLink(onLink);
 
-    // getInitialLink() won't return a link instantly https://github.com/invertase/react-native-firebase/issues/4548
-    dynamicLinks().getInitialLink().then(onLink);
+    // On my Android emulator getInitialLink() returns value only when called for the first time
+    // The hook that first calls it gets value, all the subsequent hooks don't, so using local var
+    dynamicLinks().getInitialLink().then(_link => initialLink = initialLink || _link);
+    initialLink && onLink(initialLink);
     return () => unsubscribe();
   }, []);
 
