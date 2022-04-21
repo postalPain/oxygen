@@ -2,91 +2,30 @@
 
 ## Description ##
 
-React Native Stryber Template app
+Floos - Early Wage Access
 
-## Prerequisites ##
+## Run locally on emulator ##
 
-You need the following tools installed on your host machine:
+`npm run ios`
+`npm run android`
 
-- npm / node
-- cocoapods (latest version)
-- Xcode (latest version)
-- Java (latest version)
-- Android SDK
+## Bitrise Builds ##
 
-### iOS ###
+https://app.bitrise.io/app/ec5e5ff2203dd921#
 
-Open the Xcode, go to Preferences -> Locations -> Command Line Tools and select the latest Xcode version.
+## Testing ##
 
-#### Mac with M1 chip ####
+### e2e ###
 
-- Go to Finder -> Application -> Open context menu for Xcode -> Get info -> Select "Open using Rosetta"
-- Open the project with Xcode, in the left menu (project navigator) click on the project, then click on the target you need and go to "Build settings". Find "Excluded architectures" -> "Debug" -> "Any iOS Simulator SDK" and add "arm64" to the list. Repeat the instructions for the "Release" as well.
-
-### Android ###
-
-Add next variables to user/.zshrc (or ./bash_profile) file
+Install applesimutils
 
 ```shell script
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+brew tap wix/brew
+brew install applesimutils
 ```
 
-Optional, if you want to overwrite JDK default location to Android JDK location
-(if you want to run build not from Android Studio, but from React Native Cli, like "react-native run-android")
-```shell script
-export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/Contents/Home
-```
-
-
-## Development ##
-
-### How to initialize template ###
-
-```shell script
-PROJECT_NAME=[project name] PROJECT_DISPLAY_NAME=[project display name] npm run init:template
-```
-
-### How to debug on IOS device / emulator ###
-
-Run the following command in the terminal
-
-```shell script
-npm run ios
-```
-
-### How to debug on Android device / emulator ###
-
-Run the following command in the terminal
-
-```shell script
-npm run android
-```
-
-### How to debug on IOS device / simulator ###
-
-Run the following command in the terminal
-
-```shell script
-npm run ios
-```
-
-### Testing ###
-
-linter
-
-```shell script
-npm run lint
-```
-
-unit tests
-
-```shell script
-npm run test
-```
+Run tests
+`npm run e2e:ios`
 
 ### App version ###
 
