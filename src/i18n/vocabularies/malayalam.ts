@@ -1,6 +1,6 @@
 import { IVocab } from './types';
 
-const filipino: IVocab = {
+const malayalam: IVocab = {
   help: 'Help',
   back: 'Back',
   continue: 'Continue',
@@ -157,4 +157,4 @@ const filipino: IVocab = {
   version: 'Floos Version',
 };
 
-export default filipino;
+export default malayalam;

@@ -26,7 +26,7 @@ export const analytics = (() => {
     mixpanel.identify(distinctId);
     await setUserProperties({
       appVersion: env.version,
-      language: vocab.languageName,
+      language: vocab.getLanguageName(),
     });
   };
 

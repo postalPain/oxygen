@@ -1,6 +1,6 @@
 import { IVocab } from './types';
 
-const arabic: IVocab = {
+const french: IVocab = {
   help: 'Help',
   back: 'Back',
   continue: 'Continue',
@@ -157,4 +157,4 @@ const arabic: IVocab = {
   version: 'Floos Version',
 };
 
-export default arabic;
+export default french;

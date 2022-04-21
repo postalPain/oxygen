@@ -1,5 +1,5 @@
 import env from 'env';
-
+import { setItem } from 'modules/asyncStorage';
 
 export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml';
 type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam';
@@ -14,12 +14,21 @@ export const supportedLanguages: Partial<typeof Languages> = {
   en: 'english'
 };
 const defaultLang: TLang = 'en';
+export const languageAsyncStoreKey = 'languageAsyncStoreKey';
+let lang = defaultLang;
+
+export const setLanguage = async (l: TLang) => {
+  const systemLang = env.locale.split('_')[0];
+  const preferredLang = l || systemLang;
+  const finalLang = supportedLanguages[preferredLang]
+    ? preferredLang
+    : defaultLang;
+  lang = finalLang;
+  await setItem(languageAsyncStoreKey, finalLang);
+};
 
 export const getLanguage = (): TLang => {
-  const systemLang = env.locale.split('_')[0];
-  return supportedLanguages[systemLang]
-    ? systemLang
-    : defaultLang;
+  return lang;
 };
 
 export const getLanguageName = (): TLangNames => {

@@ -9,7 +9,7 @@ import { SettingsItem } from 'components';
 import DashedDivider from 'components/DashedDivider/indext';
 
 const SettingsLanguage = () => {
-  const [currentLang, setCurrentLang] = useState(vocab.language);
+  const [currentLang, setCurrentLang] = useState(vocab.getLanguage());
   const onChange = (key) => {
     if (key !== currentLang) {
       setCurrentLang(key);
