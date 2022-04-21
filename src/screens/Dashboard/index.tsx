@@ -21,21 +21,10 @@ import { navigate } from 'navigation';
 import { AppScreenNames } from 'navigation/types';
 
 const Dashboard: React.FC<any> = () => {
-  const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
 
   const [infoModal, setInfoModal] = useState(false);
-
-  useEffect(() => {
-    dispatch(getBalance());
-    dispatch(getWithdrawableDefaults());
-    dispatch(getPaycycleInfo());
-  }, []);
-
-  useEffect(() => {
-    balance && dispatch(getSuggestedValues()); // BE produces an error when requesting values before the balance
-  }, [balance]);
 
   const onInfoIconPress = () => {
     setInfoModal(true);

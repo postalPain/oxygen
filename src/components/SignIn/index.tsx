@@ -15,7 +15,7 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
-import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
 import { testIds } from '../../config/testIds';
 import { selectAuthData } from 'modules/auth/selectors';
 import { CommonActions } from '@react-navigation/native';

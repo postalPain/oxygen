@@ -7,13 +7,14 @@ import { getHeight, getWidth } from 'utils/window';
 import useLogger from 'modules/logger/hooks/useLogger';
 import { DbKeys, useDatabase } from 'modules/fbDatabase/useDatabase';
 import DebugAsyncStorage from './DebugAsyncStorage';
+import DebugPush from './DebugPush';
 
 const DebugView = () => {
   const { log, loggerMessages, clearLog } = useLogger();
 
   return (
     <ScrollView>
-      <DebugAsyncStorage />
+      <DebugPush />
       <Link onPress={clearLog}>
         Clear
       </Link>

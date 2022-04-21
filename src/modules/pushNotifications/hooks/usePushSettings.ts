@@ -1,13 +1,11 @@
-import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
 import env from 'env';
-import { getItem, getItemForUser, setItem, setItemForUser } from 'modules/asyncStorage';
-import useLogger from 'modules/logger/hooks/useLogger';
+import { getItemForUser, setItemForUser } from 'modules/asyncStorage';
 import { selectUserEmail } from 'modules/user/selectors';
 import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
 import { useSelector } from 'react-redux';
-import { uuid } from 'utils/uuid';
 import { analytics } from 'services/analytics';
 
 export enum pushesStoredKeys {
@@ -57,7 +55,6 @@ export const usePushSettings = () => {
     return newStatus;
   };
 
-
   return {
     pushEnabled: enabled,
     pushPermissions: permissions,
@@ -91,33 +88,6 @@ export const usePushSettings = () => {
         return null;
       },
     })
-  };
-};
-
-export const usePushMessages = <T>(topic?: string) => {
-  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: T};
-  const [message, setMessage] = useState<TMessage>(null);
-
-  const logger = useLogger();
-  useEffect(() => {
-    const onMessage = (_message: TMessage): any => {
-      logger.log('topic', uuid(), topic);
-      logger.log('_message', _message);
-      if (!topic || (topic === _message.data.topic)) {
-        logger.log('setting message');
-        setMessage(_message);
-      }
-    };
-
-    messaging().onMessage(onMessage);
-    messaging().setBackgroundMessageHandler(onMessage);
-  }, []);
-
-  return {
-    simulateMessage: (_message: TMessage) => {
-      // onMessage(_message);
-    },
-    message,
   };
 };
 
