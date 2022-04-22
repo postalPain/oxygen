@@ -19,8 +19,3 @@ export const getLanguage = (): string => {
     ? systemLanguage
     : defaultLanguage;
 };
-
-export const getHeaderLanguage = () => {
-  const localLanguage = getLanguage();
-  return localLanguage === 'en' ? 'en_US' : 'de_CH';
-};

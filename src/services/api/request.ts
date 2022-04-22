@@ -4,7 +4,6 @@ import apiUrls from 'config/apiUrls';
 import { selectAuthData } from 'modules/auth/selectors';
 import store, { getState } from 'modules/store';
 import { setAuthData } from 'modules/auth/actions';
-import { getHeaderLanguage } from 'i18n/utils';
 import { isTtlActive } from 'utils/time';
 import api from '.';
 import { handleBackendError } from './errors';
@@ -15,7 +14,7 @@ import { getLogger } from 'modules/logger';
 const request = axios.create({
   baseURL: env.apiUrl,
   headers: {
-    'Accept-Language': getHeaderLanguage(),
+    'Accept-Language': env.locale.replace('-', '_'),
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Pragma': 'no-cache',
     'Expires': 0,
