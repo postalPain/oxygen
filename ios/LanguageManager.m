@@ -20,7 +20,6 @@ static NSString * const defaultLanguage = @"en";
   NSUserDefaults *userDefaults = [NSUserDefaults new];
   NSString *userDefaultsLang = [userDefaults stringForKey:languageUserDefaultsKey];
   [self setLanguage:userDefaultsLang];
-  NSLog(@"Lang is %@", language);
   return self;
 }
 

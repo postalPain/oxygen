@@ -16,6 +16,12 @@ RCT_EXPORT_MODULE()
     RCTTriggerReloadCommandListeners(@"react-native-restart: Restart");
 }
 
+RCT_EXPORT_METHOD(getLang:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+{
+  resolve([self getLanguage]);
+}
+
 RCT_EXPORT_METHOD(setLang:(NSString *)lang:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -25,24 +31,15 @@ RCT_EXPORT_METHOD(setLang:(NSString *)lang:(RCTPromiseResolveBlock)resolve
   [[RCTI18nUtil sharedInstance] forceRTL: isAllowRTL];
   resolve(updatedLanguage);
 }
-RCT_EXPORT_METHOD(getLang:(RCTPromiseResolveBlock)resolve
-                  withRejecter:(RCTPromiseRejectBlock)reject)
+
+- (NSDictionary *)constantsToExport
 {
-  resolve([self getLanguage]);
+ return @{ @"INITIAL_LANGUAGE": [self getLanguage] };
 }
-RCT_EXPORT_METHOD(appReload)
+
++ (BOOL)requiresMainQueueSetup
 {
-  ;
-  // TODO show splashscreen
-  
-  // [self applicationReload];
-  if ([NSThread isMainThread]) {
-    [self loadBundle];
-  } else {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-      [self loadBundle];
-    });
-  }
+    return NO;
 }
 
 @end;
