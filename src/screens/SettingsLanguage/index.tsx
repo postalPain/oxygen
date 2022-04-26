@@ -31,7 +31,12 @@ const SettingsLanguage = () => {
         ]);
     }
   };
-  const langKeys = Object.keys(Languages);
+  const langKeys = Object.keys(Languages).sort((a, b) => {
+    if (a === currentLang) {
+      return -1;
+    }
+    return 0;
+  });
 
   return (
     <View style={styles.settings}>

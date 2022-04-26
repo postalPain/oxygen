@@ -3,12 +3,12 @@ import LanguageManager, { INITIAL_LANGUAGE } from 'services/LanguageManager';
 export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml' | 'ar';
 type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam' | 'arabic';
 export const Languages: Record<TLang, TLangNames> = {
+  ar: 'arabic',
   en: 'english',
   fi: 'filipino',
   fr: 'french',
   hi: 'hindi',
   ml: 'malayalam',
-  ar: 'arabic',
 };
 export const supportedLanguages: Partial<typeof Languages> = {
   en: 'english',
