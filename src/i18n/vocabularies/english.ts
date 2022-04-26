@@ -166,7 +166,13 @@ const english = {
   hiDescription: 'Hindi',
   mlLabel: 'Malayalam',
   mlDescription: 'Malayalam',
+  arLabel: 'Arabic',
+  arDescription: 'Arabic',
   comingSoon: 'Coming soon',
+  alertTitle: 'Floos',
+  alertConfirmLanguageChange: 'Are you sure to change the app language? It will require app reload.',
+  alertAccept: 'Accept',
+  alertReject: 'Reject',
 };
 
 export default english;

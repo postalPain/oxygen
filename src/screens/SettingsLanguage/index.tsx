@@ -1,19 +1,34 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
+import RNRestart from 'react-native-restart';
 
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
-import { Languages, supportedLanguages } from 'i18n/utils';
+import { Languages, setLanguage, supportedLanguages } from 'i18n/utils';
 import vocab from 'i18n';
 import { SettingsItem } from 'components';
 import DashedDivider from 'components/DashedDivider/indext';
 
 const SettingsLanguage = () => {
   const [currentLang, setCurrentLang] = useState(vocab.getLanguage());
-  const onChange = (key) => {
+  const onChange = async (key) => {
     if (key !== currentLang) {
-      setCurrentLang(key);
-      // TODO switch language
+      Alert.alert(
+        vocab.get().alertTitle,
+        vocab.get().alertConfirmLanguageChange, [
+          {
+            text: vocab.get().alertReject,
+            style: 'cancel',
+          },
+          {
+            text: vocab.get().alertAccept,
+            onPress: async () => {
+              setCurrentLang(key);
+              await setLanguage(key);
+              RNRestart.Restart();
+            }
+          }
+        ]);
     }
   };
   const langKeys = Object.keys(Languages);
