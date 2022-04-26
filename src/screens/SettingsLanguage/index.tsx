@@ -27,7 +27,7 @@ const SettingsLanguage = (
             text: vocab.get().alertAccept,
             onPress: async () => {
               setCurrentLang(key);
-              navigation.navigate(AppScreenNames.TabNavigation);
+              navigation.navigate(AppScreenNames.TabNavigation); // Hack fix for navigation in case of RNRestart.Restart()
               await setLanguage(key);
               RNRestart.Restart();
             }
