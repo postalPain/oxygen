@@ -37,6 +37,8 @@ public class LanguageManagerModule  extends ReactContextBaseJavaModule {
         Boolean isAllowRTL = languageManager.isAllowRTL();
         I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
         sharedI18nUtilInstance.allowRTL(context, isAllowRTL);
+        sharedI18nUtilInstance.forceRTL(context, isAllowRTL);
+        promise.resolve(updatedLanguage);
     }
 
     @Override

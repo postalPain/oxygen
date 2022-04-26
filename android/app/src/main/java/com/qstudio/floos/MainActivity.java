@@ -26,5 +26,6 @@ public class MainActivity extends ReactActivity {
     boolean isAllowRTL = languageManager.isAllowRTL();
     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
     sharedI18nUtilInstance.allowRTL(getApplicationContext(), isAllowRTL);
+    sharedI18nUtilInstance.forceRTL(getApplicationContext(), isAllowRTL);
   }
 }

@@ -28,7 +28,7 @@ const SettingsLanguage = (
             onPress: async () => {
               setCurrentLang(key);
               navigation.navigate(AppScreenNames.TabNavigation);
-              setLanguage(key); // RNRestart doesn't work on Android with await here
+              await setLanguage(key);
               RNRestart.Restart();
             }
           }
