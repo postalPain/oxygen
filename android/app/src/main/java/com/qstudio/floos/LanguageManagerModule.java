@@ -1,6 +1,7 @@
 package com.qstudio.floos;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -12,8 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LanguageManagerModule  extends ReactContextBaseJavaModule {
-    LanguageManager languageManager;
-    Context context;
+    final private LanguageManager languageManager;
+    final private Context context;
     @Override
     public String getName() {
         return "RNLanguageManager";
@@ -22,23 +23,18 @@ public class LanguageManagerModule  extends ReactContextBaseJavaModule {
     LanguageManagerModule(ReactApplicationContext context) {
         super(context);
         this.context = context;
-        this.languageManager = LanguageManager.getInstance(context);
-    }
-
-    @ReactMethod
-    public void isAllowRTL(Promise promise) {
-        promise.resolve(this.languageManager.isAllowRTL());
+        languageManager = LanguageManager.getInstance(context);
     }
 
     @ReactMethod
     public void getLang(Promise promise) {
-        promise.resolve(this.languageManager.getLanguage());
+        promise.resolve(languageManager.getLanguage());
     }
 
     @ReactMethod
     public void setLang(String lang, Promise promise) {
-        String updatedLanguage = this.languageManager.setLanguage(lang);
-        Boolean isAllowRTL = this.languageManager.isAllowRTL();
+        String updatedLanguage = languageManager.setLanguage(lang);
+        Boolean isAllowRTL = languageManager.isAllowRTL();
         I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
         sharedI18nUtilInstance.allowRTL(context, isAllowRTL);
     }
@@ -46,7 +42,7 @@ public class LanguageManagerModule  extends ReactContextBaseJavaModule {
     @Override
     public Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
-        constants.put("INITIAL_LANGUAGE", LanguageManager.language);
+        constants.put("INITIAL_LANGUAGE", languageManager.getLanguage());
         return constants;
     }
 }

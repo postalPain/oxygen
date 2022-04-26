@@ -18,7 +18,7 @@ public class LanguageManager {
     static final String defaultLanguage = "en";
     static final String[] supportedLanguages = { defaultLanguage, "ar" };
     static final String[] rtlLanguages = { "ar" };
-    public static String language;
+    private static String language;
     private Context context;
 
     private LanguageManager(Context context) {

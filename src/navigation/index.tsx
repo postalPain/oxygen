@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { languageAsyncStoreKey, setLanguage } from 'i18n/utils';
 import {
   DataPrivacy,
   EnterEmail,
@@ -22,7 +21,7 @@ import {
 } from 'screens';
 import { AppNavigationProps, AppScreenNames } from './types';
 import { IAuthData } from 'modules/auth/types';
-import { getItem, getItems } from 'modules/asyncStorage';
+import { getItems } from 'modules/asyncStorage';
 import { clearAuthData, setAuthData } from 'modules/auth/actions';
 import { checkVerification, userSetInfo } from 'modules/user/actions';
 import { UserStoredKeys } from 'modules/user/types';
@@ -104,9 +103,6 @@ const Navigation = () => {
   useEffect(
     () => {
       (async () => {
-        const language = await getItem(languageAsyncStoreKey);
-        await setLanguage(language);
-
         const storedAuthData: IAuthData = await getItems([
           AuthStoredKeys.access_token,
           AuthStoredKeys.access_ttl,

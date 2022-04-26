@@ -1,30 +1,23 @@
-import env from 'env';
-import { setItem } from 'modules/asyncStorage';
+import LanguageManager, { INITIAL_LANGUAGE } from 'services/LanguageManager';
 
-export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml';
-type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam';
+export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml' | 'ar';
+type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam' | 'arabic';
 export const Languages: Record<TLang, TLangNames> = {
   en: 'english',
   fi: 'filipino',
   fr: 'french',
   hi: 'hindi',
   ml: 'malayalam',
+  ar: 'arabic',
 };
 export const supportedLanguages: Partial<typeof Languages> = {
   en: 'english'
 };
-const defaultLang: TLang = 'en';
-export const languageAsyncStoreKey = 'languageAsyncStoreKey';
-let lang = defaultLang;
+let lang: TLang = INITIAL_LANGUAGE;
 
 export const setLanguage = async (l: TLang) => {
-  const systemLang = env.locale.split('_')[0];
-  const preferredLang = l || systemLang;
-  const finalLang = supportedLanguages[preferredLang]
-    ? preferredLang
-    : defaultLang;
-  lang = finalLang;
-  await setItem(languageAsyncStoreKey, finalLang);
+  await LanguageManager.setLang(l);
+  lang = l;
 };
 
 export const getLanguage = (): TLang => {
