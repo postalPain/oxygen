@@ -15,9 +15,10 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
-import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
 import { testIds } from '../../config/testIds';
 import { selectAuthData } from 'modules/auth/selectors';
+import { CommonActions } from '@react-navigation/native';
 
 interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
   forgotPasswordMode?: boolean;
@@ -69,9 +70,15 @@ const SignIn = (props: ISignIn) => {
       onSuccess: async (status: VerificationStatuses) => {
         dispatch(userGetInfo());
         pushNotRequested && await requestPushes(email);
-        isUserEmployerVerified(status)
-          ? navigation.navigate(AppScreenNames.AuthorizedStack)
-          : navigation.navigate(AppScreenNames.UserVerificationPending);
+        navigation.dispatch(CommonActions.reset({
+          index: 1,
+          routes: [ {
+            name: isUserEmployerVerified(status)
+              ? AppScreenNames.AuthorizedStack
+              : AppScreenNames.UserVerificationPending
+          } ],
+        })
+        );
       },
       onError: () => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));

@@ -68,8 +68,6 @@ function* signUpWorker(action: ISignUpAction) {
     companyCode: action.payload.registration_id.split('-')?.[1],
     timestamp: moment().utc().toISOString(),
   });
-  getLogger().log('signUp fcmToken', fcmToken);
-
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield storeAuthData(response.data);
@@ -91,7 +89,6 @@ function* signInWorker(action: ISignInAction) {
     yield action.meta?.onError?.(error);
     return;
   }
-  getLogger().log('signedIn fcmToken', fcmToken);
   yield put(authActions.signInSuccess(action.email, response.data, 'credentials', { onSuccess: action.meta?.onSuccess }));
 }
 

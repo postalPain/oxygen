@@ -9,7 +9,7 @@ const topic2screenName = {
   withdraw: AppScreenNames.WithdrawalSelect,
 };
 
-const useTabNavigationDeepLinks = (navigate?) => {
+const useTabNavigationDeepLinks = () => {
   const [deepLink] = useDeepLink<DeepLink>();
   const [screenName, setScreenName] = useState<AppScreenNames>();
 

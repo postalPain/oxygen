@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkVerification, verifyEmail } from 'modules/user/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import VerificationCode from 'screens/VerificationCode';
-import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
 import { selectSignUpCode, selectSignUpCodeLoading, selectSignUpData } from 'modules/auth/selectors';
 import { setSignUpCode } from 'modules/auth/actions';
 
