@@ -8,8 +8,11 @@ import { Languages, setLanguage, supportedLanguages } from 'i18n/utils';
 import vocab from 'i18n';
 import { SettingsItem } from 'components';
 import DashedDivider from 'components/DashedDivider/indext';
+import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 
-const SettingsLanguage = () => {
+const SettingsLanguage = (
+  { navigation }: AppNavigationProps<AppScreenNames.SettingsLanguage>
+) => {
   const [currentLang, setCurrentLang] = useState(vocab.getLanguage());
   const onChange = async (key) => {
     if (key !== currentLang) {
@@ -24,7 +27,8 @@ const SettingsLanguage = () => {
             text: vocab.get().alertAccept,
             onPress: async () => {
               setCurrentLang(key);
-              await setLanguage(key);
+              navigation.navigate(AppScreenNames.TabNavigation);
+              setLanguage(key); // RNRestart doesn't work on Android with await here
               RNRestart.Restart();
             }
           }
