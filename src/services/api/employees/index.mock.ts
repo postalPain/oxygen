@@ -1,14 +1,15 @@
 import { IEmployeesApi } from './types';
 import { VerificationStatuses } from '../../../modules/user/types';
-import { TransactionStatusesBE } from 'modules/transactions/types';
+import { ITransaction, TransactionStatusesBE } from 'modules/transactions/types';
 import { globalMock } from '../index.mock';
 
-const getTransaction = (amount: number) => ({
+const getTransaction = (amount: number): ITransaction => ({
   amount,
   id: 235,
   fee: globalMock.fee,
   status: TransactionStatusesBE.pending,
   created_at: '2022-01-02T09:47:15.000000',
+  accepted_at: '2022-01-02T09:49:15.000000',
   updated_at: '2022-01-05T09:47:15.000000',
   bank_details: {
     id: 199,
@@ -44,6 +45,7 @@ const employeesMock: IEmployeesApi = {
       email: 'mock@mail.com',
       first_name: 'Mockname',
       last_name: 'Api',
+      company_name: 'Mocked Company',
       iban: 'IBAN123456789',
       id: 123,
       registration_id: 'redistrationId-123',
@@ -64,6 +66,17 @@ const employeesMock: IEmployeesApi = {
       withdrawable_wages: globalMock.balance,
     }
   }),
+  getTransaction: (id) => {
+    let response = {
+      data: null,
+    };
+    if (globalMock.withdrawn !== globalMock.initialBalance) {
+      response = {
+        data: getTransaction(200)
+      };
+    }
+    return Promise.resolve(response);
+  },
   getTransactions: () => {
     let response = {
       data: [],
@@ -79,7 +92,9 @@ const employeesMock: IEmployeesApi = {
     data: [200, 500, 800, globalMock.balance],
   }),
   getFee: () => Promise.resolve({
-    data: globalMock.fee,
+    data: {
+      fee_value: globalMock.fee,
+    }
   }),
   withdrawal: (amount) => {
     globalMock.balance -= amount - globalMock.fee;

@@ -12,6 +12,7 @@ export interface ITransaction {
   fee: number;
   status: TransactionStatusesBE;
   created_at: string;
+  accepted_at: string;
   updated_at: string;
   bank_details: ITransactionBankDetails;
 }
