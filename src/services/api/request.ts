@@ -1,15 +1,8 @@
 import axios from 'axios';
-import moment from 'moment';
-import apiUrls from 'config/apiUrls';
 import { selectAuthData } from 'modules/auth/selectors';
-import store, { getState } from 'modules/store';
-import { setAuthData } from 'modules/auth/actions';
-import { isTtlActive } from 'utils/time';
-import api from '.';
+import store from 'modules/store';
 import { handleBackendError } from './errors';
 import env from 'env';
-import { getLogger } from 'modules/logger';
-
 
 const request = axios.create({
   baseURL: env.apiUrl,

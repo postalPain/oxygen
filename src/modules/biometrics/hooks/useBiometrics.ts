@@ -27,7 +27,7 @@ export const useBiometrics = () => {
   }, [email]);
 
   const shouldRequestBiometrics = async () => {
-    const biometricsAccepted = await getBiometrics(email);
+    const biometricsAccepted = await getBiometrics();
 
     if (!biometricsAccepted && biometryStatus.available) {
       const loginCount = await getLoginCount(email);
@@ -46,12 +46,12 @@ export const useBiometrics = () => {
     authenticate,
     turnOnBiometrics: async () => {
       const accepted = await requestBiometricPermission();
-      await storeBiometrics(email, accepted);
+      await storeBiometrics(accepted);
       dispatch(getBiometryReady());
       return accepted;
     },
     turnOffBiometrics: async () => {
-      await storeBiometrics(email, false);
+      await storeBiometrics(false);
       dispatch(getBiometryReady());
     }
   };
