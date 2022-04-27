@@ -16,4 +16,5 @@ const vocabularies: Record<TLang, any> = {
 };
 
 export { IVocab } from './types';
+export { default as languageLabels } from './languageLabels';
 export default vocabularies;

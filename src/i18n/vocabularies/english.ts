@@ -1,3 +1,5 @@
+
+
 const english = {
   help: 'Help',
   back: 'Back',
@@ -156,17 +158,11 @@ const english = {
   language: 'Language',
   switchLanguage: 'Switch language',
   settingsLanguage: 'Language',
-  enLabel: 'English',
   enDescription: 'English',
-  fiLabel: 'Filipino',
   fiDescription: 'Filipino',
-  frLabel: 'French',
   frDescription: 'French',
-  hiLabel: 'Hindi',
   hiDescription: 'Hindi',
-  mlLabel: 'Malayalam',
   mlDescription: 'Malayalam',
-  arLabel: 'Arabic',
   arDescription: 'Arabic',
   comingSoon: 'Coming soon',
   alertTitle: 'Floos',

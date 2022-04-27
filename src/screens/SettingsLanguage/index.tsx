@@ -50,7 +50,7 @@ const SettingsLanguage = (
             <SettingsItem
               key={key}
               type="radio"
-              title={vocab.get()[`${key}Label`]}
+              title={vocab.languageLabels[key]}
               description={vocab.get()[`${key}Description`]}
               on={key === currentLang}
               onChange={() => onChange(key)}

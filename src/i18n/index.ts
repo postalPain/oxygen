@@ -1,10 +1,11 @@
-import vocabularies, { IVocab } from './vocabularies';
+import vocabularies, { IVocab, languageLabels } from './vocabularies';
 import { getLanguageName, getLanguage } from './utils';
 
 const vocab = {
   getLanguage,
   getLanguageName,
   vocabularies,
+  languageLabels,
   get (): IVocab {
     return this.vocabularies[getLanguage()];
   },
