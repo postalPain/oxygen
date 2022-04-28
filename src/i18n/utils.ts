@@ -1,3 +1,4 @@
+import env from 'env';
 import LanguageManager, { INITIAL_LANGUAGE } from 'services/LanguageManager';
 
 export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml' | 'ar';
@@ -26,4 +27,18 @@ export const getLanguage = (): TLang => {
 
 export const getLanguageName = (): TLangNames => {
   return Languages[getLanguage()];
+};
+
+export enum SupportedLocales {
+  en = 'en',
+  ar = 'ar',
+  fr = 'fr',
+  hi_IN = 'hi_IN',
+  ml_IN = 'ml_IN',
+  fil_PH = 'fil_PH',
+  ur_PK = 'ur_PK',
+}
+
+export const getLocale = () => {
+  return SupportedLocales[env.locale] || SupportedLocales[env.locale.substring(0, 2)] || SupportedLocales.en;
 };
