@@ -18,3 +18,4 @@ export { default as TransactionDetails } from './TransactionDetails';
 export { default as Profile } from './Profile';
 export { default as AccountDetails } from './AccountDetails';
 export { default as Settings } from './Settings';
+export { default as SettingsLanguage } from './SettingsLanguage';

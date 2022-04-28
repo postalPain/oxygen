@@ -22,11 +22,10 @@ public class MainActivity extends ReactActivity {
     SplashScreen.show(this, R.style.Launcher);
     super.onCreate(savedInstanceState);
 
-    String systemLanguage = Locale.getDefault().getLanguage();
-    // String[] supportedLanguages = { "ar" };
-    String[] supportedLanguages = {};
-    boolean isAllowRTL = Arrays.asList(supportedLanguages).contains(systemLanguage);
+    LanguageManager languageManager = LanguageManager.getInstance(getApplicationContext());
+    boolean isAllowRTL = languageManager.isAllowRTL();
     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
     sharedI18nUtilInstance.allowRTL(getApplicationContext(), isAllowRTL);
+    sharedI18nUtilInstance.forceRTL(getApplicationContext(), isAllowRTL);
   }
 }

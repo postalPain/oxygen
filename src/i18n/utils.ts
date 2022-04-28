@@ -1,21 +1,29 @@
-import env from 'env';
-import { NativeModules, Platform, } from 'react-native';
+import LanguageManager, { INITIAL_LANGUAGE } from 'services/LanguageManager';
 
-export enum Languages {
-  en = 'english',
-  fi = 'filipino',
-  fr = 'french',
-  hi = 'hindi',
-  ml = 'malayalam',
-}
+export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml' | 'ar';
+type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam' | 'arabic';
+export const Languages: Record<TLang, TLangNames> = {
+  ar: 'arabic',
+  en: 'english',
+  fi: 'filipino',
+  fr: 'french',
+  hi: 'hindi',
+  ml: 'malayalam',
+};
+export const supportedLanguages: Partial<typeof Languages> = {
+  en: 'english',
+};
+let lang: TLang = INITIAL_LANGUAGE;
 
-export const getLanguage = (): string => {
-  const defaultLanguage = Languages.en;
-  const supportedLanguages = [Languages.en, ];
+export const setLanguage = async (l: TLang) => {
+  await LanguageManager.setLang(l);
+  lang = l;
+};
 
-  const systemLanguage = Languages[env.locale.substring(0, 2)];
+export const getLanguage = (): TLang => {
+  return lang;
+};
 
-  return supportedLanguages.includes(systemLanguage)
-    ? systemLanguage
-    : defaultLanguage;
+export const getLanguageName = (): TLangNames => {
+  return Languages[getLanguage()];
 };

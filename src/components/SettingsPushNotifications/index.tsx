@@ -1,4 +1,4 @@
-import SettingsToggle from 'components/SettingsToggle';
+import SettingsItem from 'components/SettingsItem';
 import vocab from 'i18n';
 import { usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
 import React from 'react';
@@ -11,7 +11,8 @@ const SettingsPushNotifications = () => {
   } = usePushSettings();
 
   return (
-    <SettingsToggle
+    <SettingsItem
+      type="toggle"
       title={vocab.get().notifications}
       description={vocab.get().turnOnNotifications}
       on={pushEnabled}

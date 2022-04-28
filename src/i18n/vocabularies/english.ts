@@ -1,3 +1,5 @@
+
+
 const english = {
   help: 'Help',
   back: 'Back',
@@ -153,6 +155,20 @@ const english = {
   thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
   update: 'Update',
   version: 'Floos Version',
+  language: 'Language',
+  switchLanguage: 'Switch language',
+  settingsLanguage: 'Language',
+  enDescription: 'English',
+  fiDescription: 'Filipino',
+  frDescription: 'French',
+  hiDescription: 'Hindi',
+  mlDescription: 'Malayalam',
+  arDescription: 'Arabic',
+  comingSoon: 'Coming soon',
+  alertTitle: 'Floos',
+  alertConfirmLanguageChange: 'Are you sure to change the app language? It will require app reload.',
+  alertAccept: 'Accept',
+  alertReject: 'Reject',
 };
 
 export default english;
