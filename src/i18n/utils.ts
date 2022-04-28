@@ -39,6 +39,6 @@ export enum SupportedLocales {
   ur_PK = 'ur_PK',
 }
 
-export const getLocale = () => {
+export const getSupportedLocale = () => {
   return SupportedLocales[env.locale] || SupportedLocales[env.locale.substring(0, 2)] || SupportedLocales.en;
 };

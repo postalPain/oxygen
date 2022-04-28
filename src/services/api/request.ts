@@ -3,12 +3,12 @@ import { selectAuthData } from 'modules/auth/selectors';
 import store from 'modules/store';
 import { handleBackendError } from './errors';
 import env from 'env';
-import { getLocale } from 'i18n/utils';
+import { getSupportedLocale } from 'i18n/utils';
 
 const request = axios.create({
   baseURL: env.apiUrl,
   headers: {
-    'Accept-Language': getLocale(),
+    'Accept-Language': getSupportedLocale(),
     'Cache-Control': 'no-cache, no-store, must-revalidate',
     'Pragma': 'no-cache',
     'Expires': 0,
