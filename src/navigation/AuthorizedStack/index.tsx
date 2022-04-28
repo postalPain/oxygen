@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { AccountDetails, Settings, } from 'screens';
+import { AccountDetails, Settings, SettingsLanguage } from 'screens';
 import TabNavigation from 'navigation/TabNavigation';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
 import { BackButton, NavigationHeader } from 'components';
@@ -99,6 +99,21 @@ const AuthorizedStack = () => {
                 {...headerProps}
                 headerStyle={modalScreenStyles.header}
                 title={vocab.get().settings}
+                headerRight={null}
+              />
+            )
+          }}
+        />
+        <Stack.Screen
+          name={AppScreenNames.SettingsLanguage}
+          component={SettingsLanguage}
+          options={{
+            headerShown: true,
+            header: (headerProps) => (
+              <NavigationHeader
+                {...headerProps}
+                headerStyle={modalScreenStyles.header}
+                title={vocab.get().settingsLanguage}
                 headerRight={null}
               />
             )

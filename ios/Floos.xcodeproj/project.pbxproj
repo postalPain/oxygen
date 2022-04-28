@@ -12,6 +12,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2EFE02D22813143C005E15CE /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFE02D12813143C005E15CE /* LanguageManager.m */; };
+		2EFE02D32813143C005E15CE /* LanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFE02D12813143C005E15CE /* LanguageManager.m */; };
+		2EFE02D628133932005E15CE /* RNLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFE02D528133932005E15CE /* RNLanguageManager.m */; };
+		2EFE02D728133932005E15CE /* RNLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFE02D528133932005E15CE /* RNLanguageManager.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		86D0C6DD3A56CC3D493BD07A /* libPods-Floos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 884846C86C6FCA5FF2DA5A00 /* libPods-Floos.a */; };
 		CED3BDC026FB677800A4434E /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CED3BDB626FB677700A4434E /* OpenSans-SemiBold.ttf */; };
@@ -50,6 +54,10 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Floos/main.m; sourceTree = "<group>"; };
 		1DD70A5BD70FDAC2CA57EBC7 /* libPods-Floos-FloosTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floos-FloosTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EE46AC73A3F4A43D9627484 /* Pods-Floos-FloosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Floos-FloosTests.release.xcconfig"; path = "Target Support Files/Pods-Floos-FloosTests/Pods-Floos-FloosTests.release.xcconfig"; sourceTree = "<group>"; };
+		2EFE02D0281310C0005E15CE /* LanguageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanguageManager.h; sourceTree = "<group>"; };
+		2EFE02D12813143C005E15CE /* LanguageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageManager.m; sourceTree = "<group>"; };
+		2EFE02D4281338A4005E15CE /* RNLanguageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNLanguageManager.h; sourceTree = "<group>"; };
+		2EFE02D528133932005E15CE /* RNLanguageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNLanguageManager.m; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Floos/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		884846C86C6FCA5FF2DA5A00 /* libPods-Floos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Floos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3BDB626FB677700A4434E /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -118,6 +126,10 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				CED3BDB526FB674300A4434E /* Resources */,
+				2EFE02D0281310C0005E15CE /* LanguageManager.h */,
+				2EFE02D12813143C005E15CE /* LanguageManager.m */,
+				2EFE02D4281338A4005E15CE /* RNLanguageManager.h */,
+				2EFE02D528133932005E15CE /* RNLanguageManager.m */,
 			);
 			name = Floos;
 			sourceTree = "<group>";
@@ -470,7 +482,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EFE02D728133932005E15CE /* RNLanguageManager.m in Sources */,
 				00E356F31AD99517003FC87E /* FloosTests.m in Sources */,
+				2EFE02D32813143C005E15CE /* LanguageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +493,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				2EFE02D628133932005E15CE /* RNLanguageManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				2EFE02D22813143C005E15CE /* LanguageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

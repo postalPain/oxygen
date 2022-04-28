@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   },
   arrow: {
     position: 'absolute',
-    top: '100%',
     right: getWidth(2),
   },
   versionContainer: {

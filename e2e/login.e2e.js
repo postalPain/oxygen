@@ -1,4 +1,4 @@
-import en from '../src/i18n/english';
+import en from '../src/i18n/vocabularies/english';
 
 describe('Login and user info', () => {
   beforeAll(async () => {
