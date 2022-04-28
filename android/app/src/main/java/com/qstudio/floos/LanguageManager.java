@@ -16,7 +16,7 @@ public class LanguageManager {
     static final String sharedPreferencesName = "languageManagerPreferences";
     static final String languageUserDefaultsKey = "appLang";
     static final String defaultLanguage = "en";
-    static final String[] supportedLanguages = { defaultLanguage, "ar" };
+    static final String[] supportedLanguages = { defaultLanguage };
     static final String[] rtlLanguages = { "ar" };
     private static String language;
     private Context context;

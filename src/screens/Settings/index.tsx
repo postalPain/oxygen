@@ -12,12 +12,14 @@ const Settings = (
 ) => {
   return (
     <View style={styles.settings}>
+      { /*
       <SettingsItem
         title={vocab.get().language}
         description={vocab.get().switchLanguage}
         onPress={() => navigation.navigate(AppScreenNames.SettingsLanguage)}
       />
       <DashedDivider />
+      */}
       <SettingsBiometrics />
       <SettingsPushNotifications />
     </View>

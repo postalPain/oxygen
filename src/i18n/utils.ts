@@ -12,7 +12,6 @@ export const Languages: Record<TLang, TLangNames> = {
 };
 export const supportedLanguages: Partial<typeof Languages> = {
   en: 'english',
-  ar: 'arabic'
 };
 let lang: TLang = INITIAL_LANGUAGE;
 

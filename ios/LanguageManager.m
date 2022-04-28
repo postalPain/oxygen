@@ -15,7 +15,7 @@ static NSString * const defaultLanguage = @"en";
 @implementation LanguageManager
 
 -(id)init {
-  supportedLanguages = @[defaultLanguage, @"ar"];
+  supportedLanguages = @[defaultLanguage];
   rtlLanguages = @[@"ar"];
   NSUserDefaults *userDefaults = [NSUserDefaults new];
   NSString *userDefaultsLang = [userDefaults stringForKey:languageUserDefaultsKey];
