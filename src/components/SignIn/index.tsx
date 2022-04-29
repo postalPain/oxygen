@@ -29,7 +29,6 @@ const SignIn = (props: ISignIn) => {
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
-  const authData = useSelector(selectAuthData);
 
   const { pushNotRequested, requestPushes } = usePushSettings();
 
@@ -40,7 +39,6 @@ const SignIn = (props: ISignIn) => {
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [signedIn, setSignedIn] = useState<boolean>(false);
-
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -63,10 +61,8 @@ const SignIn = (props: ISignIn) => {
     }
   }, [error]);
 
-  useEffect(() => {
-    signedIn
-    && authData.access_token
-    && dispatch(checkVerification({
+  const onSignIn = () => {
+    dispatch(checkVerification({
       onSuccess: async (status: VerificationStatuses) => {
         dispatch(userGetInfo());
         pushNotRequested && await requestPushes(email);
@@ -84,7 +80,7 @@ const SignIn = (props: ISignIn) => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));
       }
     }));
-  }, [signedIn, authData.access_token]);
+  };
 
   return (
     <>
@@ -154,7 +150,10 @@ const SignIn = (props: ISignIn) => {
         >
           {vocab.get().logIn}
         </Button>
-        <BiometricLogin onSignedIn={() => setSignedIn(true)} signedIn={signedIn} />
+        <BiometricLogin
+          onSignedIn={onSignIn}
+          signedIn={signedIn}
+        />
       </View>
     </>
   );

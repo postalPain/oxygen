@@ -1,3 +1,4 @@
+import env from 'env';
 import LanguageManager, { INITIAL_LANGUAGE } from 'services/LanguageManager';
 
 export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml' | 'ar';
@@ -26,9 +27,4 @@ export const getLanguage = (): TLang => {
 
 export const getLanguageName = (): TLangNames => {
   return Languages[getLanguage()];
-};
-
-export const getHeaderLanguage = () => {
-  const localLanguage = getLanguage();
-  return localLanguage === 'en' ? 'en_US' : 'de_CH';
 };

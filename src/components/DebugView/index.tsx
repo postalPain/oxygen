@@ -8,6 +8,7 @@ import useLogger from 'modules/logger/hooks/useLogger';
 import { DbKeys, useDatabase } from 'modules/fbDatabase/useDatabase';
 import DebugAsyncStorage from './DebugAsyncStorage';
 import DebugPush from './DebugPush';
+import SettingsBiometrics from 'components/SettingsBiometrics';
 
 const DebugView = () => {
   const { log, loggerMessages, clearLog } = useLogger();
@@ -15,6 +16,8 @@ const DebugView = () => {
   return (
     <ScrollView>
       <DebugPush />
+      <DebugAsyncStorage />
+      <SettingsBiometrics />
       <Link onPress={clearLog}>
         Clear
       </Link>

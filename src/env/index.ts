@@ -1,14 +1,7 @@
 import { Dimensions, Platform, Appearance, NativeModules } from 'react-native';
 import { BUILD_ENV } from '../../build-env.js';
 import VersionNumber from 'react-native-version-number';
-
-
-export enum Envs {
-  DEV = 'DEV',
-  STAGE = 'STAGE',
-  PROD = 'PROD',
-  E2E = 'E2E',
-}
+import { IEnv, Envs } from './types';
 
 const baseUrls = {
   [Envs.DEV]: 'https://api-dev.stryproject-o.ch',
@@ -20,7 +13,7 @@ const BASE_URL = baseUrls[BUILD_ENV] || baseUrls[Envs.DEV];
 
 const ios = Platform.OS === 'ios';
 
-const env = {
+const env: IEnv = {
   bundleId: 'com.qstudio.floos',
   appleId: '1595567831',
   buildEnv: BUILD_ENV,
@@ -37,8 +30,6 @@ const env = {
   os: Platform.OS,
   ios,
   android: !ios,
-  appStoreLink: '',
-  playStoreLink: '',
   dimensions: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,

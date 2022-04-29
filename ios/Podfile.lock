@@ -193,9 +193,9 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.180)
-  - Permission-FaceID (3.2.0):
+  - Permission-FaceID (3.3.1):
     - RNPermissions
-  - Permission-Notifications (3.2.0):
+  - Permission-Notifications (3.3.1):
     - RNPermissions
   - PromisesObjC (2.0.0)
   - RCT-Folly (2021.06.28.00-v2):
@@ -507,7 +507,7 @@ PODS:
     - React-Core
   - RNKeychain (8.0.0):
     - React-Core
-  - RNPermissions (3.2.0):
+  - RNPermissions (3.3.1):
     - React-Core
   - RNReanimated (2.2.4):
     - DoubleConversion
@@ -859,7 +859,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNInAppBrowser: 3ff3a3b8f458aaf25aaee879d057352862edf357
   RNKeychain: 4f63aada75ebafd26f4bc2c670199461eab85d94
-  RNPermissions: f7ebe52db07c00901127966ca080b4ec6a6ceb0a
+  RNPermissions: 7ad8d93b004e6bc85c89e27a102afcde90e07efa
   RNReanimated: 65583befd5706cc9c86ae9a081786181ced37b93
   RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
