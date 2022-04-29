@@ -1,6 +1,6 @@
 import { IVocab } from './types';
 
-const filipino: IVocab = {
+const french: IVocab = {
   help: 'Help',
   back: 'Back',
   continue: 'Continue',
@@ -9,7 +9,7 @@ const filipino: IVocab = {
   logIn: 'Log In',
   carousel1: 'Access your earned wages - whenever you need to',
   carousel2: 'Improve your financial well-being',
-  carousel3: 'Cover unexpected costs and avoid expensive loans ',
+  carousel3: 'Cover unexpected costs and avoid expensive loans',
   networkError: 'Network Error',
   unauthorized: 'Unauthorized',
   internalServerError: 'Internal Server Error',
@@ -34,7 +34,7 @@ const filipino: IVocab = {
   dataPrivacy: 'Data Privacy',
   dataPolicy: 'Data Policy',
   needConsent: 'In order for Floos to pay out your wages ahead of time, we need your consent to get the necessary data from your employer',
-  iHaveRead: 'I have read the ',
+  iHaveRead: 'I have read the',
   guidelines: 'guidelines and accept them.',
   next: 'Next',
   useYourBiometrics: 'Use your {{biometricType}}',
@@ -50,7 +50,7 @@ const filipino: IVocab = {
   oneSpecialChar: 'special character',
   emailVerification: '1. Email verification',
   employeeVerification: '2. Employee verification',
-  waitingTime: 'Waiting time: up to ',
+  waitingTime: 'Waiting time: up to',
   congratulationsVerification: 'Congratulations, your verification is complete!',
   forgotPassword: 'Forgot Password?',
   newPasswordCreated: 'A new password was created!',
@@ -77,7 +77,7 @@ const filipino: IVocab = {
   useTheCodeProvided: 'Please use the code provided in the email to create a new password.',
   emailSent: 'Email sent',
   checkInbox: 'Check your inbox',
-  hi: 'Hi, ',
+  hi: 'Hi,',
   goodToKnow: 'GOOD TO KNOW',
   helpfulTerms: 'HELPFUL TERMS',
   dashboard: 'Dashboard',
@@ -89,7 +89,7 @@ const filipino: IVocab = {
   informationReceived: 'Here’s the information we received from your employer.',
   name: 'Name',
   iban: 'IBAN',
-  ifNotAccurate: 'If this is not accurate, please ',
+  ifNotAccurate: 'If this is not accurate, please',
   contactUsImmediately: 'contact us immediately.',
   confirmWithdrawal: 'Confirm Withdrawal',
   withdrawalAmount: 'Withdrawal Amount',
@@ -155,6 +155,20 @@ const filipino: IVocab = {
   thereIsANewerVersion: 'There is a newer version of the app available for download. Please update the app to continue using Floos.',
   update: 'Update',
   version: 'Floos Version',
+  language: 'Language',
+  switchLanguage: 'Switch language',
+  settingsLanguage: 'Language',
+  enDescription: 'English',
+  fiDescription: 'Filipino',
+  frDescription: 'French',
+  hiDescription: 'Hindi',
+  mlDescription: 'Malayalam',
+  arDescription: 'Arabic',
+  comingSoon: 'Coming soon',
+  alertTitle: 'Floos',
+  alertConfirmLanguageChange: 'Are you sure to change the app language? It will require app reload.',
+  alertAccept: 'Accept',
+  alertReject: 'Reject',
 };
 
-export default filipino;
+export default french;

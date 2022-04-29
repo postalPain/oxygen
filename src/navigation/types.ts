@@ -28,6 +28,7 @@ export enum AppScreenNames {
   Profile = 'Profile',
   AccountDetails = 'AccountDetails',
   Settings = 'Settings',
+  SettingsLanguage = 'SettingsLanguage',
   WithdrawalSelect = 'WithdrawalSelect',
   WithdrawalOverview = 'WithdrawalOverview',
   WithdrawalConfirmation = 'WithdrawalConfirmation',
@@ -62,6 +63,7 @@ export type AppStackParameters = {
   Profile: undefined;
   AccountDetails: undefined;
   Settings: undefined;
+  SettingsLanguage: undefined;
   Main: undefined;
   UserInfoConfirmation: { noBackButton?: boolean };
   WithdrawalSelect: undefined;

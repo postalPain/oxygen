@@ -97,13 +97,13 @@ function* signInSuccessWorker(action: ISignInSuccessAction) {
 
   yield storeUserData({ email });
   yield incrementLoginCount(email);
-  yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
   yield put(authActions.setAuthData(authData));
   analytics.logEvent(analyticEvents.login, {
     method: `via-${method}`,
     timestamp: moment().utc().toISOString(),
   });
   yield meta?.onSuccess?.();
+  yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
