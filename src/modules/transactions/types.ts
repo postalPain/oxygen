@@ -1,6 +1,7 @@
 import { IMeta } from 'modules/store/types';
 
 export enum TransactionsActions {
+  GET_TRANSACTION = 'GET_TRANSACTION',
   GET_TRANSACTIONS = 'GET_TRANSACTIONS',
   SET_TRANSACTIONS = 'SET_TRANSACTIONS',
   SET_TRANSACTIONS_LOADING = 'SET_TRANSACTIONS_LOADING'
@@ -31,6 +32,14 @@ export interface ITransactionBankDetails {
   country: string;
   swift_code: string;
   account_type: string;
+}
+
+export interface IGetTransactionAction {
+  type: TransactionsActions.GET_TRANSACTION;
+  id: number;
+  meta?: {
+    onSuccess?: (transaction: ITransaction) => void;
+  };
 }
 
 export interface ISetTransactionsAction {

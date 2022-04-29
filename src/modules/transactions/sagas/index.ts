@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import {
+  IGetTransactionAction,
   IGetTransactionsAction,
   ITransaction,
   TransactionsActions,
@@ -9,6 +10,17 @@ import * as transactionsActions from 'modules/transactions/actions';
 import api from 'services/api';
 import { errorNotification } from 'modules/notifications/actions';
 import { IResponse } from 'services/api/types';
+import { IError } from 'services/api/errors';
+
+function* getTransactionWorker (action: IGetTransactionAction) {
+  let response: IResponse<ITransaction>;
+  try {
+    response = yield api.employees.getTransaction(action.id);
+  } catch (error) {
+    yield put(errorNotification((error as IError).message));
+  }
+  yield action.meta?.onSuccess?.(response.data);
+}
 
 function* getTransactionsWorker (action: IGetTransactionsAction) {
   let response: IResponse<ITransaction[]>;
@@ -26,5 +38,6 @@ function* getTransactionsWorker (action: IGetTransactionsAction) {
 }
 
 export default function* transactionsWatcher(): SagaIterator {
+  yield takeLatest(TransactionsActions.GET_TRANSACTION, getTransactionWorker);
   yield takeLatest(TransactionsActions.GET_TRANSACTIONS, getTransactionsWorker);
 }
