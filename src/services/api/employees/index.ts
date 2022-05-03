@@ -22,6 +22,8 @@ const resendVerificationCode = (email: string) => request.post(apiUrls.resendVer
 
 const getBalance = (): Promise<IResponse<IBalance>> => request.get('employees/balance');
 
+const getTransaction = (id: number): Promise<IResponse<ITransaction>> => request.get(`/employees/transactions/${id}`);
+
 const getTransactions = () => request.get(apiUrls.getTransactions);
 
 const getSuggestedValues = (): Promise<IResponse<TSuggestedValues>> => request.get('employees/withdraw/suggested-values');
@@ -40,6 +42,7 @@ const employees: IEmployeesApi = {
   userInfo,
   resendVerificationCode,
   getBalance,
+  getTransaction,
   getTransactions,
   getSuggestedValues,
   getFee,
