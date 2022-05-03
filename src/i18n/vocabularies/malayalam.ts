@@ -164,6 +164,7 @@ const malayalam: IVocab = {
   hiDescription: 'Hindi',
   mlDescription: 'Malayalam',
   arDescription: 'Arabic',
+  urDescription: 'Urdu',
   comingSoon: 'Coming soon',
   alertTitle: 'Floos',
   alertConfirmLanguageChange: 'Are you sure to change the app language? It will require app reload.',

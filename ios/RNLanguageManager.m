@@ -34,7 +34,14 @@ RCT_EXPORT_METHOD(setLang:(NSString *)lang:(RCTPromiseResolveBlock)resolve
 
 - (NSDictionary *)constantsToExport
 {
- return @{ @"INITIAL_LANGUAGE": [self getLanguage] };
+  NSError* error = nil;
+  NSData *supportedLanguagesJsonData = [NSJSONSerialization dataWithJSONObject:[self getSupportedLanguages] options:NSJSONWritingPrettyPrinted error:&error];
+  NSString *supportedLanguagesString = [[NSString alloc] initWithData:supportedLanguagesJsonData encoding:NSUTF8StringEncoding];
+
+ return @{
+   @"INITIAL_LANGUAGE": [self getLanguage],
+   @"SUPPORTED_LANGUAGES": error ? @"[]" : supportedLanguagesString,
+ };
 }
 
 + (BOOL)requiresMainQueueSetup

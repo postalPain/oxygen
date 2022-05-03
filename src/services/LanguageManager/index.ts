@@ -9,6 +9,7 @@ const LanguageManager = {
     return await NativeModules.RNLanguageManager.getLang();
   },
 };
-const { INITIAL_LANGUAGE } = NativeModules.RNLanguageManager.getConstants();
-export { INITIAL_LANGUAGE };
+const { INITIAL_LANGUAGE, SUPPORTED_LANGUAGES: supportedLanguagesString } = NativeModules.RNLanguageManager.getConstants();
+const SUPPORTED_LANGUAGES = JSON.parse(supportedLanguagesString);
+export { INITIAL_LANGUAGE, SUPPORTED_LANGUAGES };
 export default LanguageManager;

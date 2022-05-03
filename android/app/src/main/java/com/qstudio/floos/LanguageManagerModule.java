@@ -1,6 +1,7 @@
 package com.qstudio.floos;
 
 import android.content.Context;
+import com.google.gson.Gson;
 import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
@@ -43,8 +44,11 @@ public class LanguageManagerModule  extends ReactContextBaseJavaModule {
 
     @Override
     public Map<String, Object> getConstants() {
+        Gson gson = new Gson();
         final Map<String, Object> constants = new HashMap<>();
+
         constants.put("INITIAL_LANGUAGE", languageManager.getLanguage());
+        constants.put("SUPPORTED_LANGUAGES", gson.toJson(LanguageManager.supportedLanguages));
         return constants;
     }
 }

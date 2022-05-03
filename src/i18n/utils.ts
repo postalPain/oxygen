@@ -1,19 +1,20 @@
-import env from 'env';
-import LanguageManager, { INITIAL_LANGUAGE } from 'services/LanguageManager';
+import LanguageManager, { INITIAL_LANGUAGE, SUPPORTED_LANGUAGES } from 'services/LanguageManager';
 
-export type TLang = 'en' | 'fi' | 'fr' | 'hi' | 'ml' | 'ar';
-type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam' | 'arabic';
+export type TLang = 'en' | 'fil' | 'fr' | 'hi' | 'ml' | 'ar' | 'ur';
+type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam' | 'arabic' | 'urdu';
 export const Languages: Record<TLang, TLangNames> = {
   ar: 'arabic',
   en: 'english',
-  fi: 'filipino',
+  fil: 'filipino',
   fr: 'french',
   hi: 'hindi',
   ml: 'malayalam',
+  ur: 'urdu',
 };
-export const supportedLanguages: Partial<typeof Languages> = {
-  en: 'english',
-};
+export const supportedLanguages: Partial<typeof Languages> = SUPPORTED_LANGUAGES.reduce((obj, lang) => ({
+  ...obj,
+  [lang]: Languages[lang],
+}), {});
 let lang: TLang = INITIAL_LANGUAGE;
 
 export const setLanguage = async (l: TLang) => {

@@ -164,6 +164,7 @@ const arabic: IVocab = {
   hiDescription: 'الهندية',
   mlDescription: 'المالايالامية',
   arDescription: 'عربي',
+  urDescription: 'الأردية',
   comingSoon: 'قريبا',
   alertTitle: 'Floos',
   alertConfirmLanguageChange: 'هل أنت متأكد من تغيير لغة التطبيق؟ سيتطلب إعادة تحميل التطبيق.',
