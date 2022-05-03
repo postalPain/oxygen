@@ -42,7 +42,7 @@ const getData = (transaction: ITransaction) => {
 };
 
 const TransactionDetails = (
-  { route: { params } }: AppNavigationProps<AppScreenNames.TransactionsDetails>
+  { route: { params } }: AppNavigationProps<AppScreenNames.TransactionDetails>
 ) => {
   const styles = useStyles();
   const dispatch = useDispatch();
