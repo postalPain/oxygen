@@ -155,7 +155,7 @@ function* signOutWorker(action: ISignOutAction) {
   yield action?.meta?.onSuccess?.();
 }
 
-export default function* authWatcher(): SagaIterator {
+export default function* authSagas(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);

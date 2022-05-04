@@ -7,6 +7,7 @@ import withdrawalReducer from 'modules/withdrawal/reducers';
 import transactionsReducer from 'modules/transactions/reducers';
 import biometricsReducer from 'modules/biometrics/reducer';
 import loggerReducer from 'modules/logger/reducer';
+import appReducer from 'modules/app/reducers';
 
 
 /** Creating Redux modules */
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   transactions: transactionsReducer,
   biometrics: biometricsReducer,
   logger: loggerReducer,
+  app: appReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

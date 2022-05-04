@@ -37,7 +37,7 @@ function* getTransactionsWorker (action: IGetTransactionsAction) {
   yield put(transactionsActions.setTransactionsLoading(false));
 }
 
-export default function* transactionsWatcher(): SagaIterator {
+export default function* transactionsSagas(): SagaIterator {
   yield takeLatest(TransactionsActions.GET_TRANSACTION, getTransactionWorker);
   yield takeLatest(TransactionsActions.GET_TRANSACTIONS, getTransactionsWorker);
 }
