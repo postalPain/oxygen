@@ -21,24 +21,6 @@ const DebugPush = () => {
     simulateMessage
   } = usePushMessages<PushTransactionData>(PushTopics.transaction_details);
 
-  // useEffect(() => {
-  //   getLogger().log('transactionDetails', transactionDetailsMessage);
-
-  //   if (transactionDetailsMessage?.data?.id) {
-  //     navigate(
-  //       AppScreenNames.TabNavigation,
-  //       {},
-  //       navigate(
-  //         AppScreenNames.TransactionsStack,
-  //         {},
-  //         navigate(
-  //           AppScreenNames.TransactionsDetails,
-  //           { id: transactionDetailsMessage.data.id }
-  //         )));
-  //   }
-
-  // }, [transactionDetailsMessage]);
-
   return (
     <View>
       <Link onPress={async () => {
