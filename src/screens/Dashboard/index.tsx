@@ -11,7 +11,6 @@ import ButtonWithdraw from 'components/ButtonWithdraw';
 import WithdrawInfo from './WithdrawInfo';
 import { selectUserInfo } from 'modules/user/selectors';
 import Modal from 'components/Modal';
-import { getBalance, getWithdrawableDefaults, getSuggestedValues, getPaycycleInfo } from 'modules/withdrawal/actions';
 import { selectBalance } from 'modules/withdrawal/selectors';
 import ModalWithdrawInfo from './ModalWithdrawInfo';
 import { E2ETextWrapper } from '../../components/E2EText';

@@ -22,7 +22,7 @@ const TransactionsList = () => {
   const transactionsLoading = useSelector(selectTransactionsLoading);
 
   const openDetails = (transaction: ITransaction) => {
-    navigation.navigate(AppScreenNames.TransactionsDetails, { id: transaction.id });
+    navigation.navigate(AppScreenNames.TransactionDetails, { id: transaction.id });
   };
 
   return (
