@@ -6,7 +6,7 @@ import store from 'modules/store';
 import { setAppState } from '../actions';
 
 function* appInitWorker() {
-  AppState.addEventListener('change', (state) => {
+  yield AppState.addEventListener('change', (state) => {
     store.dispatch(setAppState(state));
   });
 }
