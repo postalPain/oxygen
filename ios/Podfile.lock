@@ -398,6 +398,8 @@ PODS:
     - glog
   - react-native-biometrics (2.1.4):
     - React
+  - react-native-blur (0.8.0):
+    - React
   - react-native-date-picker (4.1.2):
     - React-Core
   - react-native-flipper (0.131.1):
@@ -595,6 +597,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-biometrics (from `../node_modules/react-native-biometrics`)
+  - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-restart (from `../node_modules/react-native-restart`)
@@ -708,6 +711,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-biometrics:
     :path: "../node_modules/react-native-biometrics"
+  react-native-blur:
+    :path: "../node_modules/@react-native-community/blur"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
   react-native-flipper:
@@ -814,8 +819,8 @@ SPEC CHECKSUMS:
   MixpanelReactNative: 852765cd9088600c0451bb5aadd785f1b7d4e845
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
-  Permission-FaceID: e3d306dc6284b8985beb608b033817900388cbb8
-  Permission-Notifications: bb420c3d28328df24de1b476b41ed8249ccf2537
+  Permission-FaceID: 278547824ae3a5cae07050505e8a505932c3c5c4
+  Permission-Notifications: 4b21cfdd5e8aab2cbb1f117aaa17b44e1f5736c4
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
   RCTRequired: e4a18a90004e0ed97bba9081099104fd0f658dc9
@@ -830,6 +835,7 @@ SPEC CHECKSUMS:
   React-jsinspector: be95ad424ba9f7b817aff22732eb9b1b810a000a
   React-logger: 9a9cd87d4ea681ae929b32ef580638ff1b50fb24
   react-native-biometrics: 9d3306e5d29c3bc4e6a3c912d759a94e76a2f683
+  react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-date-picker: d0d724ce1829d2e5d0f75e9ea4ed0f639ecf70e6
   react-native-flipper: 8d0ada062fbc2c7460cc0d343aded6fc3f9c90dc
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
@@ -859,7 +865,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNInAppBrowser: 3ff3a3b8f458aaf25aaee879d057352862edf357
   RNKeychain: 4f63aada75ebafd26f4bc2c670199461eab85d94
-  RNPermissions: 7ad8d93b004e6bc85c89e27a102afcde90e07efa
+  RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
   RNReanimated: 65583befd5706cc9c86ae9a081786181ced37b93
   RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
@@ -869,4 +875,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 759b82560bab054d71547ca55c97342194b753bf
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

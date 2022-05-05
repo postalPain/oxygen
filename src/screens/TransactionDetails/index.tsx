@@ -8,6 +8,7 @@ import { ITransaction } from 'modules/transactions/types';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { Details, IconTransactionHistory, ScreenGradient } from 'components';
 import useStyles from './styles';
+import AppStatusBlur from "../../components/AppStatusBlur";
 
 const vocab = vocabulary.get();
 
@@ -66,6 +67,7 @@ const TransactionDetails = (
           data={getData(currentTransaction)}
         />
       </View>
+      <AppStatusBlur />
     </SafeAreaView>
   );
 };

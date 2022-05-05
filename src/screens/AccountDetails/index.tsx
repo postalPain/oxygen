@@ -5,6 +5,7 @@ import { selectUserInfo } from 'modules/user/selectors';
 import { Details } from 'components';
 import vocabulary from 'i18n';
 import styles from './styles';
+import AppStatusBlur from '../../components/AppStatusBlur';
 
 const vocab = vocabulary.get();
 
@@ -32,6 +33,7 @@ const AccountDetails = () => {
           },
         ]}
       />
+      <AppStatusBlur />
     </View>
   );
 };
