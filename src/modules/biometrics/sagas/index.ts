@@ -76,7 +76,7 @@ function* signOutWorker() {
 }
 
 
-export default function* biometricsWatcher(): SagaIterator {
+export default function* biometricsSagas(): SagaIterator {
   yield takeLatest(BiometryActions.GET_BIOMETRY_STATUS, getBiometricsAvailableWorker);
   yield takeLatest(BiometryActions.GET_BIOMETRY_READY, getBiometricsReadyWorker);
   yield takeLatest(BiometryActions.BIOMETRIC_LOGIN, biometricLoginWorker);

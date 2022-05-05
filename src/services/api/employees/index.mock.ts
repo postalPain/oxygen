@@ -48,10 +48,15 @@ const employeesMock: IEmployeesApi = {
       company_name: 'Mocked Company',
       iban: 'IBAN123456789',
       id: 123,
+      is_first_visit: false,
       registration_id: 'redistrationId-123',
       employee_number: 'employee_number-123',
       verification_status: VerificationStatuses.activated,
       statusError: false,
+      company_id: 123,
+      transaction_all_time_count_value: 5,
+      transaction_all_time_count: 5,
+      transaction_all_time_count_service_charge: 234,
     }
   }),
   resendVerificationCode: () => Promise.resolve(),
@@ -117,7 +122,7 @@ const employeesMock: IEmployeesApi = {
       start: '2022-01-20',
       total_days: 30,
     }
-  })
+  }),
 };
 
 export default employeesMock;
