@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AppState, StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 
 const AppStatusBlur = () => {
   const [appState, setAppState] = useState(AppState.currentState);
-  const handleAppState = () => {
-    setAppState(AppState.currentState);
-  };
+  const handleAppState = useCallback((state) => {
+    setAppState(state);
+  }, []);
   useEffect(()=> {
     const subscription = AppState.addEventListener('change', handleAppState);
     return ()=> {
