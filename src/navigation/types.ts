@@ -23,7 +23,7 @@ export enum AppScreenNames {
   Dashboard = 'Dashboard',
   TransactionsStack = 'TransactionsStack',
   Transactions = 'Transactions',
-  TransactionsDetails = 'TransactionsDetails',
+  TransactionDetails = 'TransactionDetails',
   ProfileStack = 'ProfileStack',
   Profile = 'Profile',
   AccountDetails = 'AccountDetails',
@@ -56,9 +56,9 @@ export type AppStackParameters = {
   AuthorizedStack: undefined;
   TabNavigation: undefined;
   Dashboard: undefined;
-  TransactionsStack: undefined;
-  Transactions: { id: number };
-  TransactionsDetails: { id: number };
+  TransactionsStack: { id: number };
+  Transactions: undefined;
+  TransactionDetails: { id: number };
   ProfileStack: undefined;
   Profile: undefined;
   AccountDetails: undefined;

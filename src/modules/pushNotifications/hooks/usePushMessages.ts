@@ -1,8 +1,8 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
 import { useEffect, useState } from 'react';
 
-export const usePushMessages = <T>(topic?: string) => {
-  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: T};
+export const usePushMessages = <TData>(topic?: string) => {
+  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: TData};
   const [message, setMessage] = useState<TMessage>(null);
 
   const onMessage = (_message: TMessage): any => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AppState, StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 
-const AppStatusBlur = (pros) => {
+const AppStatusBlur = () => {
   const [appState, setAppState] = useState(AppState.currentState);
   const handleAppState = () => {
     setAppState(AppState.currentState);

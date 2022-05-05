@@ -56,8 +56,7 @@ const SignIn = (props: ISignIn) => {
       error.error['password'] && setPasswordError(error.error['password'][0]);
     }
     if (error?.message) {
-      setEmailError(error.message);
-      setPasswordError(error.message);
+      dispatch(errorNotification(error.message));
     }
   }, [error]);
 

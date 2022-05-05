@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
 import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
@@ -8,7 +8,8 @@ import { ITransaction } from 'modules/transactions/types';
 import { selectTransactions } from 'modules/transactions/selectors';
 import { Details, IconTransactionHistory, ScreenGradient } from 'components';
 import useStyles from './styles';
-import AppStatusBlur from "../../components/AppStatusBlur";
+import AppStatusBlur from '../../components/AppStatusBlur';
+import { getTransaction } from 'modules/transactions/actions';
 
 const vocab = vocabulary.get();
 
@@ -42,17 +43,16 @@ const getData = (transaction: ITransaction) => {
 };
 
 const TransactionDetails = (
-  { route: { params } }: AppNavigationProps<AppScreenNames.TransactionsDetails>
+  { route: { params } }: AppNavigationProps<AppScreenNames.TransactionDetails>
 ) => {
   const styles = useStyles();
-  const transactions: ITransaction[] = useSelector(selectTransactions);
+  const dispatch = useDispatch();
   const [currentTransaction, setCurrentTransaction] = useState<ITransaction>(null);
-  useEffect(
-    () => {
-      setCurrentTransaction(transactions.find((t) => t.id === params.id));
-    },
-    [transactions]
-  );
+
+  useEffect(() => {
+    dispatch(getTransaction(params.id, setCurrentTransaction));
+  }, []);
+
   return !!currentTransaction && (
     <SafeAreaView style={styles.screen}>
       <ScreenGradient style={styles.gradient} />

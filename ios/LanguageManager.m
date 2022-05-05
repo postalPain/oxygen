@@ -27,6 +27,10 @@ static NSString * const defaultLanguage = @"en";
   return [rtlLanguages containsObject: language];
 }
 
+-(NSArray *)getSupportedLanguages {
+  return supportedLanguages;
+}
+
 -(NSString *)getLanguage {
   return language;
 }

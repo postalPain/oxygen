@@ -7,4 +7,5 @@
 - (BOOL)isAllowRTL;
 - (NSString *)getLanguage;
 - (NSString *)setLanguage: (NSString *)lang;
+- (NSArray *)getSupportedLanguages;
 @end

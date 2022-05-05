@@ -16,6 +16,8 @@ import { getTransactions } from 'modules/transactions/actions';
 import { selectBalance } from 'modules/withdrawal/selectors';
 import { getBalance, getPaycycleInfo, getSuggestedValues, getWithdrawableDefaults } from 'modules/withdrawal/actions';
 import AppStatusBlur from '../../components/AppStatusBlur';
+import { usePushMessages } from 'modules/pushNotifications/hooks/usePushMessages';
+import { PushTopics, PushTransactionData } from 'modules/pushNotifications/types';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +27,21 @@ const AuthorizedStack = () => {
   const balance = useSelector(selectBalance);
 
   const deepLinkScreenName = useTabNavigationDeepLinks();
+  const {
+    message: transactionMessage,
+  } = usePushMessages<PushTransactionData>(PushTopics.transaction_details);
+
+  useEffect(() => {
+    if (transactionMessage?.data?.id) {
+      navigate(
+        AppScreenNames.TabNavigation,
+        {},
+        navigate(
+          AppScreenNames.TransactionsStack,
+          { id: transactionMessage.data.id },
+        ));
+    }
+  }, [transactionMessage]);
 
   useEffect(() => {
     dispatch(getBalance());
