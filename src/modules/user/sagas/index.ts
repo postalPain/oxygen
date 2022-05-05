@@ -13,13 +13,14 @@ import {
 } from 'modules/user/types';
 import api from 'services/api';
 import { IResponse } from 'services/api/types';
-import { analytics } from 'services/analytics';
+import { analyticEvents, analytics } from 'services/analytics';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
 import { IUserInfo, IVerificationResponse } from 'services/api/employees/types';
 import { removeItems, setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import { setSignUpCodeLoading } from 'modules/auth/actions';
+import moment from 'moment';
 
 
 function* getUserInfoWorker() {
@@ -32,8 +33,18 @@ function* getUserInfoWorker() {
   }
   analytics.setUserProperties({
     distinctId: response.data.id,
+    companyId: response.data.company_id,
     companyCode: response.data.registration_id.split('-')?.[1],
+    transactionsCount: response.data.transaction_all_time_count,
+    transactionsValue: response.data.transaction_all_time_count_value,
+    transactionsServiceCharge: response.data.transaction_all_time_count_service_charge,
+    transactionLastUpdated: moment().utc().toISOString(),
   });
+  if (response.data.is_first_visit) {
+    analytics.logEvent(analyticEvents.firstLogin, {
+      timestamp: moment().utc().toISOString(),
+    });
+  }
   const mockedUserData: IUserInfo = {
     ...response.data,
     // TODO: Remove after BE returns actual fields

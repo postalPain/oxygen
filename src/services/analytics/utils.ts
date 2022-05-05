@@ -7,6 +7,11 @@ export const userPropsMap: Record<keyof IUserProps, keyof IAnalyticsUserProps> =
   companyCode: 'company_code',
   pushNotificationsEnabled: 'push_notifications',
   biometricLoginEnabled: 'biometric_login',
+  companyId: 'company_id',
+  transactionsCount: 'transaction_all_time_count',
+  transactionsValue: 'transaction_all_time_count_value',
+  transactionsServiceCharge: 'transaction_all_time_count_service_charge',
+  transactionLastUpdated: 'transaction_last_updated',
 };
 
 export const mapUserProps = (props: Partial<IUserProps>): Partial<IAnalyticsUserProps> => {

@@ -5,6 +5,11 @@ export interface IAnalyticsUserProps {
   company_code: string;
   push_notifications: string;
   biometric_login: string;
+  company_id: string;
+  transaction_all_time_count: string;
+  transaction_all_time_count_value: string;
+  transaction_all_time_count_service_charge: string;
+  transaction_last_updated: string;
 }
 
 export interface IUserProps {
@@ -14,6 +19,11 @@ export interface IUserProps {
   companyCode: string;
   pushNotificationsEnabled: boolean;
   biometricLoginEnabled: boolean;
+  companyId: number;
+  transactionsCount: number;
+  transactionsValue: number;
+  transactionsServiceCharge: number;
+  transactionLastUpdated: string;
 }
 
 export type WithdrawalOptions = 'default-value' | 'via-slider' | 'via-quick-tags' | 'via-keyboard-entry';

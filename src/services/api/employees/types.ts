@@ -15,6 +15,11 @@ export interface IUserInfo {
   employee_number: string;
   verification_status: VerificationStatuses;
   statusError: boolean;
+  company_id: number;
+  transaction_all_time_count_value: number;
+  transaction_all_time_count: number;
+  transaction_all_time_count_service_charge: number;
+  is_first_visit: boolean | null;
 }
 
 export interface IVerificationResponse {

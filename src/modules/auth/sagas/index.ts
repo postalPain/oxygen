@@ -8,7 +8,6 @@ import {
   IClearAuthDataAction,
   IForgotPasswordAction,
   IResetPasswordAction,
-  ISetAuthDataAction,
   ISignInAction,
   ISignInSuccessAction,
   ISignOutAction,
@@ -29,8 +28,6 @@ import { IResponse } from '../../../services/api/types';
 import { analyticEvents, analytics } from '../../../services/analytics';
 import moment from 'moment';
 import { getFcmToken } from 'modules/pushNotifications';
-import { getLogger } from 'modules/logger';
-
 
 function* handleError (error: IError) {
   yield put(notificationActions.errorNotification({ text: error.message }));
