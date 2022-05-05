@@ -129,8 +129,6 @@ const Navigation = () => {
     []
   );
 
-
-
   const onNavigationReady = () => {
     routeNameRef.current = navigationRef.current.getCurrentRoute().name;
   };

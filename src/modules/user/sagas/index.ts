@@ -109,7 +109,7 @@ function* userClearInfoWorker(action: IUserClearInfoAction) {
   ]);
 }
 
-export default function* userWatcher(): SagaIterator {
+export default function* userSagas(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
   yield takeEvery(UserActions.USER_SET_INFO, userSetInfoWorker);
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);
