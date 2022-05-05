@@ -6,8 +6,7 @@ import React from 'react';
 const SettingsPushNotifications = () => {
   const {
     pushEnabled,
-    turnOnPushes,
-    turnOffPushes,
+    togglePushes,
   } = usePushSettings();
 
   return (
@@ -16,9 +15,7 @@ const SettingsPushNotifications = () => {
       title={vocab.get().notifications}
       description={vocab.get().turnOnNotifications}
       on={pushEnabled}
-      onChange={async (on) => {
-        on ? turnOnPushes() : turnOffPushes();
-      }}
+      onChange={togglePushes}
     />
   );
 };
