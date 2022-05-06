@@ -3,8 +3,9 @@ import { SagaIterator } from '@redux-saga/core';
 import { clearSurveys, getSurveysSuccess, SurveyActionTypes } from '../actions';
 import api from 'services/api';
 import { mapSurveyResponse } from '../utils';
-import { successNotification } from '../../notifications/actions';
+import { successMessage } from '../../notifications/actions';
 import { ISubmitSurveyQuestionAction } from '../types';
+import vocab from 'i18n';
 
 function* getSurveyWorker() {
   try {
@@ -22,7 +23,7 @@ function* submitSurveyQuestionWorker(action: ISubmitSurveyQuestionAction) {
     yield call(api.employees.submitSurvey, id, answer);
     if (lastPage) {
       yield put(clearSurveys());
-      yield put(successNotification({ title: 'Thanks' }));
+      yield put(successMessage({ text: vocab.get().thankForFeedback }));
     }
   } catch (e) {
     console.log('submitSurveyQuestionWorker:error', e);

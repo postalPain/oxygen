@@ -38,6 +38,7 @@ const english = {
   submit: 'Submit',
   skip: 'Skip',
   question: 'Question',
+  thankForFeedback: 'Thank you for your feedback!',
   useYourBiometrics: 'Use your {{biometricType}}',
   pleaseEnterCode: 'Please enter the verification code you received via email.',
   wrongEmail: 'Wrong email?',

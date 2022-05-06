@@ -39,6 +39,8 @@ const theme = {
     surveyRadioBackground: '#F9F9F9',
     surveyRadioBackgroundSelected: '#E9E2F3',
 
+    successMessageBackground: '#EBFDF4',
+    successMessageText: '#22B16D',
     textTransactionPending: '#BBBBBB',
     textTransactionError: '#720000',
   },

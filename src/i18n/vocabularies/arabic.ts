@@ -41,6 +41,7 @@ const arabic: IVocab = {
   submit: 'Submit',
   skip: 'Skip',
   question: 'Question',
+  thankForFeedback: 'Thank you for your feedback!',
   useYourBiometrics: 'استخدم {{biometricType}}',
   pleaseEnterCode: 'الرجاء إدخال رمز التحقق الذي تلقيته عبر البريد الإلكتروني',
   wrongEmail: 'بريد إلكتروني خاطئ؟',

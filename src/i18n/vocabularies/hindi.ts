@@ -41,6 +41,7 @@ const hindi: IVocab = {
   submit: 'Submit',
   skip: 'Skip',
   question: 'Question',
+  thankForFeedback: 'Thank you for your feedback!',
   useYourBiometrics: 'अपने {{biometricType}} का इस्तेमाल करें',
   pleaseEnterCode: 'कृपया ई-मेल द्वारा प्राप्त वेरिफिकेशन कोड दर्ज करें।',
   wrongEmail: 'ई-मेल गलत है?',
