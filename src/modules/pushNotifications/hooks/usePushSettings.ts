@@ -1,32 +1,30 @@
 import messaging from '@react-native-firebase/messaging';
 import env from 'env';
-import { getItemForUser, setItemForUser } from 'modules/asyncStorage';
-import { selectUserEmail } from 'modules/user/selectors';
+import useAppState from 'modules/app/hooks/useAppState';
 import { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { checkNotifications, PermissionStatus, requestNotifications } from 'react-native-permissions';
-import { useSelector } from 'react-redux';
 import { analytics } from 'services/analytics';
 
 export enum pushesStoredKeys {
   fcmToken = 'fcmToken',
-  pushEnabled = 'pushEnabled',
 }
 
 export const usePushSettings = () => {
-  const email = useSelector(selectUserEmail);
   const [enabled, setEnabled] = useState<boolean>();
   const [permissions, setPermissions] = useState<PermissionStatus>();
+  const appState = useAppState();
 
   useEffect(() => {
     (async () => {
-      const _permissions = await checkNotifications();
-      setPermissions(_permissions.status);
+      if (appState === 'active') {
+        const _permissions = await checkNotifications();
+        setPermissions(_permissions.status);
 
-      const _enabled = await getItemForUser(email, pushesStoredKeys.pushEnabled);
-      setEnabled(_enabled && _permissions.status === 'granted');
+        setEnabled(_permissions.status === 'granted');
+      }
     })();
-  }, []);
+  }, [appState]);
 
   useEffect(() => {
     analytics.setUserProperties({ pushNotificationsEnabled: !!enabled });
@@ -49,7 +47,6 @@ export const usePushSettings = () => {
     const newStatus = await requestPermissions();
 
     if (newStatus === 'granted') {
-      setItemForUser(_email, pushesStoredKeys.pushEnabled, true);
       setEnabled(true);
     }
     return newStatus;
@@ -64,23 +61,7 @@ export const usePushSettings = () => {
       return token;
     },
     requestPushes,
-    turnOnPushes: async () => {
-      const { status } = await checkNotifications();
-
-      if (status === 'granted') {
-        await setItemForUser(email, pushesStoredKeys.pushEnabled, true);
-        setEnabled(true);
-      } else if (status === 'denied') { // Hasn't been requested
-        requestPushes();
-      } else {
-        Linking.openSettings();
-      }
-    },
-    turnOffPushes: async () => {
-      await setItemForUser(email, pushesStoredKeys.pushEnabled, false);
-      await messaging().deleteToken();
-      setEnabled(false);
-    },
+    togglePushes: () => Linking.openSettings(),
 
     ...(env.e2e && {
       pushEnabled: false,

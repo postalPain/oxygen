@@ -6,6 +6,10 @@ export const usePushMessages = <TData>(topic?: string) => {
   const [message, setMessage] = useState<TMessage>(null);
 
   const onMessage = (_message: TMessage): any => {
+    if (!_message?.data) {
+      return;
+    }
+
     if (!topic || (topic === _message.data.topic)) {
       setMessage(_message);
     }
