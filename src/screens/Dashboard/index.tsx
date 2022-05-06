@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ScreenWrapperMain from 'components/ScreenWrapperMain';
 import vocab from 'i18n';
 import moment from 'moment';
@@ -22,7 +22,6 @@ import { AppScreenNames } from 'navigation/types';
 const Dashboard: React.FC<any> = () => {
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
-
   const [infoModal, setInfoModal] = useState(false);
 
   const onInfoIconPress = () => {

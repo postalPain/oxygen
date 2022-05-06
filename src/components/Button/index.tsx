@@ -13,10 +13,11 @@ export interface IButton {
   onPressDisabled?: () => void;
   Icon?: React.ReactNode;
   width?: number;
+  textStyles?: ViewStyle;
 }
 
 const Button = (props: IButton) => {
-  const { secondary = false, disabled, onPress, onPressDisabled, width } = props;
+  const { secondary = false, textStyles, disabled, onPress, onPressDisabled, width } = props;
   return (
     <View style={[styles.button, props.styles, width && { width }]}>
       <LinearGradient
@@ -35,7 +36,8 @@ const Button = (props: IButton) => {
               <Text style={[
                 styles.text,
                 secondary ? styles.textSecondary : styles.textPrimary,
-                props.children && { paddingLeft: 10 }
+                props.children && { paddingLeft: 10 },
+                textStyles,
               ]}
               >
                 {props.children}

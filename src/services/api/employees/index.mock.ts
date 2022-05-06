@@ -123,6 +123,8 @@ const employeesMock: IEmployeesApi = {
       total_days: 30,
     }
   }),
+  getSurveys: () => Promise.resolve({ data: [] }),
+  submitSurvey: () => Promise.resolve(),
 };
 
 export default employeesMock;

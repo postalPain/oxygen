@@ -37,6 +37,10 @@ const hindi: IVocab = {
   iHaveRead: 'मैंने पढ़ा है',
   guidelines: 'दिशानिर्देश और मैं उन्हें स्वीकार करता हूँ।',
   next: 'अगला',
+  // TODO add translations once we have them
+  submit: 'Submit',
+  skip: 'Skip',
+  question: 'Question',
   useYourBiometrics: 'अपने {{biometricType}} का इस्तेमाल करें',
   pleaseEnterCode: 'कृपया ई-मेल द्वारा प्राप्त वेरिफिकेशन कोड दर्ज करें।',
   wrongEmail: 'ई-मेल गलत है?',

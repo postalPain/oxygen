@@ -16,6 +16,7 @@ const theme = {
     // Background colors
     screenBackgroundColorLight: '#FFFFFF',
     // Text colors
+    textDarkBlue: '#0D163C',
     textDark: '#0F183F',
     textLight: '#7B7B7B',
 
@@ -33,6 +34,10 @@ const theme = {
     passwordRequirementLabelTextMatched: '#F9F9F9',
 
     personalInfoBackground: '#F9F9F9',
+    surveyInputBackground: '#F9F9F9',
+    surveyInputBorder: '#DADADA',
+    surveyRadioBackground: '#F9F9F9',
+    surveyRadioBackgroundSelected: '#E9E2F3',
 
     textTransactionPending: '#BBBBBB',
     textTransactionError: '#720000',

@@ -9,7 +9,7 @@ import {
   IUserInfo,
   IVerificationResponse,
   IWithdrawableDefault, IFeeResponse,
-  TSuggestedValues
+  TSuggestedValues, ISurveyQuestionResponse
 } from './types';
 
 const userInfo = (): Promise<IResponse<IUserInfo>> => request.get(apiUrls.userInfo) ;
@@ -36,6 +36,11 @@ const getWithdrawableDefaults = (): Promise<IResponse<IWithdrawableDefault>> => 
 
 const getPaycycleInfo = (): Promise<IResponse<IPaycycleInfo>> => request.get('employees/pay-cycle-period');
 
+const getSurveys = (): Promise<IResponse<ISurveyQuestionResponse[]>> => request.get('employees/surveys');
+
+const submitSurvey = (id: number, answer: string): Promise<void> =>
+  request.post(`employees/surveys/${id}`, { answer });
+
 const employees: IEmployeesApi = {
   verifyEmail,
   checkVerification,
@@ -49,6 +54,8 @@ const employees: IEmployeesApi = {
   withdrawal,
   getWithdrawableDefaults,
   getPaycycleInfo,
+  getSurveys,
+  submitSurvey,
 };
 
 export default employees;

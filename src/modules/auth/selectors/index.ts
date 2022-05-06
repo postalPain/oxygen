@@ -21,3 +21,5 @@ export const selectForgotPassword = (state: RootState) => state.auth.forgotPassw
 export const selectForgotPasswordEmail = (state: RootState) => state.auth.forgotPassword?.credentials;
 
 export const selectForgotPasswordCode = (state: RootState) => state.auth.forgotPassword?.code;
+
+export const selectSurveyData = (state: RootState) => state.survey;
