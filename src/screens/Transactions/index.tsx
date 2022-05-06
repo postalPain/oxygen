@@ -8,9 +8,7 @@ import NoTransactions from './NoTransactions';
 import TransactionsList from './TransactionsList';
 import useStyles from './styles';
 import useInterval from 'utils/useInterval';
-import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useIsFocused } from '@react-navigation/native';
 
 const REQUEST_DELAY = 1000 * 15;
 
@@ -18,6 +16,7 @@ const Transactions = (
 ) => {
   const dispatch = useDispatch();
   const styles = useStyles();
+  const isFocused = useIsFocused();
 
   const [delay, setDelay] = useState(REQUEST_DELAY);
 
@@ -30,8 +29,8 @@ const Transactions = (
   }, delay);
 
   useEffect(() => {
-    setDelay(noPendingTransactions ? null : REQUEST_DELAY);
-  }, [noPendingTransactions]);
+    setDelay((noPendingTransactions || !isFocused) ? null : REQUEST_DELAY);
+  }, [noPendingTransactions, isFocused]);
 
   useEffect(() => {
     dispatch(getTransactions());
