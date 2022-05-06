@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectBalance } from 'modules/withdrawal/selectors';
 import { getBalance, getPaycycleInfo, getSuggestedValues, getWithdrawableDefaults } from 'modules/withdrawal/actions';
+import AppStatusBlur from '../../components/AppStatusBlur';
 import { usePushMessages } from 'modules/pushNotifications/hooks/usePushMessages';
 import { PushTopics, PushTransactionData } from 'modules/pushNotifications/types';
 
@@ -58,86 +59,91 @@ const AuthorizedStack = () => {
   }, [deepLinkScreenName]);
 
   return (
-    <Stack.Navigator initialRouteName={AppScreenNames.TabNavigation}>
-      <Stack.Screen
-        name={AppScreenNames.TabNavigation}
-        component={TabNavigation}
-        options={{
-          gestureEnabled: false,
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name={AppScreenNames.WithdrawalSelect}
-        component={WithdrawalSelect}
-        options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => ({
-          title: '',
-          headerTransparent: true,
-          headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
-        })}
-      />
-      <Stack.Screen
-        name={AppScreenNames.WithdrawalOverview}
-        component={WithdrawalOverview}
-        options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => ({
-          title: '',
-          headerTransparent: true,
-          headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
-        })}
-      />
-      <Stack.Screen
-        name={AppScreenNames.WithdrawalConfirmation}
-        component={WithdrawalConfirmation}
-        options={{ headerShown: false }}
-      />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+    <>
+      <Stack.Navigator initialRouteName={AppScreenNames.TabNavigation}>
         <Stack.Screen
-          name={AppScreenNames.AccountDetails}
-          component={AccountDetails}
+          name={AppScreenNames.TabNavigation}
+          component={TabNavigation}
           options={{
-            headerShown: true,
-            header: (headerProps) => (
-              <NavigationHeader
-                {...headerProps}
-                headerStyle={modalScreenStyles.header}
-                title={vocab.get().accountDetails}
-                headerRight={null}
-              />
-            )
+            gestureEnabled: false,
+            headerShown: false,
           }}
         />
         <Stack.Screen
-          name={AppScreenNames.Settings}
-          component={Settings}
-          options={{
-            headerShown: true,
-            header: (headerProps) => (
-              <NavigationHeader
-                {...headerProps}
-                headerStyle={modalScreenStyles.header}
-                title={vocab.get().settings}
-                headerRight={null}
-              />
-            )
-          }}
+          name={AppScreenNames.WithdrawalSelect}
+          component={WithdrawalSelect}
+          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalSelect>) => ({
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
+          })}
         />
         <Stack.Screen
-          name={AppScreenNames.SettingsLanguage}
-          component={SettingsLanguage}
-          options={{
-            headerShown: true,
-            header: (headerProps) => (
-              <NavigationHeader
-                {...headerProps}
-                headerStyle={modalScreenStyles.header}
-                title={vocab.get().settingsLanguage}
-                headerRight={null}
-              />
-            )
-          }}
+          name={AppScreenNames.WithdrawalOverview}
+          component={WithdrawalOverview}
+          options={({ navigation }: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => ({
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
+          })}
         />
-      </Stack.Group>
-    </Stack.Navigator>
+        <Stack.Screen
+          name={AppScreenNames.WithdrawalConfirmation}
+          component={WithdrawalConfirmation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen
+            name={AppScreenNames.AccountDetails}
+            component={AccountDetails}
+            options={{
+              headerShown: true,
+              header: (headerProps) => (
+                <>
+                  <AppStatusBlur />
+                  <NavigationHeader
+                    {...headerProps}
+                    headerStyle={modalScreenStyles.header}
+                    title={vocab.get().accountDetails}
+                    headerRight={null}
+                  />
+                </>
+              )
+            }}
+          />
+          <Stack.Screen
+            name={AppScreenNames.Settings}
+            component={Settings}
+            options={{
+              headerShown: true,
+              header: (headerProps) => (
+                <NavigationHeader
+                  {...headerProps}
+                  headerStyle={modalScreenStyles.header}
+                  title={vocab.get().settings}
+                  headerRight={null}
+                />
+              )
+            }}
+          />
+          <Stack.Screen
+            name={AppScreenNames.SettingsLanguage}
+            component={SettingsLanguage}
+            options={{
+              headerShown: true,
+              header: (headerProps) => (
+                <NavigationHeader
+                  {...headerProps}
+                  headerStyle={modalScreenStyles.header}
+                  title={vocab.get().settingsLanguage}
+                  headerRight={null}
+                />
+              )
+            }}
+          />
+        </Stack.Group>
+      </Stack.Navigator>
+    </>
   );
 };
 

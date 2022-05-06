@@ -6,6 +6,7 @@ import Navigation from 'navigation';
 import InAppNotification from 'components/InAppNotification';
 import theme from 'config/theme';
 import WithModal from 'components/WithModal';
+import AppStatusBlur from 'components/AppStatusBlur';
 import AppState from 'modules/app/component';
 
 export const App = () => {
@@ -16,6 +17,7 @@ export const App = () => {
           <Navigation />
           <InAppNotification />
           <AppState />
+          <AppStatusBlur />
         </WithModal>
       </ThemeContextProvider>
     </Provider>
