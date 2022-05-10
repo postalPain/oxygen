@@ -11,3 +11,5 @@ export const selectNoPendingTransaction = (state: RootState): boolean => {
       || (status === TransactionStatusesBE.processing);
   });
 };
+
+export const selectTransactionCount = (state: RootState): number => state.transactions.transactions?.length;
