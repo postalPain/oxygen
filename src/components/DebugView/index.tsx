@@ -11,7 +11,6 @@ import Link from 'components/Link';
 const DebugView = () => {
   const askForReview = useAskForReview();
 
-
   return (
     <ScrollView>
       <DebugPush />
