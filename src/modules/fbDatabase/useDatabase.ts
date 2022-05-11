@@ -8,7 +8,7 @@ export const useDatabase = <T>(key?: string) => {
     fetchDbValue(key);
   }, []);
 
-  const fetchDbValue = async<T2 = T> (_key?: string) => {
+  const fetchDbValue = async<T2 = T> (_key = key) => {
     const ref = firebase
       .app()
       .database('https://floos-e4dc6-default-rtdb.europe-west1.firebasedatabase.app/')

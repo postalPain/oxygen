@@ -5,17 +5,25 @@ import styles from './styles';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import vocab from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import IconCheckRound from 'components/IconCheckRound';
 import { useSelector } from 'react-redux';
 import { selectWithdrawalTransaction } from 'modules/withdrawal/selectors';
 import moment from 'moment';
 import { E2ETextWrapper } from '../../components/E2EText';
+import useAskForReview from 'modules/askForReview/hooks/useAskForReview';
 
 const WithdrawalConfirmation = (props: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => {
   const navigation: StackNavigationProp<any> = useNavigation();
   const transaction = useSelector(selectWithdrawalTransaction);
+  const askForReview = useAskForReview();
+
+  useEffect(() => {
+    return () => {
+      askForReview();
+    };
+  }, []);
 
   return (
     <ScreenWrapperWithdrawal>

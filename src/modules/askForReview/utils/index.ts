@@ -1,7 +1,6 @@
-import { setItem } from 'modules/asyncStorage';
 import InAppReview from 'react-native-in-app-review';
 
-export const askForReview = (cb?) => {
+export const askForReview = () => {
   if (!InAppReview.isAvailable()) {
     return;
   };
@@ -9,7 +8,6 @@ export const askForReview = (cb?) => {
   // trigger UI InAppreview
   InAppReview.RequestInAppReview()
     .then((hasFlowFinishedSuccessfully) => {
-      cb?.();
       // when return true in android it means user finished or close review flow
       // console.log('InAppReview in android', hasFlowFinishedSuccessfully);
 
