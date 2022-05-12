@@ -1,5 +1,6 @@
 import { getItem, setItem } from 'modules/asyncStorage';
 import { useDatabase } from 'modules/fbDatabase/useDatabase';
+import useLogger from 'modules/logger/hooks/useLogger';
 import { selectTransactionCount } from 'modules/transactions/selectors';
 import { useSelector } from 'react-redux';
 import { askForReview } from '../utils';
@@ -15,15 +16,13 @@ const useAskForReview = () => {
 
   return async () => {
     const askedForReview = await getItem(ASKED_FOR_REVIEW_KEY);
-    if (askedForReview) {
-      return;
-    }
 
     const askAfterTransaction = await fetchDbValue();
 
-    // Ask after 4th, 8th or 12+ transaction, for example
-    const shouldAsk = [askAfterTransaction, 2 * askAfterTransaction].includes(transactionCount)
-      || transactionCount > askAfterTransaction * 3;
+    // If not asked, ask after 4th, 8th or 12 transaction, for example. Ask second time anyway on 24th transaction
+    const shouldAsk = (transactionCount === 6 * askAfterTransaction) ||
+      (!askedForReview
+        && [askAfterTransaction, 2 * askAfterTransaction, 3 * askAfterTransaction].includes(transactionCount));
 
     shouldAsk && askForReview(() => setItem(ASKED_FOR_REVIEW_KEY, 'true'));
   };
