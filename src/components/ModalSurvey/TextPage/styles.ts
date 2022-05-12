@@ -21,6 +21,7 @@ const useStyles = () => StyleSheet.create({
     paddingBottom: 16,
     borderColor: theme.colors.surveyInputBorder,
     backgroundColor: theme.colors.surveyInputBackground,
+    textAlignVertical: 'top',
   },
   focus: {
     borderColor: theme.colors.floos2,

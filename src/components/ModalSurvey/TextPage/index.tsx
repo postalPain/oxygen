@@ -30,6 +30,8 @@ export const TextPage = (props: ITextPage) => {
         placeholder={placeholder}
         onChangeText={onChangeText}
         maxLength={maxLength}
+        returnKeyType='done'
+        blurOnSubmit
       />
       <Text style={styles.textLength}>{length}/{maxLength}</Text>
     </View>
