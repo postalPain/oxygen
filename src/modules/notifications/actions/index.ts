@@ -24,6 +24,18 @@ export const successNotification = ({
   }
 });
 
+export const successMessage = ({
+  text,
+  timeout = 3000,
+}: Partial<INotification>): INotificationAction => ({
+  type: NotificationActions.ADD_NOTIFICATION,
+  payload: {
+    type: NotificationTypes.SuccessMessage,
+    id: uuid(),
+    text,
+    timeout,
+  }
+});
 
 
 const errorNotificationObj = (notification?: Partial<INotification>): INotificationAction => ({

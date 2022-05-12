@@ -37,6 +37,11 @@ const arabic: IVocab = {
   iHaveRead: 'لقد قرأت',
   guidelines: 'إرشادات وقبولها.',
   next: 'التالي',
+  // TODO add translations once we have them
+  submit: 'Submit',
+  skip: 'Skip',
+  question: 'Question',
+  thankForFeedback: 'Thank you for your feedback!',
   useYourBiometrics: 'استخدم {{biometricType}}',
   pleaseEnterCode: 'الرجاء إدخال رمز التحقق الذي تلقيته عبر البريد الإلكتروني',
   wrongEmail: 'بريد إلكتروني خاطئ؟',

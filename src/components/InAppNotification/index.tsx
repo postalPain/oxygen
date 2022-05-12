@@ -6,6 +6,7 @@ import { NotificationTypes } from 'modules/notifications/types';
 import IconInfo from 'components/IconInfo';
 import theme from 'config/theme';
 import useStyles from './styles';
+import IconCheckCircle from '../IconCheckCircle';
 
 const InAppNotification = () => {
   const styles = useStyles();
@@ -23,7 +24,9 @@ const InAppNotification = () => {
           >
             <View style={styles.notification}>
               <View style={styles.iconContainer}>
-                <IconInfo color={theme.notifications[(notification.type === NotificationTypes.Error) ? 'errorTextColor' : 'successTextColor']} />
+                {notification.type === NotificationTypes.SuccessMessage ?
+                  <IconCheckCircle /> :
+                  <IconInfo color={theme.notifications[(notification.type === NotificationTypes.Error) ? 'errorTextColor' : 'successTextColor']} />}
               </View>
               <View style={styles.textContainer}>
                 {notification.title && (

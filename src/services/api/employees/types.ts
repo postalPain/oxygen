@@ -51,6 +51,28 @@ export type IWithdrawableDefault = {
   [type in IWithdrawableDefaultTypes]: number;
 };
 
+type translationValues = Record<string, string>;
+
+export interface ISurveyQuestionResponse {
+  id: number;
+  status: string;
+  name: string;
+  type: 'text' | 'rating' | 'radio';
+  condition_start_time: string | null;
+  condition_end_time: string | null;
+  condition_number_of_transactions: string | null;
+  details: {
+    title: translationValues;
+    placeholder?: translationValues;
+    min_label?: translationValues;
+    max_label?: translationValues;
+    options?: {
+      text: translationValues;
+      value: string;
+    }[];
+  };
+}
+
 export interface IEmployeesApi {
   userInfo: () => Promise<IResponse<IUserInfo>>;
   verifyEmail: (code: string) => Promise<void | AxiosResponse>;
@@ -64,4 +86,6 @@ export interface IEmployeesApi {
   withdrawal: (amount: number) => Promise<IResponse<ITransaction>>;
   getWithdrawableDefaults: () => Promise<IResponse<IWithdrawableDefault>>;
   getPaycycleInfo: () => Promise<IResponse<IPaycycleInfo>>;
+  getSurveys: () => Promise<IResponse<ISurveyQuestionResponse[]>>;
+  submitSurvey: (id: number, answer: string) => Promise<void>;
 }
