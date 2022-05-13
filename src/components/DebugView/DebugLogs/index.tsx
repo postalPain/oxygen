@@ -1,19 +1,21 @@
 import Link from 'components/Link';
-import useLogger from 'modules/logger/hooks/useLogger';
+import useLogger, { useLoggerMessages } from 'modules/logger/hooks/useLogger';
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
 
 
 const DebugLogs = () => {
-  const { log, loggerMessages, clearLog } = useLogger();
+  const { clearLog } = useLogger();
+
+  const loggerMessages = useLoggerMessages();
 
   return (
     <View>
       <Link onPress={clearLog}>
         Clear
       </Link>
-      { loggerMessages.map(message => (
+      { loggerMessages && loggerMessages.map(message => (
         <Text
           selectable
           style={{
@@ -21,7 +23,7 @@ const DebugLogs = () => {
             paddingVertical: getHeight(.5),
             ...(message.type === 'error' && { color: 'red' })
           }}
-          key={message.time}
+          key={message.id}
         >
           <Text>{message.time} </Text>
           <Text> {message.message}</Text>
@@ -33,6 +35,3 @@ const DebugLogs = () => {
 
 export default DebugLogs;
 
-const styles = StyleSheet.create({
-  container: {}
-});
