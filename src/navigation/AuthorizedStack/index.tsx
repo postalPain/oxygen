@@ -19,7 +19,6 @@ import AppStatusBlur from '../../components/AppStatusBlur';
 import { usePushMessages } from 'modules/pushNotifications/hooks/usePushMessages';
 import { PushTopics, PushTransactionData } from 'modules/pushNotifications/types';
 
-
 const Stack = createNativeStackNavigator();
 
 const AuthorizedStack = () => {
@@ -32,13 +31,13 @@ const AuthorizedStack = () => {
   } = usePushMessages<PushTransactionData>(PushTopics.transaction_details);
 
   useEffect(() => {
-    if (transactionMessage?.data?.id) {
+    if (transactionMessage?.data?.transaction_id) {
       navigate(
         AppScreenNames.TabNavigation,
         {},
         navigate(
           AppScreenNames.TransactionsStack,
-          { id: transactionMessage.data.id },
+          { id: transactionMessage.data.transaction_id },
         ));
     }
   }, [transactionMessage]);
