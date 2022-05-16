@@ -1,16 +1,16 @@
-import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
 import { useEffect, useState } from 'react';
+import { IPushData, IPushMessage } from '../types';
 
-export const usePushMessages = <TData>(topic?: string) => {
-  type TMessage = FirebaseMessagingTypes.RemoteMessage & {data: TData};
-  const [message, setMessage] = useState<TMessage>(null);
+export const usePushMessages = <TData extends IPushData>(topic?: string) => {
+  const [message, setMessage] = useState<IPushMessage<TData>>(null);
 
-  const onMessage = (_message: TMessage): any => {
+  const onMessage = (_message): any => {
     if (!_message?.data) {
       return;
     }
 
-    if (!topic || (topic === _message.data.topic)) {
+    if (!topic || (topic === _message?.data?.topic)) {
       setMessage(_message);
     }
   };
@@ -25,7 +25,7 @@ export const usePushMessages = <TData>(topic?: string) => {
   }, []);
 
   return {
-    simulateMessage: (_message: TMessage) => {
+    simulateMessage: (_message: IPushMessage<TData>) => {
       onMessage(_message);
     },
     message,
