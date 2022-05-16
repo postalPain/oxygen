@@ -9,12 +9,12 @@ import { IResponse } from 'services/api/types';
 import { isTtlActive } from 'utils/time';
 import { BiometryActions, IBiometricLoginAction, setBiometryReady, setBiometryStatus } from '../actions';
 import { deleteBiometricData, getBiometrics, getBiometrics83, getBiometricTtl, getBiometricTtl83, storeBiometricData, storeBiometrics, storeBiometricTtl } from '../asyncStorage';
-import { biometricAuthenticate, getDeviceBiometryStatus } from '../biometrics';
+import { biometricAuthenticate, BiometryStatus, getDeviceBiometryStatus } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
 import { selectBiometryStatus } from '../selectors';
 
 function* getBiometricsAvailableWorker (action) {
-  const biometryStatus = yield getDeviceBiometryStatus();
+  const biometryStatus: BiometryStatus = yield getDeviceBiometryStatus();
   yield put(setBiometryStatus(biometryStatus));
   yield action.meta?.onSuccess(biometryStatus);
 }
@@ -30,7 +30,6 @@ function* getBiometricsReadyWorker () {
   yield ttl83 && storeBiometricTtl(ttl83);
 
   const biometricAccepted = yield getBiometrics();
-
 
   if (!email || !biometryStatus.available || !biometricAccepted) {
     yield put(setBiometryReady(false));
