@@ -4,7 +4,6 @@ import CircleLarge from 'components/CircleLarge';
 import CircleMedium from 'components/CircleMedium';
 import CircleSmall from 'components/CircleSmall';
 import IconFloosFull from 'components/IconFloosFull';
-import { EmailTag } from 'components';
 import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserInfo } from 'modules/user/selectors';
@@ -12,6 +11,7 @@ import { userClearInfo } from 'modules/user/actions';
 import { clearAuthData } from 'modules/auth/actions';
 import vocab from 'i18n';
 import { getHeight } from 'utils/window';
+import EmailTag from 'components/EmailTag';
 
 interface IScreenWrapperLogin {
   children?: any;

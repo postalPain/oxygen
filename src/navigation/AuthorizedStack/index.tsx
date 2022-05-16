@@ -4,7 +4,6 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { AccountDetails, Settings, SettingsLanguage } from 'screens';
 import TabNavigation from 'navigation/TabNavigation';
 import WithdrawalSelect from 'screens/WithdrawalSelect';
-import { BackButton, NavigationHeader } from 'components';
 import WithdrawalOverview from 'screens/WithdrawalOverview';
 import WithdrawalConfirmation from 'screens/WithdrawalConfirmation';
 import { modalScreenStyles } from 'navigation/styles';
@@ -18,6 +17,8 @@ import { getBalance, getPaycycleInfo, getSuggestedValues, getWithdrawableDefault
 import AppStatusBlur from '../../components/AppStatusBlur';
 import { usePushMessages } from 'modules/pushNotifications/hooks/usePushMessages';
 import { PushTopics, PushTransactionData } from 'modules/pushNotifications/types';
+import BackButton from 'components/BackButton';
+import NavigationHeader from 'components/NavigationHeader';
 
 
 const Stack = createNativeStackNavigator();

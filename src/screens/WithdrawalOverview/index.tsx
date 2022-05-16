@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
-import { Button } from 'components';
 import styles from './styles';
 import IconDocument from 'components/IconDocument';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
@@ -12,6 +11,7 @@ import WithdrawalOverviewItem from './WithdrawalOverviewItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAmount, selectFee, selectInputSource, selectScreenSource } from 'modules/withdrawal/selectors';
 import { withdrawal } from 'modules/withdrawal/actions';
+import Button from 'components/Button';
 
 const WithdrawalOverview = (props: AppNavigationProps<AppScreenNames.WithdrawalOverview>) => {
   const navigation: StackNavigationProp<any> = useNavigation();

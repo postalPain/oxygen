@@ -1,4 +1,4 @@
-import { Link } from 'components';
+import Link from 'components/Link';
 import ModalBiometricAllSet from 'components/ModalBiometricAllSet';
 import ModalBiometricsFailed from 'components/ModalBiometricFailed';
 import ModalBiometricLogin from 'components/ModalBiometricLogin';

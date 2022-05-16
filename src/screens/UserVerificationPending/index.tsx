@@ -9,7 +9,6 @@ import { checkVerification, userClearInfo, resendVerificationCode } from 'module
 import { clearAuthData, clearSignUpData } from 'modules/auth/actions';
 import { selectEmailVerified, selectEmployerVerifiedStatus, } from 'modules/user/selectors';
 import useInterval from 'utils/useInterval';
-import { Button, EmailTag, ResendEmail } from 'components';
 import StatusIcon from './StatusIcon';
 import useStyles from './styles';
 import { getHeight } from 'utils/window';
@@ -18,6 +17,9 @@ import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import externalUrls from 'config/externalUrls';
 import { analyticEvents } from '../../services/analytics';
 import useSignUpCodeDeepLink from 'modules/auth/deepLinks/useSignUpCodeDeepLink';
+import EmailTag from 'components/EmailTag';
+import Button from 'components/Button';
+import ResendEmail from 'components/ResendEmail';
 
 
 const vocab = vocabulary.get();

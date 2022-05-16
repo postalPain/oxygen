@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack/lib/typescript/src/types';
-import { Button } from 'components';
 import styles from './styles';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import vocab from 'i18n';
@@ -14,6 +13,7 @@ import { getSurveys } from 'modules/survey/actions';
 import moment from 'moment';
 import { E2ETextWrapper } from '../../components/E2EText';
 import useAskForReview from 'modules/askForReview/hooks/useAskForReview';
+import Button from 'components/Button';
 
 const WithdrawalConfirmation = (props: AppNavigationProps<AppScreenNames.WithdrawalConfirmation>) => {
   const navigation: StackNavigationProp<any> = useNavigation();

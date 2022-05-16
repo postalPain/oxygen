@@ -17,9 +17,10 @@ import { setAmount } from 'modules/withdrawal/actions';
 import theme from 'config/theme';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
 import WithdrawalAmountTag from 'components/WithdrawalAmountTag';
-import { Button, Link } from 'components';
 import styles from './styles';
 import { WithdrawalOptions } from 'services/analytics/types';
+import Link from 'components/Link';
+import Button from 'components/Button';
 
 const WithdrawalSelect = () => {
   const dispatch = useDispatch();

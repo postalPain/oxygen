@@ -2,10 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
-import vocab from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { SettingsItem, SettingsBiometrics, SettingsPushNotifications } from 'components';
-import DashedDivider from 'components/DashedDivider/indext';
+import SettingsBiometrics from 'components/SettingsBiometrics';
+import SettingsPushNotifications from 'components/SettingsPushNotifications';
 
 const Settings = (
   { navigation }: AppNavigationProps<AppScreenNames.Settings>

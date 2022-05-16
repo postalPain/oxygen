@@ -5,11 +5,12 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
 import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
 import { ITransaction } from 'modules/transactions/types';
-import { selectTransactions } from 'modules/transactions/selectors';
-import { Details, IconTransactionHistory, ScreenGradient } from 'components';
 import useStyles from './styles';
 import AppStatusBlur from '../../components/AppStatusBlur';
 import { getTransaction } from 'modules/transactions/actions';
+import ScreenGradient from 'components/ScreenGradient';
+import IconTransactionHistory from 'components/IconTransactionHistory';
+import Details from 'components/Details';
 
 const vocab = vocabulary.get();
 

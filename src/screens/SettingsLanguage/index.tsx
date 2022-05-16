@@ -6,9 +6,9 @@ import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
 import { Languages, setLanguage, supportedLanguages } from 'i18n/utils';
 import vocab from 'i18n';
-import { SettingsItem } from 'components';
 import DashedDivider from 'components/DashedDivider/indext';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
+import SettingsItem from 'components/SettingsItem';
 
 const SettingsLanguage = (
   { navigation }: AppNavigationProps<AppScreenNames.SettingsLanguage>

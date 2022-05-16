@@ -1,6 +1,7 @@
+import IconCheck from 'components/IconCheck';
+import IconCross from 'components/IconCross';
 import React from 'react';
 import { View } from 'react-native';
-import { IconCheck, IconCross } from 'components';
 import useStyles from './styles';
 
 

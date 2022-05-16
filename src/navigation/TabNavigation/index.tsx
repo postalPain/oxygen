@@ -1,11 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import {
-  IconDashboard,
-  IconProfile,
-  IconTransactions,
-} from 'components';
 import TabBar from './TabBar';
 import { Dashboard } from 'screens';
 import vocabulary from 'i18n';
@@ -14,6 +9,9 @@ import TransactionsStack from './TransactionsStack';
 import ProfileStack from './ProfileStack';
 import IconDashboardRamadan from 'components/CampaignRamadan/IconDashboardRamadan';
 import { isRamadan22 } from 'utils/time';
+import IconDashboard from 'components/IconDashboard';
+import IconTransactions from 'components/IconTransactions';
+import IconProfile from 'components/IconProfile';
 
 
 const vocab = vocabulary.get();

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Transactions, TransactionDetails } from 'screens';
-import { BackButton } from 'components';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import BackButton from 'components/BackButton';
 
 
 const Stack = createNativeStackNavigator();

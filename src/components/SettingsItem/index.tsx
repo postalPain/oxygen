@@ -5,7 +5,7 @@ import Checkbox from 'react-native-bouncy-checkbox';
 import vocab from 'i18n';
 import { getHeight, getWidth } from 'utils/window';
 import theme from 'config/theme';
-import { IconArrowRight } from 'components';
+import IconArrowRight from 'components/IconArrowRight';
 
 interface ISettingsItem {
   type?: 'regular' | 'toggle' | 'radio';

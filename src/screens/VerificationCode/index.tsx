@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { errorNotification } from 'modules/notifications/actions';
 import { IMeta } from 'modules/store/types';
-import { Button, ScreenWithAnimatedHeader, InfoText, ResendEmail } from 'components';
 import CodeInput, { CODE_LENGTH } from 'components/CodeInput';
 import styles from './styles';
 import { selectSignUpCode } from 'modules/auth/selectors';
 import { setSignUpCode } from 'modules/auth/actions';
+import ScreenWithAnimatedHeader from 'components/ScreenWithAnimatedHeader';
+import InfoText from 'components/InfoText';
+import ResendEmail from 'components/ResendEmail';
+import Button from 'components/Button';
 
 
 const vocab = vocabulary.get();
