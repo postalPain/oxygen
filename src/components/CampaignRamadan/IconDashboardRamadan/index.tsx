@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
 
 import { isRTL } from 'config/rtl';
+import { getHeight } from 'utils/window';
 
 
 const xml = (color: string) => `
@@ -12,7 +13,7 @@ const xml = (color: string) => `
 `;
 
 export default ({
-  size = 40,
+  size = getHeight(5),
   color = '#CCCCCC',
 }) => {
   const rotationAngle = isRTL ? '180deg' : '0deg';
