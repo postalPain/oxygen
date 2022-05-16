@@ -37,7 +37,7 @@ import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLi
 import { analytics } from '../services/analytics';
 import AuthorizedStack from './AuthorizedStack';
 import Update from 'screens/Update';
-import { DbKeys, useDatabase } from 'modules/fbDatabase/useDatabase';
+import { useDatabase } from 'modules/fbDatabase/useDatabase';
 import env from 'env';
 import { isTtlActive } from 'utils/time';
 
@@ -66,8 +66,8 @@ const Navigation = () => {
 
   const [codeDeepLink] = useSignUpCodeDeepLink();
   const {
-    dbValue: minimumSupportedBuild,
-  } = useDatabase<Number>(DbKeys.minSupportedBuild);
+    value: minimumSupportedBuild,
+  } = useDatabase<Number>('/force_update/build_no');
 
   navigate = (name: AppScreenNames, params?: any) => {
     if (navigationRef && navigationRef.current) {
