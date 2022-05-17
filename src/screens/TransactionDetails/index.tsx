@@ -10,7 +10,8 @@ import AppStatusBlur from '../../components/AppStatusBlur';
 import { getTransaction } from 'modules/transactions/actions';
 import ScreenGradient from 'components/ScreenGradient';
 import IconTransactionHistory from 'components/IconTransactionHistory';
-import Details from 'components/Details';
+import DetailsContainer from 'components/Details';
+import InfoRecord from 'components/InfoRecord';
 
 const vocab = vocabulary.get();
 
@@ -64,9 +65,11 @@ const TransactionDetails = (
             {vocab.transactionsInformation}
           </Text>
         </View>
-        <Details
-          data={getData(currentTransaction)}
-        />
+        <DetailsContainer>
+          {getData(currentTransaction).map(({ label, text, width }) =>
+            <InfoRecord label={label} text={text} width={width} key={label} />
+          )}
+        </DetailsContainer>
       </View>
       <AppStatusBlur />
     </SafeAreaView>
