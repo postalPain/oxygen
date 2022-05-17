@@ -4,20 +4,18 @@ import { View, Text, Pressable } from 'react-native';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { openBrowser } from 'utils';
 import { signOut } from 'modules/auth/actions';
-import {
-  IconAccountDetails,
-  IconHelpCenter,
-  IconLogout,
-  IconPrivacyPolicy,
-  IconSettings,
-  IconArrowRight,
-  ScreenWrapperMain
-} from 'components';
 import styles from './styles';
 import externalUrls from 'config/externalUrls';
 import vocab from 'i18n';
 import { analyticEvents } from '../../services/analytics';
 import env from 'env';
+import ScreenWrapperMain from 'components/ScreenWrapperMain';
+import IconAccountDetails from 'components/IconAccountDetails';
+import IconArrowRight from 'components/IconArrowRight';
+import IconSettings from 'components/IconSettings';
+import IconPrivacyPolicy from 'components/IconPrivacyPolicy';
+import IconHelpCenter from 'components/IconHelpCenter';
+import IconLogout from 'components/IconLogout';
 
 const Profile = (
   { navigation }: AppNavigationProps<AppScreenNames.Profile>

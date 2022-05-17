@@ -174,6 +174,7 @@ const filipino: IVocab = {
   alertConfirmLanguageChange: 'Are you sure to change the app language? It will require app reload.',
   alertAccept: 'Accept',
   alertReject: 'Reject',
+  keepInMind: 'Keep in mind — It can take up to 2 working days for your bank account to be credited.',
 };
 
 export default filipino;

@@ -2,9 +2,9 @@ import theme from 'config/theme';
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { getHeight, getWidth, windowDimensions } from 'utils/window';
-import { ScreenGradient } from 'components';
 import ScreenGradientRamadan from 'components/CampaignRamadan/ScreenGradientRamadan';
 import { isRamadan22 } from 'utils/time';
+import ScreenGradient from 'components/ScreenGradient';
 
 interface IScreenWrapperMain {
   children?;

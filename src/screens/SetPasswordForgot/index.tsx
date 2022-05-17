@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { resetPassword } from 'modules/auth/actions';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
-import { SetPassword } from 'components';
+import SetPassword from 'components/SetPassword';
 
 const SetPasswordForgot = (props: AppNavigationProps<any>) => {
   const { navigation } = props;

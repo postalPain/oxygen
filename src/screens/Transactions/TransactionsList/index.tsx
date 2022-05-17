@@ -7,9 +7,9 @@ import { AppScreenNames } from 'navigation/types';
 import { ITransaction, TransactionStatusesFE } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { selectTransactions, selectTransactionsLoading } from 'modules/transactions/selectors';
-import { IconTransactionHistory } from 'components';
 import useStyles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import IconTransactionHistory from 'components/IconTransactionHistory';
 
 
 const vocab = vocabulary.get();

@@ -7,9 +7,10 @@ import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { isEmailValid } from 'utils/validate';
 import { forgotPassword, setForgotPasswordEmail } from 'modules/auth/actions';
 import { selectForgotPasswordEmail } from 'modules/auth/selectors';
-import { Button, ScreenWithAnimatedHeader } from 'components';
 import styles from './styles';
 import { selectUserEmail } from 'modules/user/selectors';
+import ScreenWithAnimatedHeader from 'components/ScreenWithAnimatedHeader';
+import Button from 'components/Button';
 
 
 const ForgotPassword = (

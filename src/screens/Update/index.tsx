@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import Button from 'components/Button';
 import IconUpdate from 'components/IconUpdate';
 import env from 'env';
 import vocab from 'i18n';

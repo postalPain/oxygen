@@ -2,10 +2,10 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from 'modules/user/selectors';
-import { Details } from 'components';
 import vocabulary from 'i18n';
 import styles from './styles';
 import AppStatusBlur from '../../components/AppStatusBlur';
+import Details from 'components/Details';
 
 const vocab = vocabulary.get();
 

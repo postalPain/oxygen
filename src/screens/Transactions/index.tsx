@@ -3,12 +3,12 @@ import { View, } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectNoPendingTransaction, selectTransactions, selectTransactionsLoading } from 'modules/transactions/selectors';
 import { getTransactions } from 'modules/transactions/actions';
-import { ScreenWrapperMain } from 'components';
 import NoTransactions from './NoTransactions';
 import TransactionsList from './TransactionsList';
 import useStyles from './styles';
 import useInterval from 'utils/useInterval';
 import { useIsFocused } from '@react-navigation/native';
+import ScreenWrapperMain from 'components/ScreenWrapperMain';
 
 const REQUEST_DELAY = 1000 * 15;
 

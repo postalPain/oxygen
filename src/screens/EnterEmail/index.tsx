@@ -7,12 +7,10 @@ import { AppNavigationProps, AppScreenNames, } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
 import { selectSignUpData } from 'modules/auth/selectors';
 import { setSignUpData } from 'modules/auth/actions';
-import {
-  ScreenWithAnimatedHeader,
-  Button,
-  InputInfo,
-} from 'components';
 import useStyles from './styles';
+import ScreenWithAnimatedHeader from 'components/ScreenWithAnimatedHeader';
+import InputInfo from 'components/InputInfo';
+import Button from 'components/Button';
 
 const vocab = vocabulary.get();
 const schema = yup.string().email().required();

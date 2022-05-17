@@ -1,7 +1,7 @@
+import InfoRecord from 'components/InfoRecord';
 import React from 'react';
-import { View, Text, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import styles from './styles';
-
 
 interface IDetailsProps {
   data: {
@@ -10,35 +10,14 @@ interface IDetailsProps {
     width?: string;
   }[];
   containerStyle?: ViewStyle;
-  itemStyles?: ViewStyle;
-  labelStyles?: ViewStyle;
-  textStyles?: ViewStyle;
 }
 
-const Details = (
-  {
-    data,
-    containerStyle,
-    itemStyles,
-    labelStyles,
-    textStyles,
-  }: IDetailsProps
-) => {
+const Details = ({ data, containerStyle }: IDetailsProps) => {
   return (
     <View style={[styles.details, containerStyle]}>
-      {data.map(({ label, text, width = '100%' }) => (
-        <View
-          key={label}
-          style={[styles.item, itemStyles, { width }]}
-        >
-          <Text style={[styles.label, labelStyles]}>
-            {label}
-          </Text>
-          <Text style={[styles.text, textStyles]}>
-            {text}
-          </Text>
-        </View>
-      ))}
+      {data.map(({ label, text, width }) =>
+        <InfoRecord label={label} text={text} width={width} key={label} />
+      )}
     </View>
   );
 };

@@ -174,7 +174,8 @@ const arabic: IVocab = {
   alertTitle: 'Floos',
   alertConfirmLanguageChange: 'هل أنت متأكد من تغيير لغة التطبيق؟ سيتطلب إعادة تحميل التطبيق.',
   alertAccept: 'قبول',
-  alertReject: 'رفض'
+  alertReject: 'رفض',
+  keepInMind: 'Keep in mind — It can take up to 2 working days for your bank account to be credited.',
 };
 
 export default arabic;
