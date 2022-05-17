@@ -40,7 +40,7 @@ const Dashboard: React.FC<any> = () => {
       )}
       <View style={styles.greetingContainer}>
         <Text style={[styles.greeting]}>
-          <Text>{vocab.get().hi}</Text>
+          <Text>{vocab.get().hi} </Text>
           <E2ETextWrapper>
             <Text style={styles.greetingName} >{userInfo.first_name}
             </Text>

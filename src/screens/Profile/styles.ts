@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   menuItemText: {
     marginLeft: getWidth(5),
     fontSize: getWidth(5),
-    letterSpacing: .5,
   },
   menuItemTextHighlighted: {
     color: theme.colors.floos3,

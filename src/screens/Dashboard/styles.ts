@@ -1,7 +1,7 @@
 import { MAIN_WRAPPER_PADDING_HORIZONTAL } from 'components/ScreenWrapperMain';
 import theme from 'config/theme';
 import { StyleSheet } from 'react-native';
-import { getHeight, getWidth, windowDimensions } from 'utils/window';
+import { getHeight, getWidth } from 'utils/window';
 
 const styles = StyleSheet.create({
   greetingContainer: {
@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   greeting: {
     color: theme.colors.floos1,
     fontSize: getWidth(7),
-    letterSpacing: 0.4,
     paddingBottom: getHeight(1)
   },
   greetingName: {

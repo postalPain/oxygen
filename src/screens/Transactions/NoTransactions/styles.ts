@@ -15,7 +15,6 @@ const useStyles = () => StyleSheet.create({
   },
   headerText: {
     fontSize: getWidth(6),
-    letterSpacing: .5,
     lineHeight: getHeight(4),
     textAlign: 'center',
   },
@@ -32,7 +31,6 @@ const useStyles = () => StyleSheet.create({
   infoText: {
     marginTop: getHeight(4),
     fontSize: getWidth(4),
-    letterSpacing: .5,
     lineHeight: getHeight(3.5),
     textAlign: 'center',
   },

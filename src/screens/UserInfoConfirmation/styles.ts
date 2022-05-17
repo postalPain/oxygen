@@ -38,7 +38,6 @@ const useStyles = () => StyleSheet.create({
     marginLeft: getWidth(4.5),
     color: theme.colors.textDark,
     fontSize: getWidth(4.5),
-    letterSpacing: .5,
   },
   headerText: {
     marginTop: getHeight(2.5),
@@ -47,7 +46,6 @@ const useStyles = () => StyleSheet.create({
     textAlign: 'left',
     color: theme.colors.textDark,
     fontSize: getWidth(4.5),
-    letterSpacing: .5,
     lineHeight: getHeight(3)
   },
   footer: {
@@ -63,7 +61,6 @@ const useStyles = () => StyleSheet.create({
   contactUsText: {
     color: theme.colors.textDark,
     fontSize: getWidth(4.5),
-    letterSpacing: .5,
     lineHeight: getHeight(3),
     textAlign: 'left',
   },

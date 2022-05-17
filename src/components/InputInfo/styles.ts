@@ -20,7 +20,6 @@ const useStyles = () => StyleSheet.create({
     flexWrap: 'wrap',
     color: theme.colors.textDark,
     fontSize: getWidth(4),
-    letterSpacing: .5,
     lineHeight: getHeight(3),
     textAlign: 'left',
   },

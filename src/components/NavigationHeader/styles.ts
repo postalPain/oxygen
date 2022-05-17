@@ -27,7 +27,6 @@ const useStyles = () => StyleSheet.create({
   title: {
     color: theme.colors.textDark,
     fontSize: getHeight(2.5),
-    letterSpacing: .5,
     textAlign: 'center',
   },
   headerRight: {
