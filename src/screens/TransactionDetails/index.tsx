@@ -12,6 +12,7 @@ import ScreenGradient from 'components/ScreenGradient';
 import IconTransactionHistory from 'components/IconTransactionHistory';
 import DetailsContainer from 'components/Details';
 import InfoRecord from 'components/InfoRecord';
+import moment from 'moment';
 
 const vocab = vocabulary.get();
 
@@ -31,6 +32,8 @@ const getData = (transaction: ITransaction) => {
       label: vocab.status,
       text: getTransactionStatus(transaction.status),
       width: '50%',
+      footnote: (transaction.accepted_at && moment().diff(transaction.accepted_at, 'days', true) < 2)
+        && vocab.keepInMind
     },
     {
       label: vocab.requestId,
@@ -66,8 +69,14 @@ const TransactionDetails = (
           </Text>
         </View>
         <DetailsContainer>
-          {getData(currentTransaction).map(({ label, text, width }) =>
-            <InfoRecord label={label} text={text} width={width} key={label} />
+          {getData(currentTransaction).map(({ label, text, width, footnote }) =>
+            <InfoRecord
+              label={label}
+              text={text}
+              width={width}
+              key={label}
+              footnote={footnote}
+            />
           )}
         </DetailsContainer>
       </View>

@@ -20,7 +20,7 @@ const theme = {
     textDark: '#0F183F',
     textLight: '#7B7B7B',
 
-    shade1: '#C6C6C6',
+    shade1: '#B3B3B3',
     shade2: '#F7F7F7',
     error: '#EA3546',
 
