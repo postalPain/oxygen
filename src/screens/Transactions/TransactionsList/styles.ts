@@ -35,7 +35,6 @@ const useStyles = () => StyleSheet.create({
   },
   date: {
     fontSize: getWidth(3),
-    letterSpacing: .5,
   },
   details: {
     alignItems: 'flex-end',
@@ -46,11 +45,9 @@ const useStyles = () => StyleSheet.create({
   amount: {
     fontSize: getHeight(2.5),
     fontWeight: '600',
-    letterSpacing: .5,
   },
   status: {
     fontSize: getWidth(3),
-    letterSpacing: .5,
   },
   [TransactionStatusesFE.pending]: {
     color: theme.colors.textTransactionPending,

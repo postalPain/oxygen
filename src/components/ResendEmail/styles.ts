@@ -11,7 +11,6 @@ const useStyles = () => StyleSheet.create({
     marginBottom: getHeight(2.5),
     color: '#838383',
     fontSize: getWidth(4),
-    letterSpacing: .5,
   },
   time: {
     width: getWidth(6),
@@ -20,7 +19,6 @@ const useStyles = () => StyleSheet.create({
     marginBottom: getHeight(2.5),
     color: theme.colors.floos2,
     fontSize: getWidth(4),
-    letterSpacing: .5,
   },
 });
 

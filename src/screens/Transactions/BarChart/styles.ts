@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   greeting: {
     color: theme.colors.floos1,
     fontSize: 24,
-    letterSpacing: 0.4,
     paddingBottom: 5
   },
   greetingName: {
