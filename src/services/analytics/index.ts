@@ -15,6 +15,7 @@ export enum analyticEvents {
   helpViewed = 'help_viewed',
   firstLogin = 'first_login',
   login = 'app_login',
+  forced_update = 'forced_update'
 }
 
 export const analytics = (() => {
@@ -31,8 +32,8 @@ export const analytics = (() => {
     });
   };
 
-  const logEvent = async (name: analyticEvents, params?: Record<string, any>) => {
-    if (analyticsDisabled) {
+  const logEvent = async (name: analyticEvents, params?: Record<string, any>, enableForDevEnv?: boolean) => {
+    if (analyticsDisabled && !enableForDevEnv) {
       return Promise.resolve();
     }
     mixpanel.track(name, params);
@@ -66,4 +67,26 @@ export const analytics = (() => {
     setUserProperties,
   };
 })();
+
+export class EventLogger {
+  params: Record<string, any>;
+
+  name: analyticEvents;
+
+  constructor(name: analyticEvents) {
+    this.name = name;
+  }
+
+  static getTimestamp() {
+    return new Date().toISOString();
+  }
+
+  addParams(params: typeof this.params) {
+    this.params = { ...this.params, ...params };
+  }
+
+  log(params?: typeof this.params) {
+    analytics.logEvent(this.name, { ...this.params, ...params });
+  }
+}
 
