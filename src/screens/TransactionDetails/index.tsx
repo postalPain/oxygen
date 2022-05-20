@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
@@ -80,7 +80,7 @@ const TransactionDetails = (
           )}
         </DetailsContainer>
       </View>
-      <AppStatusBlur />
+      {Platform.OS === 'ios' && <AppStatusBlur />}
     </SafeAreaView>
   );
 };

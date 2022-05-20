@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from 'modules/user/selectors';
 import vocabulary from 'i18n';
@@ -31,7 +31,7 @@ const AccountDetails = () => {
           <InfoRecord label={label} text={text} key={label} />
         )}
       </DetailsContainer>
-      <AppStatusBlur />
+      {Platform.OS === 'ios' && <AppStatusBlur />}
     </View>
   );
 };
