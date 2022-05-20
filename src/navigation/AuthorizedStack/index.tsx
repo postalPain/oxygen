@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { AccountDetails, Settings, SettingsLanguage } from 'screens';
@@ -100,7 +101,7 @@ const AuthorizedStack = () => {
               headerShown: true,
               header: (headerProps) => (
                 <>
-                  <AppStatusBlur />
+                  {Platform.OS === 'ios' && <AppStatusBlur />}
                   <NavigationHeader
                     {...headerProps}
                     headerStyle={modalScreenStyles.header}
