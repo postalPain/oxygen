@@ -33,17 +33,16 @@ import DebugView from 'components/DebugView';
 import { headerStyles } from './styles';
 import SplashScreen from 'react-native-splash-screen';
 import useSignUpCodeDeepLink from '../modules/auth/deepLinks/useSignUpCodeDeepLink';
-import { analyticEvents, analytics } from '../services/analytics';
+import { analytics } from '../services/analytics';
 import AuthorizedStack from './AuthorizedStack';
 import Update from 'screens/Update';
 import { useDatabase } from 'modules/fbDatabase/useDatabase';
 import env from 'env';
 import { isTtlActive } from 'utils/time';
 import NavigationHeader from 'components/NavigationHeader';
-// @ts-ignore (wrong module name in package's index.d.ts, PR is still pending)
-import * as ScreenshotDetector from 'react-native-screenshot-detect';
 
 import BackButton from 'components/BackButton';
+import { useScreenshotAnalytics } from './hooks/useScreenshotAnalytics';
 
 const AppStack = createNativeStackNavigator();
 
@@ -68,21 +67,12 @@ const Navigation = () => {
 
   const emailVerified = useSelector(selectEmailVerified);
 
+  useScreenshotAnalytics(navigationRef);
+
   const [codeDeepLink] = useSignUpCodeDeepLink();
   const {
     value: minimumSupportedBuild,
   } = useDatabase<Number>('/force_update/build_no');
-
-  useEffect(() => {
-    const handler = ScreenshotDetector.subscribe(() => {
-      analytics.logEvent(analyticEvents.screenshot_taken, {
-        screen_name: navigationRef?.current?.getCurrentRoute().name,
-        timestamp_iso: new Date().toISOString()
-      });
-    });
-
-    return () => ScreenshotDetector.unsubscribe(handler);
-  }, []);
 
   useEffect(() => {
     navigate = navigationRef?.current?.navigate;
