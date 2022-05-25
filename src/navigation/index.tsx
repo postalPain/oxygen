@@ -42,6 +42,7 @@ import { isTtlActive } from 'utils/time';
 import NavigationHeader from 'components/NavigationHeader';
 
 import BackButton from 'components/BackButton';
+import { useScreenshotAnalytics } from './hooks/useScreenshotAnalytics';
 
 const AppStack = createNativeStackNavigator();
 
@@ -65,6 +66,8 @@ const Navigation = () => {
   const routeNameRef = React.useRef();
 
   const emailVerified = useSelector(selectEmailVerified);
+
+  useScreenshotAnalytics(navigationRef);
 
   const [codeDeepLink] = useSignUpCodeDeepLink();
   const {
