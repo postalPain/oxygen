@@ -17,7 +17,6 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-#import <RNScreenshotDetector/RNScreenshotDetector.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -60,9 +59,6 @@ static void InitializeFlipper(UIApplication *application) {
   [[RCTI18nUtil sharedInstance] allowRTL: isAllowRTL];
   [[RCTI18nUtil sharedInstance] forceRTL: isAllowRTL];
   [FIRApp configure];
-
-  RNScreenshotDetector* screenshotDetector = [[RNScreenshotDetector alloc] init];
-  [screenshotDetector setupAndListen:rootView.bridge];
 
   [RNSplashScreen show];
 

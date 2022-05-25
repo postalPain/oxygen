@@ -545,8 +545,6 @@ PODS:
   - RNScreens (3.9.0):
     - React-Core
     - React-RCTImage
-  - RNScreenshotDetector (1.1.0):
-    - React
   - RNSVG (12.1.1):
     - React
   - TouchID (4.4.1):
@@ -635,7 +633,6 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNScreenshotDetector (from `../node_modules/react-native-screenshot-detect`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - TouchID (from `../node_modules/react-native-touch-id`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -785,8 +782,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNScreenshotDetector:
-    :path: "../node_modules/react-native-screenshot-detect"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   TouchID:
@@ -879,7 +874,6 @@ SPEC CHECKSUMS:
   RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
   RNReanimated: 65583befd5706cc9c86ae9a081786181ced37b93
   RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
-  RNScreenshotDetector: 125913e785f51e330e8b07b08416f82a07f6d561
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   TouchID: ba4c656d849cceabc2e4eef722dea5e55959ecf4
   Yoga: c11abbf5809216c91fcd62f5571078b83d9b6720
