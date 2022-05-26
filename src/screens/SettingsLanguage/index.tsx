@@ -6,7 +6,7 @@ import theme from 'config/theme';
 import { getHeight, getWidth } from 'utils/window';
 import { Languages, setLanguage, supportedLanguages } from 'i18n/utils';
 import vocab from 'i18n';
-import DashedDivider from 'components/DashedDivider/indext';
+import DashedDivider from 'components/DashedDivider';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import SettingsItem from 'components/SettingsItem';
 

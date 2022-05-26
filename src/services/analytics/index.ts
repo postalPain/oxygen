@@ -15,7 +15,8 @@ export enum analyticEvents {
   helpViewed = 'help_viewed',
   firstLogin = 'first_login',
   login = 'app_login',
-  forced_update = 'forced_update'
+  forced_update = 'forced_update',
+  screenshot_taken = 'screenshot_taken',
 }
 
 export const analytics = (() => {

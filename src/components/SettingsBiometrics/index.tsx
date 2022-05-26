@@ -1,4 +1,4 @@
-import DashedDivider from 'components/DashedDivider/indext';
+import DashedDivider from 'components/DashedDivider';
 import SettingsItem from 'components/SettingsItem';
 import vocab from 'i18n';
 import { getBiometryStatus } from 'modules/biometrics/actions';
