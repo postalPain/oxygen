@@ -70,6 +70,3 @@ export const analytics = (() => {
     getTimestamp: () => moment().utc().toISOString(),
   };
 })();
-
-
-
