@@ -5,6 +5,7 @@ import env from 'env';
 import { mapUserProps } from './utils';
 import vocab from 'i18n';
 import { MIXPANEL_TOKEN } from '@env';
+import moment from 'moment';
 
 export enum analyticEvents {
   signUpStarted = 'signup_started',
@@ -66,28 +67,9 @@ export const analytics = (() => {
     logEvent,
     logScreen,
     setUserProperties,
+    getTimestamp: () => moment().utc().toISOString(),
   };
 })();
 
-export class EventLogger {
-  params: Record<string, any>;
 
-  name: analyticEvents;
-
-  constructor(name: analyticEvents) {
-    this.name = name;
-  }
-
-  static getTimestamp() {
-    return new Date().toISOString();
-  }
-
-  addParams(params: typeof this.params) {
-    this.params = { ...this.params, ...params };
-  }
-
-  log(params?: typeof this.params) {
-    analytics.logEvent(this.name, { ...this.params, ...params });
-  }
-}
 

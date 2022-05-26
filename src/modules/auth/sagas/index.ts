@@ -63,7 +63,7 @@ function* signUpWorker(action: ISignUpAction) {
   }
   analytics.logEvent(analyticEvents.signUpCompleted, {
     companyCode: action.payload.registration_id.split('-')?.[1],
-    timestamp: moment().utc().toISOString(),
+    timestamp: analytics.getTimestamp(),
   });
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
@@ -97,7 +97,7 @@ function* signInSuccessWorker(action: ISignInSuccessAction) {
   yield put(authActions.setAuthData(authData));
   analytics.logEvent(analyticEvents.login, {
     method: `via-${method}`,
-    timestamp: moment().utc().toISOString(),
+    timestamp: analytics.getTimestamp(),
   });
   yield meta?.onSuccess?.();
   yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
