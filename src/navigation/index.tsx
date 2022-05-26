@@ -40,7 +40,9 @@ import { useDatabase } from 'modules/fbDatabase/useDatabase';
 import env from 'env';
 import { isTtlActive } from 'utils/time';
 import NavigationHeader from 'components/NavigationHeader';
+
 import BackButton from 'components/BackButton';
+import { useScreenshotAnalytics } from './hooks/useScreenshotAnalytics';
 
 const AppStack = createNativeStackNavigator();
 
@@ -65,16 +67,16 @@ const Navigation = () => {
 
   const emailVerified = useSelector(selectEmailVerified);
 
+  useScreenshotAnalytics(navigationRef);
+
   const [codeDeepLink] = useSignUpCodeDeepLink();
   const {
     value: minimumSupportedBuild,
   } = useDatabase<Number>('/force_update/build_no');
 
-  navigate = (name: AppScreenNames, params?: any) => {
-    if (navigationRef && navigationRef.current) {
-      navigationRef?.current?.navigate(name, params);
-    }
-  };
+  useEffect(() => {
+    navigate = navigationRef?.current?.navigate;
+  }, [navigationRef]);
 
   useEffect(() => {
     codeDeepLink && !emailVerified && navigate(AppScreenNames.UserVerificationPending);
