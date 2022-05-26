@@ -34,8 +34,8 @@ export const analytics = (() => {
     });
   };
 
-  const logEvent = async (name: analyticEvents, params?: Record<string, any>, enableForDevEnv?: boolean) => {
-    if (analyticsDisabled && !enableForDevEnv) {
+  const logEvent = async (name: analyticEvents, params?: Record<string, any>) => {
+    if (analyticsDisabled) {
       return Promise.resolve();
     }
     mixpanel.track(name, params);
