@@ -32,6 +32,7 @@ export interface ITransactionBankDetails {
   country: string;
   swift_code: string;
   account_type: string;
+  work_permit_number: string;
 }
 
 export interface IGetTransactionAction {

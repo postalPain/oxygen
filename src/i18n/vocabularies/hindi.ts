@@ -1,5 +1,9 @@
 import { IVocab } from './types';
 
+const common = {
+  cashPickup: 'कम से कम 1 कार्य दिवस के बाद किसी भी LuLu एक्सचेंज आउटलेट पर अपना पेआउट प्राप्त करें',
+};
+
 const hindi: IVocab = {
   help: 'सहायता',
   back: 'पीछे जाएं',
@@ -94,6 +98,11 @@ const hindi: IVocab = {
   informationReceived: 'यह जानकारी हमें आपके नियोक्ता से प्राप्त हुई है.',
   name: 'नाम',
   iban: 'IBAN',
+  workPermitNumber: 'वर्क परमिट नंबर',
+  cashPickup: 'नकद पिकअप',
+  cashPickupDescription: common.cashPickup,
+  cashPickupConfirmationDescription: common.cashPickup,
+  findLuluOutlets: 'LuLu आउटलेट खोजें',
   ifNotAccurate: 'अगर यह सही नहीं है तो कृपया',
   contactUsImmediately: 'हमसे तुरंत संपर्क करें।',
   confirmWithdrawal: 'निकालने की पुष्टि करें',

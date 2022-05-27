@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View, Platform } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import vocabulary from 'i18n';
-import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
+import {
+  getTransactionDetailsDate,
+  getTransactionStatus,
+} from 'utils/transactionData';
 import { ITransaction } from 'modules/transactions/types';
 import useStyles from './styles';
 import AppStatusBlur from '../../components/AppStatusBlur';
@@ -13,6 +16,7 @@ import IconTransactionHistory from 'components/IconTransactionHistory';
 import DetailsContainer from 'components/Details';
 import InfoRecord from 'components/InfoRecord';
 import moment from 'moment';
+import externalUrls from 'config/externalUrls';
 
 const vocab = vocabulary.get();
 
@@ -32,24 +36,40 @@ const getData = (transaction: ITransaction) => {
       label: vocab.status,
       text: getTransactionStatus(transaction.status),
       width: '50%',
-      footnote: (transaction.accepted_at && moment().diff(transaction.accepted_at, 'days', true) < 2)
-        && vocab.keepInMind
+      footnote:
+        transaction.accepted_at &&
+        moment().diff(transaction.accepted_at, 'days', true) < 2 &&
+        vocab.keepInMind,
     },
     {
       label: vocab.requestId,
       text: transaction.id.toString(),
       width: '50%',
     },
-    {
-      label: vocab.iban,
-      text: transaction.bank_details.iban,
-    },
+    ...(transaction.bank_details.iban
+      ? [
+        {
+          label: vocab.iban,
+          text: transaction.bank_details.iban,
+        },
+      ]
+      : [
+        {
+          label: vocab.workPermitNumber,
+          text: transaction.bank_details.work_permit_number,
+        },
+        {
+          label: vocab.cashPickup,
+          text: vocab.cashPickupDescription,
+          link: { anchor: vocab.findLuluOutlets, url: externalUrls.luluOutlets },
+        },
+      ]),
   ];
 };
 
-const TransactionDetails = (
-  { route: { params } }: AppNavigationProps<AppScreenNames.TransactionDetails>
-) => {
+const TransactionDetails = ({
+  route: { params },
+}: AppNavigationProps<AppScreenNames.TransactionDetails>) => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const [currentTransaction, setCurrentTransaction] = useState<ITransaction>(null);
@@ -69,14 +89,17 @@ const TransactionDetails = (
           </Text>
         </View>
         <DetailsContainer>
-          {getData(currentTransaction).map(({ label, text, width, footnote }) =>
-            <InfoRecord
-              label={label}
-              text={text}
-              width={width}
-              key={label}
-              footnote={footnote}
-            />
+          {getData(currentTransaction).map(
+            ({ label, text, link, width, footnote }) => (
+              <InfoRecord
+                label={label}
+                link={link}
+                text={text}
+                width={width}
+                key={label}
+                footnote={footnote}
+              />
+            )
           )}
         </DetailsContainer>
       </View>

@@ -1,30 +1,50 @@
 import theme from 'config/theme';
 import * as React from 'react';
-import { Text, View, StyleSheet, ViewStyle } from 'react-native';
+import { Text, View, StyleSheet, ViewStyle, Linking } from 'react-native';
 import { getHeight, getWidth } from 'utils/window';
+import Link from 'components/Link';
 
 interface InfoRecordProps {
   label?: string;
   text?: string;
+  link?: {
+    anchor: string;
+    url: string;
+  };
   width?: string;
   footnote?: string;
 }
 
 const InfoRecord = (props: InfoRecordProps) => {
-  const { label, text, width = '100%', footnote } = props;
+  const { label, text, link, width = '100%', footnote } = props;
 
   return (
     <View
       key={label}
       style={[styles.infoRecord, { width }]}
     >
-      <Text style={[styles.label]}>
+      <Text style={styles.label}>
         {label}
       </Text>
-      <Text style={[styles.text]}>
-        {text}
-      </Text>
-      { footnote && (
+      {
+        text &&
+        <Text style={styles.text}>
+          {text}
+        </Text>
+      }
+      {
+        link &&
+        <Link
+          style={styles.link}
+          onPress={() => {
+            Linking.openURL(link.url);
+          }}
+        >
+          {link.anchor}
+        </Link>
+      }
+
+      {footnote && (
         <View>
           <View style={styles.footnoteDivider} />
           <Text style={styles.footnote}>{footnote}</Text>
@@ -50,7 +70,14 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'left',
     paddingTop: getHeight(1),
+    paddingBottom: getHeight(1),
     color: theme.colors.textDark,
+    fontSize: getWidth(4),
+  },
+  link: {
+    textDecorationStyle: 'solid',
+    textDecorationColor: theme.colors.floos4,
+    textDecorationLine: 'underline',
     fontSize: getWidth(4),
   },
   footnoteDivider: {

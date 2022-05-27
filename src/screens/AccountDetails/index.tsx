@@ -12,24 +12,31 @@ const vocab = vocabulary.get();
 
 const AccountDetails = () => {
   const userInfo = useSelector(selectUserInfo);
+  const fields = [
+    {
+      label: vocab.name,
+      text: `${userInfo.first_name} ${userInfo.last_name}`,
+    },
+    {
+      label: vocab.email,
+      text: userInfo.email,
+    },
+    {
+      label: vocab.employeeNumber,
+      text: userInfo.employee_number,
+    },
+    {
+      label: vocab[userInfo.iban ? 'iban' : 'workPermitNumber'],
+      text: userInfo.iban || userInfo.work_permit_number,
+    },
+  ];
+
   return (
     <View style={styles.detailsContainer}>
       <DetailsContainer>
-        {[{
-          label: vocab.name,
-          text: `${userInfo.first_name} ${userInfo.last_name}`,
-        }, {
-          label: vocab.email,
-          text: userInfo.email,
-        }, {
-          label: vocab.employeeNumber,
-          text: userInfo.employee_number,
-        }, {
-          label: vocab.iban,
-          text: userInfo.iban,
-        }].map(({ label, text }) =>
+        {fields.map(({ label, text }) => (
           <InfoRecord label={label} text={text} key={label} />
-        )}
+        ))}
       </DetailsContainer>
       {Platform.OS === 'ios' && <AppStatusBlur />}
     </View>

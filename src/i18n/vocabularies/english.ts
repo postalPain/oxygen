@@ -1,3 +1,9 @@
+import { capitalizeFirstLetter } from 'utils/textHelpers';
+
+const common = {
+  cashPickup: 'collect your payout at any LuLu Exchange outlet after at least 1 working day',
+};
+
 const english = {
   help: 'Help',
   back: 'Back',
@@ -91,6 +97,11 @@ const english = {
   informationReceived: 'Here’s the information we received from your employer.',
   name: 'Name',
   iban: 'IBAN',
+  workPermitNumber: 'Work Permit Number',
+  cashPickup: 'Cash Pickup',
+  cashPickupDescription: `Easily and securely ${common.cashPickup}`,
+  cashPickupConfirmationDescription: capitalizeFirstLetter(common.cashPickup),
+  findLuluOutlets: 'Find LuLu Outlets',
   ifNotAccurate: 'If this is not accurate, please',
   contactUsImmediately: 'contact us immediately.',
   confirmWithdrawal: 'Confirm Withdrawal',

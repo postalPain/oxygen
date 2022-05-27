@@ -20,6 +20,7 @@ export interface IUserInfo {
   transaction_all_time_count: number;
   transaction_all_time_count_service_charge: number;
   is_first_visit: boolean | null;
+  work_permit_number: string;
 }
 
 export interface IVerificationResponse {
