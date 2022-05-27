@@ -5,6 +5,7 @@ import env from 'env';
 import { mapUserProps } from './utils';
 import vocab from 'i18n';
 import { MIXPANEL_TOKEN } from '@env';
+import moment from 'moment';
 
 export enum analyticEvents {
   signUpStarted = 'signup_started',
@@ -15,6 +16,7 @@ export enum analyticEvents {
   helpViewed = 'help_viewed',
   firstLogin = 'first_login',
   login = 'app_login',
+  forced_update = 'forced_update',
   screenshot_taken = 'screenshot_taken',
 }
 
@@ -65,6 +67,6 @@ export const analytics = (() => {
     logEvent,
     logScreen,
     setUserProperties,
+    getTimestamp: () => moment().utc().toISOString(),
   };
 })();
-

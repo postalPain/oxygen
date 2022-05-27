@@ -38,11 +38,11 @@ function* getUserInfoWorker() {
     transactionsCount: response.data.transaction_all_time_count,
     transactionsValue: response.data.transaction_all_time_count_value,
     transactionsServiceCharge: response.data.transaction_all_time_count_service_charge,
-    transactionLastUpdated: moment().utc().toISOString(),
+    transactionLastUpdated: analytics.getTimestamp(),
   });
   if (response.data.is_first_visit) {
     analytics.logEvent(analyticEvents.firstLogin, {
-      timestamp: moment().utc().toISOString(),
+      timestamp: analytics.getTimestamp(),
     });
   }
   const mockedUserData: IUserInfo = {

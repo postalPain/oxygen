@@ -8,7 +8,7 @@ export const useScreenshotAnalytics = (navigationRef) => {
     const userDidScreenshot = () => {
       analytics.logEvent(analyticEvents.screenshot_taken, {
         screen_name: navigationRef.current.getCurrentRoute().name,
-        timestamp: moment().utc().toISOString(),
+        timestamp: analytics.getTimestamp(),
       });
     };
     const unsubscribe = addScreenshotListener(userDidScreenshot);
