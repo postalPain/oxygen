@@ -26,7 +26,10 @@ const Profile = (
   };
   const logout = () => {
     dispatch(signOut({
-      onSuccess: () => navigation.navigate(AppScreenNames.Onboarding),
+      onSuccess: () => navigation.reset({
+        index: 0,
+        routes: [{ name: AppScreenNames.Onboarding }]
+      })
     }));
   };
   return (
