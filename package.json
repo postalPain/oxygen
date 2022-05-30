@@ -27,6 +27,7 @@
     "@react-native-community/slider": "^4.2.2",
     "@react-native-firebase/analytics": "^14.1.0",
     "@react-native-firebase/app": "^14.1.0",
+    "@react-native-firebase/crashlytics": "14.1.0",
     "@react-native-firebase/database": "^14.1.0",
     "@react-native-firebase/dynamic-links": "^14.1.0",
     "@react-native-firebase/messaging": "^14.1.0",
