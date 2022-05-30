@@ -10,8 +10,6 @@ import { IUserInfo } from 'services/api/employees/types';
 const vocab = vocabulary.get();
 
 const getDisplayInfo = (userInfo: IUserInfo) => {
-  const bankDetail = userInfo.iban ? 'iban' : 'workPermitNumber';
-
   return [
     {
       id: 'email',
@@ -22,8 +20,8 @@ const getDisplayInfo = (userInfo: IUserInfo) => {
       label: vocab.employeeNumber,
     },
     {
-      id: bankDetail,
-      label:  vocab[bankDetail],
+      id: userInfo.iban ? 'iban' : 'work_permit_number',
+      label:  vocab[userInfo.iban ? 'iban' : 'workPermitNumber'],
     },
   ];
 };

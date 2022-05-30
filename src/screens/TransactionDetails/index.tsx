@@ -37,7 +37,7 @@ const getData = (transaction: ITransaction) => {
       text: getTransactionStatus(transaction.status),
       width: '50%',
       footnote:
-        transaction.accepted_at &&
+        transaction.accepted_at && transaction.bank_details.iban &&
         moment().diff(transaction.accepted_at, 'days', true) < 2 &&
         vocab.keepInMind,
     },
