@@ -1,4 +1,5 @@
 import firebaseAnalytics from '@react-native-firebase/analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 import { Mixpanel } from 'mixpanel-react-native';
 import { IUserProps } from './types';
 import env from 'env';
@@ -38,6 +39,8 @@ export const analytics = (() => {
     if (analyticsDisabled) {
       return Promise.resolve();
     }
+
+    crashlytics().log(`Event ${name}`);
     mixpanel.track(name, params);
     return await firebaseAnalytics().logEvent(name, params);
   };
@@ -46,6 +49,8 @@ export const analytics = (() => {
     if (analyticsDisabled) {
       return Promise.resolve();
     }
+
+    crashlytics().log(`Navigated to ${name}`);
     return await firebaseAnalytics().logScreenView({
       screen_name: name,
       screen_class: name,
