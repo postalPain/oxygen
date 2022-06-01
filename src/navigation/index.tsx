@@ -47,6 +47,7 @@ import { useScreenshotAnalytics } from './hooks/useScreenshotAnalytics';
 const AppStack = createNativeStackNavigator();
 
 export let navigate;
+export let reset;
 
 const getHeaderOptions = () => ({
   ...headerStyles,
@@ -76,6 +77,7 @@ const Navigation = () => {
 
   useEffect(() => {
     navigate = navigationRef?.current?.navigate;
+    reset = navigationRef?.current?.reset;
   }, [navigationRef]);
 
   useEffect(() => {

@@ -13,28 +13,25 @@ import { IResponse } from 'services/api/types';
 import { IError } from 'services/api/errors';
 
 function* getTransactionWorker (action: IGetTransactionAction) {
-  let response: IResponse<ITransaction>;
   try {
-    response = yield api.employees.getTransaction(action.id);
+    const response: IResponse<ITransaction> = yield api.employees.getTransaction(action.id);
+    yield action.meta?.onSuccess?.(response.data);
   } catch (error) {
     yield put(errorNotification((error as IError).message));
   }
-  yield action.meta?.onSuccess?.(response.data);
 }
 
 function* getTransactionsWorker (action: IGetTransactionsAction) {
-  let response: IResponse<ITransaction[]>;
   yield put(transactionsActions.setTransactionsLoading(true));
 
   try {
-    response = yield api.employees.getTransactions();
+    const response: IResponse<ITransaction[]> = yield api.employees.getTransactions();
+    yield put(transactionsActions.setTransactions(response.data));
   } catch (error) {
-    yield put(transactionsActions.setTransactionsLoading(false));
     yield put(errorNotification());
-    return;
+  } finally {
+    yield put(transactionsActions.setTransactionsLoading(false));
   }
-  yield put(transactionsActions.setTransactions(response.data));
-  yield put(transactionsActions.setTransactionsLoading(false));
 }
 
 export default function* transactionsSagas(): SagaIterator {
