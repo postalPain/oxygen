@@ -1,9 +1,4 @@
-import { capitalizeFirstLetter } from 'utils/textHelpers';
 import { IVocab } from './types';
-
-const common = {
-  cashPickup: 'collect your payout at any LuLu Exchange outlet after at least 1 working day',
-};
 
 const malayalam: IVocab = {
   help: 'Help',
@@ -100,8 +95,8 @@ const malayalam: IVocab = {
   iban: 'IBAN',
   workPermitNumber: 'Work Permit Number',
   cashPickup: 'Cash Pickup',
-  cashPickupDescription: `Easily and securely ${common.cashPickup}`,
-  cashPickupConfirmationDescription: capitalizeFirstLetter(common.cashPickup),
+  cashPickupDescription: 'Easily and securely collect your payout at any LuLu Exchange outlet after at least 1 working day',
+  cashPickupConfirmationDescription: 'Collect your payout at any LuLu Exchange outlet after at least 1 working day',
   findLuluOutlets: 'Find LuLu Outlets',
   ifNotAccurate: 'If this is not accurate, please',
   contactUsImmediately: 'contact us immediately.',

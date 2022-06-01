@@ -1,9 +1,5 @@
 import { IVocab } from './types';
 
-const common = {
-  cashPickup: 'قم بتحصيل مدفوعاتك في أي من منافذ LuLu Exchange بعد يوم عمل واحد على الأقل',
-};
-
 const arabic: IVocab = {
   help: 'مساعدة',
   back: 'رجوع',
@@ -100,8 +96,8 @@ const arabic: IVocab = {
   iban: 'IBAN',
   workPermitNumber: 'رقم تصريح العمل',
   cashPickup: 'استلام نقدي',
-  cashPickupDescription: common.cashPickup,
-  cashPickupConfirmationDescription: common.cashPickup,
+  cashPickupDescription: 'قم بتحصيل مدفوعاتك بسهولة وأمان في أي من منافذ LuLu Exchange بعد يوم عمل واحد على الأقل',
+  cashPickupConfirmationDescription: 'قم بتحصيل مدفوعاتك في أي من منافذ LuLu Exchange بعد يوم عمل واحد على الأقل',
   findLuluOutlets: 'اعثر على منافذ LuLu',
   ifNotAccurate: 'إذا لم يكن هذا دقيقًا ، برجاء',
   contactUsImmediately: 'اتصل بنا على الفور.',
