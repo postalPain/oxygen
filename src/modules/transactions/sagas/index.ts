@@ -8,16 +8,15 @@ import {
 } from 'modules/transactions/types';
 import * as transactionsActions from 'modules/transactions/actions';
 import api from 'services/api';
-import { errorNotification } from 'modules/notifications/actions';
 import { IResponse } from 'services/api/types';
-import { IError } from 'services/api/errors';
+import { handleApiError } from 'modules/store/helpers';
 
 function* getTransactionWorker (action: IGetTransactionAction) {
   try {
     const response: IResponse<ITransaction> = yield api.employees.getTransaction(action.id);
     yield action.meta?.onSuccess?.(response.data);
   } catch (error) {
-    yield put(errorNotification((error as IError).message));
+    yield handleApiError(error);
   }
 }
 
@@ -28,7 +27,7 @@ function* getTransactionsWorker (action: IGetTransactionsAction) {
     const response: IResponse<ITransaction[]> = yield api.employees.getTransactions();
     yield put(transactionsActions.setTransactions(response.data));
   } catch (error) {
-    yield put(errorNotification());
+    yield handleApiError(error);
   } finally {
     yield put(transactionsActions.setTransactionsLoading(false));
   }

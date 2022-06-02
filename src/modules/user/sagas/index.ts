@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import * as actions from '../actions';
-import { errorNotification, successNotification } from 'modules/notifications/actions';
+import { successNotification } from 'modules/notifications/actions';
 import {
   ICheckVerificationAction,
   IResendVerificationCodeAction,
@@ -20,7 +20,7 @@ import { IUserInfo, IVerificationResponse } from 'services/api/employees/types';
 import { removeItems, setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import { setSignUpCodeLoading } from 'modules/auth/actions';
-import moment from 'moment';
+import { handleApiError } from 'modules/store/helpers';
 
 
 function* getUserInfoWorker() {
@@ -28,7 +28,7 @@ function* getUserInfoWorker() {
   try {
     response = yield call(api.employees.userInfo);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
   analytics.setUserProperties({
@@ -75,7 +75,7 @@ function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
   try {
     yield call(api.employees.verifyEmail, action.code);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     yield put(setSignUpCodeLoading(false));
     return;
   }
@@ -87,7 +87,7 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
   try {
     yield call(api.employees.resendVerificationCode, action.payload.email);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
   yield put(successNotification({
