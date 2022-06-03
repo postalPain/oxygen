@@ -42,6 +42,7 @@ export const actionableTooltipStyles = StyleSheet.create({
     paddingHorizontal: getWidth(2),
   },
   text: {
+    textAlign: 'left',
     fontSize: getHeight(2),
     marginLeft: getWidth(2),
     marginRight: getWidth(4)

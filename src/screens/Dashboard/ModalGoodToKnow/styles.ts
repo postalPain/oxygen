@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     fontSize: getWidth(5),
     fontWeight: '500',
     lineHeight: getHeight(4),
-    letterSpacing: .7,
   },
   itemHeaderLabel: {
     flexDirection: 'row',
@@ -52,7 +51,6 @@ const styles = StyleSheet.create({
   itemText: {
     paddingRight: getWidth(4),
     fontSize: getWidth(4),
-    letterSpacing: 1,
     lineHeight: getHeight(3),
   }
 });

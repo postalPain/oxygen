@@ -7,11 +7,17 @@ export const userDefaultState: IUserInfo = {
   first_name: '',
   last_name: '',
   company_name: '',
+  company_id: null,
   iban: '',
   registration_id: '',
   employee_number: '',
   verification_status: null,
   statusError: false,
+  transaction_all_time_count_value: null,
+  transaction_all_time_count: null,
+  transaction_all_time_count_service_charge: null,
+  is_first_visit: null,
+  work_permit_number: '',
 };
 
 const userReducer = (

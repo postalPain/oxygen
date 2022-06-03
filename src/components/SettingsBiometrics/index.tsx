@@ -1,5 +1,5 @@
-import DashedDivider from 'components/DashedDivider/indext';
-import SettingsToggle from 'components/SettingsToggle';
+import DashedDivider from 'components/DashedDivider';
+import SettingsItem from 'components/SettingsItem';
 import vocab from 'i18n';
 import { getBiometryStatus } from 'modules/biometrics/actions';
 import { BiometryErrors } from 'modules/biometrics/biometrics';
@@ -21,7 +21,8 @@ const SettingsBiometrics = () => {
     biometryStatus.available || biometryStatus.error === BiometryErrors.PERMISSION_DENIED
       ? (
         <>
-          <SettingsToggle
+          <SettingsItem
+            type="toggle"
             title={biometryStatus.biometryType}
             description={vocab.t(vocab.get().useBiometricsToLogIn, biometryStatus.biometryType || 'Biometric ID')}
             on={biometricsReady}

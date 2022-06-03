@@ -15,8 +15,10 @@ import { openBrowser } from 'utils';
 import { getWidth } from 'utils/window';
 import env from 'env';
 import theme from 'config/theme';
-import { Button, Link, ScreenWithAnimatedHeader } from 'components';
 import useStyles from './styles';
+import ScreenWithAnimatedHeader from 'components/ScreenWithAnimatedHeader';
+import Link from 'components/Link';
+import Button from 'components/Button';
 
 const vocab = vocabulary.get();
 

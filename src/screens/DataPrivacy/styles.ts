@@ -17,11 +17,9 @@ const useStyles = () => StyleSheet.create({
   heading: {
     marginBottom: getHeight(3),
     fontSize: getWidth(5),
-    letterSpacing: .5,
   },
   text: {
     fontSize: getWidth(4),
-    letterSpacing: .5,
     lineHeight: getHeight(3.5),
     textAlign: 'center',
   },
@@ -52,14 +50,12 @@ const useStyles = () => StyleSheet.create({
   checkboxLabel: {
     fontSize: getWidth(3.5),
     lineHeight: getHeight(3.5),
-    letterSpacing: .5,
   },
   link: {
     marginTop: getHeight(.1),
     color: theme.colors.floos4,
     fontSize: getWidth(3.5),
     lineHeight: getHeight(3.5),
-    letterSpacing: .5,
     textDecorationStyle: 'solid',
     textDecorationColor: theme.colors.floos4,
     textDecorationLine: 'underline',

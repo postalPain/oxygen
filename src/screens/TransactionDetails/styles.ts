@@ -29,7 +29,6 @@ const useStyles = () => StyleSheet.create({
     marginLeft: getWidth(4),
     color: theme.colors.textDark,
     fontSize: getWidth(4),
-    letterSpacing: .5,
     textTransform: 'uppercase',
   },
 });

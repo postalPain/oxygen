@@ -1,4 +1,4 @@
-import { Button, Link } from 'components';
+import Button from 'components/Button';
 import IconCheckRound from 'components/IconCheckRound';
 import Modal from 'components/Modal';
 import ModalWrapper from 'components/ModalWrapper';

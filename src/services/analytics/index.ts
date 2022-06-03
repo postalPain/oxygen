@@ -1,10 +1,12 @@
 import firebaseAnalytics from '@react-native-firebase/analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 import { Mixpanel } from 'mixpanel-react-native';
 import { IUserProps } from './types';
 import env from 'env';
 import { mapUserProps } from './utils';
 import vocab from 'i18n';
 import { MIXPANEL_TOKEN } from '@env';
+import moment from 'moment';
 
 export enum analyticEvents {
   signUpStarted = 'signup_started',
@@ -13,7 +15,10 @@ export enum analyticEvents {
   madeWithdrawal = 'made_withdrawal',
   dashboardOpenInfo = 'dashboard_info_modal_viewed',
   helpViewed = 'help_viewed',
+  firstLogin = 'first_login',
   login = 'app_login',
+  forced_update = 'forced_update',
+  screenshot_taken = 'screenshot_taken',
 }
 
 export const analytics = (() => {
@@ -26,7 +31,7 @@ export const analytics = (() => {
     mixpanel.identify(distinctId);
     await setUserProperties({
       appVersion: env.version,
-      language: vocab.language,
+      language: vocab.getLanguageName(),
     });
   };
 
@@ -34,6 +39,8 @@ export const analytics = (() => {
     if (analyticsDisabled) {
       return Promise.resolve();
     }
+
+    crashlytics().log(`Event ${name}`);
     mixpanel.track(name, params);
     return await firebaseAnalytics().logEvent(name, params);
   };
@@ -42,6 +49,8 @@ export const analytics = (() => {
     if (analyticsDisabled) {
       return Promise.resolve();
     }
+
+    crashlytics().log(`Navigated to ${name}`);
     return await firebaseAnalytics().logScreenView({
       screen_name: name,
       screen_class: name,
@@ -63,6 +72,6 @@ export const analytics = (() => {
     logEvent,
     logScreen,
     setUserProperties,
+    getTimestamp: () => moment().utc().toISOString(),
   };
 })();
-

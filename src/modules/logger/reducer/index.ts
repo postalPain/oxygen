@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { uuid } from 'utils/uuid';
 import { LoggerActions } from '../actions';
 
 type TLogMessageType = 'error' | 'text';
@@ -7,6 +8,7 @@ interface ILogMessage {
   time: string;
   message: string;
   type?: TLogMessageType;
+  id: string;
 }
 
 interface ILoggerState {
@@ -28,6 +30,7 @@ export default function loggerReducer(state = defaultState, action): ILoggerStat
             time: moment().format('HH:mm:ss'),
             message: action.message,
             type: 'text',
+            id: uuid()
           },
           ...state.messages
         ]
@@ -41,6 +44,7 @@ export default function loggerReducer(state = defaultState, action): ILoggerStat
             time: moment().format('HH:mm:ss'),
             message: action.message,
             type: 'error',
+            id: uuid()
           },
           ...state.messages
         ]

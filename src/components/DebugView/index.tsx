@@ -1,55 +1,30 @@
-import { Link } from 'components';
 import React from 'react';
-import { Text } from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
-import { getHeight, getWidth } from 'utils/window';
+import DebugAsyncStorage from './DebugAsyncStorage';
 import DebugPush from './DebugPush';
-import useLogger from 'modules/logger/hooks/useLogger';
-import { clearAsyncStorage } from 'modules/asyncStorage';
+import SettingsBiometrics from 'components/SettingsBiometrics';
+import DebugLogs from './DebugLogs';
+import useAskForReview from 'modules/askForReview/hooks/useAskForReview';
+import Link from 'components/Link';
+import crashlytics from '@react-native-firebase/crashlytics';
+
 
 const DebugView = () => {
-  const { log, loggerMessages, clearLog } = useLogger();
+  const askForReview = useAskForReview();
 
   return (
     <ScrollView>
-      <Link onPress={() => AsyncStorage.getAllKeys((err, keys) => {
-        AsyncStorage.multiGet(keys, (error, stores) => {
-          stores.map((result, i, store) => {
-            log({ [store[i][0]]: store[i][1] });
-            return true;
-          });
-        });
-      })}
-      >
-        Show AsyncStorage
-      </Link>
-      <Link onPress={async () => {
-        await clearAsyncStorage();
-        log('AsyncStorage Cleared');
+      <Link onPress={() => {
+        crashlytics().crash();
       }}
-      >
-        Clear AsyncStorage
+      >Crash
       </Link>
       <DebugPush />
-      <Link onPress={clearLog}>
-        Clear
-      </Link>
-      { loggerMessages.map(message => (
-        <Text
-          selectable
-          style={{
-            fontSize: getWidth(3),
-            paddingVertical: getHeight(.5),
-            ...(message.type === 'error' && { color: 'red' })
-          }}
-        >
-          <Text>{message.time} </Text>
-          <Text> {message.message}</Text>
-        </Text>
-      ))}
-
+      <DebugAsyncStorage />
+      <SettingsBiometrics />
+      <DebugLogs />
+      <Link onPress={askForReview}>AskForReview</Link>
     </ScrollView>
   );
 };

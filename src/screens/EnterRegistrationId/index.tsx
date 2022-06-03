@@ -3,12 +3,6 @@ import { View } from 'react-native';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Input } from '@stryberventures/stryber-react-native-ui-components';
-import {
-  ScreenWithAnimatedHeader,
-  Button,
-  InputInfo,
-  Link,
-} from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSignUpData } from 'modules/auth/selectors';
 import { setSignUpData } from 'modules/auth/actions';
@@ -18,6 +12,10 @@ import externalUrls from 'config/externalUrls';
 import useInviteUserDeepLink from 'modules/user/deepLinks/useInviteDeepLink';
 import { testIds } from 'config/testIds';
 import { analyticEvents, analytics } from '../../services/analytics';
+import ScreenWithAnimatedHeader from 'components/ScreenWithAnimatedHeader';
+import InputInfo from 'components/InputInfo';
+import Link from 'components/Link';
+import Button from 'components/Button';
 
 const vocab = vocabulary.get();
 

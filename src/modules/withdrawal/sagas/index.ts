@@ -4,7 +4,6 @@ import { IPaycycleInfo, ISetAmountAction, IWithdrawalAction, withdrawalActions }
 import api from 'services/api';
 import { IResponse } from 'services/api/types';
 import { IBalance, IWithdrawableDefault, IFeeResponse, TSuggestedValues } from 'services/api/employees/types';
-import { errorNotification } from 'modules/notifications/actions';
 import {
   getBalance,
   setBalance,
@@ -19,6 +18,7 @@ import {
 import { ITransaction } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
 import { analyticEvents, analytics } from 'services/analytics';
+import { handleApiError } from 'modules/store/helpers';
 
 function* getBalanceWorker() {
   let response: IResponse<IBalance>;
@@ -26,7 +26,7 @@ function* getBalanceWorker() {
   try {
     response = yield api.employees.getBalance();
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
 
@@ -44,7 +44,7 @@ function* getSuggestedValuesWorker() {
   try {
     response = yield api.employees.getSuggestedValues();
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
 
@@ -56,7 +56,7 @@ function* getFeeWorker(action) {
   try {
     response = yield api.employees.getFee(action.amount);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
 
@@ -69,7 +69,7 @@ function* withdrawalWorker(action: IWithdrawalAction) {
   try {
     response = yield api.employees.withdrawal(action.payload.amount);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
 
@@ -106,8 +106,8 @@ function* getPaycycleInfoWorker () {
 
   try {
     response = yield call(api.employees.getPaycycleInfo);
-  } catch (e) {
-    yield put(errorNotification({ text: e.message }));
+  } catch (error) {
+    yield handleApiError(error);
     return;
   }
 

@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from '@redux-saga/core';
 import * as actions from '../actions';
-import { errorNotification, successNotification } from 'modules/notifications/actions';
+import { successNotification } from 'modules/notifications/actions';
 import {
   ICheckVerificationAction,
   IResendVerificationCodeAction,
@@ -13,13 +13,14 @@ import {
 } from 'modules/user/types';
 import api from 'services/api';
 import { IResponse } from 'services/api/types';
-import { analytics } from 'services/analytics';
+import { analyticEvents, analytics } from 'services/analytics';
 import vocab from 'i18n';
 import { setVerificationStatus } from 'modules/user/actions';
 import { IUserInfo, IVerificationResponse } from 'services/api/employees/types';
 import { removeItems, setItem } from 'modules/asyncStorage';
 import { AuthStoredKeys } from 'modules/auth/asyncStorage';
 import { setSignUpCodeLoading } from 'modules/auth/actions';
+import { handleApiError } from 'modules/store/helpers';
 
 
 function* getUserInfoWorker() {
@@ -27,13 +28,23 @@ function* getUserInfoWorker() {
   try {
     response = yield call(api.employees.userInfo);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
   analytics.setUserProperties({
     distinctId: response.data.id,
+    companyId: response.data.company_id,
     companyCode: response.data.registration_id.split('-')?.[1],
+    transactionsCount: response.data.transaction_all_time_count,
+    transactionsValue: response.data.transaction_all_time_count_value,
+    transactionsServiceCharge: response.data.transaction_all_time_count_service_charge,
+    transactionLastUpdated: analytics.getTimestamp(),
   });
+  if (response.data.is_first_visit) {
+    analytics.logEvent(analyticEvents.firstLogin, {
+      timestamp: analytics.getTimestamp(),
+    });
+  }
   const mockedUserData: IUserInfo = {
     ...response.data,
     // TODO: Remove after BE returns actual fields
@@ -64,7 +75,7 @@ function* verifyEmailWorker (action: IVerifySignUpCodeAction) {
   try {
     yield call(api.employees.verifyEmail, action.code);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     yield put(setSignUpCodeLoading(false));
     return;
   }
@@ -76,7 +87,7 @@ function* resendVerificationCodeWorker (action: IResendVerificationCodeAction) {
   try {
     yield call(api.employees.resendVerificationCode, action.payload.email);
   } catch (error) {
-    yield put(errorNotification({ text: error.message }));
+    yield handleApiError(error);
     return;
   }
   yield put(successNotification({
@@ -98,7 +109,7 @@ function* userClearInfoWorker(action: IUserClearInfoAction) {
   ]);
 }
 
-export default function* userWatcher(): SagaIterator {
+export default function* userSagas(): SagaIterator {
   yield takeEvery(UserActions.USER_GET_INFO, getUserInfoWorker);
   yield takeEvery(UserActions.USER_SET_INFO, userSetInfoWorker);
   yield takeEvery(UserActions.VERIFY_EMAIL, verifyEmailWorker);

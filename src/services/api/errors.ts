@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import vocab from 'i18n';
 import { getLogger } from 'modules/logger';
-import { navigate } from 'navigation';
+import { reset } from 'navigation';
 import { AppScreenNames } from 'navigation/types';
 
 
@@ -62,7 +62,10 @@ export const handleBackendError = (error: IAxiosError): IError => {
     };
   }
   if (error?.response?.status === 401) {
-    navigate(AppScreenNames.SignIn); // TODO: If http is refactored this should be moved to Auth saga
+    reset({
+      index: 0,
+      routes: [{ name: AppScreenNames.Onboarding }],
+    });
     return {
       code: ERROR_CODES.unauthorized,
       message: vocab.get().unauthorized,

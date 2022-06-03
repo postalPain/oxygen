@@ -1,5 +1,6 @@
-import { Button, Link } from 'components';
+import Button from 'components/Button';
 import IconCrossFail from 'components/IconCrossFail';
+import Link from 'components/Link';
 import Modal from 'components/Modal';
 import ModalWrapper from 'components/ModalWrapper';
 import vocab from 'i18n';

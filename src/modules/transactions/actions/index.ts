@@ -1,10 +1,17 @@
 import {
+  IGetTransactionAction,
   IGetTransactionsAction,
   ISetTransactionsAction, ISetTransactionsLoadingAction, ITransaction,
   TransactionsActions,
 } from 'modules/transactions/types';
 import { IMeta } from 'modules/store/types';
 
+
+export const getTransaction = (id: number, onSuccess?): IGetTransactionAction => ({
+  type: TransactionsActions.GET_TRANSACTION,
+  id,
+  meta: { onSuccess }
+});
 
 export const getTransactions = (meta?: IMeta): IGetTransactionsAction => ({
   type: TransactionsActions.GET_TRANSACTIONS,

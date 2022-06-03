@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   },
   month: {
     textTransform: 'uppercase',
-    fontSize: getHeight(1.5),
+    fontSize: getHeight(1.3),
   },
   day: {
     fontSize: getHeight(1.7),

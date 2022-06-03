@@ -33,7 +33,6 @@ const useStyles = () => StyleSheet.create({
   },
   headerText: {
     fontSize: getHeight(2.5),
-    letterSpacing: .5,
     textAlign: 'center',
   },
   content: {
@@ -50,7 +49,6 @@ const useStyles = () => StyleSheet.create({
     paddingTop: getHeight(3),
     fontSize: getHeight(2.3),
     lineHeight: getHeight(3),
-    letterSpacing: .5,
     textAlign: 'center',
   },
   imageWrapper: {

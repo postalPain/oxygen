@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { SvgXml } from 'react-native-svg';
+import { getHeight } from 'utils/window';
 
 const xml = (color: string) => `
   <svg
-    width="43"
-    height="43"
-    viewBox="0 0 43 43"
+    width="41"
+    height="41"
+    viewBox="0 0 41 41"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -26,10 +27,10 @@ const xml = (color: string) => `
 `;
 
 export default ({
-  size = 43,
+  size = getHeight(5),
   color = '#CCCCCC',
 }) => {
   return (
     <SvgXml xml={xml(color)} width={size} height={size} />
   );
-}
+};

@@ -30,16 +30,22 @@ const styles = StyleSheet.create({
   menuItemText: {
     marginLeft: getWidth(5),
     fontSize: getWidth(5),
-    letterSpacing: .5,
   },
   menuItemTextHighlighted: {
     color: theme.colors.floos3,
   },
   arrow: {
     position: 'absolute',
-    top: '100%',
     right: getWidth(2),
   },
+  versionContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  version: {
+    color: theme.colors.shade1,
+    fontSize: getWidth(5)
+  }
 });
 
 export default styles;

@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "LanguageManager.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -52,11 +53,9 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
-  NSString *language = [[[NSLocale preferredLanguages] firstObject] substringToIndex:2];
-  // NSArray *supportedLanguages = @[@"ar"];
-  NSArray *supportedLanguages = @[];
-  BOOL isAllowRTL = [supportedLanguages containsObject: language];
+
+  LanguageManager *languageManager = [LanguageManager new];
+  BOOL isAllowRTL = [languageManager isAllowRTL];
   [[RCTI18nUtil sharedInstance] allowRTL: isAllowRTL];
   [[RCTI18nUtil sharedInstance] forceRTL: isAllowRTL];
   [FIRApp configure];

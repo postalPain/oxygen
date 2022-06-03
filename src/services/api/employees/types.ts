@@ -15,6 +15,12 @@ export interface IUserInfo {
   employee_number: string;
   verification_status: VerificationStatuses;
   statusError: boolean;
+  company_id: number;
+  transaction_all_time_count_value: number;
+  transaction_all_time_count: number;
+  transaction_all_time_count_service_charge: number;
+  is_first_visit: boolean | null;
+  work_permit_number: string;
 }
 
 export interface IVerificationResponse {
@@ -46,16 +52,41 @@ export type IWithdrawableDefault = {
   [type in IWithdrawableDefaultTypes]: number;
 };
 
+type translationValues = Record<string, string>;
+
+export interface ISurveyQuestionResponse {
+  id: number;
+  status: string;
+  name: string;
+  type: 'text' | 'rating' | 'radio';
+  condition_start_time: string | null;
+  condition_end_time: string | null;
+  condition_number_of_transactions: string | null;
+  details: {
+    title: translationValues;
+    placeholder?: translationValues;
+    min_label?: translationValues;
+    max_label?: translationValues;
+    options?: {
+      text: translationValues;
+      value: string;
+    }[];
+  };
+}
+
 export interface IEmployeesApi {
   userInfo: () => Promise<IResponse<IUserInfo>>;
   verifyEmail: (code: string) => Promise<void | AxiosResponse>;
   checkVerification: () => Promise<IResponse<IVerificationResponse>>;
   resendVerificationCode: (email: string) => Promise<void | AxiosResponse>;
   getBalance: () => Promise<IResponse<IBalance>>;
+  getTransaction: (id: number) => Promise<IResponse<ITransaction>>;
   getTransactions: () => Promise<IResponse<ITransaction[]>>;
   getSuggestedValues: () => Promise<IResponse<TSuggestedValues>>;
   getFee: (amount: any) => Promise<IResponse<IFeeResponse>>;
   withdrawal: (amount: number) => Promise<IResponse<ITransaction>>;
   getWithdrawableDefaults: () => Promise<IResponse<IWithdrawableDefault>>;
   getPaycycleInfo: () => Promise<IResponse<IPaycycleInfo>>;
+  getSurveys: () => Promise<IResponse<ISurveyQuestionResponse[]>>;
+  submitSurvey: (id: number, answer: string) => Promise<void>;
 }

@@ -24,7 +24,21 @@ export const successNotification = ({
   }
 });
 
-export const errorNotification = (notification?: Partial<INotification>): INotificationAction => ({
+export const successMessage = ({
+  text,
+  timeout = 3000,
+}: Partial<INotification>): INotificationAction => ({
+  type: NotificationActions.ADD_NOTIFICATION,
+  payload: {
+    type: NotificationTypes.SuccessMessage,
+    id: uuid(),
+    text,
+    timeout,
+  }
+});
+
+
+const errorNotificationObj = (notification?: Partial<INotification>): INotificationAction => ({
   type: NotificationActions.ADD_NOTIFICATION,
   payload: {
     type: NotificationTypes.Error,
@@ -34,6 +48,11 @@ export const errorNotification = (notification?: Partial<INotification>): INotif
     timeout: notification?.timeout || 5000,
   }
 });
+
+const errorNotificationStr = (text: string): INotificationAction => errorNotificationObj({ text });
+
+export const errorNotification = (notification?: Partial<INotification> | string): INotificationAction =>
+  typeof notification === 'object' ? errorNotificationObj(notification) : errorNotificationStr(notification);
 
 export const infoNotification = ({
   title = vocab.get().info,
@@ -56,4 +75,4 @@ export const removeNotification = (id: string, meta?: IMeta) => {
     meta,
     type: NotificationActions.REMOVE_NOTIFICATION,
   });
-}
+};

@@ -9,7 +9,7 @@ import {
   IUserInfo,
   IVerificationResponse,
   IWithdrawableDefault, IFeeResponse,
-  TSuggestedValues
+  TSuggestedValues, ISurveyQuestionResponse
 } from './types';
 
 const userInfo = (): Promise<IResponse<IUserInfo>> => request.get(apiUrls.userInfo) ;
@@ -21,6 +21,8 @@ const checkVerification = (): Promise<IResponse<IVerificationResponse>> => reque
 const resendVerificationCode = (email: string) => request.post(apiUrls.resendVerificationCode, { email });
 
 const getBalance = (): Promise<IResponse<IBalance>> => request.get('employees/balance');
+
+const getTransaction = (id: number): Promise<IResponse<ITransaction>> => request.get(`/employees/transactions/${id}`);
 
 const getTransactions = () => request.get(apiUrls.getTransactions);
 
@@ -34,18 +36,26 @@ const getWithdrawableDefaults = (): Promise<IResponse<IWithdrawableDefault>> => 
 
 const getPaycycleInfo = (): Promise<IResponse<IPaycycleInfo>> => request.get('employees/pay-cycle-period');
 
+const getSurveys = (): Promise<IResponse<ISurveyQuestionResponse[]>> => request.get('employees/surveys');
+
+const submitSurvey = (id: number, answer: string): Promise<void> =>
+  request.post(`employees/surveys/${id}`, { answer });
+
 const employees: IEmployeesApi = {
   verifyEmail,
   checkVerification,
   userInfo,
   resendVerificationCode,
   getBalance,
+  getTransaction,
   getTransactions,
   getSuggestedValues,
   getFee,
   withdrawal,
   getWithdrawableDefaults,
   getPaycycleInfo,
+  getSurveys,
+  submitSurvey,
 };
 
 export default employees;

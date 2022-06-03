@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { Transactions, TransactionDetails } from 'screens';
-import { BackButton } from 'components';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import BackButton from 'components/BackButton';
 
 
 const Stack = createNativeStackNavigator();
 
-const TransactionsStack = () => {
+const TransactionsStack = (
+  { route: { params } }: AppNavigationProps<AppScreenNames.TransactionsStack>
+) => {
+  const navigation = useNavigation<StackNavigationProp<any>>();
+
+  useEffect(() => {
+    params?.id && navigation.navigate(AppScreenNames.TransactionDetails, { id: params?.id });
+  }, [params?.id]);
+
   return (
     <Stack.Navigator
       initialRouteName={AppScreenNames.Transactions}
@@ -23,9 +33,9 @@ const TransactionsStack = () => {
         }}
       />
       <Stack.Screen
-        name={AppScreenNames.TransactionsDetails}
+        name={AppScreenNames.TransactionDetails}
         component={TransactionDetails}
-        options={({ navigation }: AppNavigationProps<AppScreenNames.TransactionsDetails>) => ({
+        options={({ navigation }: AppNavigationProps<AppScreenNames.TransactionDetails>) => ({
           presentation: 'modal',
           title: '',
           headerTransparent: true,

@@ -1,14 +1,17 @@
 package com.qstudio.floos;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
+
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 
-import java.util.Arrays;
-import java.util.Locale;
 
 public class MainActivity extends ReactActivity {
-
+  private ViewGroup blurView;
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
@@ -22,11 +25,31 @@ public class MainActivity extends ReactActivity {
     SplashScreen.show(this, R.style.Launcher);
     super.onCreate(savedInstanceState);
 
-    String systemLanguage = Locale.getDefault().getLanguage();
-    // String[] supportedLanguages = { "ar" };
-    String[] supportedLanguages = {};
-    boolean isAllowRTL = Arrays.asList(supportedLanguages).contains(systemLanguage);
+    LanguageManager languageManager = LanguageManager.getInstance(getApplicationContext());
+    boolean isAllowRTL = languageManager.isAllowRTL();
     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
     sharedI18nUtilInstance.allowRTL(getApplicationContext(), isAllowRTL);
+    sharedI18nUtilInstance.forceRTL(getApplicationContext(), isAllowRTL);
+  }
+
+  @Override
+  public void setContentView(View view) {
+    View container = LayoutInflater.from(getApplicationContext()).inflate(R.layout.main_screen, null);
+    blurView = container.findViewById(R.id.blur_root_view);
+    blurView.setTranslationX(5000);
+    ViewGroup mainView = container.findViewById(R.id.root_view);
+    mainView.addView(view);
+
+    super.setContentView(container);
+  }
+
+  public void onPause () {
+    blurView.setTranslationX(0);
+    super.onPause();
+  }
+
+  public void onResume () {
+    super.onResume();
+    blurView.setTranslationX(5000);
   }
 }

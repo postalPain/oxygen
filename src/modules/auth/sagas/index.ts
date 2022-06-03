@@ -8,7 +8,6 @@ import {
   IClearAuthDataAction,
   IForgotPasswordAction,
   IResetPasswordAction,
-  ISetAuthDataAction,
   ISignInAction,
   ISignInSuccessAction,
   ISignOutAction,
@@ -29,8 +28,6 @@ import { IResponse } from '../../../services/api/types';
 import { analyticEvents, analytics } from '../../../services/analytics';
 import moment from 'moment';
 import { getFcmToken } from 'modules/pushNotifications';
-import { getLogger } from 'modules/logger';
-
 
 function* handleError (error: IError) {
   yield put(notificationActions.errorNotification({ text: error.message }));
@@ -66,10 +63,8 @@ function* signUpWorker(action: ISignUpAction) {
   }
   analytics.logEvent(analyticEvents.signUpCompleted, {
     companyCode: action.payload.registration_id.split('-')?.[1],
-    timestamp: moment().utc().toISOString(),
+    timestamp: analytics.getTimestamp(),
   });
-  getLogger().log('signUp fcmToken', fcmToken);
-
   yield storeUserData({ email: action.payload.email });
   yield put(authActions.setAuthData(response.data));
   yield storeAuthData(response.data);
@@ -91,7 +86,6 @@ function* signInWorker(action: ISignInAction) {
     yield action.meta?.onError?.(error);
     return;
   }
-  getLogger().log('signedIn fcmToken', fcmToken);
   yield put(authActions.signInSuccess(action.email, response.data, 'credentials', { onSuccess: action.meta?.onSuccess }));
 }
 
@@ -100,13 +94,13 @@ function* signInSuccessWorker(action: ISignInSuccessAction) {
 
   yield storeUserData({ email });
   yield incrementLoginCount(email);
-  yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
   yield put(authActions.setAuthData(authData));
   analytics.logEvent(analyticEvents.login, {
     method: `via-${method}`,
-    timestamp: moment().utc().toISOString(),
+    timestamp: analytics.getTimestamp(),
   });
   yield meta?.onSuccess?.();
+  yield storeBiometricData(email, authData.refresh_token, authData.refresh_ttl);
 }
 
 export function* clearAuthDataWorker(action: IClearAuthDataAction) {
@@ -158,7 +152,7 @@ function* signOutWorker(action: ISignOutAction) {
   yield action?.meta?.onSuccess?.();
 }
 
-export default function* authWatcher(): SagaIterator {
+export default function* authSagas(): SagaIterator {
   yield takeEvery(AuthActions.SIGN_UP, signUpWorker);
   yield takeEvery(AuthActions.SIGN_OUT, signOutWorker);
   yield takeEvery(AuthActions.SIGN_IN, signInWorker);

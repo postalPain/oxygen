@@ -1,4 +1,4 @@
-import { IconCheck } from 'components';
+import IconCheck from 'components/IconCheck';
 import vocab from 'i18n';
 import React from 'react';
 import { Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback, View } from 'react-native';

@@ -1,13 +1,7 @@
 import { Dimensions, Platform, Appearance, NativeModules } from 'react-native';
 import { BUILD_ENV } from '../../build-env.js';
-import packageJson from '../../package.json';
-
-export enum Envs {
-  DEV = 'DEV',
-  STAGE = 'STAGE',
-  PROD = 'PROD',
-  E2E = 'E2E',
-}
+import VersionNumber from 'react-native-version-number';
+import { IEnv, Envs } from './types';
 
 const baseUrls = {
   [Envs.DEV]: 'https://api-dev.stryproject-o.ch',
@@ -17,7 +11,11 @@ const baseUrls = {
 
 const BASE_URL = baseUrls[BUILD_ENV] || baseUrls[Envs.DEV];
 
-const env = {
+const ios = Platform.OS === 'ios';
+
+const env: IEnv = {
+  bundleId: 'com.qstudio.floos',
+  appleId: '1595567831',
   buildEnv: BUILD_ENV,
   dev: BUILD_ENV === Envs.DEV,
   e2e: BUILD_ENV === Envs.E2E,
@@ -25,15 +23,13 @@ const env = {
   baseUrl: BASE_URL || baseUrls[Envs.DEV],
   apiUrl: `${BASE_URL}/api/v1`,
   websiteDomain: 'https://floos.ae',
-  locale: Platform.OS === 'ios'
+  locale: ios
     ? NativeModules.SettingsManager.settings.AppleLocale ||
     NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
     : NativeModules.I18nManager.localeIdentifier,
   os: Platform.OS,
-  ios: Platform.OS === 'ios',
-  android: Platform.OS === 'android',
-  appStoreLink: '',
-  playStoreLink: '',
+  ios,
+  android: !ios,
   dimensions: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
@@ -41,7 +37,11 @@ const env = {
     fontScale: Dimensions.get('window').fontScale,
   },
   appearance: Appearance.getColorScheme(),
-  version: packageJson.version,
+  version: VersionNumber.appVersion,
+  buildVersion: VersionNumber.buildVersion,
+  marketLink: ios
+    ? 'itms-apps://itunes.apple.com/us/app/id1595567831?mt=8'
+    : 'market://details?id=com.qstudio.floos'
 };
 
 export default env;

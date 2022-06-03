@@ -1,4 +1,3 @@
-import { string } from 'yup/lib/locale';
 import { IAuthState, TAuthAction, AuthActions } from '../types';
 
 export const defaultSignUpErrors = {

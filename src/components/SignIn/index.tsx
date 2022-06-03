@@ -15,9 +15,10 @@ import { errorNotification } from 'modules/notifications/actions';
 import { VerificationStatuses } from 'modules/user/types';
 import BiometricLogin from 'components/BiometricLogin';
 import env from 'env';
-import { usePushSettings } from 'modules/pushNotifications/hooks/usePushNotifications';
+import { usePushSettings } from 'modules/pushNotifications/hooks/usePushSettings';
 import { testIds } from '../../config/testIds';
 import { selectAuthData } from 'modules/auth/selectors';
+import { CommonActions } from '@react-navigation/native';
 
 interface ISignIn extends AppNavigationProps<AppScreenNames.SignIn>{
   forgotPasswordMode?: boolean;
@@ -28,7 +29,6 @@ const SignIn = (props: ISignIn) => {
   const dispatch = useDispatch();
 
   const storedEmail = useSelector(selectUserEmail);
-  const authData = useSelector(selectAuthData);
 
   const { pushNotRequested, requestPushes } = usePushSettings();
 
@@ -39,7 +39,6 @@ const SignIn = (props: ISignIn) => {
   const [passwordError, setPasswordError] = useState<string>();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [signedIn, setSignedIn] = useState<boolean>(false);
-
 
   useEffect(() => {
     emailError && setEmailError(null);
@@ -57,27 +56,30 @@ const SignIn = (props: ISignIn) => {
       error.error['password'] && setPasswordError(error.error['password'][0]);
     }
     if (error?.message) {
-      setEmailError(error.message);
-      setPasswordError(error.message);
+      dispatch(errorNotification(error.message));
     }
   }, [error]);
 
-  useEffect(() => {
-    signedIn
-    && authData.access_token
-    && dispatch(checkVerification({
+  const onSignIn = () => {
+    dispatch(checkVerification({
       onSuccess: async (status: VerificationStatuses) => {
         dispatch(userGetInfo());
         pushNotRequested && await requestPushes(email);
-        isUserEmployerVerified(status)
-          ? navigation.navigate(AppScreenNames.AuthorizedStack)
-          : navigation.navigate(AppScreenNames.UserVerificationPending);
+        navigation.dispatch(CommonActions.reset({
+          index: 1,
+          routes: [ {
+            name: isUserEmployerVerified(status)
+              ? AppScreenNames.AuthorizedStack
+              : AppScreenNames.UserVerificationPending
+          } ],
+        })
+        );
       },
       onError: () => {
         dispatch(errorNotification({ text: vocab.get().somethingWentWrong }));
       }
     }));
-  }, [signedIn, authData.access_token]);
+  };
 
   return (
     <>
@@ -147,7 +149,10 @@ const SignIn = (props: ISignIn) => {
         >
           {vocab.get().logIn}
         </Button>
-        <BiometricLogin onSignedIn={() => setSignedIn(true)} signedIn={signedIn} />
+        <BiometricLogin
+          onSignedIn={onSignIn}
+          signedIn={signedIn}
+        />
       </View>
     </>
   );

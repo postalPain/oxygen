@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ScreenWrapperMain from 'components/ScreenWrapperMain';
 import vocab from 'i18n';
 import moment from 'moment';
@@ -11,7 +11,6 @@ import ButtonWithdraw from 'components/ButtonWithdraw';
 import WithdrawInfo from './WithdrawInfo';
 import { selectUserInfo } from 'modules/user/selectors';
 import Modal from 'components/Modal';
-import { getBalance, getWithdrawableDefaults, getSuggestedValues, getPaycycleInfo } from 'modules/withdrawal/actions';
 import { selectBalance } from 'modules/withdrawal/selectors';
 import ModalWithdrawInfo from './ModalWithdrawInfo';
 import { E2ETextWrapper } from '../../components/E2EText';
@@ -21,21 +20,9 @@ import { navigate } from 'navigation';
 import { AppScreenNames } from 'navigation/types';
 
 const Dashboard: React.FC<any> = () => {
-  const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
-
   const [infoModal, setInfoModal] = useState(false);
-
-  useEffect(() => {
-    dispatch(getBalance());
-    dispatch(getWithdrawableDefaults());
-    dispatch(getPaycycleInfo());
-  }, []);
-
-  useEffect(() => {
-    balance && dispatch(getSuggestedValues()); // BE produces an error when requesting values before the balance
-  }, [balance]);
 
   const onInfoIconPress = () => {
     setInfoModal(true);
@@ -53,7 +40,7 @@ const Dashboard: React.FC<any> = () => {
       )}
       <View style={styles.greetingContainer}>
         <Text style={[styles.greeting]}>
-          <Text>{vocab.get().hi}</Text>
+          <Text>{vocab.get().hi} </Text>
           <E2ETextWrapper>
             <Text style={styles.greetingName} >{userInfo.first_name}
             </Text>

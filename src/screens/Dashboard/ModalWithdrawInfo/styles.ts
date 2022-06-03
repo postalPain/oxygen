@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: getWidth(4),
-    paddingLeft: getWidth(3),
+    marginLeft: getWidth(3),
   },
   itemHeader: {
     alignItems: 'center',
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     paddingBottom: getHeight(1),
   },
   itemHeaderText: {
+    textAlign: 'left',
     color: theme.colors.floos1,
     fontSize: getWidth(5),
     fontWeight: '500',
@@ -49,11 +50,13 @@ const styles = StyleSheet.create({
     fontSize: getWidth(4),
   },
   itemText: {
-    paddingRight: getWidth(4),
+    textAlign: 'left',
+    marginRight: getWidth(4),
     fontSize: getWidth(4),
     lineHeight: getHeight(2.5),
   },
   listHeader: {
+    textAlign: 'left',
     fontSize: getWidth(4),
     fontWeight: '600',
     paddingVertical: getHeight(1)

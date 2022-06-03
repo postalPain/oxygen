@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import vocabulary from 'i18n';
 import { AppNavigationProps, AppScreenNames } from 'navigation/types';
 import { selectForgotPassword } from 'modules/auth/selectors';
-import { Button, EmailTag, IconCheck } from 'components';
 import useStyles from './styles';
+import IconCheck from 'components/IconCheck';
+import EmailTag from 'components/EmailTag';
+import Button from 'components/Button';
 
 
 const vocab = vocabulary.get();

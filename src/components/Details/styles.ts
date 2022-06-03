@@ -12,22 +12,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.shade2,
     borderRadius: 27,
   },
-  item: {
-    width: '100%',
-    marginBottom: getHeight(4),
-  },
-  label: {
-    color: '#B3B3B3',
-    fontSize: getWidth(4),
-    letterSpacing: .5,
-    textTransform: 'uppercase',
-  },
-  text: {
-    paddingTop: getHeight(1),
-    color: theme.colors.textDark,
-    fontSize: getWidth(4),
-    letterSpacing: .5,
-  },
 });
 
 export default styles;

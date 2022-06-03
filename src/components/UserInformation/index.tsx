@@ -5,24 +5,26 @@ import vocabulary from 'i18n';
 import { selectUserInfo } from 'modules/user/selectors';
 import InfoBlock from './InfoBlock';
 import useStyles from './styles';
-
+import { IUserInfo } from 'services/api/employees/types';
 
 const vocab = vocabulary.get();
 
-const displayInfo = [
-  {
-    id: 'email',
-    label: vocab.email,
-  },
-  {
-    id: 'employee_number',
-    label: vocab.employeeNumber,
-  },
-  {
-    id: 'iban',
-    label: vocab.iban,
-  },
-];
+const getDisplayInfo = (userInfo: IUserInfo) => {
+  return [
+    {
+      id: 'email',
+      label: vocab.email,
+    },
+    {
+      id: 'employee_number',
+      label: vocab.employeeNumber,
+    },
+    {
+      id: userInfo.iban ? 'iban' : 'work_permit_number',
+      label:  vocab[userInfo.iban ? 'iban' : 'workPermitNumber'],
+    },
+  ];
+};
 
 const UserInformation = () => {
   const styles = useStyles();
@@ -33,7 +35,7 @@ const UserInformation = () => {
         title={vocab.name.toUpperCase()}
         text={`${userInfo.first_name} ${userInfo.last_name}`}
       />
-      {displayInfo.map((key) => (
+      {getDisplayInfo(userInfo).map((key) => (
         <InfoBlock
           key={key.id}
           title={key.label.toUpperCase()}

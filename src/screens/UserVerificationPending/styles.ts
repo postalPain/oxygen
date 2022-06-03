@@ -44,7 +44,6 @@ const useStyles = () => StyleSheet.create({
     fontFamily: theme.font.fontFamily,
     fontSize: getWidth(4),
     fontWeight: '600',
-    letterSpacing: .5,
     lineHeight: getHeight(4),
     textAlign: 'left',
   },
@@ -66,7 +65,6 @@ const useStyles = () => StyleSheet.create({
     color: theme.colors.textDark,
     fontFamily: theme.font.fontFamily,
     fontSize: getWidth(4),
-    letterSpacing: .5,
     lineHeight: getHeight(3.5),
     textAlign: 'left',
   },
@@ -75,7 +73,6 @@ const useStyles = () => StyleSheet.create({
     color: theme.colors.textDark,
     fontSize: getWidth(4),
     lineHeight: getHeight(3.5),
-    letterSpacing: .5,
   },
   infoTextCentered: {
     textAlign: 'center',

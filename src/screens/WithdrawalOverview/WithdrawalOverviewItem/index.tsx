@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     paddingRight: 0.05 * windowDimensions.width
   },
   text: {
+    textAlign: 'left',
     fontSize: theme.sizes.fontSizeHeaderSmall,
   },
   amountText: {

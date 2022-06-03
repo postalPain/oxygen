@@ -8,13 +8,13 @@ import api from 'services/api';
 import { IResponse } from 'services/api/types';
 import { isTtlActive } from 'utils/time';
 import { BiometryActions, IBiometricLoginAction, setBiometryReady, setBiometryStatus } from '../actions';
-import { deleteBiometricData, getBiometricData, getBiometrics } from '../asyncStorage';
-import { biometricAuthenticate, getDeviceBiometryStatus } from '../biometrics';
+import { deleteBiometricData, getBiometrics, getBiometrics83, getBiometricTtl, getBiometricTtl83, storeBiometricData, storeBiometrics, storeBiometricTtl } from '../asyncStorage';
+import { biometricAuthenticate, BiometryStatus, getDeviceBiometryStatus } from '../biometrics';
 import { getKeychainCredentials, TKeychainCredentials } from '../keychain';
 import { selectBiometryStatus } from '../selectors';
 
 function* getBiometricsAvailableWorker (action) {
-  const biometryStatus = yield getDeviceBiometryStatus();
+  const biometryStatus: BiometryStatus = yield getDeviceBiometryStatus();
   yield put(setBiometryStatus(biometryStatus));
   yield action.meta?.onSuccess(biometryStatus);
 }
@@ -22,14 +22,23 @@ function* getBiometricsAvailableWorker (action) {
 function* getBiometricsReadyWorker () {
   const email = yield selectUserEmail(getState());
   const biometryStatus = selectBiometryStatus(getState());
-  const biometricAccepted = yield getBiometrics(email);
+
+  // Use new key for the old users, remove somewhere in 2023
+  const biometricAccepted83 = yield getBiometrics83(email);
+  const ttl83 = yield getBiometricTtl83();
+  yield biometricAccepted83 && storeBiometrics(biometricAccepted83);
+  yield ttl83 && storeBiometricTtl(ttl83);
+
+  const biometricAccepted = yield getBiometrics();
 
   if (!email || !biometryStatus.available || !biometricAccepted) {
     yield put(setBiometryReady(false));
     return;
   }
 
-  const { ttl, credentials } = yield getBiometricData();
+  const ttl = yield getBiometricTtl();
+  const credentials = yield getKeychainCredentials();
+
   const enabled = credentials && (credentials.username === email) && isTtlActive(ttl);
 
   yield put(setBiometryReady(enabled));
@@ -66,7 +75,7 @@ function* signOutWorker() {
 }
 
 
-export default function* biometricsWatcher(): SagaIterator {
+export default function* biometricsSagas(): SagaIterator {
   yield takeLatest(BiometryActions.GET_BIOMETRY_STATUS, getBiometricsAvailableWorker);
   yield takeLatest(BiometryActions.GET_BIOMETRY_READY, getBiometricsReadyWorker);
   yield takeLatest(BiometryActions.BIOMETRIC_LOGIN, biometricLoginWorker);
