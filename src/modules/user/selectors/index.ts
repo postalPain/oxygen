@@ -7,6 +7,8 @@ export const selectUserFirstName = (state: RootState) => state.user?.first_name;
 
 export const selectUserEmail = (state: RootState) => state.user?.email;
 
+export const selectUserCompanyId = (state: RootState) => state.user?.company_id;
+
 export const selectVerificationStatus = (state: RootState) => state.user.verification_status;
 
 export const selectUserStatusError = (state: RootState) => state.user.statusError;
