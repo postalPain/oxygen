@@ -129,6 +129,7 @@ const arabic: IVocab = {
   withdrawalErrorDays: 'عمليات السحب غير ممكنة قبل أقل من 3 أيام من يوم الدفع ، يرجى التحقق مرة أخرى قريبًا',
   withdrawalErrorBlocked: 'للأسف عمليات السحب غير ممكنة حاليًا ، يرجى إعادة التحقق مرة أخرى أو الاتصال بنا',
   withdrawalErrorMinimum: 'أموالك المتاحة أقل من الحد الأدنى لمبلغ السحب. يرجى التحقق مرة أخرى غدا.',
+  withdrawalErrorAppUpdate: 'عذرا ، نحن نقوم بتحديث التطبيق',
   accountDetails: 'تفاصيل الحساب',
   settings: 'إعدادات',
   privacyPolicy: 'سياسة الخصوصية',
