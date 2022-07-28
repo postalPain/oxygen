@@ -1,6 +1,7 @@
 import LanguageManager, { INITIAL_LANGUAGE, SUPPORTED_LANGUAGES } from 'services/LanguageManager';
 
 export type TLang = 'en' | 'fil' | 'fr' | 'hi' | 'ml' | 'ar' | 'ur';
+export type TLangMessage = Partial<Record<TLang, string>>;
 type TLangNames = 'english' | 'filipino' | 'french' | 'hindi' | 'malayalam' | 'arabic' | 'urdu';
 export const Languages: Record<TLang, TLangNames> = {
   ar: 'arabic',

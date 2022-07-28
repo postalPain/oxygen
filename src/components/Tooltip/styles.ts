@@ -6,7 +6,6 @@ export const tipHeight = getHeight(2);
 
 const styles = StyleSheet.create({
   tooltip: {
-    maxWidth: '95%',
     position: 'absolute',
     alignSelf: 'center',
     backgroundColor: theme.colors.shade2,

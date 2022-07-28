@@ -17,6 +17,10 @@ export const selectIsUserBlocked = (state: RootState) => state.user.verification
 
 export const selectEmailVerified = (state: RootState) => VerificationStatuses.new !== state.user.verification_status;
 
+export const selectCompanyIsActivated = (state: RootState) => state.user.company_is_activated;
+
+export const selectCompanyDeactivatedMessage = (state: RootState) => state.user.company_deactivated_message;
+
 export const isUserEmployerVerified = (status: VerificationStatuses) => [
   VerificationStatuses.employer_verified,
   VerificationStatuses.activated,

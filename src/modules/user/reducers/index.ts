@@ -18,6 +18,7 @@ export const userDefaultState: IUserInfo = {
   transaction_all_time_count_service_charge: null,
   is_first_visit: null,
   work_permit_number: '',
+  company_is_activated: true,
 };
 
 const userReducer = (

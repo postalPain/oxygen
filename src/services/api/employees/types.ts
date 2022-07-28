@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { IResponse } from '../types';
 import { ITransaction } from 'modules/transactions/types';
 import { IPaycycleInfo } from 'modules/withdrawal/types';
+import { TLangMessage } from 'i18n/utils';
 
 export interface IUserInfo {
   email: string;
@@ -21,6 +22,8 @@ export interface IUserInfo {
   transaction_all_time_count_service_charge: number;
   is_first_visit: boolean | null;
   work_permit_number: string;
+  company_is_activated: boolean;
+  company_deactivated_message?: TLangMessage;
 }
 
 export interface IVerificationResponse {
