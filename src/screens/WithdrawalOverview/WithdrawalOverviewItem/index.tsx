@@ -6,6 +6,7 @@ import vocab from 'i18n';
 import React from 'react';
 import { StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { windowDimensions } from 'utils/window';
+import { crcNumberFormat } from 'utils/currency';
 
 type TOverviewType = 'requested' | 'charge' | 'deduction';
 
@@ -29,7 +30,7 @@ const WithdrawalOverviewItem = ({ type, amount, style }: IWithdrawalOverviewItem
           {type === 'charge' && vocab.get().serviceCharge}
           {type === 'deduction' && vocab.get().totalSalaryDeduction}
         </Text>
-        <Text style={[styles.text, styles.amountText]}>{amount} {vocab.get().aed}</Text>
+        <Text style={[styles.text, styles.amountText]}>{crcNumberFormat({ value: amount })} {vocab.get().aed}</Text>
       </View>
     </View>
   );

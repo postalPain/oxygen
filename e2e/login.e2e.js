@@ -20,10 +20,10 @@ describe('Login and user info', () => {
     await expect(element(by.text('Mockname'))).toBeVisible();
   });
   it('should display correct available to withdraw amount', async () => {
-    await expect(element(by.text('1214'))).toBeVisible();
+    await expect(element(by.text('1,214'))).toBeVisible();
   });
   it('should display correct earned until today amount', async () => {
-    await expect(element(by.text('2428'))).toBeVisible();
+    await expect(element(by.text('2,428'))).toBeVisible();
   });
   it('should display correct total withdrawn amount', async () => {
     await expect(element(by.text('652'))).toBeVisible();

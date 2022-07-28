@@ -6,6 +6,7 @@ import { getTransactionDate, getTransactionStatus } from 'utils/transactionData'
 import { AppScreenNames } from 'navigation/types';
 import { ITransaction, TransactionStatusesFE } from 'modules/transactions/types';
 import { getTransactions } from 'modules/transactions/actions';
+import { crcNumberFormat } from 'utils/currency';
 import { selectTransactions, selectTransactionsLoading } from 'modules/transactions/selectors';
 import useStyles from './styles';
 import { useNavigation } from '@react-navigation/native';
@@ -54,7 +55,7 @@ const TransactionsList = () => {
               <View style={styles.details}>
                 <View style={styles.detailsContainer}>
                   <Text style={[styles.amount, styles[transactionStatus.toLowerCase()]]} >
-                    {transaction.amount}{vocab.aed}
+                    {crcNumberFormat({ value: transaction.amount })}{vocab.aed}
                   </Text>
                   {transactionStatus.toLowerCase() !== TransactionStatusesFE.completed && (
                     <Text style={[styles.status, styles[transactionStatus.toLowerCase()]]}>

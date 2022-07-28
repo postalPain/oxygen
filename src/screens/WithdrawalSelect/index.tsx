@@ -13,6 +13,7 @@ import {
   selectMinimumWithdrawable,
   selectSuggestedValues,
 } from 'modules/withdrawal/selectors';
+import { crcNumberFormat } from 'utils/currency';
 import { setAmount } from 'modules/withdrawal/actions';
 import theme from 'config/theme';
 import ScreenWrapperWithdrawal from 'components/ScreenWrapperWithdrawal';
@@ -66,7 +67,7 @@ const WithdrawalSelect = () => {
             : theme.colors.shade1
         }]}
       >
-        {Math.floor(amount)} {vocab.get().aed}
+        {crcNumberFormat({ value: Math.floor(amount) })} {vocab.get().aed}
       </Text>
       <Text style={styles.descriptionText}>
         {description}

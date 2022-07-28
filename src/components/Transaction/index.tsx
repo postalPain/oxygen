@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import { ITransaction, TransactionKeys } from 'modules/transactions/types';
 import { getTransactionDetailsDate, getTransactionStatus } from 'utils/transactionData';
+import { crcNumberFormat } from 'utils/currency';
 import useStyles from './styles';
 import vocabulary from 'i18n';
 
@@ -39,7 +40,7 @@ const Transaction = ({
               {label}
             </Text>
             <Text style={styles.itemText}>
-              {(key === TransactionKeys.amount) && `${data[key]} ${vocab.aed}`}
+              {(key === TransactionKeys.amount) && `${crcNumberFormat({ value: data[key] })} ${vocab.aed}`}
               {(key === TransactionKeys.status) && getTransactionStatus(data[key])}
               {(key === TransactionKeys.iban) && data.bank_details.iban}
               {(key === TransactionKeys.id) && data[key]}

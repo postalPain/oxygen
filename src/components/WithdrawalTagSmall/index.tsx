@@ -2,6 +2,7 @@ import vocab from 'i18n';
 import React, { useState } from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import { getWidth } from 'utils/window';
+import { crcNumberFormat } from 'utils/currency';
 import styles from './styles';
 import { E2ETextWrapper } from '../E2EText';
 
@@ -22,7 +23,7 @@ const WithdrawalTagSmall = ({ amount, withdrawn, earned, style }: IWithdrawalTag
               styles.amount,
               amount?.toString().length > 4 && { fontSize: getWidth(35) / amount.toString().length }
             ]}
-            >{amount}
+            >{crcNumberFormat({ value: amount })}
             </Text>
           </E2ETextWrapper>
           <Text>{vocab.get().aed}</Text>

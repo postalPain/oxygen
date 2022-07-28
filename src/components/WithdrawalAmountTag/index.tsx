@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { windowDimensions } from 'utils/window';
+import { crcNumberFormat } from 'utils/currency';
 import LinearGradient from 'react-native-linear-gradient';
 import theme from 'config/theme';
 import vocab from 'i18n';
@@ -22,6 +23,7 @@ const WithdrawalAmountTag = ({
   total = false,
   onPress,
 }: IWithdrawalAmountTag) => {
+  const formattedAmount = crcNumberFormat({ value: amount });
   return (
     <Pressable onPress={() => onPress(amount)}>
       <LinearGradient
@@ -38,7 +40,7 @@ const WithdrawalAmountTag = ({
               color: active ? theme.colors.screenBackgroundColorLight : theme.colors.textDark
             }]}
           >
-            {!!total ? vocab.t(vocab.get().totalAvailableAmount, amount) : `${amount} ${vocab.get().aed}` }
+            {!!total ? vocab.t(vocab.get().totalAvailableAmount, formattedAmount) : `${formattedAmount} ${vocab.get().aed}` }
 
           </Text>
         </E2ETextWrapper>

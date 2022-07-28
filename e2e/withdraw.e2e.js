@@ -45,13 +45,13 @@ describe('Withdraw and transaction', () => {
     await element(by.text(en.ok)).tap();
   });
   it('should display updated available to withdraw amount', async () => {
-    await expect(element(by.text('1039'))).toBeVisible();
+    await expect(element(by.text('1,039'))).toBeVisible();
   });
   it('should display correct total withdrawn amount', async () => {
     await expect(element(by.text('877'))).toBeVisible();
   });
   it('should display correct earned until today amount', async () => {
-    await expect(element(by.text('2428'))).toBeVisible();
+    await expect(element(by.text('2,428'))).toBeVisible();
   });
   it('should display list of transactions', async () => {
     await element(by.text(en.transactions)).tap();

@@ -5,6 +5,7 @@ import { selectBalance } from 'modules/withdrawal/selectors';
 import vocabulary from 'i18n';
 import IconInfoDark from 'components/IconInfoDark';
 import ModalWrapper from 'components/ModalWrapper';
+import { crcNumberFormat } from 'utils/currency';
 import styles from './styles';
 
 interface IModalGoodToKnow {
@@ -28,7 +29,7 @@ const ModalGoodToKnow = ({ onClose }: IModalGoodToKnow) => {
         </Text>
         <View style={[styles.itemHeaderLabel, { width: '53%' }]}>
           <Text style={styles.itemHeaderLabelTextLarge}>
-            {balance.withdrawable_wages}
+            {crcNumberFormat({ value: balance.withdrawable_wages })}
           </Text>
           <Text style={styles.itemHeaderLabelTextSmall}>
             {vocab.aed}

@@ -4,6 +4,7 @@ import IconInfoDark from 'components/IconInfoDark';
 import ModalWrapper from 'components/ModalWrapper';
 import styles from './styles';
 import { getWidth } from 'utils/window';
+import { crcNumberFormat } from 'utils/currency';
 import vocab from 'i18n';
 import WithdrawInfoItem from './WithdrawInfoItem';
 import PaycycleBar from './PaycycleBar';
@@ -38,7 +39,7 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
               balance.withdrawable_wages?.toString().length > 4 &&
             { fontSize: getWidth(40) / balance.withdrawable_wages.toString().length } ]}
             >
-              {balance.withdrawable_wages}
+              {crcNumberFormat({ value: balance.withdrawable_wages })}
             </Text>
             <Text style={styles.currency}>
               {vocab.get().aed}

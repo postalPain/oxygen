@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import { getWidth } from 'utils/window';
+import { crcNumberFormat } from 'utils/currency';
 import vocab from 'i18n';
 import IconCheckSquare from 'components/IconCheckSquare';
 import styles from './styles';
@@ -29,7 +30,7 @@ const WithdrawInfoItem = (props: IWithdrawInfoItem) => {
       <View style={styles.amountContainer}>
         <Text style={styles.amount}>
           <Text style={styles.number}>
-            {props.amount}
+            {crcNumberFormat({ value: props.amount })}
           </Text>
           <Text style={styles.currency}>
             {vocab.get().aed}

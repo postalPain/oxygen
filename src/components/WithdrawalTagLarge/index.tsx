@@ -3,6 +3,7 @@ import vocab from 'i18n';
 import React from 'react';
 import { Text, View, ViewStyle } from 'react-native';
 import { windowDimensions } from 'utils/window';
+import { crcNumberFormat } from 'utils/currency';
 import styles from './styles';
 import { E2ETextWrapper } from '../E2EText';
 
@@ -21,7 +22,7 @@ const WithdrawalTagLarge = ({ amount, style }: IWithdrawalTagLarge) => {
           </View>
           <Text>
             <E2ETextWrapper>
-              <Text style={styles.amount}>{amount}</Text>
+              <Text style={styles.amount}>{crcNumberFormat({ value: amount })}</Text>
             </E2ETextWrapper>
             <Text style={styles.currency}>{vocab.get().aed}</Text>
           </Text>

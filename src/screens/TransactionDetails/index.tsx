@@ -7,6 +7,7 @@ import {
   getTransactionDetailsDate,
   getTransactionStatus,
 } from 'utils/transactionData';
+import { crcNumberFormat } from 'utils/currency';
 import { ITransaction } from 'modules/transactions/types';
 import useStyles from './styles';
 import AppStatusBlur from '../../components/AppStatusBlur';
@@ -24,7 +25,7 @@ const getData = (transaction: ITransaction) => {
   return [
     {
       label: vocab.amount,
-      text: `${transaction.amount} ${vocab.aed}`,
+      text: `${crcNumberFormat({ value: transaction.amount })} ${vocab.aed}`,
       width: '50%',
     },
     {
