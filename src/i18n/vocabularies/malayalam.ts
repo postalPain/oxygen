@@ -128,7 +128,6 @@ const malayalam: IVocab = {
   withdrawalErrorDays: 'Withdrawals are not possible less than 3 days before payday, please check back again soon',
   withdrawalErrorBlocked: 'Unfortunately withdrawals are currently not possible, please check back again or contact us',
   withdrawalErrorMinimum: 'Your available funds are less than the minimum withdrawal amount. Please check back tomorrow.',
-  withdrawalErrorAppUpdate: 'Sorry, We are updating the app!    ',
   accountDetails: 'Account Details',
   settings: 'Settings',
   privacyPolicy: 'Privacy Policy',
