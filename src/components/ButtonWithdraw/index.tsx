@@ -81,10 +81,6 @@ const ButtonWithdraw = (props: IButtonWithdraw) => {
     !!withdrawalDisabled && setShowTooltip(true);
   }, [withdrawalDisabled]);
 
-  useEffect(() => {
-    showTooltip && setTimeout(() => setShowTooltip(false), 4000);
-  }, [showTooltip]);
-
   const onButtonPress = () => {
     dispatch(setSource(source));
     navigation.navigate(AppScreenNames.WithdrawalSelect);

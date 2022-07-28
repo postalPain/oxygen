@@ -9,7 +9,12 @@ import vocab from 'i18n';
 import WithdrawInfoItem from './WithdrawInfoItem';
 import PaycycleBar from './PaycycleBar';
 import { useSelector } from 'react-redux';
-import { getWithdrawalRule, selectBalance, selectPaycycleInfo } from 'modules/withdrawal/selectors';
+import {
+  getWithdrawalRule,
+  selectBalance,
+  selectMaximumWithdrawable,
+  selectPaycycleInfo,
+} from 'modules/withdrawal/selectors';
 import moment from 'moment';
 import { selectUserInfo } from 'modules/user/selectors';
 
@@ -17,9 +22,9 @@ interface IModalGoodToKnow {
   onClose?: () => void;
 }
 
-
 const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
   const balance = useSelector(selectBalance);
+  const maximumWithdrawable = useSelector(selectMaximumWithdrawable);
   const paycycleInfo = useSelector(selectPaycycleInfo);
   const userInfo = useSelector(selectUserInfo);
 
@@ -35,15 +40,18 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
         </Text>
         <View style={[styles.amountTag]}>
           <Text>
-            <Text style={[styles.amount,
-              balance.withdrawable_wages?.toString().length > 4 &&
-            { fontSize: getWidth(40) / balance.withdrawable_wages.toString().length } ]}
+            <Text
+              style={[
+                styles.amount,
+                maximumWithdrawable?.toString().length > 4 && {
+                  fontSize:
+                    getWidth(40) / maximumWithdrawable.toString().length,
+                },
+              ]}
             >
-              {crcNumberFormat({ value: balance.withdrawable_wages })}
+              {crcNumberFormat({ value: maximumWithdrawable })}
             </Text>
-            <Text style={styles.currency}>
-              {vocab.get().aed}
-            </Text>
+            <Text style={styles.currency}>{vocab.get().aed}</Text>
           </Text>
         </View>
       </View>
@@ -94,7 +102,5 @@ const ModalWithdrawInfo = ({ onClose }: IModalGoodToKnow) => {
     </ModalWrapper>
   );
 };
-
-
 
 export default ModalWithdrawInfo;

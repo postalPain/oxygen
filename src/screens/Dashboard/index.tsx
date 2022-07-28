@@ -11,7 +11,7 @@ import ButtonWithdraw from 'components/ButtonWithdraw';
 import WithdrawInfo from './WithdrawInfo';
 import { selectUserInfo } from 'modules/user/selectors';
 import Modal from 'components/Modal';
-import { selectBalance } from 'modules/withdrawal/selectors';
+import { selectBalance, selectMaximumWithdrawable } from 'modules/withdrawal/selectors';
 import ModalWithdrawInfo from './ModalWithdrawInfo';
 import { E2ETextWrapper } from '../../components/E2EText';
 import { analyticEvents, analytics } from '../../services/analytics';
@@ -22,6 +22,7 @@ import { AppScreenNames } from 'navigation/types';
 const Dashboard: React.FC<any> = () => {
   const userInfo = useSelector(selectUserInfo);
   const balance = useSelector(selectBalance);
+  const maximumWithdrawable = useSelector(selectMaximumWithdrawable);
   const [infoModal, setInfoModal] = useState(false);
 
   const onInfoIconPress = () => {
@@ -54,7 +55,7 @@ const Dashboard: React.FC<any> = () => {
         </Text>
       </View>
       <View style={{ alignSelf: 'stretch' }}>
-        <WithdrawalTagLarge amount={balance.withdrawable_wages} style={styles.largeTagContainer} />
+        <WithdrawalTagLarge amount={maximumWithdrawable} style={styles.largeTagContainer} />
         <WithdrawInfo style={styles.info} onPress={onInfoIconPress} />
       </View>
       <View style={styles.smallTagsContainer}>
