@@ -129,6 +129,7 @@ const hindi: IVocab = {
   withdrawalErrorDays: 'वेतन-दिवस से कम से कम 3 दिन पहले पैसे निकालना मुमकिन नहीं है, कृपया थोड़ी देर बाद में फिर से देखें',
   withdrawalErrorBlocked: 'दुर्भाग्य से वर्तमान में पैसे निकालना मुमकिन नहीं है, कृपया दोबारा जांचें या हमसे संपर्क करें',
   withdrawalErrorMinimum: 'आपके उपलब्ध पैसे न्यूनतम निकासी राशि से कम है। कृपया कल वापस देखें।',
+  disabledCompanyMessageFallback: 'क्षमा करें, हम ऐप को अपडेट कर रहे हैं',
   accountDetails: 'खाते की जानकारी',
   settings: 'सेटिंग्स',
   privacyPolicy: 'गोपनीयता नीति',
